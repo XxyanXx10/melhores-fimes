@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
@@ -10,7 +11,7 @@ import { caracteresPorLinha, importar } from './importar';
 import { transcreverArquivo, verificarServidor } from './transcrever';
 import { baixar, lerArquivo, type Projeto } from './projeto';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
-import type { Block, CaptionStyle, Movimento, Scene, Word } from './types';
+import type { Block, CaptionStyle, Foto, Movimento, Scene, Word } from './types';
 import { estadoZoom, gerarZooms } from './zoom';
 
 /** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
@@ -49,7 +50,10 @@ export default function App() {
   const [movimento, setMovimento] = useState<Movimento>('off');
   const [forcaZoom, setForcaZoom] = useState(1);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<PlayerRef | null>(null);
+  const [fps, setFps] = useState(30);
+  const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
+  const [fotos, setFotos] = useState<Foto[]>([]);
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -79,11 +83,11 @@ export default function App() {
 
   /* volume do vídeo enviado */
   useEffect(() => {
-    const v = videoRef.current;
-    if (v) {
-      v.volume = volume;
-      v.muted = mudo;
-    }
+    const pl = playerRef.current;
+    if (!pl) return;
+    pl.setVolume(volume);
+    if (mudo) pl.mute();
+    else pl.unmute();
   }, [volume, mudo, src]);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
@@ -102,27 +106,37 @@ export default function App() {
   const camera = estadoZoom(zooms, tempo);
   const maxChars = caracteresPorLinha(style.fontSize, style.safeMargin);
 
-  /* relógio da prévia */
+  /* Relógio: quem manda é o Player. Sem vídeo, a prévia usa o próprio
+     cronômetro para o fundo de exemplo continuar animando. */
   useEffect(() => {
-    if (!tocando) return;
+    const pl = playerRef.current;
+    if (!pl || !src) return;
+    const emFrame = () => setTempo(pl.getCurrentFrame() / fps);
+    const parou = () => setTocando(false);
+    pl.addEventListener('frameupdate', emFrame);
+    pl.addEventListener('ended', parou);
+    pl.addEventListener('pause', parou);
+    return () => {
+      pl.removeEventListener('frameupdate', emFrame);
+      pl.removeEventListener('ended', parou);
+      pl.removeEventListener('pause', parou);
+    };
+  }, [src, fps]);
+
+  useEffect(() => {
+    if (!tocando || src) return;
     let raf = 0;
     let anterior = performance.now();
     const loop = (agora: number) => {
-      const v = videoRef.current;
-      if (v && src) {
-        setTempo(v.currentTime);
-        if (v.ended) setTocando(false);
-      } else {
-        const dt = (agora - anterior) / 1000;
-        setTempo((t) => {
-          const prox = t + dt;
-          if (prox >= duracao) {
-            setTocando(false);
-            return 0;
-          }
-          return prox;
-        });
-      }
+      const dt = (agora - anterior) / 1000;
+      setTempo((t) => {
+        const prox = t + dt;
+        if (prox >= duracao) {
+          setTocando(false);
+          return 0;
+        }
+        return prox;
+      });
       anterior = agora;
       raf = requestAnimationFrame(loop);
     };
@@ -130,27 +144,22 @@ export default function App() {
     return () => cancelAnimationFrame(raf);
   }, [tocando, duracao, src]);
 
-  const irPara = useCallback((t: number) => {
-    const alvo = Math.max(0, t);
-    setTempo(alvo);
-    if (videoRef.current) videoRef.current.currentTime = alvo;
-  }, []);
+  const irPara = useCallback(
+    (t: number) => {
+      const alvo = Math.max(0, t);
+      setTempo(alvo);
+      playerRef.current?.seekTo(Math.round(alvo * fps));
+    },
+    [fps],
+  );
 
   const alternar = useCallback(() => {
     setTocando((v) => {
       const prox = !v;
-      const el = videoRef.current;
-      if (el) {
-        if (prox) {
-          el.play().catch(() => {
-            // política de autoplay do navegador: toca sem som
-            el.muted = true;
-            setMudo(true);
-            void el.play();
-          });
-        } else {
-          el.pause();
-        }
+      const pl = playerRef.current;
+      if (pl) {
+        if (prox) pl.play();
+        else pl.pause();
       }
       return prox;
     });
@@ -167,7 +176,14 @@ export default function App() {
     setPasso(1);
     const probe = document.createElement('video');
     probe.preload = 'metadata';
-    probe.onloadedmetadata = () => setDuracao(probe.duration || DURACAO_EXEMPLO);
+    probe.onloadedmetadata = () => {
+      setDuracao(probe.duration || DURACAO_EXEMPLO);
+      // o navegador não expõe o fps; o valor de verdade vem do ffprobe,
+      // pelo arquivo de projeto. Aqui só acertamos o tamanho do quadro.
+      if (probe.videoWidth && probe.videoHeight) {
+        setTamanho({ largura: probe.videoWidth, altura: probe.videoHeight });
+      }
+    };
     probe.src = url;
 
     if (autoTranscrever) {
@@ -217,6 +233,9 @@ export default function App() {
       setOverride(p.estilo);
       setMovimento(p.movimento ?? 'off');
       setForcaZoom(p.forcaZoom ?? 1);
+      setFotos(p.fotos ?? []);
+      if (p.fps) setFps(p.fps);
+      if (p.largura && p.altura) setTamanho({ largura: p.largura, altura: p.altura });
       setNomeArquivo((n) => n ?? p.nome ?? null);
       setErro(null);
       setPasso(4);
@@ -233,8 +252,12 @@ export default function App() {
       duracao,
       template: templateId,
       estilo: override,
+      fps,
+      largura: tamanho.largura,
+      altura: tamanho.altura,
       movimento,
       forcaZoom,
+      fotos,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -359,7 +382,15 @@ export default function App() {
 
         <Preview
           src={src}
-          videoRef={videoRef}
+          playerRef={playerRef}
+          palavras={words}
+          movimento={movimento}
+          forcaZoom={forcaZoom}
+          fotos={fotos}
+          fps={fps}
+          largura={tamanho.largura}
+          altura={tamanho.altura}
+          duracao={duracao}
           bloco={bloco}
           ativa={ativa}
           revelada={revelada}

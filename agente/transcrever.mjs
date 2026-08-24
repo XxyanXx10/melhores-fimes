@@ -14,6 +14,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { juntarPalavras, lerJsonWhisper } from '../server/merge.mjs';
+import { montarProjeto, sondarVideo } from './nucleo.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 const raiz = path.join(aqui, '..');
@@ -78,15 +79,10 @@ try {
   const palavras = juntarPalavras(lerJsonWhisper(JSON.parse(await readFile(`${base}.json`, 'utf8'))));
   if (!palavras.length) throw new Error('O Whisper não devolveu nenhuma palavra.');
 
-  const projeto = {
-    versao: 1,
-    video: path.resolve(video),
-    nome: path.basename(video),
-    duracao: duracaoDe(palavras),
-    template: argumento('template', 'port1-autoridade'),
-    estilo: {},
-    palavras,
-  };
+  // fps e tamanho do arquivo de origem: a composição do Remotion nasce daí
+  const meta = await sondarVideo(cfg, video);
+  const projeto = montarProjeto(video, palavras, argumento('template', 'port1-autoridade'), meta);
+  projeto.duracao = duracaoDe(palavras);
 
   const saida = argumento(
     'saida',

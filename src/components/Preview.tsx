@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Block, CaptionStyle, Scene } from '../types';
+import { Player, type PlayerRef } from '@remotion/player';
+import type { Block, CaptionStyle, Foto, Movimento, Scene, Word } from '../types';
+import { Composicao } from '../remotion/Composicao';
 import { CaptionOverlay } from './CaptionOverlay';
 
 type Props = {
@@ -10,33 +12,46 @@ type Props = {
   style: CaptionStyle;
   tempo: number;
   cena: Scene | undefined;
-  videoRef: React.RefObject<HTMLVideoElement | null>;
+  playerRef: React.RefObject<PlayerRef | null>;
   mudo: boolean;
   volume: number;
   guias: boolean;
   onGuias: (v: boolean) => void;
   transcrevendo: boolean;
   progresso: number;
-  /** escala e ponto de foco da câmera no instante atual */
+  /** escala e ponto de foco da câmera — só o fundo de exemplo usa */
   camera: { escala: number; origem: string };
+  /* o que a composição precisa saber */
+  palavras: Word[];
+  movimento: Movimento;
+  forcaZoom: number;
+  fotos: Foto[];
+  fps: number;
+  largura: number;
+  altura: number;
+  duracao: number;
 };
 
 export function Preview(p: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const [largura, setLargura] = useState(360);
+  const [larguraPx, setLarguraPx] = useState(360);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setLargura(e.contentRect.width));
+    const ro = new ResizeObserver(([e]) => setLarguraPx(e.contentRect.width));
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
+  const frames = Math.max(1, Math.round(p.duracao * p.fps));
+
   return (
     <main className="palco">
       <div className="palco-topo">
-        <span className="badge">1080 × 1920 · 9:16</span>
+        <span className="badge">
+          {p.largura} × {p.altura} · {p.fps}fps
+        </span>
         <label className="toggle">
           <input type="checkbox" checked={p.guias} onChange={(e) => p.onGuias(e.target.checked)} />
           Margens de segurança
@@ -54,14 +69,30 @@ export function Preview(p: Props) {
             <em>{Math.round(p.progresso * 100)}%</em>
           </div>
         )}
+
         {p.src ? (
-          <video
-            ref={p.videoRef}
-            className="fundo"
-            src={p.src}
-            muted={p.mudo}
-            playsInline
-            style={{ transform: `scale(${p.camera.escala})`, transformOrigin: p.camera.origem }}
+          /* A MESMA composição que o Renderer usa para gerar o MP4. */
+          <Player
+            ref={p.playerRef}
+            component={Composicao}
+            inputProps={{
+              videoSrc: p.src,
+              palavras: p.palavras,
+              palavrasPorBloco: p.style.wordsPerBlock,
+              movimento: p.movimento,
+              forcaZoom: p.forcaZoom,
+              fotos: p.fotos,
+            }}
+            durationInFrames={frames}
+            fps={p.fps}
+            compositionWidth={p.largura}
+            compositionHeight={p.altura}
+            style={{ width: '100%', height: '100%' }}
+            controls={false}
+            showVolumeControls={false}
+            clickToPlay={false}
+            doubleClickToFullscreen={false}
+            initiallyMuted={p.mudo}
           />
         ) : (
           <div
@@ -79,15 +110,18 @@ export function Preview(p: Props) {
         )}
 
         {p.guias && (
-          <div
-            className="guias"
-            style={{ inset: `12% ${p.style.safeMargin}%` }}
-            aria-hidden
-          />
+          <div className="guias" style={{ inset: `12% ${p.style.safeMargin}%` }} aria-hidden />
         )}
 
-        <CaptionOverlay bloco={p.bloco} ativa={p.ativa}
-          revelada={p.revelada} style={p.style} largura={largura} />
+        {/* a legenda ainda é desenhada por fora do Player — vai para dentro
+            da composição no próximo incremento, movida e não reescrita */}
+        <CaptionOverlay
+          bloco={p.bloco}
+          ativa={p.ativa}
+          revelada={p.revelada}
+          style={p.style}
+          largura={larguraPx}
+        />
       </div>
     </main>
   );

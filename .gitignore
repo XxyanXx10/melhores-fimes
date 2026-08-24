@@ -6,3 +6,6 @@ tsconfig.tsbuildinfo
 projeto/*.json
 videos/*
 !videos/.gitkeep
+public/video/
+render/*.mp4
+render/*.png

@@ -84,6 +84,21 @@ export type Zoom = {
 /** como os zooms são gerados a partir da fala */
 export type Movimento = 'off' | 'suave' | 'ritmo' | 'natural';
 
+/** uma foto/b-roll entrando por cima do vídeo */
+export type Foto = {
+  id: string;
+  /** caminho dentro de public/ (ex.: "midia/grafico.png") — vale no Player e no render */
+  src: string;
+  start: number;
+  duracao: number;
+  entrada: 'fade' | 'escala' | 'sobe';
+  /** largura ocupada, em % da largura do quadro */
+  largura: number;
+  /** centro da foto, em % do quadro */
+  x: number;
+  y: number;
+};
+
 export type Scene = {
   id: string;
   label: string;

@@ -24,6 +24,22 @@ export function conferirFerramentas(cfg) {
   return faltando;
 }
 
+/** quebra a saída do ffprobe em linhas, sem depender do fim de linha do SO */
+function linhasDe(texto) {
+  return texto.split(/\r?\n/).filter(Boolean);
+}
+
+/** roda um comando e devolve o stdout — usado pelo ffprobe */
+function capturar(cmd, args) {
+  return new Promise((resolve, reject) => {
+    const p = spawn(cmd, args, { windowsHide: true });
+    let saida = '';
+    p.stdout.on('data', (d) => (saida += d));
+    p.on('error', reject);
+    p.on('close', (c) => (c === 0 ? resolve(saida) : reject(new Error(`ffprobe saiu com ${c}`))));
+  });
+}
+
 function rodar(cmd, args, rotulo) {
   return new Promise((resolve, reject) => {
     const p = spawn(cmd, args, { windowsHide: true });
@@ -59,14 +75,55 @@ export async function transcreverVideo(cfg, video) {
   }
 }
 
-export function montarProjeto(video, palavras, template = 'port1-autoridade') {
+/**
+ * fps, largura e altura do vídeo de origem.
+ * A composição do Remotion nasce com esses valores: se ela rodar num fps
+ * diferente do arquivo, o Remotion reamostra e o zoom ganha trepidação.
+ */
+export async function sondarVideo(cfg, video) {
+  const ffprobe = cfg.ffprobe ?? cfg.ffmpeg.replace(/ffmpeg(\.exe)?$/i, (m) => m.replace('ffmpeg', 'ffprobe'));
+  try {
+    const saida = await capturar(ffprobe, [
+      '-v', 'error',
+      '-select_streams', 'v:0',
+      '-show_entries', 'stream=width,height,avg_frame_rate',
+      '-of', 'default=noprint_wrappers=1:nokey=0',
+      video,
+    ]);
+    const campos = new Map(
+      linhasDe(saida)
+        .map((l) => l.split('='))
+        .filter((par) => par.length === 2)
+        .map(([k, v]) => [k.trim(), v.trim()]),
+    );
+    const ler = (chave) => campos.get(chave);
+    const taxa = ler('avg_frame_rate') ?? '';
+    const [num, den] = taxa.split('/').map(Number);
+    const fps = den ? Math.round((num / den) * 1000) / 1000 : 0;
+    return {
+      fps: fps > 0 ? Math.round(fps) : 30,
+      largura: Number(ler('width')) || 1080,
+      altura: Number(ler('height')) || 1920,
+    };
+  } catch {
+    return { fps: 30, largura: 1080, altura: 1920 };
+  }
+}
+
+export function montarProjeto(video, palavras, template = 'port1-autoridade', meta = {}) {
   return {
     versao: 1,
     video: path.resolve(video),
     nome: path.basename(video),
     duracao: palavras[palavras.length - 1].end,
+    fps: meta.fps ?? 30,
+    largura: meta.largura ?? 1080,
+    altura: meta.altura ?? 1920,
     template,
     estilo: {},
+    movimento: 'natural',
+    forcaZoom: 1,
+    fotos: [],
     palavras,
   };
 }

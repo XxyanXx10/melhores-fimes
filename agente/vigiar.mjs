@@ -9,7 +9,14 @@ import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
 import { existsSync, watch } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { VIDEOS, conferirFerramentas, lerConfig, montarProjeto, transcreverVideo } from './nucleo.mjs';
+import {
+  VIDEOS,
+  conferirFerramentas,
+  lerConfig,
+  montarProjeto,
+  sondarVideo,
+  transcreverVideo,
+} from './nucleo.mjs';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pastaVideos = path.resolve(process.argv[2] ?? path.join(raiz, 'videos'));
@@ -62,7 +69,12 @@ async function processar() {
     const inicio = Date.now();
     const palavras = await transcreverVideo(cfg, proximo);
     const saida = projetoDe(proximo);
-    await writeFile(saida, JSON.stringify(montarProjeto(proximo, palavras), null, 2), 'utf8');
+    const meta = await sondarVideo(cfg, proximo);
+    await writeFile(
+      saida,
+      JSON.stringify(montarProjeto(proximo, palavras, 'port1-autoridade', meta), null, 2),
+      'utf8',
+    );
     console.log(
       `✓ ${nome} — ${palavras.length} palavras em ${((Date.now() - inicio) / 1000).toFixed(0)}s`,
     );
