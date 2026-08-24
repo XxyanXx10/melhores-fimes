@@ -1,0 +1,8 @@
+{
+  "whisperCli": "E:/Video/dia todo gravaçao/Cortes/Corte 15/whisper-setup/whisper-cli.exe",
+  "modelo": "E:/Video/dia todo gravaçao/Cortes/Corte 15/whisper-setup/ggml-small.bin",
+  "ffmpeg": "ffmpeg",
+  "idioma": "pt",
+  "threads": 0,
+  "porta": 5175
+}

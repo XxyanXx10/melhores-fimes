@@ -14,6 +14,10 @@ type Props = {
   /** caracteres que cabem numa linha da prévia, com o estilo atual */
   maxChars: number;
   temVideo: boolean;
+  onAuto: () => void;
+  servidorOk: boolean;
+  transcrevendo: boolean;
+  erro: string | null;
 };
 
 function linhas(texto: string, maxChars: number): number {
@@ -32,6 +36,21 @@ export function CaptionPanel(p: Props) {
 
   const fontes = (
     <div className="fontes">
+      <button
+        type="button"
+        className="chip chip-forte"
+        onClick={p.onAuto}
+        disabled={!p.temVideo || !p.servidorOk || p.transcrevendo}
+        title={
+          !p.temVideo
+            ? 'Envie um vídeo primeiro'
+            : !p.servidorOk
+              ? 'Inicie o serviço local: npm run transcricao'
+              : 'Transcrever com o whisper.cpp da sua máquina'
+        }
+      >
+        {p.transcrevendo ? 'Transcrevendo…' : 'Transcrever automaticamente'}
+      </button>
       <button type="button" className="chip" onClick={() => setColando((v) => !v)}>
         Colar transcrição
       </button>
@@ -60,6 +79,20 @@ export function CaptionPanel(p: Props) {
         <h2>2. Legenda</h2>
 
         {fontes}
+
+        {p.transcrevendo && (
+          <p className="dica">
+            O whisper.cpp está rodando na sua máquina. Em CPU, costuma levar perto do tempo do
+            próprio vídeo.
+          </p>
+        )}
+        {!p.servidorOk && !p.transcrevendo && (
+          <p className="dica">
+            Serviço local desligado. Rode <code>npm run transcricao</code> para transcrever
+            automaticamente — ou cole o texto abaixo.
+          </p>
+        )}
+        {p.erro && <p className="erro">{p.erro}</p>}
 
         {colando && (
           <div className="colar">

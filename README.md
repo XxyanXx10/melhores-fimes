@@ -7,8 +7,40 @@ O objetivo aqui é olhar, clicar e dizer *"é assim que eu quero trabalhar"*.
 
 ```bash
 npm install
-npm run dev
+npm run dev          # a plataforma
+npm run transcricao  # o serviço local de transcrição (opcional)
 ```
+
+## Transcrição automática (local)
+
+O whisper.cpp roda **na sua máquina**. O áudio não é enviado para lugar nenhum,
+e não é preciso internet para transcrever.
+
+1. Copie `server/config.example.json` para `server/config.json` e ajuste os caminhos:
+
+   ```json
+   {
+     "whisperCli": "E:/.../whisper-setup/whisper-cli.exe",
+     "modelo": "E:/.../whisper-setup/ggml-small.bin",
+     "ffmpeg": "ffmpeg",
+     "idioma": "pt",
+     "threads": 0,
+     "porta": 5175
+   }
+   ```
+
+   Use barras normais (`/`) mesmo no Windows. `threads: 0` deixa o whisper.cpp decidir.
+   `server/config.json` fica fora do Git, então seus caminhos não vão para o repositório.
+
+2. `npm run transcricao` — o terminal diz se achou o executável e o modelo.
+3. Na plataforma: envie o vídeo e clique em **Transcrever automaticamente**.
+
+O serviço repete exatamente o seu processo atual: extrai o áudio com FFmpeg em
+16 kHz mono, chama o whisper.cpp com `-ml 1` (timestamp por palavra) e reagrupa
+os pedaços em palavras inteiras — `re` + `aj` + `uste` volta a ser `reajuste`,
+com o início do primeiro pedaço e o fim do último. A revisão dos erros de
+reconhecimento (`ANS` virando `INS`) continua sendo sua, direto nos blocos
+editáveis, e ajustar o texto não desalinha os tempos do bloco.
 
 ## O que já funciona
 
@@ -22,7 +54,7 @@ npm run dev
 
 ## O que ainda é simulado
 
-- A transcrição *automática* ainda não existe: ou você cola/importa o texto, ou usa o exemplo de `src/data/mockTranscript.ts`. O WhisperX entra na Etapa 3.
+- Sem o serviço local ligado, a transcrição automática fica desabilitada — aí resta colar/importar o texto ou usar o exemplo de `src/data/mockTranscript.ts`.
 - As cenas são um recorte proporcional da duração (detecção real vem depois).
 - Sem vídeo enviado, a prévia usa um fundo animado de exemplo.
 - "Exportar" mostra o pacote de configuração que o render vai receber; a renderização real entra na Etapa 4 com o Remotion.
@@ -33,7 +65,7 @@ npm run dev
 | --- | --- |
 | 1 ✅ | Protótipo visual da tela |
 | 2 | Refinar/ampliar os templates de legenda |
-| 3 | Transcrição automática com WhisperX (upload e import de texto já funcionam) |
+| 3 ✅ | Transcrição automática local com whisper.cpp |
 | 4 | Ligar as configurações ao Remotion e exportar |
 | 5 | Efeitos simples, um de cada vez: zoom, cortes, imagens de apoio, transições, destaques |
 
@@ -44,3 +76,5 @@ npm run dev
 - Render da legenda na prévia: `src/components/CaptionOverlay.tsx`
 - Agrupamento e edição de blocos: `src/blocks.ts`
 - Import de SRT/VTT/texto: `src/importar.ts`
+- Serviço de transcrição: `server/index.mjs`
+- Reagrupamento das palavras quebradas: `server/merge.mjs`

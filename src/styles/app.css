@@ -273,3 +273,11 @@ button { font: inherit; cursor: pointer; }
 .play-som { font-size: 13px; }
 .som input[type='range'] { width: 68px; accent-color: var(--acento); }
 .som input[disabled], .play-som:disabled { opacity: .35; cursor: not-allowed; }
+
+.chip-forte { border-color: var(--acento-2); color: var(--texto); }
+.chip-forte:disabled { opacity: .45; cursor: not-allowed; }
+.erro {
+  color: #ffb4a8; background: #2a1512; border: 1px solid #5c2b23;
+  border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4; margin: 8px 0 0;
+}
+.dica code { background: var(--panel-2); border: 1px solid var(--linha); border-radius: 4px; padding: 1px 5px; }

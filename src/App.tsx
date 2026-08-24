@@ -7,6 +7,7 @@ import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
 import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
+import { transcreverArquivo, verificarServidor } from './transcrever';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever } from './blocks';
 import type { Block, CaptionStyle, Scene, Word } from './types';
 
@@ -34,10 +35,26 @@ export default function App() {
   const [tocando, setTocando] = useState(false);
   const [duracao, setDuracao] = useState(DURACAO_EXEMPLO);
   const [guias, setGuias] = useState(true);
+  const [arquivo, setArquivo] = useState<File | null>(null);
+  const [servidorOk, setServidorOk] = useState(false);
+  const [transcrevendo, setTranscrevendo] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
   const [mudo, setMudo] = useState(false);
   const [volume, setVolume] = useState(1);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  /* o serviço local de transcrição está de pé? */
+  useEffect(() => {
+    let vivo = true;
+    const checar = () => void verificarServidor().then((r) => vivo && setServidorOk(!!r?.ok));
+    checar();
+    const id = setInterval(checar, 15000);
+    return () => {
+      vivo = false;
+      clearInterval(id);
+    };
+  }, []);
 
   /* volume do vídeo enviado */
   useEffect(() => {
@@ -114,6 +131,8 @@ export default function App() {
 
   function enviar(f: File) {
     const url = URL.createObjectURL(f);
+    setArquivo(f);
+    setErro(null);
     setSrc(url);
     setNomeArquivo(f.name);
     setTempo(0);
@@ -134,6 +153,23 @@ export default function App() {
     setTranscrito(true);
     setPasso(2);
     irPara(0);
+  }
+
+  async function transcreverAuto() {
+    if (!arquivo) return;
+    setTranscrevendo(true);
+    setErro(null);
+    try {
+      const novas = await transcreverArquivo(arquivo);
+      setWords(novas);
+      setTranscrito(true);
+      setPasso(2);
+      irPara(0);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Falha ao transcrever.');
+    } finally {
+      setTranscrevendo(false);
+    }
   }
 
   function transcrever() {
@@ -223,6 +259,10 @@ export default function App() {
           onImportar={importarTexto}
           maxChars={maxChars}
           temVideo={!!src}
+          onAuto={() => void transcreverAuto()}
+          servidorOk={servidorOk}
+          transcrevendo={transcrevendo}
+          erro={erro}
         />
       </div>
 
