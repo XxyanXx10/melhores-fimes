@@ -3,6 +3,8 @@
 Protótipo da **Etapa 1**: a interface navegável, sem backend e sem IA.
 O objetivo aqui é olhar, clicar e dizer *"é assim que eu quero trabalhar"*.
 
+**Instalar e usar no Windows, passo a passo: [COMO-USAR.md](COMO-USAR.md).**
+
 ## Rodar
 
 ```bash
