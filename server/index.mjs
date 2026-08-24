@@ -9,7 +9,7 @@
  */
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -51,6 +51,36 @@ async function transcrever(cfg, wav, base) {
   await rodar(cfg.whisperCli, args, 'whisper.cpp');
   const json = JSON.parse(await readFile(`${base}.json`, 'utf8'));
   return juntarPalavras(lerJsonWhisper(json));
+}
+
+const TIPOS = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
+};
+
+/** Serve a própria plataforma (pasta dist), para bastar um processo só. */
+async function servirEstatico(res, caminho) {
+  const dist = path.join(aqui, '..', 'dist');
+  let alvo = path.join(dist, caminho === '/' ? 'index.html' : decodeURIComponent(caminho));
+  if (!alvo.startsWith(dist)) return json(res, 403, { erro: 'caminho inválido' });
+  try {
+    if (!(await stat(alvo)).isFile()) alvo = path.join(dist, 'index.html');
+  } catch {
+    alvo = path.join(dist, 'index.html');
+  }
+  try {
+    const corpo = await readFile(alvo);
+    res.writeHead(200, { 'content-type': TIPOS[path.extname(alvo)] ?? 'application/octet-stream' });
+    res.end(corpo);
+  } catch {
+    json(res, 404, { erro: 'a plataforma ainda não foi construída — rode: npm run build' });
+  }
 }
 
 function json(res, status, corpo) {
@@ -106,11 +136,13 @@ const servidor = createServer(async (req, res) => {
     }
   }
 
+  if (req.method === 'GET') return servirEstatico(res, url.pathname);
+
   json(res, 404, { erro: 'rota desconhecida' });
 });
 
 servidor.listen(cfg.porta, () => {
-  console.log(`Transcrição local ouvindo em http://localhost:${cfg.porta}`);
+  console.log(`\n  Melhores Fimes: http://localhost:${cfg.porta}\n`);
   console.log(`  config : ${cfg.arquivo}`);
   console.log(`  whisper: ${existsSync(cfg.whisperCli) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.whisperCli}`);
   console.log(`  modelo : ${existsSync(cfg.modelo) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.modelo}`);

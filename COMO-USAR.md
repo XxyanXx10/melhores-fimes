@@ -54,17 +54,38 @@ Três cuidados:
 
 ## No dia a dia: abrir
 
-Dê dois cliques em **`iniciar.bat`**. Ele abre duas janelas pretas
-(a plataforma e a transcrição) e o endereço fica em <http://localhost:5173>.
+Você tem duas opções — e na segunda não precisa abrir nada, nunca mais.
 
-Prefere na mão? Duas janelas de Prompt, uma em cada:
+### Opção A — dois cliques
+
+Dê dois cliques em **`iniciar.bat`**. Ele abre uma janela preta (é o serviço rodando)
+e a plataforma no navegador, em <http://localhost:5175>.
+A janela precisa ficar aberta enquanto você trabalha; fechar encerra.
+
+### Opção B — iniciar junto com o Windows (recomendado)
+
+Dê dois cliques em **`instalar-atalho.bat`**, uma única vez.
+
+A partir daí a plataforma sobe sozinha quando você liga o computador, **sem janela
+nenhuma**. Para usar, basta abrir <http://localhost:5175> no navegador —
+salve nos favoritos e trate como um site normal.
+
+Para desfazer, no Prompt de Comando dentro da pasta:
+
+```
+instalar-atalho.bat remover
+```
+
+### Para desenvolver
+
+Quem for mexer no código usa duas janelas, com recarga automática:
 
 ```
 npm run transcricao
 npm run dev
 ```
 
-As duas precisam ficar abertas enquanto você trabalha. Fechar as janelas encerra tudo.
+Aí o endereço é <http://localhost:5173>.
 
 ## Usando
 
@@ -85,12 +106,13 @@ pronta de outro programa? **Arquivo .srt / .vtt / .txt**.
 
 | Sintoma | O que fazer |
 | --- | --- |
-| "Transcrever automaticamente" cinza | A janela do `npm run transcricao` está fechada, ou falta enviar o vídeo. |
+| "Transcrever automaticamente" cinza | O serviço não está rodando, ou falta enviar o vídeo. |
 | "whisper.cpp: ... ENOENT" | O caminho do `whisper-cli.exe` no `config.json` está errado. |
 | "FFmpeg: ... ENOENT" | Ponha o caminho completo do `ffmpeg.exe` no `config.json`. |
 | A janela da transcrição diz **NÃO ENCONTRADO** | O caminho do executável ou do modelo está errado — ela mostra qual. |
 | `npm` não é reconhecido | O Node.js não foi instalado, ou o Prompt precisa ser reaberto. |
-| A porta 5173 ou 5175 já está em uso | Feche janelas antigas do projeto, ou troque `"porta"` no `config.json`. |
+| A porta 5175 já está em uso | A plataforma provavelmente já está rodando — abra <http://localhost:5175>. Se não for isso, troque `"porta"` no `config.json`. |
+| O endereço não abre depois de ligar o PC | Espere alguns segundos (ele sobe junto com o Windows) e recarregue. Persistindo, use o `iniciar.bat` para ver a mensagem de erro. |
 
 ## O que ainda não existe
 

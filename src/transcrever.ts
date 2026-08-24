@@ -1,6 +1,13 @@
 import type { Word } from './types';
 
-export const SERVIDOR = 'http://localhost:5175';
+/**
+ * Servido pelo próprio serviço local (npm start) -> mesma origem.
+ * Em desenvolvimento (vite, porta 5173) ou fora do navegador -> porta do serviço.
+ */
+const emDesenvolvimento =
+  typeof location === 'undefined' || location.protocol === 'file:' || location.port === '5173';
+
+export const SERVIDOR = emDesenvolvimento ? 'http://localhost:5175' : '';
 
 export type StatusServidor = {
   ok: boolean;

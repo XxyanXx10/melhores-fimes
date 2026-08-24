@@ -1,5 +1,5 @@
 @echo off
-REM Abre a plataforma e o servico de transcricao em duas janelas.
+REM Abre a plataforma. Uma janela so.
 cd /d "%~dp0"
 
 if not exist node_modules (
@@ -17,11 +17,8 @@ if not exist server\config.json (
   exit /b 1
 )
 
-start "Transcricao (whisper.cpp)" cmd /k npm run transcricao
-start "Plataforma" cmd /k npm run dev
-echo.
-echo Duas janelas foram abertas. A plataforma abre em http://localhost:5173
-echo Feche as duas janelas para encerrar.
+start "" http://localhost:5175
+call npm start
 exit /b 0
 
 :erro

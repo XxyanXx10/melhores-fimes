@@ -9,9 +9,18 @@ O objetivo aqui é olhar, clicar e dizer *"é assim que eu quero trabalhar"*.
 
 ```bash
 npm install
-npm run dev          # a plataforma
-npm run transcricao  # o serviço local de transcrição (opcional)
+npm start   # constrói e serve tudo num processo só: http://localhost:5175
 ```
+
+Para desenvolver, com recarga automática e dois processos:
+
+```bash
+npm run dev          # a plataforma em http://localhost:5173
+npm run transcricao  # o serviço local de transcrição
+```
+
+No Windows, `iniciar.bat` faz o `npm start` em dois cliques e `instalar-atalho.bat`
+deixa a plataforma subindo junto com o sistema, sem janela.
 
 ## Transcrição automática (local)
 
@@ -34,7 +43,7 @@ e não é preciso internet para transcrever.
    Use barras normais (`/`) mesmo no Windows. `threads: 0` deixa o whisper.cpp decidir.
    `server/config.json` fica fora do Git, então seus caminhos não vão para o repositório.
 
-2. `npm run transcricao` — o terminal diz se achou o executável e o modelo.
+2. `npm start` — o terminal diz se achou o executável e o modelo.
 3. Na plataforma: envie o vídeo e clique em **Transcrever automaticamente**.
 
 O serviço repete exatamente o seu processo atual: extrai o áudio com FFmpeg em
