@@ -9,8 +9,9 @@ import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
 import { transcreverArquivo, verificarServidor } from './transcrever';
 import { baixar, lerArquivo, type Projeto } from './projeto';
-import { agrupar, blocoAtivo, palavraAtiva, reescrever } from './blocks';
-import type { Block, CaptionStyle, Scene, Word } from './types';
+import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
+import type { Block, CaptionStyle, Movimento, Scene, Word } from './types';
+import { estadoZoom, gerarZooms } from './zoom';
 
 /** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
 function cenasDe(duracao: number): Scene[] {
@@ -39,13 +40,30 @@ export default function App() {
   const [arquivo, setArquivo] = useState<File | null>(null);
   const [servidorOk, setServidorOk] = useState(false);
   const [transcrevendo, setTranscrevendo] = useState(false);
+  const [decorrido, setDecorrido] = useState(0);
   const [erro, setErro] = useState<string | null>(null);
   const [autoTranscrever, setAutoTranscrever] = useState(true);
   const [arrastando, setArrastando] = useState(false);
   const [mudo, setMudo] = useState(false);
   const [volume, setVolume] = useState(1);
+  const [movimento, setMovimento] = useState<Movimento>('off');
+  const [forcaZoom, setForcaZoom] = useState(1);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const estimativa = Math.max(20, duracao * 1.6);
+  const progresso = Math.min(0.95, decorrido / estimativa);
+
+  /* cronômetro do progresso: o whisper.cpp não reporta andamento, então
+     estimamos pelo tempo decorrido e travamos em 95% até chegar a resposta. */
+  useEffect(() => {
+    if (!transcrevendo) return;
+    setDecorrido(0);
+    const inicio = Date.now();
+    const id = setInterval(() => setDecorrido((Date.now() - inicio) / 1000), 250);
+    return () => clearInterval(id);
+  }, [transcrevendo]);
+
 
   /* o serviço local de transcrição está de pé? */
   useEffect(() => {
@@ -74,8 +92,14 @@ export default function App() {
   const blocos = useMemo(() => agrupar(words, style.wordsPerBlock), [words, style.wordsPerBlock]);
   const bloco = blocoAtivo(blocos, tempo);
   const ativa = palavraAtiva(bloco, tempo);
+  const revelada = ultimaIniciada(bloco, tempo);
   const cenas = useMemo(() => cenasDe(duracao), [duracao]);
   const cena = cenas.find((c) => tempo >= c.start && tempo < c.end);
+  const zooms = useMemo(
+    () => gerarZooms(movimento, blocos, cenas, duracao, forcaZoom, style.autoEnfase, words),
+    [movimento, blocos, cenas, duracao, forcaZoom, style.autoEnfase, words],
+  );
+  const camera = estadoZoom(zooms, tempo);
   const maxChars = caracteresPorLinha(style.fontSize, style.safeMargin);
 
   /* relógio da prévia */
@@ -191,6 +215,8 @@ export default function App() {
       if (!src) setDuracao(p.duracao);
       setTemplateId(templates.some((t) => t.id === p.template) ? p.template : defaultTemplateId);
       setOverride(p.estilo);
+      setMovimento(p.movimento ?? 'off');
+      setForcaZoom(p.forcaZoom ?? 1);
       setNomeArquivo((n) => n ?? p.nome ?? null);
       setErro(null);
       setPasso(4);
@@ -207,6 +233,8 @@ export default function App() {
       duracao,
       template: templateId,
       estilo: override,
+      movimento,
+      forcaZoom,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -235,6 +263,18 @@ export default function App() {
       const depois = atuais.filter((w) => w.start > b.end + 0.001);
       return [...antes, ...novas, ...depois];
     });
+  }
+
+  /** clique numa palavra: nenhuma ênfase -> 1 -> 2 -> nenhuma */
+  function marcar(b: Block, indice: number) {
+    const alvo = b.words[indice];
+    if (!alvo) return;
+    const proxima = alvo.emphasis === 1 ? 2 : alvo.emphasis === 2 ? undefined : 1;
+    setWords((atuais) =>
+      atuais.map((w) =>
+        w.start === alvo.start && w.text === alvo.text ? { ...w, emphasis: proxima } : w,
+      ),
+    );
   }
 
   const concluidos = [
@@ -311,6 +351,10 @@ export default function App() {
           autoTranscrever={autoTranscrever}
           onAutoTranscrever={setAutoTranscrever}
           servidorOk={servidorOk}
+          movimento={movimento}
+          onMovimento={setMovimento}
+          forcaZoom={forcaZoom}
+          onForcaZoom={setForcaZoom}
         />
 
         <Preview
@@ -318,6 +362,7 @@ export default function App() {
           videoRef={videoRef}
           bloco={bloco}
           ativa={ativa}
+          revelada={revelada}
           style={style}
           tempo={tempo}
           cena={cena}
@@ -325,6 +370,9 @@ export default function App() {
           onGuias={setGuias}
           mudo={mudo}
           volume={volume}
+          transcrevendo={transcrevendo}
+          progresso={progresso}
+          camera={camera}
         />
 
         <CaptionPanel
@@ -332,6 +380,7 @@ export default function App() {
           cenas={cenas}
           tempo={tempo}
           onEditar={editar}
+          onMarcar={marcar}
           onIr={irPara}
           transcrito={transcrito}
           onTranscrever={transcrever}
@@ -341,6 +390,9 @@ export default function App() {
           onAuto={() => void transcreverAuto()}
           servidorOk={servidorOk}
           transcrevendo={transcrevendo}
+          progresso={progresso}
+          decorrido={decorrido}
+          estimativa={estimativa}
           erro={erro}
         />
       </div>
@@ -351,6 +403,7 @@ export default function App() {
         tocando={tocando}
         blocos={blocos}
         cenas={cenas}
+        zooms={zooms}
         onIr={irPara}
         onTocar={alternar}
         temVideo={!!src}

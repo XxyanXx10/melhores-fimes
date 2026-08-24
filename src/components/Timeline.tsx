@@ -1,4 +1,4 @@
-import type { Block, Scene } from '../types';
+import type { Block, Scene, Zoom } from '../types';
 import { formatarTempo } from '../blocks';
 
 type Props = {
@@ -7,6 +7,7 @@ type Props = {
   tocando: boolean;
   blocos: Block[];
   cenas: Scene[];
+  zooms: Zoom[];
   onIr: (t: number) => void;
   onTocar: () => void;
   temVideo: boolean;
@@ -72,6 +73,18 @@ export function Timeline(p: Props) {
             />
           ))}
         </div>
+        {p.zooms.length > 0 && (
+          <div className="trilha trilha-zoom">
+            {p.zooms.map((z) => (
+              <span
+                key={z.id}
+                className={p.tempo >= z.start && p.tempo <= z.end ? 'is-active' : ''}
+                style={{ left: pct(z.start), width: pct(Math.max(0.15, z.end - z.start)) }}
+                title={`Zoom ${z.de.toFixed(2)}x → ${z.para.toFixed(2)}x`}
+              />
+            ))}
+          </div>
+        )}
         <div className="cursor" style={{ left: pct(p.tempo) }} />
       </div>
     </footer>

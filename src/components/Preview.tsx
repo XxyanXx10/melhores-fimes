@@ -6,6 +6,7 @@ type Props = {
   src: string | null;
   bloco: Block | undefined;
   ativa: number;
+  revelada: number;
   style: CaptionStyle;
   tempo: number;
   cena: Scene | undefined;
@@ -14,6 +15,10 @@ type Props = {
   volume: number;
   guias: boolean;
   onGuias: (v: boolean) => void;
+  transcrevendo: boolean;
+  progresso: number;
+  /** escala e ponto de foco da câmera no instante atual */
+  camera: { escala: number; origem: string };
 };
 
 export function Preview(p: Props) {
@@ -39,6 +44,16 @@ export function Preview(p: Props) {
       </div>
 
       <div className="quadro" ref={ref}>
+        {p.transcrevendo && (
+          <div className="quadro-carregando" role="status" aria-live="polite">
+            <span className="girando" aria-hidden="true" />
+            <strong>Gerando a legenda…</strong>
+            <div className="progresso-trilho">
+              <div className="progresso-barra" style={{ width: `${p.progresso * 100}%` }} />
+            </div>
+            <em>{Math.round(p.progresso * 100)}%</em>
+          </div>
+        )}
         {p.src ? (
           <video
             ref={p.videoRef}
@@ -46,9 +61,17 @@ export function Preview(p: Props) {
             src={p.src}
             muted={p.mudo}
             playsInline
+            style={{ transform: `scale(${p.camera.escala})`, transformOrigin: p.camera.origem }}
           />
         ) : (
-          <div className="fundo fundo-exemplo" style={{ ['--t' as string]: p.tempo }}>
+          <div
+            className="fundo fundo-exemplo"
+            style={{
+              ['--t' as string]: p.tempo,
+              transform: `scale(${p.camera.escala})`,
+              transformOrigin: p.camera.origem,
+            }}
+          >
             <div className="orb orb-a" />
             <div className="orb orb-b" />
             <span className="fundo-nome">{p.cena?.label ?? 'Vídeo de exemplo'}</span>
@@ -63,7 +86,8 @@ export function Preview(p: Props) {
           />
         )}
 
-        <CaptionOverlay bloco={p.bloco} ativa={p.ativa} style={p.style} largura={largura} />
+        <CaptionOverlay bloco={p.bloco} ativa={p.ativa}
+          revelada={p.revelada} style={p.style} largura={largura} />
       </div>
     </main>
   );

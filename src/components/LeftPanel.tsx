@@ -1,4 +1,5 @@
-import type { CaptionStyle, Template } from '../types';
+import type { CaptionStyle, Emphasis, Movimento, Template } from '../types';
+import { FONTES } from '../data/fontes';
 
 type Props = {
   templates: Template[];
@@ -13,6 +14,10 @@ type Props = {
   autoTranscrever: boolean;
   onAutoTranscrever: (v: boolean) => void;
   servidorOk: boolean;
+  movimento: Movimento;
+  onMovimento: (m: Movimento) => void;
+  forcaZoom: number;
+  onForcaZoom: (v: number) => void;
 };
 
 const posicoes: Array<[string, number]> = [
@@ -21,6 +26,13 @@ const posicoes: Array<[string, number]> = [
   ['Padrão', 72],
   ['Baixa', 84],
 ];
+
+/** [família, modelos] preservando a ordem em que aparecem na lista */
+function familias(lista: Template[]): Array<[string, Template[]]> {
+  const mapa = new Map<string, Template[]>();
+  for (const t of lista) mapa.set(t.family, [...(mapa.get(t.family) ?? []), t]);
+  return [...mapa.entries()];
+}
 
 export function LeftPanel(p: Props) {
   return (
@@ -56,8 +68,10 @@ export function LeftPanel(p: Props) {
 
       <section className="bloco">
         <h2>3. Estilo</h2>
-        <div className="cards">
-          {p.templates.map((t) => (
+        {familias(p.templates).map(([familia, lista]) => (
+        <div className="cards" key={familia}>
+          <span className="familia">{familia}</span>
+          {lista.map((t) => (
             <button
               key={t.id}
               type="button"
@@ -77,11 +91,54 @@ export function LeftPanel(p: Props) {
             </button>
           ))}
         </div>
+        ))}
         {p.modificado && (
           <button type="button" className="ghost" onClick={p.onResetar}>
             Voltar ao padrão do cartão
           </button>
         )}
+      </section>
+
+      <section className="bloco">
+        <h2>Movimento</h2>
+        <div className="campo campo-linha">
+          <span>Zoom</span>
+          <div className="chips">
+            {(['off', 'natural', 'suave', 'ritmo'] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                className={`chip ${p.movimento === m ? 'is-active' : ''}`}
+                onClick={() => p.onMovimento(m)}
+              >
+                {{ off: 'Parado', natural: 'Natural', suave: 'Suave', ritmo: 'No ritmo' }[m]}
+              </button>
+            ))}
+          </div>
+        </div>
+        {p.movimento !== 'off' && (
+          <label className="campo">
+            <span>Intensidade</span>
+            <input
+              type="range"
+              min={0.4}
+              max={2}
+              step={0.1}
+              value={p.forcaZoom}
+              onChange={(e) => p.onForcaZoom(Number(e.target.value))}
+            />
+            <span>{Math.round(p.forcaZoom * 100)}%</span>
+          </label>
+        )}
+        <p className="dica">
+          {{
+            off: 'Câmera parada. O vídeo aparece como foi gravado.',
+            natural:
+              'A câmera reage às pausas, aos números e às viradas da fala — e fica parada entre um ponto e outro.',
+            suave: 'Deriva lenta, fechando e abrindo a cada cena. Não cansa em vídeo longo.',
+            ritmo: 'Um estalo a cada bloco de legenda. Mecânico de propósito, para conteúdo acelerado.',
+          }[p.movimento]}
+        </p>
       </section>
 
       <section className="bloco">
@@ -161,6 +218,27 @@ export function LeftPanel(p: Props) {
               />
               destaque
             </label>
+            {p.style.highlightStyle === 'gradient' && p.style.highlightWords && (
+              <label>
+                <input
+                  type="color"
+                  value={p.style.highlightColor2}
+                  onChange={(e) => p.onStyle({ highlightColor2: e.target.value })}
+                />
+                destaque 2
+              </label>
+            )}
+            {(p.style.highlightStyle === 'box' || p.style.highlightStyle === 'underline') &&
+              p.style.highlightWords && (
+                <label>
+                  <input
+                    type="color"
+                    value={p.style.highlightBg}
+                    onChange={(e) => p.onStyle({ highlightBg: e.target.value })}
+                  />
+                  {p.style.highlightStyle === 'box' ? 'caixa' : 'traço'}
+                </label>
+              )}
           </div>
         </div>
 
@@ -196,6 +274,32 @@ export function LeftPanel(p: Props) {
           </div>
         </div>
 
+        {p.style.highlightWords && (
+          <div className="campo campo-linha">
+            <span>Destaque</span>
+            <div className="chips">
+              {(['color', 'box', 'underline', 'scale', 'gradient'] as const).map((h) => (
+                <button
+                  key={h}
+                  type="button"
+                  className={`chip ${p.style.highlightStyle === h ? 'is-active' : ''}`}
+                  onClick={() => p.onStyle({ highlightStyle: h })}
+                >
+                  {
+                    {
+                      color: 'Cor',
+                      box: 'Caixa',
+                      underline: 'Sublinhado',
+                      scale: 'Maior',
+                      gradient: 'Gradiente',
+                    }[h]
+                  }
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <label className="campo campo-check">
           <input
             type="checkbox"
@@ -205,6 +309,78 @@ export function LeftPanel(p: Props) {
           <span>Destacar palavra falada</span>
         </label>
 
+        <div className="campo campo-linha">
+          <span>Trocar fonte sozinho</span>
+          <div className="chips">
+            {(['off', 'chave', 'alternada'] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                className={`chip ${p.style.autoEnfase === m ? 'is-active' : ''}`}
+                onClick={() => p.onStyle({ autoEnfase: m })}
+              >
+                {{ off: 'Não', chave: 'Palavra-chave', alternada: 'A cada 3' }[m]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {[0, 1].map((i) => {
+          const e = p.style.emphases[i];
+          const trocar = (patch: Partial<Emphasis>) => {
+            const par: [Emphasis, Emphasis] = [...p.style.emphases] as [Emphasis, Emphasis];
+            par[i] = { ...par[i], ...patch };
+            p.onStyle({ emphases: par });
+          };
+          return (
+            <div className="campo enfase" key={i}>
+              <span>
+                Ênfase {i + 1} <code>{i === 0 ? '*palavra*' : '**palavra**'}</code>
+              </span>
+              <div className="enfase-linha">
+                <select
+                  value={e.fontFamily}
+                  onChange={(ev) => trocar({ fontFamily: ev.target.value })}
+                  aria-label={`Fonte da ênfase ${i + 1}`}
+                >
+                  {FONTES.map((f) => (
+                    <option key={f.id} value={f.css}>
+                      {f.nome}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="color"
+                  value={e.color}
+                  onChange={(ev) => trocar({ color: ev.target.value })}
+                  aria-label={`Cor da ênfase ${i + 1}`}
+                />
+              </div>
+              <div className="chips">
+                <button
+                  type="button"
+                  className={`chip ${e.italic ? 'is-active' : ''}`}
+                  onClick={() => trocar({ italic: !e.italic })}
+                >
+                  Itálico
+                </button>
+                <button
+                  type="button"
+                  className={`chip ${e.uppercase ? 'is-active' : ''}`}
+                  onClick={() => trocar({ uppercase: !e.uppercase })}
+                >
+                  Caixa alta
+                </button>
+              </div>
+              <span className="enfase-amostra" style={{ fontFamily: e.fontFamily, color: e.color,
+                fontStyle: e.italic ? 'italic' : 'normal',
+                textTransform: e.uppercase ? 'uppercase' : 'none' }}>
+                exemplo
+              </span>
+            </div>
+          );
+        })}
+
         <label className="campo campo-check">
           <input
             type="checkbox"
@@ -212,6 +388,15 @@ export function LeftPanel(p: Props) {
             onChange={(e) => p.onStyle({ uppercase: e.target.checked })}
           />
           <span>Caixa alta</span>
+        </label>
+
+        <label className="campo campo-check">
+          <input
+            type="checkbox"
+            checked={p.style.italic}
+            onChange={(e) => p.onStyle({ italic: e.target.checked })}
+          />
+          <span>Itálico</span>
         </label>
       </section>
     </aside>

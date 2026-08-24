@@ -1,4 +1,4 @@
-import type { CaptionStyle, Word } from './types';
+import type { CaptionStyle, Movimento, Word } from './types';
 
 export type Projeto = {
   versao: 1;
@@ -7,6 +7,9 @@ export type Projeto = {
   duracao: number;
   template: string;
   estilo: Partial<CaptionStyle>;
+  /** movimento de câmera: modo e intensidade */
+  movimento?: Movimento;
+  forcaZoom?: number;
   palavras: Word[];
 };
 
@@ -28,6 +31,8 @@ export function validar(dado: unknown): Projeto {
     duracao: p.duracao || palavras[palavras.length - 1].end,
     template: p.template ?? 'port1-autoridade',
     estilo: p.estilo ?? {},
+    movimento: p.movimento ?? 'off',
+    forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
     palavras,
   };
 }

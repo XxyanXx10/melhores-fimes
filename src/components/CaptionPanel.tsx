@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import type { Block, Scene } from '../types';
-import { formatarTempo } from '../blocks';
+import { formatarTempo, textoDoBloco } from '../blocks';
 
 type Props = {
   blocos: Block[];
   cenas: Scene[];
   tempo: number;
   onEditar: (bloco: Block, texto: string) => void;
+  /** troca a ênfase de uma palavra: nenhuma -> 1 -> 2 -> nenhuma */
+  onMarcar: (bloco: Block, indice: number) => void;
   onIr: (t: number) => void;
   transcrito: boolean;
   onTranscrever: () => void;
@@ -17,6 +19,10 @@ type Props = {
   onAuto: () => void;
   servidorOk: boolean;
   transcrevendo: boolean;
+  /** 0..1, estimado pelo tempo decorrido */
+  progresso: number;
+  decorrido: number;
+  estimativa: number;
   erro: string | null;
 };
 
@@ -81,10 +87,25 @@ export function CaptionPanel(p: Props) {
         {fontes}
 
         {p.transcrevendo && (
-          <p className="dica">
-            O whisper.cpp está rodando na sua máquina. Em CPU, costuma levar perto do tempo do
-            próprio vídeo.
-          </p>
+          <div className="progresso" role="status" aria-live="polite">
+            <div className="progresso-topo">
+              <strong>Transcrevendo…</strong>
+              <span>{Math.round(p.progresso * 100)}%</span>
+            </div>
+            <div
+              className="progresso-trilho"
+              role="progressbar"
+              aria-valuenow={Math.round(p.progresso * 100)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
+              <div className="progresso-barra" style={{ width: `${p.progresso * 100}%` }} />
+            </div>
+            <p className="dica">
+              {formatarTempo(p.decorrido)} de ~{formatarTempo(p.estimativa)} · whisper.cpp rodando
+              na sua máquina, nada sai do computador.
+            </p>
+          </div>
         )}
         {!p.servidorOk && !p.transcrevendo && (
           <p className="dica">
@@ -130,9 +151,14 @@ export function CaptionPanel(p: Props) {
             </p>
           </div>
         ) : (
+          <>
+          <p className="dica">
+            Clique numa palavra do bloco que está tocando para ela entrar com outra fonte e cor.
+            Cada clique passa para a próxima ênfase.
+          </p>
           <ol className="blocos">
             {p.blocos.map((b) => {
-              const texto = b.words.map((w) => w.text).join(' ');
+              const texto = textoDoBloco(b);
               const n = linhas(texto, p.maxChars);
               const ativo = p.tempo >= b.start && p.tempo <= b.end;
               return (
@@ -151,10 +177,26 @@ export function CaptionPanel(p: Props) {
                       {n} linhas
                     </span>
                   )}
+                  {ativo && (
+                    <div className="marcar">
+                      {b.words.map((w, i) => (
+                        <button
+                          key={`${b.id}-m${i}`}
+                          type="button"
+                          className={`palavra e${w.emphasis ?? 0}`}
+                          onClick={() => p.onMarcar(b, i)}
+                          title="Clique para trocar a ênfase desta palavra"
+                        >
+                          {w.text}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </li>
               );
             })}
           </ol>
+          </>
         )}
       </section>
 

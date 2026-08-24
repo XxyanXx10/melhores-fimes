@@ -53,13 +53,19 @@ Um processo só: serve a interface e o endpoint de transcrição. Para desenvolv
   "duracao": 62.4,
   "template": "port1-autoridade",
   "estilo": { "fontSize": 8, "positionY": 60 },
-  "palavras": [{ "text": "ninguém", "start": 0, "end": 0.42 }]
+  "movimento": "ritmo",
+  "forcaZoom": 1,
+  "palavras": [{ "text": "ninguém", "start": 0, "end": 0.42, "emphasis": 1 }]
 }
 ```
 
 - `palavras` é obrigatório; cada item precisa de `text`, `start` e `end` em segundos.
 - `template` é o id de um cartão em `src/data/templates.ts`.
 - `estilo` sobrescreve campos do template (ver `CaptionStyle` em `src/types.ts`).
+- `emphasis` numa palavra (1 ou 2) troca a fonte e a cor dela; é opcional e vence
+  a ênfase automática do estilo (`autoEnfase`).
+- `movimento` é o zoom: `off`, `suave`, `ritmo` ou `chave`; `forcaZoom` multiplica
+  a intensidade (1 = padrão). Os trechos são gerados da fala, não ficam no arquivo.
 - A plataforma abre pelo botão **Abrir projeto** ou arrastando o arquivo para a janela,
   e devolve o mesmo formato em **Salvar projeto**.
 
