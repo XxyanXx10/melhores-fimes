@@ -32,7 +32,13 @@ terminal da sua máquina (Claude Code, ChatGPT, Antigravity…), seguindo
 node agente/transcrever.mjs "C:/videos/corte15.mp4"
 ```
 
-Isso grava `projeto/corte15.json`, que você abre na plataforma pelo botão
+Ou deixa uma pasta vigiada, e aí basta soltar o vídeo nela:
+
+```bash
+npm run vigiar   # vigia ./videos e transcreve o que cair lá
+```
+
+Qualquer um dos dois grava `projeto/corte15.json`, que você abre na plataforma pelo botão
 **Abrir projeto** ou arrastando para a janela. **Salvar projeto** devolve o mesmo
 arquivo com o estilo e as correções que você fez.
 

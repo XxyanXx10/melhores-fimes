@@ -89,9 +89,11 @@ Aí o endereço é <http://localhost:5173>.
 
 ## Usando
 
-1. **Enviar vídeo** — no painel da esquerda. Ele já toca com som na prévia.
-2. **Transcrever automaticamente** — no painel da direita. Roda o whisper.cpp na sua
-   máquina; em CPU costuma levar perto do tempo do próprio vídeo.
+1. **Enviar vídeo** — no painel da esquerda. Ele já toca com som na prévia, e a
+   transcrição **começa sozinha** (dá para desligar isso na caixinha logo abaixo).
+   Em CPU, costuma levar perto do tempo do próprio vídeo.
+2. **Ou nem abrir a plataforma** — com `npm run vigiar` ligado, é só soltar o vídeo
+   na pasta `videos` que a legenda fica pronta esperando você.
 3. **Revisar o texto** — cada bloco é editável. Corrigir uma palavra não desalinha os
    tempos, e o aviso laranja mostra o bloco que passaria de duas linhas na tela.
 4. **Escolher o estilo** — os cartões aplicam fonte, cores, animação, palavras por bloco,

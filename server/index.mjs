@@ -8,50 +8,14 @@
  * Nada sai do computador: o áudio nunca é enviado para lugar nenhum.
  */
 import { createServer } from 'node:http';
-import { spawn } from 'node:child_process';
 import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { juntarPalavras, lerJsonWhisper } from './merge.mjs';
+import { conferirFerramentas, lerConfig, transcreverVideo } from '../agente/nucleo.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
-
-async function lerConfig() {
-  const proprio = path.join(aqui, 'config.json');
-  const alvo = existsSync(proprio) ? proprio : path.join(aqui, 'config.example.json');
-  return { arquivo: alvo, ...JSON.parse(await readFile(alvo, 'utf8')) };
-}
-
-function rodar(cmd, args, rotulo) {
-  return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
-    let erro = '';
-    p.stderr.on('data', (d) => (erro += d));
-    p.on('error', (e) => reject(new Error(`${rotulo}: ${e.message}`)));
-    p.on('close', (code) =>
-      code === 0 ? resolve() : reject(new Error(`${rotulo} terminou com código ${code}\n${erro.slice(-1500)}`)),
-    );
-  });
-}
-
-/** vídeo -> wav 16 kHz mono, que é o que o Whisper espera */
-async function extrairAudio(cfg, entrada, saida) {
-  await rodar(
-    cfg.ffmpeg,
-    ['-y', '-i', entrada, '-vn', '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', saida],
-    'FFmpeg',
-  );
-}
-
-async function transcrever(cfg, wav, base) {
-  const args = ['-m', cfg.modelo, '-l', cfg.idioma, '-ml', '1', '-oj', '-of', base, wav];
-  if (cfg.threads > 0) args.unshift('-t', String(cfg.threads));
-  await rodar(cfg.whisperCli, args, 'whisper.cpp');
-  const json = JSON.parse(await readFile(`${base}.json`, 'utf8'));
-  return juntarPalavras(lerJsonWhisper(json));
-}
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8',
@@ -121,11 +85,7 @@ const servidor = createServer(async (req, res) => {
       for await (const c of req) pedacos.push(c);
       await writeFile(entrada, Buffer.concat(pedacos));
 
-      const wav = path.join(pasta, 'audio.wav');
-      await extrairAudio(cfg, entrada, wav);
-      const words = await transcrever(cfg, wav, path.join(pasta, 'saida'));
-
-      if (!words.length) throw new Error('O Whisper não devolveu nenhuma palavra.');
+      const words = await transcreverVideo(cfg, entrada);
       console.log(`✓ ${nome}: ${words.length} palavras`);
       return json(res, 200, { words });
     } catch (e) {

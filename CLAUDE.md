@@ -20,6 +20,18 @@ Caminhos do `whisper-cli.exe`, do modelo e do FFmpeg ficam em `server/config.jso
 (cópia de `server/config.example.json`, fora do Git). Se algum não existir, o
 script diz qual antes de tentar rodar.
 
+## Transcrever sozinho, ao soltar o vídeo numa pasta
+
+```bash
+node agente/vigiar.mjs                  # vigia ./videos
+node agente/vigiar.mjs "E:/Video/Cortes" # ou a pasta que o usuário usa
+```
+
+Fica vigiando; quando um vídeo novo aparece, espera a cópia terminar, transcreve e
+grava `projeto/<nome>.json`. Um de cada vez, em fila, e nunca duas vezes o mesmo
+arquivo. É o modo preferido quando o usuário disser "quando eu adicionar o vídeo,
+transcreve" — deixe rodando em segundo plano.
+
 ## Abrir a plataforma
 
 ```bash

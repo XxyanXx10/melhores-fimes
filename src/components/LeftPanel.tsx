@@ -10,6 +10,9 @@ type Props = {
   onResetar: () => void;
   onUpload: (f: File) => void;
   nomeArquivo: string | null;
+  autoTranscrever: boolean;
+  onAutoTranscrever: (v: boolean) => void;
+  servidorOk: boolean;
 };
 
 const posicoes: Array<[string, number]> = [
@@ -35,8 +38,19 @@ export function LeftPanel(p: Props) {
           />
           <span>{p.nomeArquivo ?? 'Enviar vídeo (9:16)'}</span>
         </label>
+        <label className="campo campo-check">
+          <input
+            type="checkbox"
+            checked={p.autoTranscrever}
+            disabled={!p.servidorOk}
+            onChange={(e) => p.onAutoTranscrever(e.target.checked)}
+          />
+          <span>Transcrever assim que o vídeo entrar</span>
+        </label>
         <p className="dica">
-          Vertical (9:16) fica melhor. Sem vídeo, a prévia usa um fundo de exemplo — sem som.
+          {p.servidorOk
+            ? 'Vertical (9:16) fica melhor. A legenda aparece sozinha quando a transcrição terminar.'
+            : 'Vertical (9:16) fica melhor. Sem vídeo, a prévia usa um fundo de exemplo — sem som.'}
         </p>
       </section>
 

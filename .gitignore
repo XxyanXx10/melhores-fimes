@@ -4,3 +4,5 @@ dist
 server/config.json
 tsconfig.tsbuildinfo
 projeto/*.json
+videos/*
+!videos/.gitkeep

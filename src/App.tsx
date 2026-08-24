@@ -40,6 +40,7 @@ export default function App() {
   const [servidorOk, setServidorOk] = useState(false);
   const [transcrevendo, setTranscrevendo] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [autoTranscrever, setAutoTranscrever] = useState(true);
   const [arrastando, setArrastando] = useState(false);
   const [mudo, setMudo] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -144,6 +145,13 @@ export default function App() {
     probe.preload = 'metadata';
     probe.onloadedmetadata = () => setDuracao(probe.duration || DURACAO_EXEMPLO);
     probe.src = url;
+
+    if (autoTranscrever) {
+      void verificarServidor().then((r) => {
+        setServidorOk(!!r?.ok);
+        if (r?.ok) void transcreverAuto(f);
+      });
+    }
   }
 
   function importarTexto(texto: string) {
@@ -157,12 +165,13 @@ export default function App() {
     irPara(0);
   }
 
-  async function transcreverAuto() {
-    if (!arquivo) return;
+  async function transcreverAuto(alvo?: File) {
+    const f = alvo ?? arquivo;
+    if (!f) return;
     setTranscrevendo(true);
     setErro(null);
     try {
-      const novas = await transcreverArquivo(arquivo);
+      const novas = await transcreverArquivo(f);
       setWords(novas);
       setTranscrito(true);
       setPasso(2);
@@ -299,6 +308,9 @@ export default function App() {
           onResetar={() => setOverride({})}
           onUpload={enviar}
           nomeArquivo={nomeArquivo}
+          autoTranscrever={autoTranscrever}
+          onAutoTranscrever={setAutoTranscrever}
+          servidorOk={servidorOk}
         />
 
         <Preview
