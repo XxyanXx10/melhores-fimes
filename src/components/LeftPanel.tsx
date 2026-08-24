@@ -36,7 +36,7 @@ export function LeftPanel(p: Props) {
           <span>{p.nomeArquivo ?? 'Enviar vídeo (9:16)'}</span>
         </label>
         <p className="dica">
-          Sem vídeo, a prévia usa o clipe de exemplo. Upload e transcrição reais entram na Etapa 3.
+          Vertical (9:16) fica melhor. Sem vídeo, a prévia usa um fundo de exemplo — sem som.
         </p>
       </section>
 
