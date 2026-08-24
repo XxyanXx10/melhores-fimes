@@ -8,6 +8,7 @@ import { templates, defaultTemplateId } from './data/templates';
 import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
 import { transcreverArquivo, verificarServidor } from './transcrever';
+import { baixar, lerArquivo, type Projeto } from './projeto';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever } from './blocks';
 import type { Block, CaptionStyle, Scene, Word } from './types';
 
@@ -39,6 +40,7 @@ export default function App() {
   const [servidorOk, setServidorOk] = useState(false);
   const [transcrevendo, setTranscrevendo] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [arrastando, setArrastando] = useState(false);
   const [mudo, setMudo] = useState(false);
   const [volume, setVolume] = useState(1);
 
@@ -172,6 +174,45 @@ export default function App() {
     }
   }
 
+  async function abrirProjeto(f: File) {
+    try {
+      const p = await lerArquivo(f);
+      setWords(p.palavras);
+      setTranscrito(true);
+      if (!src) setDuracao(p.duracao);
+      setTemplateId(templates.some((t) => t.id === p.template) ? p.template : defaultTemplateId);
+      setOverride(p.estilo);
+      setNomeArquivo((n) => n ?? p.nome ?? null);
+      setErro(null);
+      setPasso(4);
+      irPara(0);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não consegui ler esse arquivo de projeto.');
+    }
+  }
+
+  function salvarProjeto() {
+    const p: Projeto = {
+      versao: 1,
+      nome: nomeArquivo ?? undefined,
+      duracao,
+      template: templateId,
+      estilo: override,
+      palavras: words,
+    };
+    baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
+  }
+
+  function soltar(e: React.DragEvent) {
+    e.preventDefault();
+    setArrastando(false);
+    for (const f of Array.from(e.dataTransfer.files)) {
+      if (f.name.toLowerCase().endsWith('.json')) void abrirProjeto(f);
+      else if (f.type.startsWith('video/')) enviar(f);
+      else if (/\.(srt|vtt|txt)$/i.test(f.name)) void f.text().then(importarTexto);
+    }
+  }
+
   function transcrever() {
     setWords(mockWords);
     setTranscrito(true);
@@ -197,12 +238,38 @@ export default function App() {
   ];
 
   return (
-    <div className="app">
+    <div
+      className={`app ${arrastando ? 'is-arrastando' : ''}`}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setArrastando(true);
+      }}
+      onDragLeave={(e) => {
+        if (e.currentTarget === e.target) setArrastando(false);
+      }}
+      onDrop={soltar}
+    >
       <header className="topo">
         <h1>
           Melhores Fimes <span>· criador de vídeos padronizados</span>
         </h1>
         <StepBar passos={PASSOS} atual={passo} concluidos={concluidos} onSelect={setPasso} />
+        <label className="chip chip-topo">
+          Abrir projeto
+          <input
+            type="file"
+            accept=".json,application/json"
+            hidden
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) void abrirProjeto(f);
+              e.target.value = '';
+            }}
+          />
+        </label>
+        <button type="button" className="chip chip-topo" disabled={!transcrito} onClick={salvarProjeto}>
+          Salvar projeto
+        </button>
         <button
           type="button"
           className="primario"

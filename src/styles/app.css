@@ -281,3 +281,14 @@ button { font: inherit; cursor: pointer; }
   border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4; margin: 8px 0 0;
 }
 .dica code { background: var(--panel-2); border: 1px solid var(--linha); border-radius: 4px; padding: 1px 5px; }
+
+/* abrir/salvar projeto + arrastar --------------------------------- */
+.chip-topo { white-space: nowrap; cursor: pointer; }
+.chip-topo:disabled { opacity: .4; cursor: not-allowed; }
+.app.is-arrastando::after {
+  content: 'Solte aqui: vídeo, projeto .json ou legenda .srt';
+  position: fixed; inset: 12px; z-index: 20; pointer-events: none;
+  border: 2px dashed var(--acento); border-radius: 14px;
+  background: rgba(10,12,16,.72); color: var(--texto);
+  display: grid; place-items: center; font-weight: 600;
+}

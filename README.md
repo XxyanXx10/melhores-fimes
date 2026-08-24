@@ -22,6 +22,20 @@ npm run transcricao  # o serviço local de transcrição
 No Windows, `iniciar.bat` faz o `npm start` em dois cliques e `instalar-atalho.bat`
 deixa a plataforma subindo junto com o sistema, sem janela.
 
+## Quem é o motor
+
+A plataforma é a tela. Quem transcreve e renderiza é um assistente com acesso ao
+terminal da sua máquina (Claude Code, ChatGPT, Antigravity…), seguindo
+[CLAUDE.md](CLAUDE.md). Você pede em português; ele roda:
+
+```bash
+node agente/transcrever.mjs "C:/videos/corte15.mp4"
+```
+
+Isso grava `projeto/corte15.json`, que você abre na plataforma pelo botão
+**Abrir projeto** ou arrastando para a janela. **Salvar projeto** devolve o mesmo
+arquivo com o estilo e as correções que você fez.
+
 ## Transcrição automática (local)
 
 O whisper.cpp roda **na sua máquina**. O áudio não é enviado para lugar nenhum,

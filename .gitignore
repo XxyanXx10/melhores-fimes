@@ -3,3 +3,4 @@ dist
 *.local
 server/config.json
 tsconfig.tsbuildinfo
+projeto/*.json
