@@ -267,3 +267,9 @@ button { font: inherit; cursor: pointer; }
   font-size: 10px; color: #f0b350; border: 1px solid #6a4413;
   border-radius: 999px; padding: 2px 6px; white-space: nowrap;
 }
+
+/* controle de som ---------------------------------------------------- */
+.som { display: flex; align-items: center; gap: 8px; }
+.play-som { font-size: 13px; }
+.som input[type='range'] { width: 68px; accent-color: var(--acento); }
+.som input[disabled], .play-som:disabled { opacity: .35; cursor: not-allowed; }

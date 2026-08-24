@@ -10,6 +10,8 @@ type Props = {
   tempo: number;
   cena: Scene | undefined;
   videoRef: React.RefObject<HTMLVideoElement | null>;
+  mudo: boolean;
+  volume: number;
   guias: boolean;
   onGuias: (v: boolean) => void;
 };
@@ -38,7 +40,13 @@ export function Preview(p: Props) {
 
       <div className="quadro" ref={ref}>
         {p.src ? (
-          <video ref={p.videoRef} className="fundo" src={p.src} muted playsInline />
+          <video
+            ref={p.videoRef}
+            className="fundo"
+            src={p.src}
+            muted={p.mudo}
+            playsInline
+          />
         ) : (
           <div className="fundo fundo-exemplo" style={{ ['--t' as string]: p.tempo }}>
             <div className="orb orb-a" />

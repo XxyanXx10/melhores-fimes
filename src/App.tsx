@@ -34,8 +34,19 @@ export default function App() {
   const [tocando, setTocando] = useState(false);
   const [duracao, setDuracao] = useState(DURACAO_EXEMPLO);
   const [guias, setGuias] = useState(true);
+  const [mudo, setMudo] = useState(false);
+  const [volume, setVolume] = useState(1);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  /* volume do vídeo enviado */
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.volume = volume;
+      v.muted = mudo;
+    }
+  }, [volume, mudo, src]);
 
   const template = templates.find((t) => t.id === templateId) ?? templates[0];
   const style: CaptionStyle = useMemo(() => ({ ...template.style, ...override }), [template, override]);
@@ -85,7 +96,18 @@ export default function App() {
     setTocando((v) => {
       const prox = !v;
       const el = videoRef.current;
-      if (el) prox ? void el.play() : el.pause();
+      if (el) {
+        if (prox) {
+          el.play().catch(() => {
+            // política de autoplay do navegador: toca sem som
+            el.muted = true;
+            setMudo(true);
+            void el.play();
+          });
+        } else {
+          el.pause();
+        }
+      }
       return prox;
     });
   }, []);
@@ -186,6 +208,8 @@ export default function App() {
           cena={cena}
           guias={guias}
           onGuias={setGuias}
+          mudo={mudo}
+          volume={volume}
         />
 
         <CaptionPanel
@@ -210,6 +234,14 @@ export default function App() {
         cenas={cenas}
         onIr={irPara}
         onTocar={alternar}
+        temVideo={!!src}
+        mudo={mudo}
+        volume={volume}
+        onMudo={() => setMudo((v) => !v)}
+        onVolume={(v) => {
+          setVolume(v);
+          setMudo(v === 0);
+        }}
       />
 
       {passo === 5 && (
