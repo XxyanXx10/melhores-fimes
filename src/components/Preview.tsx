@@ -30,6 +30,8 @@ type Props = {
   largura: number;
   altura: number;
   duracao: number;
+  templateId: string;
+  override: Partial<CaptionStyle>;
 };
 
 export function Preview(p: Props) {
@@ -78,7 +80,8 @@ export function Preview(p: Props) {
             inputProps={{
               videoSrc: p.src,
               palavras: p.palavras,
-              palavrasPorBloco: p.style.wordsPerBlock,
+              template: p.templateId,
+              estiloOverride: p.override,
               movimento: p.movimento,
               forcaZoom: p.forcaZoom,
               fotos: p.fotos,
@@ -113,15 +116,17 @@ export function Preview(p: Props) {
           <div className="guias" style={{ inset: `12% ${p.style.safeMargin}%` }} aria-hidden />
         )}
 
-        {/* a legenda ainda é desenhada por fora do Player — vai para dentro
-            da composição no próximo incremento, movida e não reescrita */}
-        <CaptionOverlay
-          bloco={p.bloco}
-          ativa={p.ativa}
-          revelada={p.revelada}
-          style={p.style}
-          largura={larguraPx}
-        />
+        {/* Sem vídeo não há Player, então o fundo de exemplo ainda usa o
+            overlay antigo. Com vídeo, a legenda vem de dentro da composição. */}
+        {!p.src && (
+          <CaptionOverlay
+            bloco={p.bloco}
+            ativa={p.ativa}
+            revelada={p.revelada}
+            style={p.style}
+            largura={larguraPx}
+          />
+        )}
       </div>
     </main>
   );

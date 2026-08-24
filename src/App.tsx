@@ -391,6 +391,8 @@ export default function App() {
           largura={tamanho.largura}
           altura={tamanho.altura}
           duracao={duracao}
+          templateId={templateId}
+          override={override}
           bloco={bloco}
           ativa={ativa}
           revelada={revelada}

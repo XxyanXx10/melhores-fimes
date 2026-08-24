@@ -6,10 +6,15 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
-import type { Foto as FotoSpec, Movimento, Word } from '../types';
-import { agrupar } from '../blocks';
+import type { CaptionStyle, Foto as FotoSpec, Movimento, Word } from '../types';
+import { agrupar, blocoAtivo, palavraAtiva, ultimaIniciada } from '../blocks';
 import { estadoZoom, gerarZooms } from '../zoom';
+import { defaultTemplateId, resolverEstilo } from '../data/templates';
 import { Foto } from './Foto';
+import { Legenda } from './Legenda';
+import { carregarFontes } from './fontes';
+
+carregarFontes();
 
 /** dados do vídeo de origem, para a composição nascer do tamanho certo */
 export type Meta = {
@@ -23,7 +28,10 @@ export type PropsComposicao = {
   /** blob: no navegador, caminho absoluto no render — a composição não se importa */
   videoSrc: string | null;
   palavras: Word[];
-  palavrasPorBloco: number;
+  /** id do cartão em data/templates.ts */
+  template: string;
+  /** ajustes do usuário por cima do cartão */
+  estiloOverride: Partial<CaptionStyle>;
   movimento: Movimento;
   forcaZoom: number;
   fotos: FotoSpec[];
@@ -34,7 +42,8 @@ export type PropsComposicao = {
 export const propsPadrao: PropsComposicao = {
   videoSrc: null,
   palavras: [],
-  palavrasPorBloco: 4,
+  template: defaultTemplateId,
+  estiloOverride: {},
   movimento: 'off',
   forcaZoom: 1,
   fotos: [],
@@ -50,16 +59,26 @@ export const propsPadrao: PropsComposicao = {
  * da prévia.
  */
 export function Composicao(props: PropsComposicao) {
-  const { videoSrc, palavras, palavrasPorBloco, movimento, forcaZoom, fotos } = props;
+  const { videoSrc, palavras, template, estiloOverride, movimento, forcaZoom, fotos } = props;
+  const estilo = resolverEstilo(template, estiloOverride);
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps, durationInFrames, width: largura } = useVideoConfig();
   const t = frame / fps;
 
   // o mesmo cálculo de câmera de antes: função pura de tempo, agora alimentada pelo frame
-  const blocos = agrupar(palavras, palavrasPorBloco);
+  const blocos = agrupar(palavras, estilo.wordsPerBlock);
+  const bloco = blocoAtivo(blocos, t);
   // no navegador o vídeo é um blob:, no render é um arquivo dentro de public/
   const fonteVideo = videoSrc && /^(blob:|https?:|data:)/.test(videoSrc) ? videoSrc : videoSrc ? staticFile(videoSrc) : null;
-  const zooms = gerarZooms(movimento, blocos, [], durationInFrames / fps, forcaZoom, 'off', palavras);
+  const zooms = gerarZooms(
+    movimento,
+    blocos,
+    [],
+    durationInFrames / fps,
+    forcaZoom,
+    estilo.autoEnfase,
+    palavras,
+  );
   const camera = estadoZoom(zooms, t);
 
   return (
@@ -87,6 +106,14 @@ export function Composicao(props: PropsComposicao) {
           <Foto foto={f} />
         </Sequence>
       ))}
+
+      <Legenda
+        bloco={bloco}
+        ativa={palavraAtiva(bloco, t)}
+        revelada={ultimaIniciada(bloco, t)}
+        style={estilo}
+        largura={largura}
+      />
     </AbsoluteFill>
   );
 }

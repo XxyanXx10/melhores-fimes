@@ -62,7 +62,8 @@ const inputProps = {
   // caminho relativo a public/ — a composição resolve com staticFile()
   videoSrc: await prepararVideo(projeto.video),
   palavras: projeto.palavras ?? [],
-  palavrasPorBloco: projeto.estilo?.wordsPerBlock ?? 4,
+  template: projeto.template ?? 'port1-autoridade',
+  estiloOverride: projeto.estilo ?? {},
   movimento: projeto.movimento ?? 'off',
   forcaZoom: projeto.forcaZoom ?? 1,
   fotos: projeto.fotos ?? [],

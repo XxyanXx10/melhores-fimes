@@ -376,3 +376,16 @@ export const defaultTemplateId = templates[0].id;
 
 /** modelos agrupados por família, para a lista da barra lateral */
 export const familias = [...new Set(templates.map((t) => t.family))];
+
+/**
+ * O estilo final: o cartão escolhido mais os ajustes do usuário por cima.
+ * Uma implementação só, usada pela interface e pela composição do Remotion —
+ * se cada lado mesclasse do seu jeito, prévia e MP4 divergiriam.
+ */
+export function resolverEstilo(
+  templateId: string,
+  override: Partial<CaptionStyle> = {},
+): CaptionStyle {
+  const t = templates.find((x) => x.id === templateId) ?? templates[0];
+  return { ...t.style, ...override };
+}
