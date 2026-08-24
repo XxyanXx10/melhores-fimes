@@ -251,3 +251,19 @@ button { font: inherit; cursor: pointer; }
   .grade { grid-template-columns: 260px 1fr; }
   .panel-right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--linha); }
 }
+
+/* fontes da legenda + avisos ---------------------------------------- */
+.fontes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.fontes .chip { cursor: pointer; }
+.colar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.colar textarea {
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 8px;
+  color: var(--texto); padding: 8px; font: inherit; resize: vertical; line-height: 1.4;
+}
+.colar textarea:focus { outline: none; border-color: var(--acento-2); }
+.blocos li { grid-template-columns: 52px 1fr auto; }
+.blocos li.is-longo input { border-color: #8a5a1a; }
+.aviso {
+  font-size: 10px; color: #f0b350; border: 1px solid #6a4413;
+  border-radius: 999px; padding: 2px 6px; white-space: nowrap;
+}

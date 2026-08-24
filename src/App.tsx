@@ -5,9 +5,20 @@ import { CaptionPanel } from './components/CaptionPanel';
 import { Timeline } from './components/Timeline';
 import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
-import { DURACAO_EXEMPLO, mockScenes, mockWords } from './data/mockTranscript';
+import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
+import { caracteresPorLinha, importar } from './importar';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever } from './blocks';
-import type { Block, CaptionStyle, Word } from './types';
+import type { Block, CaptionStyle, Scene, Word } from './types';
+
+/** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
+function cenasDe(duracao: number): Scene[] {
+  const corte = [0, 0.28, 0.61, 1].map((f) => +(f * duracao).toFixed(2));
+  return [
+    { id: 'c1', label: 'Gancho', start: corte[0], end: corte[1] },
+    { id: 'c2', label: 'Problema', start: corte[1], end: corte[2] },
+    { id: 'c3', label: 'Solução', start: corte[2], end: corte[3] },
+  ];
+}
 
 const PASSOS = ['Enviar vídeo', 'Gerar legenda', 'Escolher estilo', 'Ajustar', 'Visualizar', 'Exportar'];
 
@@ -32,7 +43,9 @@ export default function App() {
   const blocos = useMemo(() => agrupar(words, style.wordsPerBlock), [words, style.wordsPerBlock]);
   const bloco = blocoAtivo(blocos, tempo);
   const ativa = palavraAtiva(bloco, tempo);
-  const cena = mockScenes.find((c) => tempo >= c.start && tempo < c.end);
+  const cenas = useMemo(() => cenasDe(duracao), [duracao]);
+  const cena = cenas.find((c) => tempo >= c.start && tempo < c.end);
+  const maxChars = caracteresPorLinha(style.fontSize, style.safeMargin);
 
   /* relógio da prévia */
   useEffect(() => {
@@ -88,6 +101,17 @@ export default function App() {
     probe.preload = 'metadata';
     probe.onloadedmetadata = () => setDuracao(probe.duration || DURACAO_EXEMPLO);
     probe.src = url;
+  }
+
+  function importarTexto(texto: string) {
+    const novas = importar(texto, duracao);
+    if (!novas.length) return;
+    // sem vídeo enviado, a duração passa a ser a da própria transcrição
+    if (!src) setDuracao(Math.max(1, novas[novas.length - 1].end));
+    setWords(novas);
+    setTranscrito(true);
+    setPasso(2);
+    irPara(0);
   }
 
   function transcrever() {
@@ -166,12 +190,15 @@ export default function App() {
 
         <CaptionPanel
           blocos={blocos}
-          cenas={mockScenes}
+          cenas={cenas}
           tempo={tempo}
           onEditar={editar}
           onIr={irPara}
           transcrito={transcrito}
           onTranscrever={transcrever}
+          onImportar={importarTexto}
+          maxChars={maxChars}
+          temVideo={!!src}
         />
       </div>
 
@@ -180,7 +207,7 @@ export default function App() {
         tempo={tempo}
         tocando={tocando}
         blocos={blocos}
-        cenas={mockScenes}
+        cenas={cenas}
         onIr={irPara}
         onTocar={alternar}
       />

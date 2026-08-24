@@ -1,4 +1,4 @@
-import type { Scene, Word } from '../types';
+import type { Word } from '../types';
 
 /**
  * Transcrição de exemplo (Etapa 1: sem WhisperX ainda).
@@ -29,9 +29,3 @@ function gerar(): Word[] {
 }
 
 export const mockWords: Word[] = gerar();
-
-export const mockScenes: Scene[] = [
-  { id: 'c1', label: 'Gancho', start: 0, end: 5 },
-  { id: 'c2', label: 'Problema', start: 5, end: 11 },
-  { id: 'c3', label: 'Solução', start: 11, end: 18 },
-];
