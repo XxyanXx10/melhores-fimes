@@ -3,6 +3,8 @@ import { Player, type PlayerRef } from '@remotion/player';
 import type {
   Block,
   CaptionStyle,
+  Cartao,
+  CoresTransicao,
   Corte,
   Divisao,
   Foto,
@@ -36,11 +38,13 @@ type Props = {
   movimento: Movimento;
   forcaZoom: number;
   fotos: Foto[];
+  cartoes: Cartao[];
   divisoes: Divisao[];
   cortes: Corte[];
   transicao: TipoTransicao;
   forcaTransicao: number;
   duracaoTransicao: number;
+  coresTransicao?: CoresTransicao;
   fps: number;
   largura: number;
   altura: number;
@@ -77,13 +81,15 @@ export function Preview(p: Props) {
       movimento: p.movimento,
       forcaZoom: p.forcaZoom,
       fotos: p.fotos,
+      cartoes: p.cartoes,
       divisoes: p.divisoes,
       cortes: p.cortes,
       transicao: p.transicao,
       forcaTransicao: p.forcaTransicao,
       duracaoTransicao: p.duracaoTransicao,
+      coresTransicao: p.coresTransicao,
     }),
-    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes, p.cortes, p.transicao, p.forcaTransicao, p.duracaoTransicao],
+    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.cartoes, p.divisoes, p.cortes, p.transicao, p.forcaTransicao, p.duracaoTransicao, p.coresTransicao],
   );
   const estiloDoPlayer = useMemo(() => ({ width: '100%', height: '100%' }), []);
 

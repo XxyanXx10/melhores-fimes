@@ -8,6 +8,8 @@ import {
 } from 'remotion';
 import type {
   CaptionStyle,
+  Cartao as CartaoSpec,
+  CoresTransicao,
   Corte,
   Divisao as DivisaoSpec,
   Foto as FotoSpec,
@@ -19,6 +21,7 @@ import { agrupar, blocoAtivo, palavraAtiva, ultimaIniciada } from '../blocks';
 import { estadoZoom, gerarZooms } from '../zoom';
 import { defaultTemplateId, resolverEstilo } from '../data/templates';
 import { Foto } from './Foto';
+import { Cartao } from './Cartao';
 import {
   Divisao,
   fatorTamanho,
@@ -57,6 +60,7 @@ export type PropsComposicao = {
   movimento: Movimento;
   forcaZoom: number;
   fotos: FotoSpec[];
+  cartoes: CartaoSpec[];
   divisoes: DivisaoSpec[];
   /** cortes já existentes no vídeo, e como cobri-los */
   cortes: Corte[];
@@ -64,6 +68,8 @@ export type PropsComposicao = {
   forcaTransicao: number;
   /** quanto tempo a transição fica na tela, em segundos */
   duracaoTransicao: number;
+  /** ausente = herda as cores de destaque do modelo de legenda */
+  coresTransicao?: CoresTransicao;
   /** só o render usa: define duração e tamanho da composição */
   meta?: Meta;
 };
@@ -76,6 +82,7 @@ export const propsPadrao: PropsComposicao = {
   movimento: 'off',
   forcaZoom: 1,
   fotos: [],
+  cartoes: [],
   divisoes: [],
   cortes: [],
   transicao: 'off',
@@ -101,11 +108,13 @@ export function Composicao(props: PropsComposicao) {
     movimento,
     forcaZoom,
     fotos,
+    cartoes,
     divisoes,
     cortes,
     transicao,
     forcaTransicao,
     duracaoTransicao,
+    coresTransicao,
   } = props;
   const estilo = resolverEstilo(template, estiloOverride);
   const frame = useCurrentFrame();
@@ -140,6 +149,8 @@ export function Composicao(props: PropsComposicao) {
   const direcaoCorte = agora ? (t < agora.corte.t ? 1 : -1) : 1;
   const andamentoCorte = agora ? andamento(t, agora.corte.t, JANELA) : 0;
   const efeitoCorte = efeitoNoVideo(tipoCorte, pTransicao, forcaTransicao, direcaoCorte);
+  // sem cor escolhida, a transição herda o destaque do modelo de legenda
+  const coresDoCorte: CoresTransicao = coresTransicao ?? [estilo.highlightColor, estilo.highlightColor2];
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
@@ -177,11 +188,21 @@ export function Composicao(props: PropsComposicao) {
         tipo={tipoCorte}
         p={pTransicao}
         forca={forcaTransicao}
-        estilo={estilo}
+        cores={coresDoCorte}
         direcao={direcaoCorte}
         andamento={andamentoCorte}
         imagem={agora?.corte.imagem}
       />
+
+      {cartoes.map((c) => (
+        <Sequence
+          key={c.id}
+          from={Math.round(c.start * fps)}
+          durationInFrames={Math.max(1, Math.round(c.duracao * fps))}
+        >
+          <Cartao cartao={c} largura={largura} />
+        </Sequence>
+      ))}
 
       {fotos.map((f) => (
         <Sequence

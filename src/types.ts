@@ -100,6 +100,28 @@ export type Foto = {
 };
 
 /**
+ * Cartão de apoio desenhado pela própria composição.
+ *
+ * Alternativa à foto: em vez de exportar uma imagem pronta de fora, o
+ * texto fica aqui e é animado item a item. Continua editável depois.
+ */
+export type Cartao = {
+  id: string;
+  start: number;
+  duracao: number;
+  titulo?: string;
+  itens: string[];
+  /** cor de fundo do cartão */
+  cor: string;
+  /** cor do título, da barra lateral e do último item */
+  destaque: string;
+  /** centro do cartão e largura, em % do quadro */
+  x: number;
+  y: number;
+  largura: number;
+};
+
+/**
  * Tela dividida: enquanto ela dura, o vídeo principal encolhe para um lado
  * e a outra mídia (vídeo ou imagem) ocupa o resto. É o layout de reação.
  */
@@ -118,7 +140,9 @@ export type Divisao = {
   mudo: boolean;
 };
 
-/** como a virada de um corte é coberta; a narração nunca para */
+/** as duas cores do degradê das transições, independentes da legenda */
+export type CoresTransicao = [string, string];
+
 /**
  * Um corte encontrado no vídeo.
  *

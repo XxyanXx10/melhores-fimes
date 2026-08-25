@@ -1,4 +1,14 @@
-import type { CaptionStyle, Corte, Divisao, Foto, Movimento, TipoTransicao, Word } from './types';
+import type {
+  CaptionStyle,
+  Cartao,
+  CoresTransicao,
+  Corte,
+  Divisao,
+  Foto,
+  Movimento,
+  TipoTransicao,
+  Word,
+} from './types';
 
 export type Projeto = {
   versao: 1;
@@ -16,6 +26,8 @@ export type Projeto = {
   forcaZoom?: number;
   /** fotos e b-roll por cima do vídeo */
   fotos?: Foto[];
+  /** cartões de texto animados pela própria composição */
+  cartoes?: Cartao[];
   /** telas divididas (layout de reação) */
   divisoes?: Divisao[];
   /** cortes que o vídeo já tem, achados pelo FFmpeg */
@@ -23,6 +35,8 @@ export type Projeto = {
   transicao?: TipoTransicao;
   forcaTransicao?: number;
   duracaoTransicao?: number;
+  /** ausente = usa as cores de destaque do modelo de legenda */
+  coresTransicao?: CoresTransicao;
   palavras: Word[];
 };
 
@@ -34,11 +48,18 @@ export type Projeto = {
 function normalizarCortes(bruto: unknown): Corte[] {
   if (!Array.isArray(bruto)) return [];
   return bruto
-    .map((c) => {
+    .map((c): Corte | null => {
       if (typeof c === 'number') return { t: c, ativo: true };
       const o = c as Partial<Corte>;
       if (typeof o?.t !== 'number') return null;
-      return { t: o.t, ativo: o.ativo !== false, tipo: o.tipo };
+      // duracao e imagem também precisam sobreviver: são ajustes do corte
+      return {
+        t: o.t,
+        ativo: o.ativo !== false,
+        tipo: o.tipo,
+        duracao: typeof o.duracao === 'number' ? o.duracao : undefined,
+        imagem: typeof o.imagem === 'string' ? o.imagem : undefined,
+      };
     })
     .filter((c): c is Corte => c !== null);
 }
@@ -69,11 +90,13 @@ export function validar(dado: unknown): Projeto {
     movimento: p.movimento ?? 'off',
     forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
     fotos: Array.isArray(p.fotos) ? p.fotos : [],
+    cartoes: Array.isArray(p.cartoes) ? p.cartoes : [],
     divisoes: Array.isArray(p.divisoes) ? p.divisoes : [],
     cortes: normalizarCortes(p.cortes),
     transicao: p.transicao ?? 'off',
     forcaTransicao: typeof p.forcaTransicao === 'number' ? p.forcaTransicao : 1,
     duracaoTransicao: typeof p.duracaoTransicao === 'number' ? p.duracaoTransicao : 0.5,
+    coresTransicao: Array.isArray(p.coresTransicao) && p.coresTransicao.length === 2 ? p.coresTransicao : undefined,
     palavras,
   };
 }

@@ -1,0 +1,28 @@
+
+  Melhores Fimes: http://localhost:5175
+
+  config : D:\Edição de video simplificado\server\config.json
+  whisper: ok — E:/Video/dia todo gravaçao/Cortes/Corte 15/whisper-setup/whisper-bin/Release/whisper-cli.exe
+  modelo : ok — C:/Users/IAN/whisper-models/ggml-small.bin
+Restarting 'server/index.mjs'
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5175
+    at Server.setupListenHandle [as _listen2] (node:net:1948:16)
+    at listenInCluster (node:net:2005:12)
+    at Server.listen (node:net:2110:7)
+    at file:///D:/Edi%C3%A7%C3%A3o%20de%20video%20simplificado/server/index.mjs:252:10
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1984:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5175
+}
+
+Node.js v24.14.1
+Failed running 'server/index.mjs'. Waiting for file changes before restarting...

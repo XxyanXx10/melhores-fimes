@@ -443,3 +443,16 @@ button { font: inherit; cursor: pointer; }
   width: 36px; height: 36px; object-fit: cover; border-radius: 6px;
   border: 1px solid var(--linha); flex: 0 0 auto;
 }
+
+.cores { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.cores input[type='color'] { width: 32px; height: 28px; }
+.amostra-degrade {
+  flex: 1; min-width: 48px; height: 22px; border-radius: 6px;
+  border: 1px solid var(--linha);
+}
+
+.chip-topo select {
+  background: transparent; color: var(--texto); border: 0;
+  font-size: 12px; max-width: 150px;
+}
+.chip-topo select option { background: var(--panel); }

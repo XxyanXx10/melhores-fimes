@@ -10,12 +10,21 @@ import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
 import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
-import { detectarCortes, transcreverArquivo, verificarServidor } from './transcrever';
-import { baixar, lerArquivo, type Projeto } from './projeto';
+import {
+  abrirDoDisco,
+  detectarCortes,
+  listarProjetos,
+  transcreverArquivo,
+  verificarServidor,
+  type ProjetoNoDisco,
+} from './transcrever';
+import { baixar, lerArquivo, validar, type Projeto } from './projeto';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
 import type {
   Block,
   CaptionStyle,
+  Cartao,
+  CoresTransicao,
   Corte,
   Divisao,
   Foto,
@@ -66,12 +75,15 @@ export default function App() {
   const [fps, setFps] = useState(30);
   const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
   const [fotos, setFotos] = useState<Foto[]>([]);
+  const [cartoes, setCartoes] = useState<Cartao[]>([]);
   const [divisoes, setDivisoes] = useState<Divisao[]>([]);
   const [cortes, setCortes] = useState<Corte[]>([]);
   const [transicao, setTransicao] = useState<TipoTransicao>('off');
   const [forcaTransicao, setForcaTransicao] = useState(1);
   const [duracaoTransicao, setDuracaoTransicao] = useState(0.8);
+  const [coresTransicao, setCoresTransicao] = useState<CoresTransicao | undefined>(undefined);
   const [detectando, setDetectando] = useState(false);
+  const [noDisco, setNoDisco] = useState<ProjetoNoDisco[]>([]);
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -98,6 +110,12 @@ export default function App() {
       clearInterval(id);
     };
   }, []);
+
+  /* projetos que já existem na pasta do computador */
+  useEffect(() => {
+    if (!servidorOk) return;
+    void listarProjetos().then(setNoDisco);
+  }, [servidorOk]);
 
   /* volume do vídeo enviado */
   useEffect(() => {
@@ -258,9 +276,7 @@ export default function App() {
     }
   }
 
-  async function abrirProjeto(f: File) {
-    try {
-      const p = await lerArquivo(f);
+  function aplicarProjeto(p: Projeto) {
       setWords(p.palavras);
       setTranscrito(true);
       if (!src) setDuracao(p.duracao);
@@ -269,19 +285,45 @@ export default function App() {
       setMovimento(p.movimento ?? 'off');
       setForcaZoom(p.forcaZoom ?? 1);
       setFotos(p.fotos ?? []);
+      setCartoes(p.cartoes ?? []);
       setDivisoes(p.divisoes ?? []);
       setCortes(p.cortes ?? []);
       setTransicao(p.transicao ?? 'off');
       setForcaTransicao(p.forcaTransicao ?? 1);
       setDuracaoTransicao(p.duracaoTransicao ?? 0.8);
+      setCoresTransicao(p.coresTransicao);
       if (p.fps) setFps(p.fps);
       if (p.largura && p.altura) setTamanho({ largura: p.largura, altura: p.altura });
       setNomeArquivo((n) => n ?? p.nome ?? null);
       setErro(null);
       setPasso(4);
       irPara(0);
+  }
+
+  async function abrirProjeto(f: File) {
+    try {
+      aplicarProjeto(await lerArquivo(f));
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui ler esse arquivo de projeto.');
+    }
+  }
+
+  /**
+   * Abre um projeto da pasta do computador: legenda, ajustes E o vídeo.
+   * Sem precisar arrastar nada — o serviço local entrega o vídeo por http.
+   */
+  async function abrirDaPasta(arquivo: string) {
+    try {
+      const { projeto, videoUrl } = await abrirDoDisco(arquivo);
+      const p = validar(projeto);
+      setSrc(videoUrl);
+      setArquivo(null);
+      setDuracao(p.duracao);
+      setNomeArquivo(p.nome ?? arquivo);
+      setTocando(false);
+      aplicarProjeto(p);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não consegui abrir esse projeto.');
     }
   }
 
@@ -298,11 +340,13 @@ export default function App() {
       movimento,
       forcaZoom,
       fotos,
+      cartoes,
       divisoes,
       cortes,
       transicao,
       forcaTransicao,
       duracaoTransicao,
+      coresTransicao,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -387,6 +431,26 @@ export default function App() {
           Melhores Fimes <span>· criador de vídeos padronizados</span>
         </h1>
         <StepBar passos={PASSOS} atual={passo} concluidos={concluidos} onSelect={setPasso} />
+        {noDisco.length > 0 && (
+          <label className="chip chip-topo">
+            Abrir do computador
+            <select
+              value=""
+              onChange={(e) => {
+                if (e.target.value) void abrirDaPasta(e.target.value);
+                e.target.value = '';
+              }}
+            >
+              <option value="">Escolha um projeto…</option>
+              {noDisco.map((d) => (
+                <option key={d.arquivo} value={d.arquivo} disabled={!d.temVideo}>
+                  {d.nome} · {d.duracao.toFixed(0)}s · {d.palavras} palavras
+                  {d.temVideo ? '' : ' (vídeo não encontrado)'}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <label className="chip chip-topo">
           Abrir projeto
           <input
@@ -446,6 +510,8 @@ export default function App() {
           onForcaTransicao={setForcaTransicao}
           duracaoTransicao={duracaoTransicao}
           onDuracaoTransicao={setDuracaoTransicao}
+          coresTransicao={coresTransicao}
+          onCoresTransicao={setCoresTransicao}
           detectando={detectando}
           onCorte={(t, patch) =>
             setCortes((atuais) =>
@@ -471,11 +537,13 @@ export default function App() {
           movimento={movimento}
           forcaZoom={forcaZoom}
           fotos={fotos}
+          cartoes={cartoes}
           divisoes={divisoes}
           cortes={cortes}
           transicao={transicao}
           forcaTransicao={forcaTransicao}
           duracaoTransicao={duracaoTransicao}
+          coresTransicao={coresTransicao}
           fps={fps}
           largura={tamanho.largura}
           altura={tamanho.altura}

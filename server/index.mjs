@@ -8,7 +8,8 @@
  * Nada sai do computador: o áudio nunca é enviado para lugar nenhum.
  */
 import { createServer } from 'node:http';
-import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { createReadStream } from 'node:fs';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -77,6 +78,78 @@ const servidor = createServer(async (req, res) => {
 
   if (req.method === 'OPTIONS') return json(res, 204, {});
 
+  /*
+   * Abrir um projeto inteiro pela plataforma.
+   *
+   * O navegador não abre arquivo do disco por caminho, mas o serviço local
+   * abre. Assim o usuário escolhe o projeto numa lista e recebe legenda,
+   * ajustes E o vídeo — sem precisar arrastar nada.
+   */
+  if (url.pathname === '/projetos' && req.method === 'GET') {
+    try {
+      const pasta = path.join(aqui, '..', 'projeto');
+      const nomes = (await readdir(pasta)).filter((n) => n.endsWith('.json'));
+      const lista = [];
+      for (const nome of nomes) {
+        try {
+          const j = JSON.parse(await readFile(path.join(pasta, nome), 'utf8'));
+          lista.push({
+            arquivo: nome,
+            nome: j.nome ?? nome,
+            duracao: j.duracao ?? 0,
+            palavras: (j.palavras ?? []).length,
+            temVideo: !!j.video && existsSync(j.video),
+          });
+        } catch {
+          /* projeto ilegível: fica de fora da lista */
+        }
+      }
+      return json(res, 200, { projetos: lista });
+    } catch {
+      return json(res, 200, { projetos: [] });
+    }
+  }
+
+  if (url.pathname.startsWith('/projetos/') && req.method === 'GET') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    try {
+      return json(res, 200, JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8')));
+    } catch {
+      return json(res, 404, { erro: 'projeto não encontrado' });
+    }
+  }
+
+  /* O vídeo de um projeto, direto de onde ele está no disco. */
+  if (url.pathname.startsWith('/video-do-projeto/') && req.method === 'GET') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    try {
+      const j = JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8'));
+      if (!j.video || !existsSync(j.video)) return json(res, 404, { erro: 'vídeo não encontrado' });
+      const info = await stat(j.video);
+      const faixa = req.headers.range;
+      if (faixa) {
+        const [de, ate] = faixa.replace(/bytes=/, '').split('-');
+        const inicio = Number(de);
+        const fim = ate ? Number(ate) : info.size - 1;
+        res.writeHead(206, {
+          'content-range': `bytes ${inicio}-${fim}/${info.size}`,
+          'accept-ranges': 'bytes',
+          'content-length': fim - inicio + 1,
+          'content-type': 'video/mp4',
+        });
+        return createReadStream(j.video, { start: inicio, end: fim }).pipe(res);
+      }
+      res.writeHead(200, {
+        'content-length': info.size,
+        'accept-ranges': 'bytes',
+        'content-type': 'video/mp4',
+      });
+      return createReadStream(j.video).pipe(res);
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   if (url.pathname === '/status') {
     return json(res, 200, {
       ok: true,
@@ -113,8 +186,11 @@ const servidor = createServer(async (req, res) => {
   }
 
   if (url.pathname.startsWith('/midia/') && req.method === 'GET') {
-    const nome = path.basename(decodeURIComponent(url.pathname));
-    const alvo = path.join(aqui, '..', 'public', 'midia', nome);
+    // subpastas valem (midia/campanha/x.png); sair da pasta, não
+    const raiz = path.join(aqui, '..', 'public', 'midia');
+    const relativo = decodeURIComponent(url.pathname).slice('/midia/'.length);
+    const alvo = path.join(raiz, relativo);
+    if (!alvo.startsWith(raiz)) return json(res, 403, { erro: 'caminho inválido' });
     try {
       const corpo = await readFile(alvo);
       res.writeHead(200, {

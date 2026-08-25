@@ -1,5 +1,5 @@
 import { Img, interpolate, staticFile } from 'remotion';
-import type { CaptionStyle, Corte, TipoTransicao } from '../types';
+import type { CoresTransicao, Corte, TipoTransicao } from '../types';
 
 /**
  * Transições nos cortes que o vídeo já tem.
@@ -118,7 +118,8 @@ type Props = {
   /** 0..1, o quanto a transição está acontecendo agora */
   p: number;
   forca: number;
-  estilo: CaptionStyle;
+  /** as duas cores do degradê, próprias da transição */
+  cores: CoresTransicao;
   direcao: number;
   /** 0..1 ao longo de toda a transição, para o fundo andar durante a pausa */
   andamento: number;
@@ -127,7 +128,8 @@ type Props = {
 };
 
 /** A camada desenhada por cima do vídeo durante o corte. */
-export function Transicao({ tipo, p, forca, estilo, direcao, andamento: a, imagem }: Props) {
+export function Transicao({ tipo, p, forca, cores, direcao, andamento: a, imagem }: Props) {
+  const [cor1, cor2] = cores;
   if (p <= 0) return null;
   const base: React.CSSProperties = { position: 'absolute', inset: 0, pointerEvents: 'none' };
 
@@ -170,9 +172,9 @@ export function Transicao({ tipo, p, forca, estilo, direcao, andamento: a, image
           style={{
             ...base,
             opacity: p,
-            backgroundImage: `linear-gradient(${100 + a * 70}deg, ${estilo.highlightColor}, ${
-              estilo.highlightColor2
-            }, ${estilo.highlightColor})`,
+            backgroundImage: `linear-gradient(${100 + a * 70}deg, ${cor1}, ${
+              cor2
+            }, ${cor1})`,
             backgroundSize: '260% 260%',
             backgroundPosition: `${a * 100}% ${50 + a * 20}%`,
             transform: `translateX(${(1 - p) * 100 * direcao}%) scale(${1 + a * 0.06})`,
@@ -194,7 +196,7 @@ export function Transicao({ tipo, p, forca, estilo, direcao, andamento: a, image
                 right: 0,
                 top: `${(i * 100) / faixas}%`,
                 height: `${100 / faixas + 0.5}%`,
-                backgroundColor: i % 2 === 0 ? estilo.highlightColor : estilo.highlightColor2,
+                backgroundColor: i % 2 === 0 ? cor1 : cor2,
                 transform: `translateX(${(1 - p) * 105 * (i % 2 === 0 ? 1 : -1)}%)`,
               }}
             />

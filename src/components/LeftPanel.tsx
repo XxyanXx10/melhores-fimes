@@ -1,4 +1,12 @@
-import type { CaptionStyle, Corte, Emphasis, Movimento, Template, TipoTransicao } from '../types';
+import type {
+  CaptionStyle,
+  CoresTransicao,
+  Corte,
+  Emphasis,
+  Movimento,
+  Template,
+  TipoTransicao,
+} from '../types';
 import { useState } from 'react';
 import { formatarTempo } from '../blocks';
 import { enviarMidia, SERVIDOR } from '../transcrever';
@@ -30,6 +38,9 @@ type Props = {
   /** quanto tempo a transição fica na tela, em segundos */
   duracaoTransicao: number;
   onDuracaoTransicao: (v: number) => void;
+  /** cores do degradê da transição; ausente = herda o modelo de legenda */
+  coresTransicao?: CoresTransicao;
+  onCoresTransicao: (c?: CoresTransicao) => void;
   /** liga, desliga ou troca a animação de um corte específico */
   onCorte: (t: number, patch: Partial<Corte>) => void;
   onTodosCortes: (ativo: boolean) => void;
@@ -258,6 +269,52 @@ export function LeftPanel(p: Props) {
                 <span>{p.duracaoTransicao.toFixed(1)}s</span>
               </label>
             )}
+
+            <div className="campo campo-linha">
+              <span>Cores do degradê</span>
+              <div className="cores">
+                <input
+                  type="color"
+                  value={p.coresTransicao?.[0] ?? p.style.highlightColor}
+                  onChange={(e) =>
+                    p.onCoresTransicao([
+                      e.target.value,
+                      p.coresTransicao?.[1] ?? p.style.highlightColor2,
+                    ])
+                  }
+                  aria-label="Primeira cor do degradê"
+                />
+                <input
+                  type="color"
+                  value={p.coresTransicao?.[1] ?? p.style.highlightColor2}
+                  onChange={(e) =>
+                    p.onCoresTransicao([
+                      p.coresTransicao?.[0] ?? p.style.highlightColor,
+                      e.target.value,
+                    ])
+                  }
+                  aria-label="Segunda cor do degradê"
+                />
+                <span
+                  className="amostra-degrade"
+                  style={{
+                    backgroundImage: `linear-gradient(100deg, ${
+                      p.coresTransicao?.[0] ?? p.style.highlightColor
+                    }, ${p.coresTransicao?.[1] ?? p.style.highlightColor2})`,
+                  }}
+                />
+                {p.coresTransicao && (
+                  <button
+                    type="button"
+                    className="chip"
+                    onClick={() => p.onCoresTransicao(undefined)}
+                    title="Voltar a usar as cores do modelo de legenda"
+                  >
+                    Do modelo
+                  </button>
+                )}
+              </div>
+            </div>
 
             <div className="campo campo-linha">
               <span>Onde entra</span>

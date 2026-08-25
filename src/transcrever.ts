@@ -64,3 +64,38 @@ export async function detectarCortes(arquivo: File): Promise<number[]> {
   if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui procurar os cortes.');
   return (corpo.cortes ?? []) as number[];
 }
+
+export type ProjetoNoDisco = {
+  arquivo: string;
+  nome: string;
+  duracao: number;
+  palavras: number;
+  temVideo: boolean;
+};
+
+/** os projetos que já existem na pasta projeto/ da máquina */
+export async function listarProjetos(): Promise<ProjetoNoDisco[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/projetos`);
+    if (!r.ok) return [];
+    return ((await r.json()).projetos ?? []) as ProjetoNoDisco[];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Abre um projeto do disco: o JSON e o vídeo.
+ *
+ * O navegador não abre arquivo por caminho, mas o serviço local abre e
+ * entrega por http — então dá para carregar tudo com um clique, sem
+ * arrastar nada.
+ */
+export async function abrirDoDisco(arquivo: string): Promise<{ projeto: unknown; videoUrl: string }> {
+  const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`);
+  if (!r.ok) throw new Error('Não consegui abrir esse projeto.');
+  return {
+    projeto: await r.json(),
+    videoUrl: `${SERVIDOR}/video-do-projeto/${encodeURIComponent(arquivo)}`,
+  };
+}
