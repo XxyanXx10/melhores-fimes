@@ -8,7 +8,7 @@
  * Nada sai do computador: o áudio nunca é enviado para lugar nenhum.
  */
 import { createServer } from 'node:http';
-import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -24,6 +24,12 @@ const TIPOS = {
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.avif': 'image/avif',
+  '.mp4': 'video/mp4',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
 };
@@ -74,6 +80,45 @@ const servidor = createServer(async (req, res) => {
       whisperEncontrado: existsSync(cfg.whisperCli),
       idioma: cfg.idioma,
     });
+  }
+
+  /*
+   * Fotos e b-roll ficam em public/midia/ — a mesma pasta que o Remotion
+   * empacota no render. Servimos daqui (e não do dist) para uma foto
+   * recém-enviada aparecer na prévia sem precisar reconstruir a interface.
+   */
+  if (url.pathname === '/midia' && req.method === 'POST') {
+    const bruto = url.searchParams.get('nome') ?? 'foto.png';
+    const nome = path.basename(bruto).replace(/[^\w.-]/g, '_');
+    if (!/\.(png|jpe?g|webp|gif|avif)$/i.test(nome)) {
+      return json(res, 400, { erro: 'formato de imagem não suportado' });
+    }
+    try {
+      const pasta = path.join(aqui, '..', 'public', 'midia');
+      await mkdir(pasta, { recursive: true });
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      await writeFile(path.join(pasta, nome), Buffer.concat(pedacos));
+      console.log(`✓ mídia: ${nome}`);
+      return json(res, 200, { src: `midia/${nome}` });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname.startsWith('/midia/') && req.method === 'GET') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    const alvo = path.join(aqui, '..', 'public', 'midia', nome);
+    try {
+      const corpo = await readFile(alvo);
+      res.writeHead(200, {
+        'content-type': TIPOS[path.extname(alvo)] ?? 'application/octet-stream',
+        'access-control-allow-origin': '*',
+      });
+      return res.end(corpo);
+    } catch {
+      return json(res, 404, { erro: 'mídia não encontrada' });
+    }
   }
 
   if (url.pathname === '/transcrever' && req.method === 'POST') {

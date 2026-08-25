@@ -3,6 +3,7 @@ import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
+import { FotosPanel } from './components/FotosPanel';
 import { Timeline } from './components/Timeline';
 import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
@@ -427,7 +428,26 @@ export default function App() {
           decorrido={decorrido}
           estimativa={estimativa}
           erro={erro}
-        />
+        >
+          <FotosPanel
+            fotos={fotos}
+            tempo={tempo}
+            duracao={duracao}
+            onAdicionar={(f) => {
+              setFotos((atuais) => [...atuais, f].sort((a, b) => a.start - b.start));
+              setPasso(3);
+            }}
+            onMudar={(id, patch) =>
+              setFotos((atuais) =>
+                atuais
+                  .map((f) => (f.id === id ? { ...f, ...patch } : f))
+                  .sort((a, b) => a.start - b.start),
+              )
+            }
+            onRemover={(id) => setFotos((atuais) => atuais.filter((f) => f.id !== id))}
+            onIr={irPara}
+          />
+        </CaptionPanel>
       </div>
 
       <Timeline
@@ -437,6 +457,7 @@ export default function App() {
         blocos={blocos}
         cenas={cenas}
         zooms={zooms}
+        fotos={fotos}
         onIr={irPara}
         onTocar={alternar}
         temVideo={!!src}

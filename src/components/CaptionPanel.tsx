@@ -24,6 +24,8 @@ type Props = {
   decorrido: number;
   estimativa: number;
   erro: string | null;
+  /** seções extras dentro do mesmo painel (hoje: fotos e b-roll) */
+  children?: React.ReactNode;
 };
 
 function linhas(texto: string, maxChars: number): number {
@@ -221,6 +223,7 @@ export function CaptionPanel(p: Props) {
           })}
         </div>
       </section>
+      {p.children}
     </aside>
   );
 }
