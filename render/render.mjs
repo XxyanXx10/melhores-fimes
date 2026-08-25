@@ -98,6 +98,9 @@ const inputProps = {
   forcaZoom: projeto.forcaZoom ?? 1,
   fotos: projeto.fotos ?? [],
   divisoes: projeto.divisoes ?? [],
+  cortes: projeto.cortes ?? [],
+  transicao: projeto.transicao ?? 'off',
+  forcaTransicao: projeto.forcaTransicao ?? 1,
   meta: {
     duracao: projeto.duracao,
     fps,

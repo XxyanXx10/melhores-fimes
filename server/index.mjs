@@ -13,7 +13,13 @@ import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { conferirFerramentas, lerConfig, sondarVideo, transcreverVideo } from '../agente/nucleo.mjs';
+import {
+  conferirFerramentas,
+  detectarCortes,
+  lerConfig,
+  sondarVideo,
+  transcreverVideo,
+} from '../agente/nucleo.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -118,6 +124,25 @@ const servidor = createServer(async (req, res) => {
       return res.end(corpo);
     } catch {
       return json(res, 404, { erro: 'mídia não encontrada' });
+    }
+  }
+
+  /* Onde o vídeo já foi cortado — o FFmpeg mede a virada da imagem. */
+  if (url.pathname === '/cortes' && req.method === 'POST') {
+    const nome = url.searchParams.get('nome') ?? 'video.mp4';
+    const pasta = await mkdtemp(path.join(tmpdir(), 'mf-'));
+    try {
+      const entrada = path.join(pasta, path.basename(nome).replace(/[^w.-]/g, '_'));
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      await writeFile(entrada, Buffer.concat(pedacos));
+      const cortes = await detectarCortes(cfg, entrada);
+      console.log(`✓ ${nome}: ${cortes.length} cortes`);
+      return json(res, 200, { cortes });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    } finally {
+      await rm(pasta, { recursive: true, force: true });
     }
   }
 

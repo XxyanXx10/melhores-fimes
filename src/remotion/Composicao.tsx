@@ -11,6 +11,7 @@ import type {
   Divisao as DivisaoSpec,
   Foto as FotoSpec,
   Movimento,
+  TipoTransicao,
   Word,
 } from '../types';
 import { agrupar, blocoAtivo, palavraAtiva, ultimaIniciada } from '../blocks';
@@ -24,6 +25,7 @@ import {
   regiaoPrincipal,
 } from './Divisao';
 import { Legenda } from './Legenda';
+import { corteAtivo, efeitoNoVideo, pulso, Transicao } from './Transicao';
 import { carregarFontes } from './fontes';
 
 carregarFontes();
@@ -48,6 +50,10 @@ export type PropsComposicao = {
   forcaZoom: number;
   fotos: FotoSpec[];
   divisoes: DivisaoSpec[];
+  /** cortes já existentes no vídeo, e como cobri-los */
+  cortes: number[];
+  transicao: TipoTransicao;
+  forcaTransicao: number;
   /** só o render usa: define duração e tamanho da composição */
   meta?: Meta;
 };
@@ -61,6 +67,9 @@ export const propsPadrao: PropsComposicao = {
   forcaZoom: 1,
   fotos: [],
   divisoes: [],
+  cortes: [],
+  transicao: 'off',
+  forcaTransicao: 1,
 };
 
 /**
@@ -82,6 +91,9 @@ export function Composicao(props: PropsComposicao) {
     forcaZoom,
     fotos,
     divisoes,
+    cortes,
+    transicao,
+    forcaTransicao,
   } = props;
   const estilo = resolverEstilo(template, estiloOverride);
   const frame = useCurrentFrame();
@@ -106,6 +118,12 @@ export function Composicao(props: PropsComposicao) {
   const divisao = divisoes.find((d) => t >= d.start && t <= d.start + d.duracao);
   const progresso = divisao ? progressoDivisao(divisao, t, fps) : 0;
 
+  // a transição cobre a virada por meio segundo; o áudio segue intacto
+  const JANELA = 0.5;
+  const corte = transicao === 'off' ? null : corteAtivo(cortes, t, JANELA);
+  const pTransicao = corte === null ? 0 : pulso(t, corte, JANELA);
+  const efeitoCorte = efeitoNoVideo(transicao, pTransicao, forcaTransicao);
+
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
       {/* O principal ocupa o quadro inteiro, ou só a parte que a divisão
@@ -122,8 +140,10 @@ export function Composicao(props: PropsComposicao) {
             style={{
               width: '100%',
               height: '100%',
-              transform: `scale(${camera.escala})`,
+              // o movimento do corte soma ao do zoom, não substitui
+              transform: `scale(${camera.escala}) ${efeitoCorte.transform}`,
               transformOrigin: camera.origem,
+              filter: efeitoCorte.filter,
             }}
           >
             <OffthreadVideo
@@ -135,6 +155,8 @@ export function Composicao(props: PropsComposicao) {
       )}
 
       {divisao && <Divisao divisao={divisao} progresso={progresso} />}
+
+      <Transicao tipo={transicao} p={pTransicao} forca={forcaTransicao} estilo={estilo} />
 
       {fotos.map((f) => (
         <Sequence

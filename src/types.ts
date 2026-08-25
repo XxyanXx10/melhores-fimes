@@ -118,6 +118,9 @@ export type Divisao = {
   mudo: boolean;
 };
 
+/** como a virada de um corte é coberta; a narração nunca para */
+export type TipoTransicao = 'off' | 'flash' | 'whip' | 'zoom' | 'cortina';
+
 export type Scene = {
   id: string;
   label: string;

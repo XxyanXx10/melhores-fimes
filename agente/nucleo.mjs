@@ -110,6 +110,35 @@ export async function sondarVideo(cfg, video) {
   }
 }
 
+/**
+ * Onde o vídeo já foi cortado.
+ *
+ * Os cortes que o usuário fez na edição continuam visíveis na imagem: entre
+ * um pedaço e outro o quadro muda de vez. O FFmpeg mede essa mudança e nos
+ * dá os instantes — bem mais confiável do que deduzir pelas pausas da fala.
+ *
+ * O último "corte" costuma ser o fim do arquivo (pontuação 1.0): descartado.
+ */
+export async function detectarCortes(cfg, video, limiar = 0.1) {
+  try {
+    const saida = await capturar(cfg.ffmpeg, [
+      '-i', video,
+      '-filter:v', `select='gt(scene,${limiar})',metadata=print:file=-`,
+      '-an', '-f', 'null', '-',
+    ]);
+    const tempos = [];
+    for (const linha of linhasDe(saida)) {
+      const m = /pts_time:([0-9.]+)/.exec(linha);
+      if (m) tempos.push(Number(m[1]));
+    }
+    const duracao = tempos.length ? tempos[tempos.length - 1] : 0;
+    // fora o fim do arquivo e qualquer coisa colada nele
+    return tempos.filter((t) => t > 0.3 && t < duracao - 0.3).map((t) => +t.toFixed(2));
+  } catch {
+    return [];
+  }
+}
+
 export function montarProjeto(video, palavras, template = 'port1-autoridade', meta = {}) {
   return {
     versao: 1,

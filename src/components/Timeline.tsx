@@ -10,6 +10,7 @@ type Props = {
   zooms: Zoom[];
   fotos: Foto[];
   divisoes: Divisao[];
+  cortes: number[];
   onIr: (t: number) => void;
   onTocar: () => void;
   temVideo: boolean;
@@ -108,6 +109,13 @@ export function Timeline(p: Props) {
                 style={{ left: pct(d.start), width: pct(Math.max(0.15, d.duracao)) }}
                 title="Tela dividida"
               />
+            ))}
+          </div>
+        )}
+        {p.cortes.length > 0 && (
+          <div className="trilha trilha-cortes">
+            {p.cortes.map((c) => (
+              <span key={c} style={{ left: pct(c) }} title={`Corte em ${c}s`} />
             ))}
           </div>
         )}

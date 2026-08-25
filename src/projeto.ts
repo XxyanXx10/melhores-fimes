@@ -1,4 +1,4 @@
-import type { CaptionStyle, Divisao, Foto, Movimento, Word } from './types';
+import type { CaptionStyle, Divisao, Foto, Movimento, TipoTransicao, Word } from './types';
 
 export type Projeto = {
   versao: 1;
@@ -18,6 +18,10 @@ export type Projeto = {
   fotos?: Foto[];
   /** telas divididas (layout de reação) */
   divisoes?: Divisao[];
+  /** instantes dos cortes que o vídeo já tem, achados pelo FFmpeg */
+  cortes?: number[];
+  transicao?: TipoTransicao;
+  forcaTransicao?: number;
   palavras: Word[];
 };
 
@@ -48,6 +52,9 @@ export function validar(dado: unknown): Projeto {
     forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
     fotos: Array.isArray(p.fotos) ? p.fotos : [],
     divisoes: Array.isArray(p.divisoes) ? p.divisoes : [],
+    cortes: Array.isArray(p.cortes) ? p.cortes : [],
+    transicao: p.transicao ?? 'off',
+    forcaTransicao: typeof p.forcaTransicao === 'number' ? p.forcaTransicao : 1,
     palavras,
   };
 }

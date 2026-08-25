@@ -401,3 +401,9 @@ button { font: inherit; cursor: pointer; }
 }
 .trilha-divisoes span { background: rgba(76,141,255,.55); border-radius: 3px; }
 .trilha-divisoes span.is-active { background: var(--acento-2); }
+
+/* os cortes que o vídeo já tem: marcas, não faixas */
+.trilha-cortes { height: 10px; }
+.trilha-cortes span {
+  width: 2px; margin-left: -1px; background: #ff6b6b; border-radius: 1px;
+}

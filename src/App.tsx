@@ -10,10 +10,19 @@ import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
 import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
-import { transcreverArquivo, verificarServidor } from './transcrever';
+import { detectarCortes, transcreverArquivo, verificarServidor } from './transcrever';
 import { baixar, lerArquivo, type Projeto } from './projeto';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
-import type { Block, CaptionStyle, Divisao, Foto, Movimento, Scene, Word } from './types';
+import type {
+  Block,
+  CaptionStyle,
+  Divisao,
+  Foto,
+  Movimento,
+  Scene,
+  TipoTransicao,
+  Word,
+} from './types';
 import { estadoZoom, gerarZooms } from './zoom';
 
 /** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
@@ -57,6 +66,10 @@ export default function App() {
   const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [divisoes, setDivisoes] = useState<Divisao[]>([]);
+  const [cortes, setCortes] = useState<number[]>([]);
+  const [transicao, setTransicao] = useState<TipoTransicao>('off');
+  const [forcaTransicao, setForcaTransicao] = useState(1);
+  const [detectando, setDetectando] = useState(false);
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -255,6 +268,9 @@ export default function App() {
       setForcaZoom(p.forcaZoom ?? 1);
       setFotos(p.fotos ?? []);
       setDivisoes(p.divisoes ?? []);
+      setCortes(p.cortes ?? []);
+      setTransicao(p.transicao ?? 'off');
+      setForcaTransicao(p.forcaTransicao ?? 1);
       if (p.fps) setFps(p.fps);
       if (p.largura && p.altura) setTamanho({ largura: p.largura, altura: p.altura });
       setNomeArquivo((n) => n ?? p.nome ?? null);
@@ -280,6 +296,9 @@ export default function App() {
       forcaZoom,
       fotos,
       divisoes,
+      cortes,
+      transicao,
+      forcaTransicao,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -320,6 +339,22 @@ export default function App() {
         w.start === alvo.start && w.text === alvo.text ? { ...w, emphasis: proxima } : w,
       ),
     );
+  }
+
+  /** procura os cortes que o vídeo já tem, pelo serviço local */
+  async function procurarCortes() {
+    if (!arquivo) return;
+    setDetectando(true);
+    setErro(null);
+    try {
+      const achados = await detectarCortes(arquivo);
+      setCortes(achados);
+      if (achados.length && transicao === 'off') setTransicao('flash');
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Falha ao procurar os cortes.');
+    } finally {
+      setDetectando(false);
+    }
   }
 
   const concluidos = [
@@ -400,6 +435,13 @@ export default function App() {
           onMovimento={setMovimento}
           forcaZoom={forcaZoom}
           onForcaZoom={setForcaZoom}
+          cortes={cortes}
+          transicao={transicao}
+          onTransicao={setTransicao}
+          forcaTransicao={forcaTransicao}
+          onForcaTransicao={setForcaTransicao}
+          detectando={detectando}
+          onDetectar={() => void procurarCortes()}
         />
 
         <Preview
@@ -410,6 +452,9 @@ export default function App() {
           forcaZoom={forcaZoom}
           fotos={fotos}
           divisoes={divisoes}
+          cortes={cortes}
+          transicao={transicao}
+          forcaTransicao={forcaTransicao}
           fps={fps}
           largura={tamanho.largura}
           altura={tamanho.altura}
@@ -499,6 +544,7 @@ export default function App() {
         zooms={zooms}
         fotos={fotos}
         divisoes={divisoes}
+        cortes={cortes}
         onIr={irPara}
         onTocar={alternar}
         temVideo={!!src}

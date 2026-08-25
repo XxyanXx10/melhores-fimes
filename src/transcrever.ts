@@ -53,3 +53,14 @@ export async function enviarMidia(arquivo: File): Promise<string> {
   if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui guardar esse arquivo.');
   return corpo.src as string;
 }
+
+/** pede ao serviço local os instantes em que o vídeo já foi cortado */
+export async function detectarCortes(arquivo: File): Promise<number[]> {
+  const r = await fetch(`${SERVIDOR}/cortes?nome=${encodeURIComponent(arquivo.name)}`, {
+    method: 'POST',
+    body: arquivo,
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui procurar os cortes.');
+  return (corpo.cortes ?? []) as number[];
+}

@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Player, type PlayerRef } from '@remotion/player';
-import type { Block, CaptionStyle, Divisao, Foto, Movimento, Scene, Word } from '../types';
+import type {
+  Block,
+  CaptionStyle,
+  Divisao,
+  Foto,
+  Movimento,
+  Scene,
+  TipoTransicao,
+  Word,
+} from '../types';
 import { Composicao } from '../remotion/Composicao';
 import { CaptionOverlay } from './CaptionOverlay';
 
@@ -27,6 +36,9 @@ type Props = {
   forcaZoom: number;
   fotos: Foto[];
   divisoes: Divisao[];
+  cortes: number[];
+  transicao: TipoTransicao;
+  forcaTransicao: number;
   fps: number;
   largura: number;
   altura: number;
@@ -64,8 +76,11 @@ export function Preview(p: Props) {
       forcaZoom: p.forcaZoom,
       fotos: p.fotos,
       divisoes: p.divisoes,
+      cortes: p.cortes,
+      transicao: p.transicao,
+      forcaTransicao: p.forcaTransicao,
     }),
-    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes],
+    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes, p.cortes, p.transicao, p.forcaTransicao],
   );
   const estiloDoPlayer = useMemo(() => ({ width: '100%', height: '100%' }), []);
 

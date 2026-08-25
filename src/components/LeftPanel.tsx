@@ -1,4 +1,4 @@
-import type { CaptionStyle, Emphasis, Movimento, Template } from '../types';
+import type { CaptionStyle, Emphasis, Movimento, Template, TipoTransicao } from '../types';
 import { FONTES } from '../data/fontes';
 
 type Props = {
@@ -18,6 +18,14 @@ type Props = {
   onMovimento: (m: Movimento) => void;
   forcaZoom: number;
   onForcaZoom: (v: number) => void;
+  /** instantes em que o vídeo já foi cortado */
+  cortes: number[];
+  transicao: TipoTransicao;
+  onTransicao: (t: TipoTransicao) => void;
+  forcaTransicao: number;
+  onForcaTransicao: (v: number) => void;
+  detectando: boolean;
+  onDetectar: () => void;
 };
 
 const posicoes: Array<[string, number]> = [
@@ -139,6 +147,66 @@ export function LeftPanel(p: Props) {
             ritmo: 'Um estalo a cada bloco de legenda. Mecânico de propósito, para conteúdo acelerado.',
           }[p.movimento]}
         </p>
+      </section>
+
+      <section className="bloco">
+        <h2>Transições nos cortes</h2>
+        <p className="dica">
+          {p.cortes.length
+            ? `${p.cortes.length} cortes encontrados. A narração não é tocada — a animação passa por cima.`
+            : 'Nenhum corte detectado ainda. O FFmpeg acha os pontos em que a imagem vira.'}
+        </p>
+        <div className="fontes">
+          <button
+            type="button"
+            className="chip chip-forte"
+            onClick={p.onDetectar}
+            disabled={p.detectando || !p.servidorOk}
+          >
+            {p.detectando ? 'Procurando…' : 'Procurar cortes'}
+          </button>
+        </div>
+        {p.cortes.length > 0 && (
+          <>
+            <div className="campo campo-linha">
+              <span>Animação</span>
+              <div className="chips">
+                {(['off', 'flash', 'whip', 'zoom', 'cortina'] as const).map((tt) => (
+                  <button
+                    key={tt}
+                    type="button"
+                    className={`chip ${p.transicao === tt ? 'is-active' : ''}`}
+                    onClick={() => p.onTransicao(tt)}
+                  >
+                    {
+                      {
+                        off: 'Nenhuma',
+                        flash: 'Clarão',
+                        whip: 'Chicote',
+                        zoom: 'Estalo',
+                        cortina: 'Cortina',
+                      }[tt]
+                    }
+                  </button>
+                ))}
+              </div>
+            </div>
+            {p.transicao !== 'off' && (
+              <label className="campo">
+                <span>Intensidade</span>
+                <input
+                  type="range"
+                  min={0.3}
+                  max={2}
+                  step={0.1}
+                  value={p.forcaTransicao}
+                  onChange={(e) => p.onForcaTransicao(Number(e.target.value))}
+                />
+                <span>{Math.round(p.forcaTransicao * 100)}%</span>
+              </label>
+            )}
+          </>
+        )}
       </section>
 
       <section className="bloco">
