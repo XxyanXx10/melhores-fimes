@@ -1,1 +1,1 @@
-{"rodando":false,"progresso":0,"saida":null,"erro":"x.mjs:16886:19\n    at new Promise (<anonymous>)\n    at Object.executeCommand (file:///D:/Edi%C3%A7%C3%A3o%20de%20video%20simplificado/node_modules/@remotion/renderer/dist/esm/index.mjs:16880:14)\n    at file:///D:/Edi%C3%A7%C3%A3o%20de%20video%20simplificado/node_modules/@remotion/renderer/dist/esm/index.mjs:16728:32\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+{"rodando":false,"progresso":0,"saida":null,"erro":null}

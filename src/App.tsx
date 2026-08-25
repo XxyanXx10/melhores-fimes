@@ -643,7 +643,9 @@ export default function App() {
         </button>
       </header>
 
-      {(render.rodando || render.saida || render.erro) && (
+      {/* nada de resultado de render antigo ao abrir a plataforma:
+          o estado vive em disco, mas só interessa a quem pediu */}
+      {(render.rodando || ((render.saida || render.erro) && pediuRender)) && (
         <div className={`aviso-render ${render.erro ? 'is-erro' : ''}`} role="status" aria-live="polite">
           {render.rodando && (
             <>
@@ -668,7 +670,7 @@ export default function App() {
               </button>
             </>
           )}
-          {!render.rodando && render.erro && (
+          {!render.rodando && render.erro && pediuRender && (
             <>
               <strong>O render falhou</strong>
               <span className="dica">{render.erro}</span>
