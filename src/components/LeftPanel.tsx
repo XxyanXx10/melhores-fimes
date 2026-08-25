@@ -1,4 +1,5 @@
-import type { CaptionStyle, Emphasis, Movimento, Template, TipoTransicao } from '../types';
+import type { CaptionStyle, Corte, Emphasis, Movimento, Template, TipoTransicao } from '../types';
+import { formatarTempo } from '../blocks';
 import { FONTES } from '../data/fontes';
 
 type Props = {
@@ -19,7 +20,7 @@ type Props = {
   forcaZoom: number;
   onForcaZoom: (v: number) => void;
   /** instantes em que o vídeo já foi cortado */
-  cortes: number[];
+  cortes: Corte[];
   transicao: TipoTransicao;
   onTransicao: (t: TipoTransicao) => void;
   forcaTransicao: number;
@@ -27,6 +28,10 @@ type Props = {
   /** quanto tempo a transição fica na tela, em segundos */
   duracaoTransicao: number;
   onDuracaoTransicao: (v: number) => void;
+  /** liga, desliga ou troca a animação de um corte específico */
+  onCorte: (t: number, patch: Partial<Corte>) => void;
+  onTodosCortes: (ativo: boolean) => void;
+  onIrPara: (t: number) => void;
   detectando: boolean;
   onDetectar: () => void;
 };
@@ -182,7 +187,7 @@ export function LeftPanel(p: Props) {
         <h2>Transições nos cortes</h2>
         <p className="dica">
           {p.cortes.length
-            ? `${p.cortes.length} cortes encontrados. A narração não é tocada — a animação passa por cima.`
+            ? `${p.cortes.filter((c) => c.ativo).length} de ${p.cortes.length} cortes com transição. A narração não é tocada.`
             : 'Nenhum corte detectado ainda. O FFmpeg acha os pontos em que a imagem vira.'}
         </p>
         <div className="fontes">
@@ -239,6 +244,54 @@ export function LeftPanel(p: Props) {
                 <span>{p.duracaoTransicao.toFixed(1)}s</span>
               </label>
             )}
+
+            <div className="campo campo-linha">
+              <span>Onde entra</span>
+              <div className="chips">
+                <button type="button" className="chip" onClick={() => p.onTodosCortes(true)}>
+                  Todos
+                </button>
+                <button type="button" className="chip" onClick={() => p.onTodosCortes(false)}>
+                  Nenhum
+                </button>
+              </div>
+            </div>
+
+            <ul className="cortes">
+              {p.cortes.map((c) => (
+                <li key={c.t} className={c.ativo ? 'is-ativo' : ''}>
+                  <label className="corte-liga">
+                    <input
+                      type="checkbox"
+                      checked={c.ativo}
+                      onChange={(e) => p.onCorte(c.t, { ativo: e.target.checked })}
+                    />
+                  </label>
+                  <button type="button" className="tempo" onClick={() => p.onIrPara(c.t)}>
+                    {formatarTempo(c.t)}
+                  </button>
+                  <select
+                    value={c.tipo ?? ''}
+                    disabled={!c.ativo}
+                    onChange={(e) =>
+                      p.onCorte(c.t, {
+                        tipo: e.target.value ? (e.target.value as TipoTransicao) : undefined,
+                      })
+                    }
+                    aria-label={`Animação do corte em ${formatarTempo(c.t)}`}
+                  >
+                    <option value="">Como o vídeo</option>
+                    {TRANSICOES.filter(([id]) => id !== 'off' && id !== 'variado').map(
+                      ([id, rotulo]) => (
+                        <option key={id} value={id}>
+                          {rotulo}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </li>
+              ))}
+            </ul>
           </>
         )}
       </section>

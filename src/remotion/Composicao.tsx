@@ -8,6 +8,7 @@ import {
 } from 'remotion';
 import type {
   CaptionStyle,
+  Corte,
   Divisao as DivisaoSpec,
   Foto as FotoSpec,
   Movimento,
@@ -28,7 +29,7 @@ import { Legenda } from './Legenda';
 import {
   andamento,
   efeitoNoVideo,
-  indiceCorteAtivo,
+  corteAgora,
   pulso,
   tipoDoCorte,
   Transicao,
@@ -58,7 +59,7 @@ export type PropsComposicao = {
   fotos: FotoSpec[];
   divisoes: DivisaoSpec[];
   /** cortes já existentes no vídeo, e como cobri-los */
-  cortes: number[];
+  cortes: Corte[];
   transicao: TipoTransicao;
   forcaTransicao: number;
   /** quanto tempo a transição fica na tela, em segundos */
@@ -131,12 +132,12 @@ export function Composicao(props: PropsComposicao) {
 
   // a transição cobre a virada por meio segundo; o áudio segue intacto
   const JANELA = duracaoTransicao;
-  const iCorte = transicao === 'off' ? -1 : indiceCorteAtivo(cortes, t, JANELA);
-  const pTransicao = iCorte < 0 ? 0 : pulso(t, cortes[iCorte], JANELA);
-  // no modo variado, cada corte usa uma animação diferente
-  const tipoCorte = iCorte < 0 ? 'off' : tipoDoCorte(transicao, iCorte);
-  const direcaoCorte = iCorte < 0 ? 1 : t < cortes[iCorte] ? 1 : -1;
-  const andamentoCorte = iCorte < 0 ? 0 : andamento(t, cortes[iCorte], JANELA);
+  const agora = transicao === 'off' ? null : corteAgora(cortes, t, JANELA);
+  const pTransicao = agora ? pulso(t, agora.corte.t, JANELA) : 0;
+  // o corte pode ter animação própria; senão herda a do vídeo todo
+  const tipoCorte = agora ? agora.corte.tipo ?? tipoDoCorte(transicao, agora.posicao) : 'off';
+  const direcaoCorte = agora ? (t < agora.corte.t ? 1 : -1) : 1;
+  const andamentoCorte = agora ? andamento(t, agora.corte.t, JANELA) : 0;
   const efeitoCorte = efeitoNoVideo(tipoCorte, pTransicao, forcaTransicao, direcaoCorte);
 
   return (

@@ -1,4 +1,4 @@
-import type { CaptionStyle, Divisao, Foto, Movimento, TipoTransicao, Word } from './types';
+import type { CaptionStyle, Corte, Divisao, Foto, Movimento, TipoTransicao, Word } from './types';
 
 export type Projeto = {
   versao: 1;
@@ -18,13 +18,30 @@ export type Projeto = {
   fotos?: Foto[];
   /** telas divididas (layout de reação) */
   divisoes?: Divisao[];
-  /** instantes dos cortes que o vídeo já tem, achados pelo FFmpeg */
-  cortes?: number[];
+  /** cortes que o vídeo já tem, achados pelo FFmpeg */
+  cortes?: Corte[];
   transicao?: TipoTransicao;
   forcaTransicao?: number;
   duracaoTransicao?: number;
   palavras: Word[];
 };
+
+/**
+ * Aceita tanto a lista antiga (só os instantes) quanto a nova.
+ * Projetos salvos antes do liga/desliga continuam abrindo, com todos
+ * os cortes ligados — que era o comportamento deles.
+ */
+function normalizarCortes(bruto: unknown): Corte[] {
+  if (!Array.isArray(bruto)) return [];
+  return bruto
+    .map((c) => {
+      if (typeof c === 'number') return { t: c, ativo: true };
+      const o = c as Partial<Corte>;
+      if (typeof o?.t !== 'number') return null;
+      return { t: o.t, ativo: o.ativo !== false, tipo: o.tipo };
+    })
+    .filter((c): c is Corte => c !== null);
+}
 
 export function validar(dado: unknown): Projeto {
   const p = dado as Partial<Projeto>;
@@ -53,7 +70,7 @@ export function validar(dado: unknown): Projeto {
     forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
     fotos: Array.isArray(p.fotos) ? p.fotos : [],
     divisoes: Array.isArray(p.divisoes) ? p.divisoes : [],
-    cortes: Array.isArray(p.cortes) ? p.cortes : [],
+    cortes: normalizarCortes(p.cortes),
     transicao: p.transicao ?? 'off',
     forcaTransicao: typeof p.forcaTransicao === 'number' ? p.forcaTransicao : 1,
     duracaoTransicao: typeof p.duracaoTransicao === 'number' ? p.duracaoTransicao : 0.5,

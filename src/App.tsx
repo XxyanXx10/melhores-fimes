@@ -16,6 +16,7 @@ import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from '.
 import type {
   Block,
   CaptionStyle,
+  Corte,
   Divisao,
   Foto,
   Movimento,
@@ -66,7 +67,7 @@ export default function App() {
   const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [divisoes, setDivisoes] = useState<Divisao[]>([]);
-  const [cortes, setCortes] = useState<number[]>([]);
+  const [cortes, setCortes] = useState<Corte[]>([]);
   const [transicao, setTransicao] = useState<TipoTransicao>('off');
   const [forcaTransicao, setForcaTransicao] = useState(1);
   const [duracaoTransicao, setDuracaoTransicao] = useState(0.8);
@@ -351,7 +352,7 @@ export default function App() {
     setErro(null);
     try {
       const achados = await detectarCortes(arquivo);
-      setCortes(achados);
+      setCortes(achados.map((t) => ({ t, ativo: true })));
       if (achados.length && transicao === 'off') setTransicao('flash');
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Falha ao procurar os cortes.');
@@ -446,6 +447,11 @@ export default function App() {
           duracaoTransicao={duracaoTransicao}
           onDuracaoTransicao={setDuracaoTransicao}
           detectando={detectando}
+          onCorte={(t, patch) =>
+            setCortes((atuais) => atuais.map((c) => (c.t === t ? { ...c, ...patch } : c)))
+          }
+          onTodosCortes={(ativo) => setCortes((atuais) => atuais.map((c) => ({ ...c, ativo })))}
+          onIrPara={irPara}
           onDetectar={() => void procurarCortes()}
         />
 

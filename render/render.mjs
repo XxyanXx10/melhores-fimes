@@ -98,7 +98,8 @@ const inputProps = {
   forcaZoom: projeto.forcaZoom ?? 1,
   fotos: projeto.fotos ?? [],
   divisoes: projeto.divisoes ?? [],
-  cortes: projeto.cortes ?? [],
+  // aceita a lista antiga (só instantes) e a nova (com liga/desliga)
+  cortes: (projeto.cortes ?? []).map((c) => (typeof c === 'number' ? { t: c, ativo: true } : c)),
   transicao: projeto.transicao ?? 'off',
   forcaTransicao: projeto.forcaTransicao ?? 1,
   duracaoTransicao: projeto.duracaoTransicao ?? 0.5,

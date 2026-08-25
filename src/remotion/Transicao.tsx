@@ -1,5 +1,5 @@
 import { interpolate } from 'remotion';
-import type { CaptionStyle, TipoTransicao } from '../types';
+import type { CaptionStyle, Corte, TipoTransicao } from '../types';
 
 /**
  * Transições nos cortes que o vídeo já tem.
@@ -54,13 +54,24 @@ export function andamento(t: number, corte: number, duracao: number): number {
   });
 }
 
-/** índice do corte ativo agora, ou -1 */
-export function indiceCorteAtivo(cortes: number[], t: number, duracao: number): number {
+/**
+ * O corte acontecendo agora, se houver — só entre os ligados.
+ * A posição devolvida conta apenas os ligados, para o modo variado
+ * revezar entre as transições que o usuário realmente vai ver.
+ */
+export function corteAgora(
+  cortes: Corte[],
+  t: number,
+  duracao: number,
+): { corte: Corte; posicao: number } | null {
   const meio = duracao / 2;
-  for (let i = 0; i < cortes.length; i++) {
-    if (t >= cortes[i] - meio && t <= cortes[i] + meio) return i;
+  let posicao = 0;
+  for (const c of cortes) {
+    if (!c.ativo) continue;
+    if (t >= c.t - meio && t <= c.t + meio) return { corte: c, posicao };
+    posicao++;
   }
-  return -1;
+  return null;
 }
 
 /**

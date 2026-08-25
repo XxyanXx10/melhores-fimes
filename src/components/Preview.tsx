@@ -3,6 +3,7 @@ import { Player, type PlayerRef } from '@remotion/player';
 import type {
   Block,
   CaptionStyle,
+  Corte,
   Divisao,
   Foto,
   Movimento,
@@ -36,7 +37,7 @@ type Props = {
   forcaZoom: number;
   fotos: Foto[];
   divisoes: Divisao[];
-  cortes: number[];
+  cortes: Corte[];
   transicao: TipoTransicao;
   forcaTransicao: number;
   duracaoTransicao: number;

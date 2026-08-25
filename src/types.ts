@@ -119,6 +119,20 @@ export type Divisao = {
 };
 
 /** como a virada de um corte é coberta; a narração nunca para */
+/**
+ * Um corte encontrado no vídeo.
+ *
+ * O detector acha todos, mas nem todo corte pede transição — em 25s,
+ * sete viradas cansam. Por isso cada um liga e desliga sozinho, e pode
+ * ter a própria animação.
+ */
+export type Corte = {
+  t: number;
+  ativo: boolean;
+  /** ausente = usa a animação escolhida para o vídeo todo */
+  tipo?: TipoTransicao;
+};
+
 export type TipoTransicao =
   | 'off'
   | 'flash'

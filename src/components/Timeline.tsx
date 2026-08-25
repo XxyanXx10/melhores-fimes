@@ -1,4 +1,4 @@
-import type { Block, Divisao, Foto, Scene, Zoom } from '../types';
+import type { Block, Corte, Divisao, Foto, Scene, Zoom } from '../types';
 import { formatarTempo } from '../blocks';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   zooms: Zoom[];
   fotos: Foto[];
   divisoes: Divisao[];
-  cortes: number[];
+  cortes: Corte[];
   onIr: (t: number) => void;
   onTocar: () => void;
   temVideo: boolean;
@@ -115,7 +115,12 @@ export function Timeline(p: Props) {
         {p.cortes.length > 0 && (
           <div className="trilha trilha-cortes">
             {p.cortes.map((c) => (
-              <span key={c} style={{ left: pct(c) }} title={`Corte em ${c}s`} />
+              <span
+                key={c.t}
+                className={c.ativo ? 'is-ativo' : ''}
+                style={{ left: pct(c.t) }}
+                title={`Corte em ${c.t}s${c.ativo ? '' : ' (sem transição)'}`}
+              />
             ))}
           </div>
         )}

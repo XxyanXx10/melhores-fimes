@@ -412,3 +412,22 @@ button { font: inherit; cursor: pointer; }
   width: 100%; background: var(--panel-2); color: var(--texto);
   border: 1px solid var(--linha); border-radius: 8px; padding: 6px 8px; font-size: 12px;
 }
+
+/* lista de cortes: cada um liga, desliga e escolhe a própria animação */
+.cortes { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.cortes li {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 6px; border: 1px solid var(--linha); border-radius: 8px;
+  background: var(--panel-2); opacity: .55;
+}
+.cortes li.is-ativo { opacity: 1; border-color: var(--acento-2); }
+.corte-liga { display: flex; }
+.corte-liga input { accent-color: var(--acento-2); }
+.cortes .tempo { flex: 0 0 auto; }
+.cortes select {
+  flex: 1; min-width: 0; background: var(--panel); color: var(--texto);
+  border: 1px solid var(--linha); border-radius: 6px; padding: 3px 5px; font-size: 11px;
+}
+.cortes select:disabled { opacity: .5; }
+.trilha-cortes span { opacity: .35; }
+.trilha-cortes span.is-ativo { opacity: 1; }
