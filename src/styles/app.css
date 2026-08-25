@@ -393,3 +393,11 @@ button { font: inherit; cursor: pointer; }
   background: rgba(255, 214, 10, .75); border-radius: 3px;
 }
 .trilha-fotos span.is-active { background: var(--acento); }
+
+.selo-video {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 6px;
+  border: 1px solid var(--linha); background: var(--panel);
+  display: grid; place-items: center; color: var(--acento-2); font-size: 14px;
+}
+.trilha-divisoes span { background: rgba(76,141,255,.55); border-radius: 3px; }
+.trilha-divisoes span.is-active { background: var(--acento-2); }

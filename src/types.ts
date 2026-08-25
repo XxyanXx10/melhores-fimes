@@ -99,6 +99,25 @@ export type Foto = {
   y: number;
 };
 
+/**
+ * Tela dividida: enquanto ela dura, o vídeo principal encolhe para um lado
+ * e a outra mídia (vídeo ou imagem) ocupa o resto. É o layout de reação.
+ */
+export type Divisao = {
+  id: string;
+  /** caminho dentro de public/ — pode ser vídeo ou imagem */
+  src: string;
+  start: number;
+  duracao: number;
+  /** onde entra a mídia extra; o principal fica no lado oposto */
+  lado: 'cima' | 'baixo' | 'esquerda' | 'direita';
+  /** quanto da tela a mídia extra ocupa, em % (50 = metade exata) */
+  proporcao: number;
+  entrada: 'corte' | 'fade' | 'desliza';
+  /** o áudio do vídeo extra atrapalha a fala; por padrão fica mudo */
+  mudo: boolean;
+};
+
 export type Scene = {
   id: string;
   label: string;

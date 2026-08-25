@@ -1,4 +1,4 @@
-import type { Block, Foto, Scene, Zoom } from '../types';
+import type { Block, Divisao, Foto, Scene, Zoom } from '../types';
 import { formatarTempo } from '../blocks';
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
   cenas: Scene[];
   zooms: Zoom[];
   fotos: Foto[];
+  divisoes: Divisao[];
   onIr: (t: number) => void;
   onTocar: () => void;
   temVideo: boolean;
@@ -94,6 +95,18 @@ export function Timeline(p: Props) {
                 className={p.tempo >= f.start && p.tempo <= f.start + f.duracao ? 'is-active' : ''}
                 style={{ left: pct(f.start), width: pct(Math.max(0.15, f.duracao)) }}
                 title="Foto"
+              />
+            ))}
+          </div>
+        )}
+        {p.divisoes.length > 0 && (
+          <div className="trilha trilha-divisoes">
+            {p.divisoes.map((d) => (
+              <span
+                key={d.id}
+                className={p.tempo >= d.start && p.tempo <= d.start + d.duracao ? 'is-active' : ''}
+                style={{ left: pct(d.start), width: pct(Math.max(0.15, d.duracao)) }}
+                title="Tela dividida"
               />
             ))}
           </div>

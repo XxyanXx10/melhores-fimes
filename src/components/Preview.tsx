@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Player, type PlayerRef } from '@remotion/player';
-import type { Block, CaptionStyle, Foto, Movimento, Scene, Word } from '../types';
+import type { Block, CaptionStyle, Divisao, Foto, Movimento, Scene, Word } from '../types';
 import { Composicao } from '../remotion/Composicao';
 import { CaptionOverlay } from './CaptionOverlay';
 
@@ -26,6 +26,7 @@ type Props = {
   movimento: Movimento;
   forcaZoom: number;
   fotos: Foto[];
+  divisoes: Divisao[];
   fps: number;
   largura: number;
   altura: number;
@@ -85,6 +86,7 @@ export function Preview(p: Props) {
               movimento: p.movimento,
               forcaZoom: p.forcaZoom,
               fotos: p.fotos,
+              divisoes: p.divisoes,
             }}
             durationInFrames={frames}
             fps={p.fps}

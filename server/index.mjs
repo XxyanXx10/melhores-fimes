@@ -90,8 +90,8 @@ const servidor = createServer(async (req, res) => {
   if (url.pathname === '/midia' && req.method === 'POST') {
     const bruto = url.searchParams.get('nome') ?? 'foto.png';
     const nome = path.basename(bruto).replace(/[^\w.-]/g, '_');
-    if (!/\.(png|jpe?g|webp|gif|avif)$/i.test(nome)) {
-      return json(res, 400, { erro: 'formato de imagem não suportado' });
+    if (!/\.(png|jpe?g|webp|gif|avif|mp4|webm|mov|m4v)$/i.test(nome)) {
+      return json(res, 400, { erro: 'formato não suportado' });
     }
     try {
       const pasta = path.join(aqui, '..', 'public', 'midia');

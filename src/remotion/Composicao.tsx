@@ -6,11 +6,23 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
-import type { CaptionStyle, Foto as FotoSpec, Movimento, Word } from '../types';
+import type {
+  CaptionStyle,
+  Divisao as DivisaoSpec,
+  Foto as FotoSpec,
+  Movimento,
+  Word,
+} from '../types';
 import { agrupar, blocoAtivo, palavraAtiva, ultimaIniciada } from '../blocks';
 import { estadoZoom, gerarZooms } from '../zoom';
 import { defaultTemplateId, resolverEstilo } from '../data/templates';
 import { Foto } from './Foto';
+import {
+  Divisao,
+  fatorTamanho,
+  progressoDivisao,
+  regiaoPrincipal,
+} from './Divisao';
 import { Legenda } from './Legenda';
 import { carregarFontes } from './fontes';
 
@@ -35,6 +47,7 @@ export type PropsComposicao = {
   movimento: Movimento;
   forcaZoom: number;
   fotos: FotoSpec[];
+  divisoes: DivisaoSpec[];
   /** só o render usa: define duração e tamanho da composição */
   meta?: Meta;
 };
@@ -47,6 +60,7 @@ export const propsPadrao: PropsComposicao = {
   movimento: 'off',
   forcaZoom: 1,
   fotos: [],
+  divisoes: [],
 };
 
 /**
@@ -59,7 +73,16 @@ export const propsPadrao: PropsComposicao = {
  * da prévia.
  */
 export function Composicao(props: PropsComposicao) {
-  const { videoSrc, palavras, template, estiloOverride, movimento, forcaZoom, fotos } = props;
+  const {
+    videoSrc,
+    palavras,
+    template,
+    estiloOverride,
+    movimento,
+    forcaZoom,
+    fotos,
+    divisoes,
+  } = props;
   const estilo = resolverEstilo(template, estiloOverride);
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width: largura } = useVideoConfig();
@@ -80,22 +103,38 @@ export function Composicao(props: PropsComposicao) {
     palavras,
   );
   const camera = estadoZoom(zooms, t);
+  const divisao = divisoes.find((d) => t >= d.start && t <= d.start + d.duracao);
+  const progresso = divisao ? progressoDivisao(divisao, t, fps) : 0;
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
+      {/* O principal ocupa o quadro inteiro, ou só a parte que a divisão
+          deixa livre. As duas regiões são complementares: nunca sobra faixa. */}
       {fonteVideo && (
-        <AbsoluteFill
+        <div
           style={{
-            transform: `scale(${camera.escala})`,
-            transformOrigin: camera.origem,
+            position: 'absolute',
+            overflow: 'hidden',
+            ...regiaoPrincipal(divisao, divisao ? fatorTamanho(divisao, progresso) : 0),
           }}
         >
-          <OffthreadVideo
-            src={fonteVideo}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </AbsoluteFill>
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              transform: `scale(${camera.escala})`,
+              transformOrigin: camera.origem,
+            }}
+          >
+            <OffthreadVideo
+              src={fonteVideo}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+        </div>
       )}
+
+      {divisao && <Divisao divisao={divisao} progresso={progresso} />}
 
       {fotos.map((f) => (
         <Sequence

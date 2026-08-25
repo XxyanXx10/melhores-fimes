@@ -9,8 +9,9 @@
  */
 import { bundle } from '@remotion/bundler';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
-import { copyFile, mkdir, readFile, stat } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { readFile, stat } from 'node:fs/promises';
+import { createReadStream, existsSync } from 'node:fs';
+import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -38,35 +39,65 @@ if (!projeto.video || !existsSync(projeto.video)) {
 }
 
 /**
- * O Remotion só carrega assets de dentro de public/ (ou por http).
- * Trazemos o vídeo para cá uma vez; nas próximas vezes, se o tamanho
- * bate, reaproveitamos — copiar 50 MB a cada render seria desperdício.
+ * O Remotion carrega assets de dentro de public/ ou por http.
+ *
+ * O vídeo de origem NÃO vai para public/: o bundler copia essa pasta
+ * inteira a cada render, e um corte de 50 MB vira 50 MB de lixo em
+ * disco por render (encheu o C: depois de vinte e poucos). Servimos o
+ * arquivo direto do lugar onde ele já está, por um servidor efêmero.
  */
-async function prepararVideo(origem) {
-  const destinoDir = path.join(raiz, 'public', 'video');
-  await mkdir(destinoDir, { recursive: true });
-  const nome = path.basename(origem);
-  const destino = path.join(destinoDir, nome);
-  const info = await stat(origem);
-  if (existsSync(destino) && (await stat(destino)).size === info.size) {
-    console.log(`Vídeo já em public/video/${nome}`);
-  } else {
-    console.log(`Copiando o vídeo para public/video/ (${(info.size / 1e6).toFixed(0)} MB)…`);
-    await copyFile(origem, destino);
-  }
-  return `video/${nome}`;
+function servirVideo(origem) {
+  return new Promise((resolve, reject) => {
+    const servidor = createServer(async (req, res) => {
+      try {
+        const info = await stat(origem);
+        const faixa = req.headers.range;
+        if (faixa) {
+          const [de, ate] = faixa.replace(/bytes=/, '').split('-');
+          const inicio = Number(de);
+          const fim = ate ? Number(ate) : info.size - 1;
+          res.writeHead(206, {
+            'content-range': `bytes ${inicio}-${fim}/${info.size}`,
+            'accept-ranges': 'bytes',
+            'content-length': fim - inicio + 1,
+            'content-type': 'video/mp4',
+          });
+          createReadStream(origem, { start: inicio, end: fim }).pipe(res);
+        } else {
+          res.writeHead(200, {
+            'content-length': info.size,
+            'accept-ranges': 'bytes',
+            'content-type': 'video/mp4',
+          });
+          createReadStream(origem).pipe(res);
+        }
+      } catch (e) {
+        res.writeHead(500);
+        res.end(e.message);
+      }
+    });
+    servidor.on('error', reject);
+    servidor.listen(0, '127.0.0.1', () => {
+      const { port } = servidor.address();
+      resolve({ url: `http://127.0.0.1:${port}/video.mp4`, fechar: () => servidor.close() });
+    });
+  });
 }
+
+const fonteVideo = await servirVideo(projeto.video);
+console.log(`Servindo o vídeo em ${fonteVideo.url}`);
 
 const fps = projeto.fps ?? 30;
 const inputProps = {
-  // caminho relativo a public/ — a composição resolve com staticFile()
-  videoSrc: await prepararVideo(projeto.video),
+  // servido por http a partir do disco: nada é copiado para public/
+  videoSrc: fonteVideo.url,
   palavras: projeto.palavras ?? [],
   template: projeto.template ?? 'port1-autoridade',
   estiloOverride: projeto.estilo ?? {},
   movimento: projeto.movimento ?? 'off',
   forcaZoom: projeto.forcaZoom ?? 1,
   fotos: projeto.fotos ?? [],
+  divisoes: projeto.divisoes ?? [],
   meta: {
     duracao: projeto.duracao,
     fps,
@@ -79,6 +110,8 @@ console.log('Empacotando a composição…');
 const servedUrl = await bundle({
   entryPoint: path.join(raiz, 'src', 'remotion', 'raiz.tsx'),
   publicDir: path.join(raiz, 'public'),
+  // pasta fixa: sem isto cada render deixa um bundle novo no temporário
+  outDir: path.join(raiz, 'render', '.bundle'),
 });
 
 const composition = await selectComposition({ serveUrl: servedUrl, id: 'video', inputProps });
@@ -97,6 +130,7 @@ if (still !== undefined) {
     inputProps,
   });
   console.log(`✓ Frame ${still}: ${saida}`);
+  fonteVideo.fechar();
 } else {
   const saida = argumento('saida') ?? path.join(raiz, 'render', `${path.basename(arquivo, '.json')}.mp4`);
   await renderMedia({

@@ -4,6 +4,7 @@ import { LeftPanel } from './components/LeftPanel';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
+import { DivisaoPanel } from './components/DivisaoPanel';
 import { Timeline } from './components/Timeline';
 import { StepBar } from './components/StepBar';
 import { templates, defaultTemplateId } from './data/templates';
@@ -12,7 +13,7 @@ import { caracteresPorLinha, importar } from './importar';
 import { transcreverArquivo, verificarServidor } from './transcrever';
 import { baixar, lerArquivo, type Projeto } from './projeto';
 import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
-import type { Block, CaptionStyle, Foto, Movimento, Scene, Word } from './types';
+import type { Block, CaptionStyle, Divisao, Foto, Movimento, Scene, Word } from './types';
 import { estadoZoom, gerarZooms } from './zoom';
 
 /** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
@@ -55,6 +56,7 @@ export default function App() {
   const [fps, setFps] = useState(30);
   const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
   const [fotos, setFotos] = useState<Foto[]>([]);
+  const [divisoes, setDivisoes] = useState<Divisao[]>([]);
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -235,6 +237,7 @@ export default function App() {
       setMovimento(p.movimento ?? 'off');
       setForcaZoom(p.forcaZoom ?? 1);
       setFotos(p.fotos ?? []);
+      setDivisoes(p.divisoes ?? []);
       if (p.fps) setFps(p.fps);
       if (p.largura && p.altura) setTamanho({ largura: p.largura, altura: p.altura });
       setNomeArquivo((n) => n ?? p.nome ?? null);
@@ -259,6 +262,7 @@ export default function App() {
       movimento,
       forcaZoom,
       fotos,
+      divisoes,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -388,6 +392,7 @@ export default function App() {
           movimento={movimento}
           forcaZoom={forcaZoom}
           fotos={fotos}
+          divisoes={divisoes}
           fps={fps}
           largura={tamanho.largura}
           altura={tamanho.altura}
@@ -447,6 +452,24 @@ export default function App() {
             onRemover={(id) => setFotos((atuais) => atuais.filter((f) => f.id !== id))}
             onIr={irPara}
           />
+          <DivisaoPanel
+            divisoes={divisoes}
+            tempo={tempo}
+            duracao={duracao}
+            onAdicionar={(d) => {
+              setDivisoes((atuais) => [...atuais, d].sort((a, b) => a.start - b.start));
+              setPasso(3);
+            }}
+            onMudar={(id, patch) =>
+              setDivisoes((atuais) =>
+                atuais
+                  .map((d) => (d.id === id ? { ...d, ...patch } : d))
+                  .sort((a, b) => a.start - b.start),
+              )
+            }
+            onRemover={(id) => setDivisoes((atuais) => atuais.filter((d) => d.id !== id))}
+            onIr={irPara}
+          />
         </CaptionPanel>
       </div>
 
@@ -458,6 +481,7 @@ export default function App() {
         cenas={cenas}
         zooms={zooms}
         fotos={fotos}
+        divisoes={divisoes}
         onIr={irPara}
         onTocar={alternar}
         temVideo={!!src}

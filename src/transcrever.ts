@@ -36,13 +36,13 @@ export async function transcreverArquivo(arquivo: File): Promise<Word[]> {
   return corpo.words as Word[];
 }
 
-/** envia uma imagem para public/midia e devolve o caminho que a composição usa */
+/** envia uma imagem ou vídeo para public/midia e devolve o caminho que a composição usa */
 export async function enviarMidia(arquivo: File): Promise<string> {
   const r = await fetch(`${SERVIDOR}/midia?nome=${encodeURIComponent(arquivo.name)}`, {
     method: 'POST',
     body: arquivo,
   });
   const corpo = await r.json();
-  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui guardar essa imagem.');
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui guardar esse arquivo.');
   return corpo.src as string;
 }

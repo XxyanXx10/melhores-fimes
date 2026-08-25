@@ -125,7 +125,11 @@ export function Legenda({ bloco, ativa, revelada, style, largura }: Props) {
         height: 'auto',
         transform: 'translateY(-50%)',
         display: 'flex',
+        // o AbsoluteFill do Remotion é flex-column: sem isto a legenda
+        // encosta na esquerda em vez de centralizar
+        flexDirection: 'row',
         justifyContent: 'center',
+        alignItems: 'center',
         textAlign: 'center',
       }}
     >
