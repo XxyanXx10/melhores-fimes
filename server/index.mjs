@@ -10,6 +10,7 @@
 import { createServer } from 'node:http';
 import { mkdir, mkdtemp, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
+import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -72,6 +73,38 @@ function json(res, status, corpo) {
 }
 
 const cfg = await lerConfig();
+
+/*
+ * O render roda solto e anota o andamento em render/.estado.json.
+ *
+ * Guardar isso na memória do serviço foi erro: qualquer reinício (o
+ * --watch reinicia a cada edição) matava o render e perdia o progresso.
+ * Agora o filho é destacado e o estado vive em disco.
+ */
+const ARQUIVO_ESTADO = path.join(aqui, '..', 'render', '.estado.json');
+
+async function lerEstadoRender() {
+  try {
+    return JSON.parse(await readFile(ARQUIVO_ESTADO, 'utf8'));
+  } catch {
+    return { rodando: false, progresso: 0, saida: null, erro: null };
+  }
+}
+
+async function iniciarRender(arquivoProjeto, nomeSaida) {
+  await mkdir(path.dirname(ARQUIVO_ESTADO), { recursive: true });
+  await writeFile(
+    ARQUIVO_ESTADO,
+    JSON.stringify({ rodando: true, progresso: 0, saida: null, erro: null }),
+    'utf8',
+  );
+  const filho = spawn(
+    process.execPath,
+    [path.join(aqui, '..', 'render', 'render.mjs'), arquivoProjeto, '--saida', nomeSaida],
+    { cwd: path.join(aqui, '..'), windowsHide: true, detached: true, stdio: 'ignore' },
+  );
+  filho.unref();
+}
 
 const servidor = createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
@@ -150,6 +183,52 @@ const servidor = createServer(async (req, res) => {
     }
   }
 
+  /* Dispara o render do projeto que está aberto na plataforma. */
+  if (url.pathname === '/renderizar' && req.method === 'POST') {
+    if ((await lerEstadoRender()).rodando) {
+      return json(res, 409, { erro: 'já tem um render em andamento' });
+    }
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const projeto = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!projeto.video || !existsSync(projeto.video)) {
+        return json(res, 400, { erro: 'o projeto não aponta para um vídeo que exista no disco' });
+      }
+      const base = (projeto.nome ?? 'video').replace(/\.[^.]+$/, '').replace(/[^\w.-]/g, '_');
+      const pastaProjeto = path.join(aqui, '..', 'projeto');
+      await mkdir(pastaProjeto, { recursive: true });
+      const arquivoProjeto = path.join(pastaProjeto, `${base}.render.json`);
+      await writeFile(arquivoProjeto, JSON.stringify(projeto, null, 2), 'utf8');
+      const saida = path.join(aqui, '..', 'render', `${base}.mp4`);
+      await iniciarRender(arquivoProjeto, saida);
+      return json(res, 200, { ok: true, nome: `${base}.mp4` });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/renderizar' && req.method === 'GET') {
+    return json(res, 200, await lerEstadoRender());
+  }
+
+  /* Baixar o MP4 pronto. */
+  if (url.pathname.startsWith('/render/') && req.method === 'GET') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    const alvo = path.join(aqui, '..', 'render', nome);
+    try {
+      const info = await stat(alvo);
+      res.writeHead(200, {
+        'content-type': 'video/mp4',
+        'content-length': info.size,
+        'content-disposition': `attachment; filename="${nome}"`,
+      });
+      return createReadStream(alvo).pipe(res);
+    } catch {
+      return json(res, 404, { erro: 'arquivo não encontrado' });
+    }
+  }
+
   if (url.pathname === '/status') {
     return json(res, 200, {
       ok: true,
@@ -166,6 +245,37 @@ const servidor = createServer(async (req, res) => {
    * empacota no render. Servimos daqui (e não do dist) para uma foto
    * recém-enviada aparecer na prévia sem precisar reconstruir a interface.
    */
+  /* Tudo que já foi enviado, inclusive em subpastas. */
+  if (url.pathname === '/midia' && req.method === 'GET') {
+    const raiz = path.join(aqui, '..', 'public', 'midia');
+    const achados = [];
+    async function varrer(pasta, prefixo) {
+      let itens = [];
+      try {
+        itens = await readdir(pasta, { withFileTypes: true });
+      } catch {
+        return;
+      }
+      for (const item of itens) {
+        const rel = prefixo ? `${prefixo}/${item.name}` : item.name;
+        if (item.isDirectory()) {
+          await varrer(path.join(pasta, item.name), rel);
+        } else if (/.(png|jpe?g|webp|gif|avif|mp4|webm|mov|m4v)$/i.test(item.name)) {
+          const info = await stat(path.join(pasta, item.name));
+          achados.push({
+            src: `midia/${rel}`,
+            nome: item.name,
+            tamanho: info.size,
+            video: /.(mp4|webm|mov|m4v)$/i.test(item.name),
+          });
+        }
+      }
+    }
+    await varrer(raiz, '');
+    achados.sort((a, b) => a.src.localeCompare(b.src));
+    return json(res, 200, { midia: achados });
+  }
+
   if (url.pathname === '/midia' && req.method === 'POST') {
     const bruto = url.searchParams.get('nome') ?? 'foto.png';
     const nome = path.basename(bruto).replace(/[^\w.-]/g, '_');

@@ -9,13 +9,28 @@
  */
 import { bundle } from '@remotion/bundler';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
-import { readFile, stat } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { createReadStream, existsSync } from 'node:fs';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/*
+ * O andamento vai para um arquivo, não fica na memória de quem chamou.
+ * Assim o serviço local pode reiniciar (ou nem estar rodando) sem que o
+ * render se perca — quem quiser saber como está, lê o arquivo.
+ */
+const ARQUIVO_ESTADO = path.join(raiz, 'render', '.estado.json');
+async function anotar(estado) {
+  try {
+    await mkdir(path.dirname(ARQUIVO_ESTADO), { recursive: true });
+    await writeFile(ARQUIVO_ESTADO, JSON.stringify(estado), 'utf8');
+  } catch {
+    /* não conseguir anotar não é motivo para abortar o render */
+  }
+}
 
 function argumento(nome) {
   const i = process.argv.indexOf(`--${nome}`);
@@ -31,6 +46,11 @@ if (!existsSync(arquivo)) {
   console.error(`Projeto não encontrado: ${arquivo}`);
   process.exit(1);
 }
+
+process.on('uncaughtException', async (e) => {
+  await anotar({ rodando: false, progresso: 0, saida: null, erro: String(e.message ?? e).slice(-400) });
+  process.exit(1);
+});
 
 const projeto = JSON.parse(await readFile(arquivo, 'utf8'));
 if (!projeto.video || !existsSync(projeto.video)) {
@@ -148,7 +168,10 @@ if (still !== undefined) {
     inputProps,
     onProgress: ({ progress }) => {
       process.stdout.write(`\rRenderizando… ${Math.round(progress * 100)}%`);
+      void anotar({ rodando: true, progresso: progress, saida: null, erro: null });
     },
   });
+  await anotar({ rodando: false, progresso: 1, saida: path.basename(saida), erro: null });
   console.log(`\n✓ MP4: ${saida}`);
+  fonteVideo.fechar();
 }

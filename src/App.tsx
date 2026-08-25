@@ -4,6 +4,7 @@ import { LeftPanel } from './components/LeftPanel';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
+import { CartoesPanel } from './components/CartoesPanel';
 import { DivisaoPanel } from './components/DivisaoPanel';
 import { Timeline } from './components/Timeline';
 import { StepBar } from './components/StepBar';
@@ -13,7 +14,10 @@ import { caracteresPorLinha, importar } from './importar';
 import {
   abrirDoDisco,
   detectarCortes,
+  enderecoDoRender,
+  estadoRender,
   listarProjetos,
+  pedirRender,
   transcreverArquivo,
   verificarServidor,
   type ProjetoNoDisco,
@@ -84,6 +88,9 @@ export default function App() {
   const [coresTransicao, setCoresTransicao] = useState<CoresTransicao | undefined>(undefined);
   const [detectando, setDetectando] = useState(false);
   const [noDisco, setNoDisco] = useState<ProjetoNoDisco[]>([]);
+  /** caminho do vídeo no disco — o render precisa dele, o navegador não */
+  const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
+  const [render, setRender] = useState({ rodando: false, progresso: 0, saida: null as string | null, erro: null as string | null });
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -316,6 +323,7 @@ export default function App() {
     try {
       const { projeto, videoUrl } = await abrirDoDisco(arquivo);
       const p = validar(projeto);
+      setCaminhoDoVideo((projeto as { video?: string }).video ?? null);
       setSrc(videoUrl);
       setArquivo(null);
       setDuracao(p.duracao);
@@ -324,6 +332,58 @@ export default function App() {
       aplicarProjeto(p);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui abrir esse projeto.');
+    }
+  }
+
+  /** o projeto como está agora na tela — o mesmo objeto que o render recebe */
+  function projetoAtual(): Projeto & { video?: string } {
+    return {
+      versao: 1,
+      video: caminhoDoVideo ?? undefined,
+      nome: nomeArquivo ?? undefined,
+      duracao,
+      fps,
+      largura: tamanho.largura,
+      altura: tamanho.altura,
+      template: templateId,
+      estilo: override,
+      movimento,
+      forcaZoom,
+      fotos,
+      cartoes,
+      divisoes,
+      cortes,
+      transicao,
+      forcaTransicao,
+      duracaoTransicao,
+      coresTransicao,
+      palavras: words,
+    };
+  }
+
+  /* enquanto o render roda, a interface pergunta como está */
+  useEffect(() => {
+    if (!render.rodando) return;
+    const id = setInterval(() => {
+      void estadoRender().then((e) => {
+        if (e) setRender({ rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro });
+      });
+    }, 1500);
+    return () => clearInterval(id);
+  }, [render.rodando]);
+
+  async function exportar() {
+    if (!caminhoDoVideo) {
+      setErro('Para exportar, abra o projeto pelo botão "Abrir do computador" — o render precisa do vídeo no disco.');
+      return;
+    }
+    setErro(null);
+    try {
+      await pedirRender(projetoAtual());
+      setRender({ rodando: true, progresso: 0, saida: null, erro: null });
+      setPasso(5);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Falha ao começar o render.');
     }
   }
 
@@ -470,13 +530,59 @@ export default function App() {
         <button
           type="button"
           className="primario"
-          disabled={!transcrito}
-          onClick={() => setPasso(5)}
-          title={transcrito ? 'Exportação entra na Etapa 4' : 'Gere a legenda primeiro'}
+          disabled={!transcrito || render.rodando}
+          onClick={() => void exportar()}
+          title={
+            !transcrito
+              ? 'Gere a legenda primeiro'
+              : caminhoDoVideo
+                ? 'Gerar o MP4 com tudo aplicado'
+                : 'Abra o projeto por "Abrir do computador" para poder exportar'
+          }
         >
-          Exportar
+          {render.rodando ? `Renderizando ${Math.round(render.progresso * 100)}%` : 'Exportar'}
         </button>
       </header>
+
+      {(render.rodando || render.saida || render.erro) && (
+        <div className={`aviso-render ${render.erro ? 'is-erro' : ''}`} role="status" aria-live="polite">
+          {render.rodando && (
+            <>
+              <span className="girando" aria-hidden="true" />
+              <strong>Gerando o MP4… {Math.round(render.progresso * 100)}%</strong>
+              <span className="dica">Pode continuar mexendo; o render roda por fora.</span>
+            </>
+          )}
+          {!render.rodando && render.saida && (
+            <>
+              <strong>MP4 pronto</strong>
+              <a className="chip chip-forte" href={enderecoDoRender(render.saida)} download>
+                Baixar {render.saida}
+              </a>
+              <button
+                type="button"
+                className="chip"
+                onClick={() => setRender({ rodando: false, progresso: 0, saida: null, erro: null })}
+              >
+                Fechar
+              </button>
+            </>
+          )}
+          {!render.rodando && render.erro && (
+            <>
+              <strong>O render falhou</strong>
+              <span className="dica">{render.erro}</span>
+              <button
+                type="button"
+                className="chip"
+                onClick={() => setRender({ rodando: false, progresso: 0, saida: null, erro: null })}
+              >
+                Fechar
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       <div className="grade">
         <LeftPanel
@@ -601,6 +707,24 @@ export default function App() {
               )
             }
             onRemover={(id) => setFotos((atuais) => atuais.filter((f) => f.id !== id))}
+            onIr={irPara}
+          />
+          <CartoesPanel
+            cartoes={cartoes}
+            tempo={tempo}
+            duracao={duracao}
+            onAdicionar={(c) => {
+              setCartoes((atuais) => [...atuais, c].sort((a, b) => a.start - b.start));
+              setPasso(3);
+            }}
+            onMudar={(id, patch) =>
+              setCartoes((atuais) =>
+                atuais
+                  .map((c) => (c.id === id ? { ...c, ...patch } : c))
+                  .sort((a, b) => a.start - b.start),
+              )
+            }
+            onRemover={(id) => setCartoes((atuais) => atuais.filter((c) => c.id !== id))}
             onIr={irPara}
           />
           <DivisaoPanel

@@ -456,3 +456,25 @@ button { font: inherit; cursor: pointer; }
   font-size: 12px; max-width: 150px;
 }
 .chip-topo select option { background: var(--panel); }
+
+/* aviso do render: fica visível sem atrapalhar a edição */
+.aviso-render {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin: 0 14px 8px; padding: 10px 14px;
+  border: 1px solid var(--acento-2); border-radius: 10px; background: var(--panel-2);
+}
+.aviso-render.is-erro { border-color: #ff6b6b; }
+.aviso-render .dica { margin: 0; }
+.aviso-render a { text-decoration: none; }
+
+.selo-cartao {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 6px;
+  border: 1px solid var(--linha); border-left: 4px solid var(--acento);
+  background: var(--panel); display: grid; place-items: center;
+  color: var(--suave); font-size: 18px;
+}
+.foto-ajustes textarea, .foto-ajustes input[type='text'] {
+  width: 100%; background: var(--panel); color: var(--texto);
+  border: 1px solid var(--linha); border-radius: 8px; padding: 6px 8px;
+  font-size: 12px; font-family: inherit; resize: vertical;
+}

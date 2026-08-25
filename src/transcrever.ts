@@ -99,3 +99,48 @@ export async function abrirDoDisco(arquivo: string): Promise<{ projeto: unknown;
     videoUrl: `${SERVIDOR}/video-do-projeto/${encodeURIComponent(arquivo)}`,
   };
 }
+
+export type EstadoRender = {
+  rodando: boolean;
+  progresso: number;
+  saida: string | null;
+  erro: string | null;
+};
+
+/** manda o serviço local gerar o MP4 do projeto que está aberto */
+export async function pedirRender(projeto: unknown): Promise<void> {
+  const r = await fetch(`${SERVIDOR}/renderizar`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(projeto),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui começar o render.');
+}
+
+export async function estadoRender(): Promise<EstadoRender | null> {
+  try {
+    const r = await fetch(`${SERVIDOR}/renderizar`);
+    return r.ok ? ((await r.json()) as EstadoRender) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** o endereço do MP4 pronto, para abrir ou baixar */
+export function enderecoDoRender(nome: string): string {
+  return `${SERVIDOR}/render/${encodeURIComponent(nome)}`;
+}
+
+export type ItemMidia = { src: string; nome: string; tamanho: number; video: boolean };
+
+/** tudo que já foi enviado para public/midia, inclusive em subpastas */
+export async function listarMidia(): Promise<ItemMidia[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/midia`);
+    if (!r.ok) return [];
+    return ((await r.json()).midia ?? []) as ItemMidia[];
+  } catch {
+    return [];
+  }
+}
