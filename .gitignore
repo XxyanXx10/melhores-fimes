@@ -11,3 +11,4 @@ render/*.mp4
 render/*.png
 render/.bundle/
 public/midia/
+tmp-txt/
