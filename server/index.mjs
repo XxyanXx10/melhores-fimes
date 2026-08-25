@@ -236,7 +236,7 @@ const servidor = createServer(async (req, res) => {
    */
   if (url.pathname === '/video-fonte' && req.method === 'POST') {
     const bruto = url.searchParams.get('nome') ?? 'video.mp4';
-    const nome = path.basename(bruto).replace(/[^w.-]/g, '_');
+    const nome = path.basename(bruto).replace(/[^\w.-]/g, '_');
     try {
       const pasta = path.join(aqui, '..', 'render', '.fontes');
       await mkdir(pasta, { recursive: true });
@@ -396,7 +396,7 @@ const servidor = createServer(async (req, res) => {
     const nome = url.searchParams.get('nome') ?? 'video.mp4';
     const pasta = await mkdtemp(path.join(tmpdir(), 'mf-'));
     try {
-      const entrada = path.join(pasta, path.basename(nome).replace(/[^w.-]/g, '_'));
+      const entrada = path.join(pasta, path.basename(nome).replace(/[^\w.-]/g, '_'));
       const pedacos = [];
       for await (const c of req) pedacos.push(c);
       await writeFile(entrada, Buffer.concat(pedacos));
@@ -437,9 +437,27 @@ const servidor = createServer(async (req, res) => {
   json(res, 404, { erro: 'rota desconhecida' });
 });
 
-servidor.listen(cfg.porta, () => {
-  console.log(`\n  Melhores Fimes: http://localhost:${cfg.porta}\n`);
-  console.log(`  config : ${cfg.arquivo}`);
-  console.log(`  whisper: ${existsSync(cfg.whisperCli) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.whisperCli}`);
-  console.log(`  modelo : ${existsSync(cfg.modelo) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.modelo}`);
+/*
+ * Ao reiniciar (o --watch reinicia a cada edição), o processo novo às vezes
+ * tenta subir antes de o antigo soltar a porta. Sem repetir a tentativa, ele
+ * morre e o antigo segue servindo código velho — o serviço parece no ar mas
+ * responde "rota desconhecida" para tudo que foi criado depois.
+ */
+function subir() {
+  servidor.listen(cfg.porta, () => {
+    console.log(`
+  Melhores Fimes: http://localhost:${cfg.porta}
+`);
+    console.log(`  config : ${cfg.arquivo}`);
+    console.log(`  whisper: ${existsSync(cfg.whisperCli) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.whisperCli}`);
+    console.log(`  modelo : ${existsSync(cfg.modelo) ? 'ok' : 'NÃO ENCONTRADO'} — ${cfg.modelo}`);
+  });
+}
+
+servidor.on('error', (e) => {
+  if (e.code !== 'EADDRINUSE') throw e;
+  console.log('  porta ocupada, tentando de novo…');
+  setTimeout(() => servidor.listen(cfg.porta), 400);
 });
+
+subir();
