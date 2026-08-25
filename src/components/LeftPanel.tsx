@@ -24,8 +24,37 @@ type Props = {
   onTransicao: (t: TipoTransicao) => void;
   forcaTransicao: number;
   onForcaTransicao: (v: number) => void;
+  /** quanto tempo a transição fica na tela, em segundos */
+  duracaoTransicao: number;
+  onDuracaoTransicao: (v: number) => void;
   detectando: boolean;
   onDetectar: () => void;
+};
+
+const TRANSICOES: Array<[TipoTransicao, string]> = [
+  ['off', 'Nenhuma'],
+  ['variado', 'Variado (troca a cada corte)'],
+  ['flash', 'Clarão'],
+  ['escurece', 'Escurece'],
+  ['whip', 'Chicote'],
+  ['deslize', 'Empurra'],
+  ['zoom', 'Estalo'],
+  ['giro', 'Giro'],
+  ['cortina', 'Cortina de cor'],
+  ['barras', 'Faixas'],
+];
+
+const DESCRICOES: Record<TipoTransicao, string> = {
+  off: 'Os cortes aparecem como estão no vídeo.',
+  variado: 'Reveza as animações a cada corte — o vídeo não fica repetitivo.',
+  flash: 'Estouro branco curto. O mais discreto e o que menos cansa.',
+  escurece: 'Mergulha no preto por um instante. Dá peso à virada.',
+  whip: 'A imagem varre para o lado com borrão de movimento.',
+  deslize: 'Empurrão seco, sem borrão — parece corte de edição.',
+  zoom: 'Fecha e desfoca por um instante.',
+  giro: 'Inclina e fecha ao mesmo tempo. O mais agressivo.',
+  cortina: 'Degradê nas cores do modelo cobrindo, com a legenda por cima.',
+  barras: 'Faixas entrando de lados alternados, cara de vinheta.',
 };
 
 const posicoes: Array<[string, number]> = [
@@ -168,29 +197,20 @@ export function LeftPanel(p: Props) {
         </div>
         {p.cortes.length > 0 && (
           <>
-            <div className="campo campo-linha">
+            <label className="campo">
               <span>Animação</span>
-              <div className="chips">
-                {(['off', 'flash', 'whip', 'zoom', 'cortina'] as const).map((tt) => (
-                  <button
-                    key={tt}
-                    type="button"
-                    className={`chip ${p.transicao === tt ? 'is-active' : ''}`}
-                    onClick={() => p.onTransicao(tt)}
-                  >
-                    {
-                      {
-                        off: 'Nenhuma',
-                        flash: 'Clarão',
-                        whip: 'Chicote',
-                        zoom: 'Estalo',
-                        cortina: 'Cortina',
-                      }[tt]
-                    }
-                  </button>
+              <select
+                value={p.transicao}
+                onChange={(e) => p.onTransicao(e.target.value as TipoTransicao)}
+              >
+                {TRANSICOES.map(([id, rotulo]) => (
+                  <option key={id} value={id}>
+                    {rotulo}
+                  </option>
                 ))}
-              </div>
-            </div>
+              </select>
+            </label>
+            <p className="dica">{DESCRICOES[p.transicao]}</p>
             {p.transicao !== 'off' && (
               <label className="campo">
                 <span>Intensidade</span>
@@ -203,6 +223,20 @@ export function LeftPanel(p: Props) {
                   onChange={(e) => p.onForcaTransicao(Number(e.target.value))}
                 />
                 <span>{Math.round(p.forcaTransicao * 100)}%</span>
+              </label>
+            )}
+            {p.transicao !== 'off' && (
+              <label className="campo">
+                <span>Duração</span>
+                <input
+                  type="range"
+                  min={0.3}
+                  max={2.5}
+                  step={0.1}
+                  value={p.duracaoTransicao}
+                  onChange={(e) => p.onDuracaoTransicao(Number(e.target.value))}
+                />
+                <span>{p.duracaoTransicao.toFixed(1)}s</span>
               </label>
             )}
           </>

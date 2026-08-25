@@ -69,6 +69,7 @@ export default function App() {
   const [cortes, setCortes] = useState<number[]>([]);
   const [transicao, setTransicao] = useState<TipoTransicao>('off');
   const [forcaTransicao, setForcaTransicao] = useState(1);
+  const [duracaoTransicao, setDuracaoTransicao] = useState(0.8);
   const [detectando, setDetectando] = useState(false);
 
   const estimativa = Math.max(20, duracao * 1.6);
@@ -271,6 +272,7 @@ export default function App() {
       setCortes(p.cortes ?? []);
       setTransicao(p.transicao ?? 'off');
       setForcaTransicao(p.forcaTransicao ?? 1);
+      setDuracaoTransicao(p.duracaoTransicao ?? 0.8);
       if (p.fps) setFps(p.fps);
       if (p.largura && p.altura) setTamanho({ largura: p.largura, altura: p.altura });
       setNomeArquivo((n) => n ?? p.nome ?? null);
@@ -299,6 +301,7 @@ export default function App() {
       cortes,
       transicao,
       forcaTransicao,
+      duracaoTransicao,
       palavras: words,
     };
     baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -440,6 +443,8 @@ export default function App() {
           onTransicao={setTransicao}
           forcaTransicao={forcaTransicao}
           onForcaTransicao={setForcaTransicao}
+          duracaoTransicao={duracaoTransicao}
+          onDuracaoTransicao={setDuracaoTransicao}
           detectando={detectando}
           onDetectar={() => void procurarCortes()}
         />
@@ -455,6 +460,7 @@ export default function App() {
           cortes={cortes}
           transicao={transicao}
           forcaTransicao={forcaTransicao}
+          duracaoTransicao={duracaoTransicao}
           fps={fps}
           largura={tamanho.largura}
           altura={tamanho.altura}

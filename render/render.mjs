@@ -101,6 +101,7 @@ const inputProps = {
   cortes: projeto.cortes ?? [],
   transicao: projeto.transicao ?? 'off',
   forcaTransicao: projeto.forcaTransicao ?? 1,
+  duracaoTransicao: projeto.duracaoTransicao ?? 0.5,
   meta: {
     duracao: projeto.duracao,
     fps,

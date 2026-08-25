@@ -39,6 +39,7 @@ type Props = {
   cortes: number[];
   transicao: TipoTransicao;
   forcaTransicao: number;
+  duracaoTransicao: number;
   fps: number;
   largura: number;
   altura: number;
@@ -79,8 +80,9 @@ export function Preview(p: Props) {
       cortes: p.cortes,
       transicao: p.transicao,
       forcaTransicao: p.forcaTransicao,
+      duracaoTransicao: p.duracaoTransicao,
     }),
-    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes, p.cortes, p.transicao, p.forcaTransicao],
+    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes, p.cortes, p.transicao, p.forcaTransicao, p.duracaoTransicao],
   );
   const estiloDoPlayer = useMemo(() => ({ width: '100%', height: '100%' }), []);
 

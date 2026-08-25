@@ -407,3 +407,8 @@ button { font: inherit; cursor: pointer; }
 .trilha-cortes span {
   width: 2px; margin-left: -1px; background: #ff6b6b; border-radius: 1px;
 }
+
+.campo select {
+  width: 100%; background: var(--panel-2); color: var(--texto);
+  border: 1px solid var(--linha); border-radius: 8px; padding: 6px 8px; font-size: 12px;
+}

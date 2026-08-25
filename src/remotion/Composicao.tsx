@@ -25,7 +25,14 @@ import {
   regiaoPrincipal,
 } from './Divisao';
 import { Legenda } from './Legenda';
-import { corteAtivo, efeitoNoVideo, pulso, Transicao } from './Transicao';
+import {
+  andamento,
+  efeitoNoVideo,
+  indiceCorteAtivo,
+  pulso,
+  tipoDoCorte,
+  Transicao,
+} from './Transicao';
 import { carregarFontes } from './fontes';
 
 carregarFontes();
@@ -54,6 +61,8 @@ export type PropsComposicao = {
   cortes: number[];
   transicao: TipoTransicao;
   forcaTransicao: number;
+  /** quanto tempo a transição fica na tela, em segundos */
+  duracaoTransicao: number;
   /** só o render usa: define duração e tamanho da composição */
   meta?: Meta;
 };
@@ -70,6 +79,7 @@ export const propsPadrao: PropsComposicao = {
   cortes: [],
   transicao: 'off',
   forcaTransicao: 1,
+  duracaoTransicao: 0.5,
 };
 
 /**
@@ -94,6 +104,7 @@ export function Composicao(props: PropsComposicao) {
     cortes,
     transicao,
     forcaTransicao,
+    duracaoTransicao,
   } = props;
   const estilo = resolverEstilo(template, estiloOverride);
   const frame = useCurrentFrame();
@@ -119,10 +130,14 @@ export function Composicao(props: PropsComposicao) {
   const progresso = divisao ? progressoDivisao(divisao, t, fps) : 0;
 
   // a transição cobre a virada por meio segundo; o áudio segue intacto
-  const JANELA = 0.5;
-  const corte = transicao === 'off' ? null : corteAtivo(cortes, t, JANELA);
-  const pTransicao = corte === null ? 0 : pulso(t, corte, JANELA);
-  const efeitoCorte = efeitoNoVideo(transicao, pTransicao, forcaTransicao);
+  const JANELA = duracaoTransicao;
+  const iCorte = transicao === 'off' ? -1 : indiceCorteAtivo(cortes, t, JANELA);
+  const pTransicao = iCorte < 0 ? 0 : pulso(t, cortes[iCorte], JANELA);
+  // no modo variado, cada corte usa uma animação diferente
+  const tipoCorte = iCorte < 0 ? 'off' : tipoDoCorte(transicao, iCorte);
+  const direcaoCorte = iCorte < 0 ? 1 : t < cortes[iCorte] ? 1 : -1;
+  const andamentoCorte = iCorte < 0 ? 0 : andamento(t, cortes[iCorte], JANELA);
+  const efeitoCorte = efeitoNoVideo(tipoCorte, pTransicao, forcaTransicao, direcaoCorte);
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
@@ -156,7 +171,14 @@ export function Composicao(props: PropsComposicao) {
 
       {divisao && <Divisao divisao={divisao} progresso={progresso} />}
 
-      <Transicao tipo={transicao} p={pTransicao} forca={forcaTransicao} estilo={estilo} />
+      <Transicao
+        tipo={tipoCorte}
+        p={pTransicao}
+        forca={forcaTransicao}
+        estilo={estilo}
+        direcao={direcaoCorte}
+        andamento={andamentoCorte}
+      />
 
       {fotos.map((f) => (
         <Sequence

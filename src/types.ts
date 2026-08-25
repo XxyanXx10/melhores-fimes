@@ -119,7 +119,18 @@ export type Divisao = {
 };
 
 /** como a virada de um corte é coberta; a narração nunca para */
-export type TipoTransicao = 'off' | 'flash' | 'whip' | 'zoom' | 'cortina';
+export type TipoTransicao =
+  | 'off'
+  | 'flash'
+  | 'escurece'
+  | 'whip'
+  | 'deslize'
+  | 'zoom'
+  | 'giro'
+  | 'cortina'
+  | 'barras'
+  /** troca de animação a cada corte, para o vídeo não ficar repetitivo */
+  | 'variado';
 
 export type Scene = {
   id: string;

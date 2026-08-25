@@ -22,6 +22,7 @@ export type Projeto = {
   cortes?: number[];
   transicao?: TipoTransicao;
   forcaTransicao?: number;
+  duracaoTransicao?: number;
   palavras: Word[];
 };
 
@@ -55,6 +56,7 @@ export function validar(dado: unknown): Projeto {
     cortes: Array.isArray(p.cortes) ? p.cortes : [],
     transicao: p.transicao ?? 'off',
     forcaTransicao: typeof p.forcaTransicao === 'number' ? p.forcaTransicao : 1,
+    duracaoTransicao: typeof p.duracaoTransicao === 'number' ? p.duracaoTransicao : 0.5,
     palavras,
   };
 }
