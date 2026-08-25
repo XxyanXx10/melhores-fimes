@@ -131,8 +131,9 @@ export function Composicao(props: PropsComposicao) {
   const progresso = divisao ? progressoDivisao(divisao, t, fps) : 0;
 
   // a transição cobre a virada por meio segundo; o áudio segue intacto
-  const JANELA = duracaoTransicao;
-  const agora = transicao === 'off' ? null : corteAgora(cortes, t, JANELA);
+  const agora = transicao === 'off' ? null : corteAgora(cortes, t, duracaoTransicao);
+  // a janela é a do corte, que pode ter duração própria
+  const JANELA = agora?.duracao ?? duracaoTransicao;
   const pTransicao = agora ? pulso(t, agora.corte.t, JANELA) : 0;
   // o corte pode ter animação própria; senão herda a do vídeo todo
   const tipoCorte = agora ? agora.corte.tipo ?? tipoDoCorte(transicao, agora.posicao) : 'off';
@@ -179,6 +180,7 @@ export function Composicao(props: PropsComposicao) {
         estilo={estilo}
         direcao={direcaoCorte}
         andamento={andamentoCorte}
+        imagem={agora?.corte.imagem}
       />
 
       {fotos.map((f) => (

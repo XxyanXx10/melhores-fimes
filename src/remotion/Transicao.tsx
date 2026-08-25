@@ -1,4 +1,4 @@
-import { interpolate } from 'remotion';
+import { Img, interpolate, staticFile } from 'remotion';
 import type { CaptionStyle, Corte, TipoTransicao } from '../types';
 
 /**
@@ -62,13 +62,15 @@ export function andamento(t: number, corte: number, duracao: number): number {
 export function corteAgora(
   cortes: Corte[],
   t: number,
-  duracao: number,
-): { corte: Corte; posicao: number } | null {
-  const meio = duracao / 2;
+  duracaoPadrao: number,
+): { corte: Corte; posicao: number; duracao: number } | null {
   let posicao = 0;
   for (const c of cortes) {
     if (!c.ativo) continue;
-    if (t >= c.t - meio && t <= c.t + meio) return { corte: c, posicao };
+    // cada corte pode ter a própria duração; senão usa a do vídeo todo
+    const duracao = c.duracao ?? duracaoPadrao;
+    const meio = duracao / 2;
+    if (t >= c.t - meio && t <= c.t + meio) return { corte: c, posicao, duracao };
     posicao++;
   }
   return null;
@@ -120,79 +122,99 @@ type Props = {
   direcao: number;
   /** 0..1 ao longo de toda a transição, para o fundo andar durante a pausa */
   andamento: number;
+  /** imagem opcional exibida por cima do fundo, durante a transição */
+  imagem?: string;
 };
 
 /** A camada desenhada por cima do vídeo durante o corte. */
-export function Transicao({ tipo, p, forca, estilo, direcao, andamento: a }: Props) {
+export function Transicao({ tipo, p, forca, estilo, direcao, andamento: a, imagem }: Props) {
   if (p <= 0) return null;
   const base: React.CSSProperties = { position: 'absolute', inset: 0, pointerEvents: 'none' };
 
-  if (tipo === 'flash') {
-    return <div style={{ ...base, backgroundColor: '#ffffff', opacity: Math.min(1, p * 0.85 * forca) }} />;
-  }
+  /*
+   * A imagem vai por cima do fundo, crescendo devagar durante a pausa.
+   * Ela não substitui a animação escolhida: a cortina continua sendo o
+   * fundo, e a foto é o que a pessoa olha.
+   */
+  const foto = imagem ? (
+    <Img
+      src={/^(blob:|https?:|data:)/.test(imagem) ? imagem : staticFile(imagem)}
+      style={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: '78%',
+        transform: `translate(-50%, -50%) scale(${0.92 + a * 0.12})`,
+        borderRadius: '3%',
+        boxShadow: '0 2% 8% rgba(0,0,0,.45)',
+        opacity: Math.min(1, p * 1.4),
+      }}
+    />
+  ) : null;
 
-  if (tipo === 'escurece') {
-    return <div style={{ ...base, backgroundColor: '#000000', opacity: Math.min(1, p * 0.95 * forca) }} />;
-  }
+  const fundo = (() => {
+    if (tipo === 'flash') {
+      return <div style={{ ...base, backgroundColor: '#ffffff', opacity: Math.min(1, p * 0.85 * forca) }} />;
+    }
+    if (tipo === 'escurece') {
+      return <div style={{ ...base, backgroundColor: '#000000', opacity: Math.min(1, p * 0.95 * forca) }} />;
+    }
+    if (tipo === 'cortina') {
+      /*
+       * Fundo de cor cobrindo a virada. Durante a pausa ele continua andando —
+       * o ângulo gira e o degradê desliza devagar. Parado, um fundo chapado
+       * dá sensação de vídeo travado; andando, dá sensação de animação.
+       */
+      return (
+        <div
+          style={{
+            ...base,
+            opacity: p,
+            backgroundImage: `linear-gradient(${100 + a * 70}deg, ${estilo.highlightColor}, ${
+              estilo.highlightColor2
+            }, ${estilo.highlightColor})`,
+            backgroundSize: '260% 260%',
+            backgroundPosition: `${a * 100}% ${50 + a * 20}%`,
+            transform: `translateX(${(1 - p) * 100 * direcao}%) scale(${1 + a * 0.06})`,
+          }}
+        />
+      );
+    }
+    if (tipo === 'barras') {
+      // faixas entrando de lados alternados: virada com cara de vinheta
+      const faixas = 6;
+      return (
+        <div style={base}>
+          {Array.from({ length: faixas }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: `${(i * 100) / faixas}%`,
+                height: `${100 / faixas + 0.5}%`,
+                backgroundColor: i % 2 === 0 ? estilo.highlightColor : estilo.highlightColor2,
+                transform: `translateX(${(1 - p) * 105 * (i % 2 === 0 ? 1 : -1)}%)`,
+              }}
+            />
+          ))}
+        </div>
+      );
+    }
+    if (tipo === 'deslize') {
+      // o painel que entra atrás enquanto a imagem sai
+      return <div style={{ ...base, backgroundColor: '#000', zIndex: -1 }} />;
+    }
+    // whip, zoom e giro acontecem no próprio vídeo; aqui só um escurecido curto
+    return <div style={{ ...base, backgroundColor: '#000', opacity: p * 0.25 }} />;
+  })();
 
-  if (tipo === 'cortina') {
-    /*
-     * Fundo de cor cobrindo a virada. Durante a pausa ele continua andando —
-     * o ângulo gira e o degradê desliza devagar. Parado, um fundo chapado
-     * dá sensação de vídeo travado; andando, dá sensação de animação.
-     */
-    return (
-      <div
-        style={{
-          ...base,
-          opacity: p,
-          backgroundImage: `linear-gradient(${100 + a * 70}deg, ${estilo.highlightColor}, ${
-            estilo.highlightColor2
-          }, ${estilo.highlightColor})`,
-          backgroundSize: '260% 260%',
-          backgroundPosition: `${a * 100}% ${50 + a * 20}%`,
-          transform: `translateX(${(1 - p) * 100 * direcao}%) scale(${1 + a * 0.06})`,
-        }}
-      />
-    );
-  }
-
-  if (tipo === 'barras') {
-    // faixas entrando de lados alternados: virada com cara de vinheta
-    const faixas = 6;
-    return (
-      <div style={base}>
-        {Array.from({ length: faixas }, (_, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: `${(i * 100) / faixas}%`,
-              height: `${100 / faixas + 0.5}%`,
-              backgroundColor: i % 2 === 0 ? estilo.highlightColor : estilo.highlightColor2,
-              transform: `translateX(${(1 - p) * 105 * (i % 2 === 0 ? 1 : -1)}%)`,
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
-
-  if (tipo === 'deslize') {
-    // o painel que entra atrás enquanto a imagem sai
-    return (
-      <div
-        style={{
-          ...base,
-          backgroundColor: '#000',
-          zIndex: -1,
-        }}
-      />
-    );
-  }
-
-  // whip, zoom e giro acontecem no próprio vídeo; aqui só um escurecido curto
-  return <div style={{ ...base, backgroundColor: '#000', opacity: p * 0.25 }} />;
+  // a foto, quando existe, sempre vai por cima do fundo que a animação desenhou
+  return (
+    <div style={base}>
+      {fundo}
+      {foto}
+    </div>
+  );
 }

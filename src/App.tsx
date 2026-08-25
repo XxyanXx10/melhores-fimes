@@ -448,7 +448,16 @@ export default function App() {
           onDuracaoTransicao={setDuracaoTransicao}
           detectando={detectando}
           onCorte={(t, patch) =>
-            setCortes((atuais) => atuais.map((c) => (c.t === t ? { ...c, ...patch } : c)))
+            setCortes((atuais) =>
+              atuais.map((c) => {
+                if (c.t !== t) return c;
+                const novo = { ...c, ...patch };
+                // 'undefined' aqui quer dizer "volta ao padrão", não "mantém"
+                if ('duracao' in patch && patch.duracao === undefined) delete novo.duracao;
+                if ('imagem' in patch && patch.imagem === undefined) delete novo.imagem;
+                return novo;
+              }),
+            )
           }
           onTodosCortes={(ativo) => setCortes((atuais) => atuais.map((c) => ({ ...c, ativo })))}
           onIrPara={irPara}

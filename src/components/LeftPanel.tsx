@@ -1,5 +1,7 @@
 import type { CaptionStyle, Corte, Emphasis, Movimento, Template, TipoTransicao } from '../types';
+import { useState } from 'react';
 import { formatarTempo } from '../blocks';
+import { enviarMidia, SERVIDOR } from '../transcrever';
 import { FONTES } from '../data/fontes';
 
 type Props = {
@@ -77,6 +79,18 @@ function familias(lista: Template[]): Array<[string, Template[]]> {
 }
 
 export function LeftPanel(p: Props) {
+  const [aberto, setAberto] = useState<number | null>(null);
+  const [enviando, setEnviando] = useState<number | null>(null);
+
+  async function imagemDoCorte(t: number, arquivo: File) {
+    setEnviando(t);
+    try {
+      p.onCorte(t, { imagem: await enviarMidia(arquivo) });
+    } finally {
+      setEnviando(null);
+    }
+  }
+
   return (
     <aside className="panel panel-left">
       <section className="bloco">
@@ -289,6 +303,75 @@ export function LeftPanel(p: Props) {
                       ),
                     )}
                   </select>
+                  <button
+                    type="button"
+                    className="chip"
+                    disabled={!c.ativo}
+                    onClick={() => setAberto(aberto === c.t ? null : c.t)}
+                    title="Duração e imagem deste corte"
+                  >
+                    {aberto === c.t ? '−' : '+'}
+                  </button>
+
+                  {aberto === c.t && c.ativo && (
+                    <div className="corte-extra">
+                      <label className="campo">
+                        <span>Duração</span>
+                        <input
+                          type="range"
+                          min={0.3}
+                          max={3}
+                          step={0.1}
+                          value={c.duracao ?? p.duracaoTransicao}
+                          onChange={(e) => p.onCorte(c.t, { duracao: Number(e.target.value) })}
+                        />
+                        <span>
+                          {(c.duracao ?? p.duracaoTransicao).toFixed(1)}s
+                          {c.duracao === undefined ? ' (do vídeo)' : ''}
+                        </span>
+                      </label>
+                      {c.duracao !== undefined && (
+                        <button
+                          type="button"
+                          className="chip"
+                          onClick={() => p.onCorte(c.t, { duracao: undefined })}
+                        >
+                          Usar a duração do vídeo
+                        </button>
+                      )}
+
+                      <div className="corte-imagem">
+                        {c.imagem && <img src={`${SERVIDOR}/${c.imagem}`} alt="" />}
+                        <label className="chip">
+                          {enviando === c.t
+                            ? 'Enviando…'
+                            : c.imagem
+                              ? 'Trocar imagem'
+                              : 'Pôr uma imagem'}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            hidden
+                            disabled={enviando === c.t}
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) void imagemDoCorte(c.t, f);
+                              e.target.value = '';
+                            }}
+                          />
+                        </label>
+                        {c.imagem && (
+                          <button
+                            type="button"
+                            className="chip chip-perigo"
+                            onClick={() => p.onCorte(c.t, { imagem: undefined })}
+                          >
+                            ×
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

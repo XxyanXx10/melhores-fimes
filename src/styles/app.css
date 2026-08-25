@@ -431,3 +431,15 @@ button { font: inherit; cursor: pointer; }
 .cortes select:disabled { opacity: .5; }
 .trilha-cortes span { opacity: .35; }
 .trilha-cortes span.is-ativo { opacity: 1; }
+
+/* o painel que abre dentro da linha do corte */
+.cortes li { flex-wrap: wrap; }
+.corte-extra {
+  flex: 0 0 100%; display: grid; gap: 6px;
+  margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--linha);
+}
+.corte-imagem { display: flex; align-items: center; gap: 6px; }
+.corte-imagem img {
+  width: 36px; height: 36px; object-fit: cover; border-radius: 6px;
+  border: 1px solid var(--linha); flex: 0 0 auto;
+}

@@ -131,6 +131,10 @@ export type Corte = {
   ativo: boolean;
   /** ausente = usa a animação escolhida para o vídeo todo */
   tipo?: TipoTransicao;
+  /** ausente = usa a duração escolhida para o vídeo todo */
+  duracao?: number;
+  /** imagem que aparece durante esta transição (caminho dentro de public/) */
+  imagem?: string;
 };
 
 export type TipoTransicao =
