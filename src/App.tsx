@@ -16,6 +16,7 @@ import {
   abrirDoDisco,
   detectarCortes,
   enderecoDoRender,
+  enviarVideoFonte,
   estadoRender,
   apagarPreset,
   listarPresets,
@@ -99,6 +100,12 @@ export default function App() {
   const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
   /** cores com que um cartão novo nasce — vêm do estilo de marca */
   const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
+  /*
+   * O estado do render vive em disco e sobrevive a fechar a aba. Sem isto,
+   * ao abrir a plataforma aparecia "MP4 pronto" de um render de horas atrás
+   * — e o usuário baixava o arquivo velho achando que era o novo.
+   */
+  const [pediuRender, setPediuRender] = useState(false);
   const [render, setRender] = useState({ rodando: false, progresso: 0, saida: null as string | null, erro: null as string | null });
 
   const estimativa = Math.max(20, duracao * 1.6);
@@ -382,6 +389,7 @@ export default function App() {
     const checar = () =>
       void estadoRender().then((e) => {
         if (!vivo || !e) return;
+        if (e.rodando) setPediuRender(true);
         setRender((atual) =>
           atual.rodando === e.rodando &&
           atual.progresso === e.progresso &&
@@ -444,13 +452,27 @@ export default function App() {
   }
 
   async function exportar() {
-    if (!caminhoDoVideo) {
-      setErro('Para exportar, abra o projeto pelo botão "Abrir do computador" — o render precisa do vídeo no disco.');
+    if (!caminhoDoVideo && !arquivo) {
+      setErro('Abra ou envie um vídeo antes de exportar.');
       return;
     }
     setErro(null);
+    // limpa o resultado do render anterior: senão o aviso antigo fica na
+    // tela e parece que o clique não fez nada
+    setPediuRender(true);
+    setRender({ rodando: true, progresso: 0, saida: null, erro: null });
     try {
-      await pedirRender(projetoAtual());
+      /*
+       * O render precisa de um arquivo no disco. Se o vídeo veio arrastado,
+       * o navegador só tem um blob — então mandamos para o serviço guardar
+       * antes. Aberto por "Abrir do computador", o caminho já existe.
+       */
+      let caminho = caminhoDoVideo;
+      if (!caminho && arquivo) {
+        caminho = await enviarVideoFonte(arquivo);
+        setCaminhoDoVideo(caminho);
+      }
+      await pedirRender({ ...projetoAtual(), video: caminho ?? undefined });
       setRender({ rodando: true, progresso: 0, saida: null, erro: null });
       setPasso(5);
     } catch (e) {
@@ -614,9 +636,7 @@ export default function App() {
           title={
             !transcrito
               ? 'Gere a legenda primeiro'
-              : caminhoDoVideo
-                ? 'Gerar o MP4 com tudo aplicado'
-                : 'Abra o projeto por "Abrir do computador" para poder exportar'
+              : 'Gerar o MP4 com tudo aplicado'
           }
         >
           {render.rodando ? `Renderizando ${Math.round(render.progresso * 100)}%` : 'Exportar'}
@@ -632,12 +652,13 @@ export default function App() {
               <span className="dica">Pode continuar mexendo; o render roda por fora.</span>
             </>
           )}
-          {!render.rodando && render.saida && (
+          {!render.rodando && render.saida && pediuRender && (
             <>
               <strong>MP4 pronto</strong>
               <a className="chip chip-forte" href={enderecoDoRender(render.saida)} download>
                 Baixar {render.saida}
               </a>
+              <span className="dica">também fica na pasta render/ do projeto</span>
               <button
                 type="button"
                 className="chip"
@@ -735,6 +756,20 @@ export default function App() {
           duracao={duracao}
           templateId={templateId}
           override={override}
+          onMoverCamada={(tipo, id, pos) => {
+            if (tipo === 'foto') {
+              setFotos((atuais) => atuais.map((f) => (f.id === id ? { ...f, ...pos } : f)));
+            } else {
+              setCartoes((atuais) => atuais.map((c) => (c.id === id ? { ...c, ...pos } : c)));
+            }
+          }}
+          onLarguraCamada={(tipo, id, largura) => {
+            if (tipo === 'foto') {
+              setFotos((atuais) => atuais.map((f) => (f.id === id ? { ...f, largura } : f)));
+            } else {
+              setCartoes((atuais) => atuais.map((c) => (c.id === id ? { ...c, largura } : c)));
+            }
+          }}
           bloco={bloco}
           ativa={ativa}
           revelada={revelada}

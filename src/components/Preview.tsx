@@ -15,6 +15,7 @@ import type {
 } from '../types';
 import { Composicao } from '../remotion/Composicao';
 import { CaptionOverlay } from './CaptionOverlay';
+import { Manipuladores } from './Manipuladores';
 
 type Props = {
   src: string | null;
@@ -51,6 +52,9 @@ type Props = {
   duracao: number;
   templateId: string;
   override: Partial<CaptionStyle>;
+  /** arrastar foto e cartão direto na prévia */
+  onMoverCamada: (tipo: 'foto' | 'cartao', id: string, pos: { x: number; y: number }) => void;
+  onLarguraCamada: (tipo: 'foto' | 'cartao', id: string, largura: number) => void;
 };
 
 export function Preview(p: Props) {
@@ -151,6 +155,16 @@ export function Preview(p: Props) {
 
         {p.guias && (
           <div className="guias" style={{ inset: `12% ${p.style.safeMargin}%` }} aria-hidden />
+        )}
+
+        {p.src && (
+          <Manipuladores
+            fotos={p.fotos}
+            cartoes={p.cartoes}
+            tempo={p.tempo}
+            onMover={p.onMoverCamada}
+            onLargura={p.onLarguraCamada}
+          />
         )}
 
         {/* Sem vídeo não há Player, então o fundo de exemplo ainda usa o

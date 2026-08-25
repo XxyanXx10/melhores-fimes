@@ -154,7 +154,7 @@ const servidor = createServer(async (req, res) => {
   }
 
   if (url.pathname.startsWith('/presets/') && req.method === 'DELETE') {
-    const id = path.basename(decodeURIComponent(url.pathname)).replace(/[^w.-]/g, '');
+    const id = path.basename(decodeURIComponent(url.pathname)).replace(/[^\w.-]/g, '');
     try {
       await rm(path.join(aqui, '..', 'presets', `${id}.json`), { force: true });
       return json(res, 200, { ok: true });
@@ -228,6 +228,28 @@ const servidor = createServer(async (req, res) => {
     }
   }
 
+  /*
+   * Recebe o vídeo que o usuário arrastou e guarda no disco.
+   *
+   * O render precisa de um arquivo; o navegador só tem um blob. Sem isto,
+   * exportar só funcionava para projeto aberto por "Abrir do computador".
+   */
+  if (url.pathname === '/video-fonte' && req.method === 'POST') {
+    const bruto = url.searchParams.get('nome') ?? 'video.mp4';
+    const nome = path.basename(bruto).replace(/[^w.-]/g, '_');
+    try {
+      const pasta = path.join(aqui, '..', 'render', '.fontes');
+      await mkdir(pasta, { recursive: true });
+      const alvo = path.join(pasta, nome);
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      await writeFile(alvo, Buffer.concat(pedacos));
+      return json(res, 200, { caminho: alvo });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   /* Dispara o render do projeto que está aberto na plataforma. */
   if (url.pathname === '/renderizar' && req.method === 'POST') {
     if ((await lerEstadoRender()).rodando) {
@@ -245,7 +267,18 @@ const servidor = createServer(async (req, res) => {
       await mkdir(pastaProjeto, { recursive: true });
       const arquivoProjeto = path.join(pastaProjeto, `${base}.render.json`);
       await writeFile(arquivoProjeto, JSON.stringify(projeto, null, 2), 'utf8');
-      const saida = path.join(aqui, '..', 'render', `${base}.mp4`);
+      // carimbo de data/hora: sem isto todo export vira o mesmo 01.mp4
+      // e não dá para saber se o arquivo é o novo ou o de antes
+      const agora = new Date();
+      const carimbo = [
+        agora.getFullYear(),
+        String(agora.getMonth() + 1).padStart(2, '0'),
+        String(agora.getDate()).padStart(2, '0'),
+        '-',
+        String(agora.getHours()).padStart(2, '0'),
+        String(agora.getMinutes()).padStart(2, '0'),
+      ].join('');
+      const saida = path.join(aqui, '..', 'render', `${base}-${carimbo}.mp4`);
       await iniciarRender(arquivoProjeto, saida);
       return json(res, 200, { ok: true, nome: `${base}.mp4` });
     } catch (e) {

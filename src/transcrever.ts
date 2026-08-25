@@ -169,3 +169,17 @@ export async function salvarPreset(preset: Preset): Promise<Preset> {
 export async function apagarPreset(id: string): Promise<void> {
   await fetch(`${SERVIDOR}/presets/${encodeURIComponent(id)}`, { method: 'DELETE' });
 }
+
+/**
+ * Guarda no disco o vídeo que o usuário arrastou e devolve o caminho.
+ * O render precisa de arquivo; o navegador só tem um blob.
+ */
+export async function enviarVideoFonte(arquivo: File): Promise<string> {
+  const r = await fetch(`${SERVIDOR}/video-fonte?nome=${encodeURIComponent(arquivo.name)}`, {
+    method: 'POST',
+    body: arquivo,
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui guardar o vídeo para o render.');
+  return corpo.caminho as string;
+}
