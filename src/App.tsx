@@ -114,7 +114,20 @@ export default function App() {
   useEffect(() => {
     const pl = playerRef.current;
     if (!pl || !src) return;
-    const emFrame = () => setTempo(pl.getCurrentFrame() / fps);
+    /*
+     * O Player desenha a composição sozinho, no ritmo dele. Este `tempo`
+     * serve só para a interface (cursor da linha do tempo, bloco ativo,
+     * painéis). Atualizar a cada frame re-renderiza o app inteiro 25x por
+     * segundo e derruba a reprodução para metade da velocidade — então
+     * só avisamos a interface a cada ~100 ms.
+     */
+    let ultimo = 0;
+    const emFrame = () => {
+      const agora = performance.now();
+      if (agora - ultimo < 100) return;
+      ultimo = agora;
+      setTempo(pl.getCurrentFrame() / fps);
+    };
     const parou = () => setTocando(false);
     pl.addEventListener('frameupdate', emFrame);
     pl.addEventListener('ended', parou);
@@ -214,8 +227,12 @@ export default function App() {
     setTranscrevendo(true);
     setErro(null);
     try {
-      const novas = await transcreverArquivo(f);
-      setWords(novas);
+      const r = await transcreverArquivo(f);
+      setWords(r.words);
+      // o fps de verdade vem daqui: o navegador não expõe essa informação,
+      // e a composição rodando num fps diferente do arquivo dá trepidação
+      setFps(r.fps);
+      setTamanho({ largura: r.largura, altura: r.altura });
       setTranscrito(true);
       setPasso(2);
       irPara(0);

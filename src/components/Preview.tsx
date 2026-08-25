@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Player, type PlayerRef } from '@remotion/player';
 import type { Block, CaptionStyle, Divisao, Foto, Movimento, Scene, Word } from '../types';
 import { Composicao } from '../remotion/Composicao';
@@ -49,6 +49,26 @@ export function Preview(p: Props) {
 
   const frames = Math.max(1, Math.round(p.duracao * p.fps));
 
+  /*
+   * Objeto novo a cada render faria o Player refazer a composição toda vez
+   * que qualquer coisa da interface mudasse — inclusive o relógio. Só muda
+   * quando algo que a composição realmente usa mudar.
+   */
+  const propsDaComposicao = useMemo(
+    () => ({
+      videoSrc: p.src,
+      palavras: p.palavras,
+      template: p.templateId,
+      estiloOverride: p.override,
+      movimento: p.movimento,
+      forcaZoom: p.forcaZoom,
+      fotos: p.fotos,
+      divisoes: p.divisoes,
+    }),
+    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.divisoes],
+  );
+  const estiloDoPlayer = useMemo(() => ({ width: '100%', height: '100%' }), []);
+
   return (
     <main className="palco">
       <div className="palco-topo">
@@ -78,21 +98,12 @@ export function Preview(p: Props) {
           <Player
             ref={p.playerRef}
             component={Composicao}
-            inputProps={{
-              videoSrc: p.src,
-              palavras: p.palavras,
-              template: p.templateId,
-              estiloOverride: p.override,
-              movimento: p.movimento,
-              forcaZoom: p.forcaZoom,
-              fotos: p.fotos,
-              divisoes: p.divisoes,
-            }}
+            inputProps={propsDaComposicao}
             durationInFrames={frames}
             fps={p.fps}
             compositionWidth={p.largura}
             compositionHeight={p.altura}
-            style={{ width: '100%', height: '100%' }}
+            style={estiloDoPlayer}
             controls={false}
             showVolumeControls={false}
             clickToPlay={false}

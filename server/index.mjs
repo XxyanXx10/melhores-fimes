@@ -13,7 +13,7 @@ import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { conferirFerramentas, lerConfig, transcreverVideo } from '../agente/nucleo.mjs';
+import { conferirFerramentas, lerConfig, sondarVideo, transcreverVideo } from '../agente/nucleo.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -131,8 +131,10 @@ const servidor = createServer(async (req, res) => {
       await writeFile(entrada, Buffer.concat(pedacos));
 
       const words = await transcreverVideo(cfg, entrada);
-      console.log(`✓ ${nome}: ${words.length} palavras`);
-      return json(res, 200, { words });
+      // o navegador não sabe o fps do arquivo; o ffprobe sabe
+      const meta = await sondarVideo(cfg, entrada);
+      console.log(`✓ ${nome}: ${words.length} palavras, ${meta.fps}fps`);
+      return json(res, 200, { words, ...meta });
     } catch (e) {
       console.error('✗', e.message);
       return json(res, 500, { erro: e.message });

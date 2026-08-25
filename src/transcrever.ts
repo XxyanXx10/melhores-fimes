@@ -26,14 +26,21 @@ export async function verificarServidor(): Promise<StatusServidor | null> {
   }
 }
 
-export async function transcreverArquivo(arquivo: File): Promise<Word[]> {
+export type Transcricao = { words: Word[]; fps: number; largura: number; altura: number };
+
+export async function transcreverArquivo(arquivo: File): Promise<Transcricao> {
   const r = await fetch(`${SERVIDOR}/transcrever?nome=${encodeURIComponent(arquivo.name)}`, {
     method: 'POST',
     body: arquivo,
   });
   const corpo = await r.json();
   if (!r.ok) throw new Error(corpo?.erro ?? 'Falha ao transcrever.');
-  return corpo.words as Word[];
+  return {
+    words: corpo.words as Word[],
+    fps: Number(corpo.fps) || 30,
+    largura: Number(corpo.largura) || 1080,
+    altura: Number(corpo.altura) || 1920,
+  };
 }
 
 /** envia uma imagem ou vídeo para public/midia e devolve o caminho que a composição usa */
