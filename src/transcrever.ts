@@ -1,4 +1,4 @@
-import type { Word } from './types';
+import type { Preset, Word } from './types';
 
 /**
  * Servido pelo próprio serviço local (npm start) -> mesma origem.
@@ -143,4 +143,29 @@ export async function listarMidia(): Promise<ItemMidia[]> {
   } catch {
     return [];
   }
+}
+
+export async function listarPresets(): Promise<Preset[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/presets`);
+    if (!r.ok) return [];
+    return ((await r.json()).presets ?? []) as Preset[];
+  } catch {
+    return [];
+  }
+}
+
+export async function salvarPreset(preset: Preset): Promise<Preset> {
+  const r = await fetch(`${SERVIDOR}/presets`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(preset),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui salvar o estilo.');
+  return corpo.preset as Preset;
+}
+
+export async function apagarPreset(id: string): Promise<void> {
+  await fetch(`${SERVIDOR}/presets/${encodeURIComponent(id)}`, { method: 'DELETE' });
 }

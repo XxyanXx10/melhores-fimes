@@ -118,6 +118,51 @@ const servidor = createServer(async (req, res) => {
    * abre. Assim o usuário escolhe o projeto numa lista e recebe legenda,
    * ajustes E o vídeo — sem precisar arrastar nada.
    */
+  /* Estilos de marca salvos, para aplicar em série. */
+  if (url.pathname === '/presets' && req.method === 'GET') {
+    try {
+      const pasta = path.join(aqui, '..', 'presets');
+      const nomes = (await readdir(pasta)).filter((n) => n.endsWith('.json'));
+      const lista = [];
+      for (const nome of nomes) {
+        try {
+          lista.push(JSON.parse(await readFile(path.join(pasta, nome), 'utf8')));
+        } catch {
+          /* preset ilegível fica de fora */
+        }
+      }
+      return json(res, 200, { presets: lista });
+    } catch {
+      return json(res, 200, { presets: [] });
+    }
+  }
+
+  if (url.pathname === '/presets' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const preset = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!preset?.nome) return json(res, 400, { erro: 'o preset precisa de um nome' });
+      preset.id = preset.id || `p${Date.now()}`;
+      const pasta = path.join(aqui, '..', 'presets');
+      await mkdir(pasta, { recursive: true });
+      await writeFile(path.join(pasta, `${preset.id}.json`), JSON.stringify(preset, null, 2), 'utf8');
+      return json(res, 200, { ok: true, preset });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname.startsWith('/presets/') && req.method === 'DELETE') {
+    const id = path.basename(decodeURIComponent(url.pathname)).replace(/[^w.-]/g, '');
+    try {
+      await rm(path.join(aqui, '..', 'presets', `${id}.json`), { force: true });
+      return json(res, 200, { ok: true });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   if (url.pathname === '/projetos' && req.method === 'GET') {
     try {
       const pasta = path.join(aqui, '..', 'projeto');

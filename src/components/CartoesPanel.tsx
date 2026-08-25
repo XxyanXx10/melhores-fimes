@@ -11,18 +11,20 @@ type Props = {
   onMudar: (id: string, patch: Partial<Cartao>) => void;
   onRemover: (id: string) => void;
   onIr: (t: number) => void;
+  /** cores com que o cartão novo nasce, vindas do estilo de marca */
+  padrao: { cor: string; destaque: string };
 };
 
 /** um ponto de partida decente, para o cartão já nascer legível */
-function novoCartao(tempo: number): Cartao {
+function novoCartao(tempo: number, cor: string, destaque: string): Cartao {
   return {
     id: `k${Date.now()}`,
     start: +tempo.toFixed(2),
     duracao: 3.5,
     titulo: 'TÍTULO',
     itens: ['Primeiro item', 'Segundo item', 'Terceiro item'],
-    cor: 'rgba(14,27,46,0.94)',
-    destaque: '#FFD60A',
+    cor,
+    destaque,
     x: 50,
     y: 72,
     largura: 76,
@@ -49,7 +51,7 @@ export function CartoesPanel(p: Props) {
           type="button"
           className="chip chip-forte"
           onClick={() => {
-            const c = novoCartao(p.tempo);
+            const c = novoCartao(p.tempo, p.padrao.cor, p.padrao.destaque);
             p.onAdicionar(c);
             setAberto(c.id);
           }}

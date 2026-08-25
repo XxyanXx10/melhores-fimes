@@ -12,3 +12,5 @@ render/*.png
 render/.bundle/
 public/midia/
 tmp-txt/
+render/.tmp/
+presets/

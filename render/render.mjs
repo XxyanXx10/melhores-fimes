@@ -11,11 +11,24 @@ import { bundle } from '@remotion/bundler';
 import { renderMedia, renderStill, selectComposition } from '@remotion/renderer';
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { createReadStream, existsSync } from 'node:fs';
+import fsSync from 'node:fs';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/*
+ * O Chrome do render usa a pasta temporária do sistema, que costuma ficar
+ * no C:. Um render de 25s gasta centenas de MB ali; com o disco cheio o
+ * Chrome morre com "Page crashed". Apontamos o temporário para o mesmo
+ * disco do projeto, que tem espaço.
+ */
+const TEMPORARIO = path.join(raiz, 'render', '.tmp');
+fsSync.mkdirSync(TEMPORARIO, { recursive: true });
+process.env.TMPDIR = TEMPORARIO;
+process.env.TEMP = TEMPORARIO;
+process.env.TMP = TEMPORARIO;
 
 /*
  * O andamento vai para um arquivo, não fica na memória de quem chamou.
@@ -166,6 +179,9 @@ if (still !== undefined) {
     codec: 'h264',
     outputLocation: saida,
     inputProps,
+    // menos abas do Chrome ao mesmo tempo: menos memória e menos disco,
+    // que é o que derruba o render numa máquina com pouco espaço livre
+    concurrency: 2,
     onProgress: ({ progress }) => {
       process.stdout.write(`\rRenderizando… ${Math.round(progress * 100)}%`);
       void anotar({ rodando: true, progresso: progress, saida: null, erro: null });

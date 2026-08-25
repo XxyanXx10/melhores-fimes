@@ -174,6 +174,29 @@ export type TipoTransicao =
   /** troca de animação a cada corte, para o vídeo não ficar repetitivo */
   | 'variado';
 
+/**
+ * Um estilo de marca salvo: tudo que se repete de um vídeo para outro.
+ *
+ * A transcrição, os cortes e as fotos mudam a cada vídeo; isto aqui não.
+ * Guardar separado é o que permite aplicar o mesmo visual em série sem
+ * reconfigurar nada.
+ */
+export type Preset = {
+  id: string;
+  nome: string;
+  template: string;
+  estilo: Partial<CaptionStyle>;
+  movimento: Movimento;
+  forcaZoom: number;
+  transicao: TipoTransicao;
+  forcaTransicao: number;
+  duracaoTransicao: number;
+  coresTransicao?: CoresTransicao;
+  /** cores com que os cartões novos nascem */
+  cartaoCor: string;
+  cartaoDestaque: string;
+};
+
 export type Scene = {
   id: string;
   label: string;

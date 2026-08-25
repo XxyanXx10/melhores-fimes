@@ -478,3 +478,12 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid var(--linha); border-radius: 8px; padding: 6px 8px;
   font-size: 12px; font-family: inherit; resize: vertical;
 }
+
+/* estilo de marca no cabeçalho */
+.presets { display: flex; align-items: center; gap: 6px; }
+.presets-rotulo { font-size: 11px; color: var(--suave); text-transform: uppercase; letter-spacing: .08em; }
+.presets select, .presets input[type='text'] {
+  background: var(--panel-2); color: var(--texto); border: 1px solid var(--linha);
+  border-radius: 8px; padding: 5px 8px; font-size: 12px; max-width: 170px;
+}
+.presets select:disabled { opacity: .5; }

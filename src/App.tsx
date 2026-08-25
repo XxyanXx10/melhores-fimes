@@ -8,6 +8,7 @@ import { CartoesPanel } from './components/CartoesPanel';
 import { DivisaoPanel } from './components/DivisaoPanel';
 import { Timeline } from './components/Timeline';
 import { StepBar } from './components/StepBar';
+import { PresetsBarra } from './components/PresetsBarra';
 import { templates, defaultTemplateId } from './data/templates';
 import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
@@ -16,7 +17,10 @@ import {
   detectarCortes,
   enderecoDoRender,
   estadoRender,
+  apagarPreset,
+  listarPresets,
   listarProjetos,
+  salvarPreset,
   pedirRender,
   transcreverArquivo,
   verificarServidor,
@@ -33,6 +37,7 @@ import type {
   Divisao,
   Foto,
   Movimento,
+  Preset,
   Scene,
   TipoTransicao,
   Word,
@@ -90,6 +95,10 @@ export default function App() {
   const [noDisco, setNoDisco] = useState<ProjetoNoDisco[]>([]);
   /** caminho do vídeo no disco — o render precisa dele, o navegador não */
   const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
+  const [presets, setPresets] = useState<Preset[]>([]);
+  const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
+  /** cores com que um cartão novo nasce — vêm do estilo de marca */
+  const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
   const [render, setRender] = useState({ rodando: false, progresso: 0, saida: null as string | null, erro: null as string | null });
 
   const estimativa = Math.max(20, duracao * 1.6);
@@ -122,6 +131,7 @@ export default function App() {
   useEffect(() => {
     if (!servidorOk) return;
     void listarProjetos().then(setNoDisco);
+    void listarPresets().then(setPresets);
   }, [servidorOk]);
 
   /* volume do vídeo enviado */
@@ -361,16 +371,77 @@ export default function App() {
     };
   }
 
-  /* enquanto o render roda, a interface pergunta como está */
+  /*
+   * O render é do serviço, não desta aba: pode ter começado antes, em
+   * outra janela, ou pelo terminal. Por isso perguntamos sempre — a barra
+   * precisa aparecer mesmo para um render que já estava em andamento.
+   */
   useEffect(() => {
-    if (!render.rodando) return;
-    const id = setInterval(() => {
+    if (!servidorOk) return;
+    let vivo = true;
+    const checar = () =>
       void estadoRender().then((e) => {
-        if (e) setRender({ rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro });
+        if (!vivo || !e) return;
+        setRender((atual) =>
+          atual.rodando === e.rodando &&
+          atual.progresso === e.progresso &&
+          atual.saida === e.saida &&
+          atual.erro === e.erro
+            ? atual
+            : { rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro },
+        );
       });
-    }, 1500);
-    return () => clearInterval(id);
-  }, [render.rodando]);
+    checar();
+    const id = setInterval(checar, 1500);
+    return () => {
+      vivo = false;
+      clearInterval(id);
+    };
+  }, [servidorOk]);
+
+  /** aplica um estilo de marca: só o que se repete de um vídeo para outro */
+  function aplicarPreset(x: Preset) {
+    setTemplateId(templates.some((t) => t.id === x.template) ? x.template : defaultTemplateId);
+    setOverride(x.estilo ?? {});
+    setMovimento(x.movimento ?? 'off');
+    setForcaZoom(x.forcaZoom ?? 1);
+    setTransicao(x.transicao ?? 'off');
+    setForcaTransicao(x.forcaTransicao ?? 1);
+    setDuracaoTransicao(x.duracaoTransicao ?? 0.8);
+    setCoresTransicao(x.coresTransicao);
+    setCartaoPadrao({ cor: x.cartaoCor, destaque: x.cartaoDestaque });
+    setPresetAplicado(x.id);
+    setErro(null);
+  }
+
+  async function guardarPreset(nome: string) {
+    try {
+      const novo = await salvarPreset({
+        id: '',
+        nome,
+        template: templateId,
+        estilo: override,
+        movimento,
+        forcaZoom,
+        transicao,
+        forcaTransicao,
+        duracaoTransicao,
+        coresTransicao,
+        cartaoCor: cartaoPadrao.cor,
+        cartaoDestaque: cartaoPadrao.destaque,
+      });
+      setPresets(await listarPresets());
+      setPresetAplicado(novo.id);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Falha ao salvar o estilo.');
+    }
+  }
+
+  async function removerPreset(id: string) {
+    await apagarPreset(id);
+    setPresets(await listarPresets());
+    setPresetAplicado(null);
+  }
 
   async function exportar() {
     if (!caminhoDoVideo) {
@@ -491,6 +562,14 @@ export default function App() {
           Melhores Fimes <span>· criador de vídeos padronizados</span>
         </h1>
         <StepBar passos={PASSOS} atual={passo} concluidos={concluidos} onSelect={setPasso} />
+        <PresetsBarra
+          presets={presets}
+          aplicado={presetAplicado}
+          ativo={servidorOk}
+          onAplicar={aplicarPreset}
+          onSalvar={(nome) => void guardarPreset(nome)}
+          onApagar={(id) => void removerPreset(id)}
+        />
         {noDisco.length > 0 && (
           <label className="chip chip-topo">
             Abrir do computador
@@ -710,6 +789,7 @@ export default function App() {
             onIr={irPara}
           />
           <CartoesPanel
+            padrao={cartaoPadrao}
             cartoes={cartoes}
             tempo={tempo}
             duracao={duracao}
