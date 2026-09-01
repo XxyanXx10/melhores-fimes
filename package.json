@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "transcricao": "node --watch server/index.mjs",
     "vigiar": "node agente/vigiar.mjs",
-    "render": "node render/render.mjs"
+    "render": "node render/render.mjs",
+    "backup": "node agente/backup.mjs"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.516",

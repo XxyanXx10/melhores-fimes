@@ -32,6 +32,17 @@ grava `projeto/<nome>.json`. Um de cada vez, em fila, e nunca duas vezes o mesmo
 arquivo. É o modo preferido quando o usuário disser "quando eu adicionar o vídeo,
 transcreve" — deixe rodando em segundo plano.
 
+## Guardar o trabalho antes de mexer
+
+```bash
+node agente/backup.mjs          # projetos, ajustes e estilos
+node agente/backup.mjs --tudo   # inclui fotos e vídeos de apoio
+```
+
+Copia para `backups/<data>/`, sem apagar nada e sem sobrescrever backup anterior.
+Rode isto **antes** de qualquer mudança grande no código — os projetos do usuário
+não estão no Git e não voltam sozinhos.
+
 ## Abrir a plataforma
 
 ```bash
