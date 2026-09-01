@@ -1,10 +1,12 @@
 # Lista de demandas
 
-**Situação em 01/09/2026, fim do dia:** doze itens feitos. Os quatro P0, a tela de
+**Situação em 01/09/2026, fim do dia:** quinze dos vinte e um itens feitos. Os quatro P0, a tela de
 projetos (5, 6, 7 e parte do 8), as fontes locais (13), a tela que não cabia no
-notebook (10), as correções que se repetem (15), o corte manual de blocos (18) e a
-legenda em .srt (21). Mais três defeitos apareceram durante o teste e foram
-corrigidos junto — estão listados no fim.
+notebook (10), as correções que se repetem (15), o corte manual de blocos (18), a
+legenda em .srt (21), o histórico de versões (8), a legenda inteira como texto
+(16) e o render com estimativa e cancelar (19). Sobraram cinco: 9, 11 (só a metade),
+12, 17 e 20. Seis defeitos apareceram durante os testes e foram corrigidos junto — estão
+listados no fim.
 
 Levantada em 01/09/2026, rodando a plataforma e lendo o código. Cada item diz
 **o que acontece hoje**, **o que deveria acontecer** e o tamanho do serviço
@@ -83,12 +85,15 @@ primeira; apagar com confirmação (e uma lixeira, porque apagar sem querer acon
 **Feito:** duplicar e apagar (com lixeira em `projeto/.lixeira`). Renomear é no
 campo de nome do editor; falta renomear direto no cartão.
 
-### 8. Data e histórico
+### 8. ✅ Data e histórico
 **Hoje:** a listagem não sabe quando o projeto foi alterado — o servidor devolve
 só nome, duração e contagem de palavras.
 **Deveria:** ordenar por "mexido por último", que é como se procura de verdade.
 Guardar as últimas versões do projeto, para voltar a uma anterior.
 **Tamanho:** M.
+**Feito:** a lista já ordena por data, e agora uma cópia é guardada a cada vinte
+minutos de trabalho (as vinte últimas). A janela **Versões** volta para qualquer
+uma — e guarda o estado atual antes, então a volta também tem volta.
 
 ### 9. Organizar por pasta ou marcador
 **Hoje:** todos os projetos numa pasta plana. Com 200 cortes vira um monte.
@@ -160,11 +165,14 @@ palavra ("porto um" → "Port1", juntando os tempos), preserva a pontuação e s
 troca palavra inteira — "insustentável" não vira nada. Também dá para aplicar
 numa legenda que já existe.
 
-### 16. Ver a legenda inteira como texto
+### 16. ✅ Ver a legenda inteira como texto
 **Hoje:** só bloco a bloco, num campo por vez.
 **Deveria:** poder ler e editar tudo de uma vez, como um texto corrido, sem perder
 os tempos.
 **Tamanho:** M.
+**Feito:** uma linha por bloco. Corrigir dentro das linhas mantém os tempos
+exatos; juntar ou quebrar linhas faz as linhas virarem os blocos, com os tempos
+redistribuídos pelo mesmo intervalo. A janela avisa qual dos dois vai acontecer.
 
 ### 17. Ajustar o tempo de um bloco
 **Hoje:** editar o texto redistribui os tempos dentro do bloco, mas não dá para
@@ -183,11 +191,14 @@ marca fica na palavra, não nos tempos, e viaja junto no arquivo de projeto.
 
 ## P5 — Entregar o vídeo
 
-### 19. Saber quanto falta
+### 19. ✅ Saber quanto falta
 **Hoje:** o andamento existe (e sobrevive a reinício, o que é ótimo), mas não diz
 tempo restante nem deixa cancelar.
 **Deveria:** porcentagem, estimativa e um botão de cancelar.
 **Tamanho:** P.
+**Feito:** a estimativa sai da média até ali e não aparece antes de 3%, porque o
+número dança demais no começo. Cancelar mata o processo e o Chrome do Remotion
+junto — no Windows por `taskkill /T`, senão o Chrome ficaria comendo memória.
 
 ### 20. Exportar mais de um por vez
 **Hoje:** um render por vez, e você espera olhando.
@@ -215,8 +226,9 @@ tempo restante nem deixa cancelar.
 - **O script de transcrição tinha uma cópia própria da lógica**, então ficava de
   fora de qualquer melhoria feita no serviço — as correções, por exemplo. Os três
   caminhos agora usam o mesmo núcleo. Corrigido.
-- **`render/.estado.json` está versionado no Git**, então todo render deixa o
-  repositório sujo. Fica para decidir.
+- **`render/.estado.json` estava versionado no Git**, então todo render deixava o
+  repositório sujo e dava conflito entre máquinas. Ele, a pasta temporária, os
+  MP4 e as versões saíram do Git. Corrigido.
 
 ## O que já está bom (não mexer sem motivo)
 
@@ -228,12 +240,12 @@ tempo restante nem deixa cancelar.
 
 ---
 
-## O que sobrou, em ordem
+## O que sobrou
 
-1. **Item 19** — quanto falta no render e poder cancelar. Pequeno.
-2. **Item 8** — histórico de versões do projeto, para voltar a uma anterior.
-3. **Item 16** — ler e editar a legenda inteira como texto corrido.
-4. **Item 17** — arrastar a borda do bloco quando o Whisper entra atrasado.
-5. **Item 9** — agrupar por cliente e buscar pelo que foi falado.
-6. **Item 20** — fila de exportação, para marcar cinco cortes e sair.
-7. **Itens 11 e 12** — arrumar o topo e recolher painel.
+1. **Item 17** — arrastar a borda do bloco quando o Whisper entra atrasado.
+2. **Item 20** — fila de exportação, para marcar cinco cortes e sair.
+3. **Item 9** — agrupar por cliente e buscar pelo que foi falado.
+4. **Itens 11 e 12** — arrumar o topo e recolher painel.
+
+Nenhum deles faz perder trabalho; são conforto e escala. A ordem daqui em diante
+depende do que incomodar no uso.
