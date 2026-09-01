@@ -20,6 +20,7 @@ import {
   estadoRender,
   apagarPreset,
   listarPresets,
+  gravarProjeto,
   listarProjetos,
   salvarPreset,
   pedirRender,
@@ -94,6 +95,11 @@ export default function App() {
   const [coresTransicao, setCoresTransicao] = useState<CoresTransicao | undefined>(undefined);
   const [detectando, setDetectando] = useState(false);
   const [noDisco, setNoDisco] = useState<ProjetoNoDisco[]>([]);
+  /** nome que o usuário deu ao projeto, e o arquivo onde ele foi gravado */
+  const [nomeProjeto, setNomeProjeto] = useState<string | null>(null);
+  const [arquivoProjeto, setArquivoProjeto] = useState<string | null>(null);
+  const [salvando, setSalvando] = useState(false);
+  const [salvoEm, setSalvoEm] = useState<number | null>(null);
   /** caminho do vídeo no disco — o render precisa dele, o navegador não */
   const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
   const [presets, setPresets] = useState<Preset[]>([]);
@@ -326,7 +332,11 @@ export default function App() {
 
   async function abrirProjeto(f: File) {
     try {
-      aplicarProjeto(await lerArquivo(f));
+      const p = await lerArquivo(f);
+      setNomeProjeto(p.nomeProjeto ?? p.nome ?? f.name.replace(/\.json$/i, ''));
+      setArquivoProjeto(p.arquivo ?? null);
+      setSalvoEm(null);
+      aplicarProjeto(p);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui ler esse arquivo de projeto.');
     }
@@ -345,6 +355,9 @@ export default function App() {
       setArquivo(null);
       setDuracao(p.duracao);
       setNomeArquivo(p.nome ?? arquivo);
+      setNomeProjeto(p.nomeProjeto ?? p.nome ?? arquivo.replace(/\.json$/i, ''));
+      setArquivoProjeto(arquivo);
+      setSalvoEm(null);
       setTocando(false);
       aplicarProjeto(p);
     } catch (e) {
@@ -358,6 +371,8 @@ export default function App() {
       versao: 1,
       video: caminhoDoVideo ?? undefined,
       nome: nomeArquivo ?? undefined,
+      nomeProjeto: nomeProjeto ?? undefined,
+      arquivo: arquivoProjeto ?? undefined,
       duracao,
       fps,
       largura: tamanho.largura,
@@ -480,29 +495,40 @@ export default function App() {
     }
   }
 
-  function salvarProjeto() {
-    const p: Projeto = {
-      versao: 1,
-      nome: nomeArquivo ?? undefined,
-      duracao,
-      template: templateId,
-      estilo: override,
-      fps,
-      largura: tamanho.largura,
-      altura: tamanho.altura,
-      movimento,
-      forcaZoom,
-      fotos,
-      cartoes,
-      divisoes,
-      cortes,
-      transicao,
-      forcaTransicao,
-      duracaoTransicao,
-      coresTransicao,
-      palavras: words,
-    };
-    baixar(p, `${(nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
+  /**
+   * Grava o projeto na pasta da máquina.
+   *
+   * Antes isto montava um objeto próprio — que esquecia o campo `video` — e
+   * baixava o arquivo para a pasta de Downloads. O trabalho saía de onde a
+   * plataforma procura, e reabrir dava "vídeo não encontrado".
+   */
+  async function salvarProjeto(nomeDesejado?: string): Promise<boolean> {
+    const nome = (nomeDesejado ?? nomeProjeto ?? nomeArquivo ?? 'projeto').trim();
+    if (!servidorOk) {
+      baixar(projetoAtual(), `${nome.replace(/\.[^.]+$/, '')}.json`);
+      return true;
+    }
+    setSalvando(true);
+    try {
+      const projeto = { ...projetoAtual(), nomeProjeto: nome };
+      const arquivo = await gravarProjeto(projeto, arquivoProjeto ?? nome);
+      setNomeProjeto(nome);
+      setArquivoProjeto(arquivo);
+      setSalvoEm(Date.now());
+      setErro(null);
+      void listarProjetos().then(setNoDisco);
+      return true;
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não consegui salvar o projeto.');
+      return false;
+    } finally {
+      setSalvando(false);
+    }
+  }
+
+  /** uma cópia do projeto para guardar onde você quiser */
+  function baixarCopia() {
+    baixar(projetoAtual(), `${(nomeProjeto ?? nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
   }
 
   function soltar(e: React.DragEvent) {
@@ -583,6 +609,19 @@ export default function App() {
         <h1>
           Melhores Fimes <span>· criador de vídeos padronizados</span>
         </h1>
+        {transcrito && (
+          <label className="nome-projeto" title="Nome do projeto">
+            <input
+              value={nomeProjeto ?? ''}
+              placeholder="Dê um nome a este projeto"
+              onChange={(e) => setNomeProjeto(e.target.value)}
+              onBlur={() => {
+                if (nomeProjeto?.trim() && arquivoProjeto) void salvarProjeto();
+              }}
+            />
+            <em>{salvando ? 'salvando…' : salvoEm ? 'salvo' : 'não salvo'}</em>
+          </label>
+        )}
         <StepBar passos={PASSOS} atual={passo} concluidos={concluidos} onSelect={setPasso} />
         <PresetsBarra
           presets={presets}
@@ -625,9 +664,20 @@ export default function App() {
             }}
           />
         </label>
-        <button type="button" className="chip chip-topo" disabled={!transcrito} onClick={salvarProjeto}>
-          Salvar projeto
+        <button
+          type="button"
+          className="chip chip-topo"
+          disabled={!transcrito || salvando}
+          onClick={() => void salvarProjeto()}
+          title={servidorOk ? 'Grava na pasta de projetos da máquina' : 'Serviço desligado: baixa uma cópia'}
+        >
+          {salvando ? 'Salvando…' : servidorOk ? 'Salvar' : 'Baixar projeto'}
         </button>
+        {servidorOk && (
+          <button type="button" className="chip chip-topo" disabled={!transcrito} onClick={baixarCopia}>
+            Baixar cópia
+          </button>
+        )}
         <button
           type="button"
           className="primario"

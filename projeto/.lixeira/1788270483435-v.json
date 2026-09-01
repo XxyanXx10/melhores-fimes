@@ -1,0 +1,36 @@
+{
+  "versao": 1,
+  "video": "/tmp/claude-0/-home-user-melhores-fimes/0463177b-a61b-5b2b-9304-8a8107f46a7c/scratchpad/v.mp4",
+  "nome": "v.mp4",
+  "duracao": 2,
+  "fps": 30,
+  "largura": 1080,
+  "altura": 1920,
+  "template": "port1-autoridade",
+  "estilo": {},
+  "movimento": "natural",
+  "forcaZoom": 1,
+  "fotos": [],
+  "palavras": [
+    {
+      "text": "ninguém",
+      "start": 0,
+      "end": 0.42
+    },
+    {
+      "text": "te",
+      "start": 0.42,
+      "end": 0.76
+    },
+    {
+      "text": "contou",
+      "start": 0.76,
+      "end": 1.5
+    },
+    {
+      "text": "isso.",
+      "start": 1.5,
+      "end": 2
+    }
+  ]
+}

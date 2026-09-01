@@ -13,7 +13,12 @@ import type {
 export type Projeto = {
   versao: 1;
   video?: string;
+  /** nome do arquivo de vídeo de origem */
   nome?: string;
+  /** nome que o usuário deu ao projeto — é ele que aparece na lista */
+  nomeProjeto?: string;
+  /** nome do arquivo .json na pasta de projetos, quando já foi salvo */
+  arquivo?: string;
   duracao: number;
   /** do vídeo de origem, preenchido pelo ffprobe na transcrição */
   fps?: number;
@@ -81,6 +86,8 @@ export function validar(dado: unknown): Projeto {
     versao: 1,
     video: p.video,
     nome: p.nome,
+    nomeProjeto: p.nomeProjeto,
+    arquivo: p.arquivo,
     duracao: p.duracao || palavras[palavras.length - 1].end,
     fps: p.fps && p.fps > 0 ? p.fps : 30,
     largura: p.largura && p.largura > 0 ? p.largura : 1080,

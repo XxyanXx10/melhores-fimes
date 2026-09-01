@@ -8,7 +8,7 @@
  * Nada sai do computador: o áudio nunca é enviado para lugar nenhum.
  */
 import { createServer } from 'node:http';
-import { mkdir, mkdtemp, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -106,6 +106,17 @@ async function iniciarRender(arquivoProjeto, nomeSaida) {
   filho.unref();
 }
 
+/** vira nome de arquivo seguro: "Reajuste ANS — gancho" -> "Reajuste ANS - gancho.json" */
+function nomeDeArquivo(bruto) {
+  const limpo = String(bruto)
+    .replace(/\.json$/i, '')
+    .replace(/[<>:"/\\|?*\u0000-\u001f]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 80);
+  return `${limpo || 'projeto'}.json`;
+}
+
 const servidor = createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
 
@@ -170,13 +181,21 @@ const servidor = createServer(async (req, res) => {
       const lista = [];
       for (const nome of nomes) {
         try {
-          const j = JSON.parse(await readFile(path.join(pasta, nome), 'utf8'));
+          const caminho = path.join(pasta, nome);
+          const j = JSON.parse(await readFile(caminho, 'utf8'));
+          const info = await stat(caminho);
+          const mp4 = path.join(aqui, '..', 'render', `${path.basename(nome, '.json')}.mp4`);
           lista.push({
             arquivo: nome,
-            nome: j.nome ?? nome,
+            /* o nome que o usuário deu; o do vídeo é só o segundo melhor */
+            nome: j.nomeProjeto ?? j.nome ?? nome,
+            arquivoVideo: j.nome ?? null,
             duracao: j.duracao ?? 0,
             palavras: (j.palavras ?? []).length,
             temVideo: !!j.video && existsSync(j.video),
+            atualizado: info.mtimeMs,
+            exportado: existsSync(mp4),
+            template: j.template ?? null,
           });
         } catch {
           /* projeto ilegível: fica de fora da lista */
@@ -185,6 +204,45 @@ const servidor = createServer(async (req, res) => {
       return json(res, 200, { projetos: lista });
     } catch {
       return json(res, 200, { projetos: [] });
+    }
+  }
+
+  /*
+   * Gravar o projeto na pasta da máquina.
+   *
+   * Antes, "Salvar projeto" só baixava um arquivo para a pasta de Downloads:
+   * o trabalho saía de onde a plataforma procura e se perdia.
+   */
+  if (url.pathname === '/projetos' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const corpo = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      const projeto = corpo.projeto ?? corpo;
+      if (!Array.isArray(projeto.palavras)) {
+        return json(res, 400, { erro: 'projeto sem palavras' });
+      }
+      const pasta = path.join(aqui, '..', 'projeto');
+      await mkdir(pasta, { recursive: true });
+      const arquivo = nomeDeArquivo(corpo.arquivo ?? projeto.nomeProjeto ?? projeto.nome ?? 'projeto');
+      await writeFile(path.join(pasta, arquivo), JSON.stringify(projeto, null, 2), 'utf8');
+      return json(res, 200, { ok: true, arquivo });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  /* Apagar um projeto: vai para projeto/.lixeira, não some de vez. */
+  if (url.pathname.startsWith('/projetos/') && req.method === 'DELETE') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    try {
+      const pasta = path.join(aqui, '..', 'projeto');
+      const lixeira = path.join(pasta, '.lixeira');
+      await mkdir(lixeira, { recursive: true });
+      await rename(path.join(pasta, nome), path.join(lixeira, `${Date.now()}-${nome}`));
+      return json(res, 200, { ok: true });
+    } catch (e) {
+      return json(res, 404, { erro: e.message });
     }
   }
 

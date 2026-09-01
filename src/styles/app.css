@@ -512,3 +512,16 @@ button { font: inherit; cursor: pointer; }
   width: 12px; height: 12px; border-radius: 50%; padding: 0;
   background: #fff; border: 2px solid var(--acento-2);
 }
+
+/* nome do projeto no topo ------------------------------------------ */
+.nome-projeto { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.nome-projeto input {
+  background: transparent; border: 1px solid transparent; border-radius: 6px;
+  color: var(--texto); font-size: 13px; font-weight: 600; padding: 3px 6px;
+  width: 22ch; max-width: 26ch;
+}
+.nome-projeto input:hover { border-color: var(--linha); }
+.nome-projeto input:focus { outline: none; border-color: var(--acento-2); background: var(--panel-2); }
+.nome-projeto em {
+  font-style: normal; font-size: 10px; color: var(--suave); padding-left: 7px;
+}

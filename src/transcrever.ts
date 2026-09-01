@@ -68,9 +68,16 @@ export async function detectarCortes(arquivo: File): Promise<number[]> {
 export type ProjetoNoDisco = {
   arquivo: string;
   nome: string;
+  /** nome do arquivo de vídeo, quando o projeto tem um */
+  arquivoVideo: string | null;
   duracao: number;
   palavras: number;
   temVideo: boolean;
+  /** quando o arquivo foi gravado pela última vez (ms) */
+  atualizado: number;
+  /** já existe MP4 exportado com esse nome */
+  exportado: boolean;
+  template: string | null;
 };
 
 /** os projetos que já existem na pasta projeto/ da máquina */
@@ -82,6 +89,24 @@ export async function listarProjetos(): Promise<ProjetoNoDisco[]> {
   } catch {
     return [];
   }
+}
+
+/** grava o projeto na pasta da máquina e devolve o nome do arquivo gravado */
+export async function gravarProjeto(projeto: unknown, arquivo: string): Promise<string> {
+  const r = await fetch(`${SERVIDOR}/projetos`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ arquivo, projeto }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui salvar o projeto.');
+  return corpo.arquivo as string;
+}
+
+/** manda o projeto para a lixeira (projeto/.lixeira), não apaga de vez */
+export async function apagarProjeto(arquivo: string): Promise<void> {
+  const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`, { method: 'DELETE' });
+  if (!r.ok) throw new Error('Não consegui apagar esse projeto.');
 }
 
 /**
