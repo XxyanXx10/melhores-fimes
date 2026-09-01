@@ -525,3 +525,6 @@ button { font: inherit; cursor: pointer; }
 .nome-projeto em {
   font-style: normal; font-size: 10px; color: var(--suave); padding-left: 7px;
 }
+
+.historico { display: flex; gap: 2px; }
+.historico .chip-topo { padding: 4px 9px; font-size: 14px; line-height: 1; }

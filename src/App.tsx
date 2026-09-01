@@ -526,6 +526,98 @@ export default function App() {
     }
   }
 
+  /*
+   * Desfazer e refazer.
+   *
+   * Guarda o projeto inteiro a cada mudança que "assenta" (400 ms sem mexer),
+   * então uma sequência de cliques no mesmo controle deslizante vira um passo
+   * só, não trinta.
+   */
+  const historico = useRef<string[]>([]);
+  const posicao = useRef(-1);
+  const restaurando = useRef(false);
+  const [podeDesfazer, setPodeDesfazer] = useState(false);
+  const [podeRefazer, setPodeRefazer] = useState(false);
+
+  /** devolve o projeto à tela sem mexer no passo nem no ponto da reprodução */
+  function restaurar(p: Projeto) {
+    setWords(p.palavras);
+    setTemplateId(templates.some((t) => t.id === p.template) ? p.template : defaultTemplateId);
+    setOverride(p.estilo);
+    setMovimento(p.movimento ?? 'off');
+    setForcaZoom(p.forcaZoom ?? 1);
+    setFotos(p.fotos ?? []);
+    setCartoes(p.cartoes ?? []);
+    setDivisoes(p.divisoes ?? []);
+    setCortes(p.cortes ?? []);
+    setTransicao(p.transicao ?? 'off');
+    setForcaTransicao(p.forcaTransicao ?? 1);
+    setDuracaoTransicao(p.duracaoTransicao ?? 0.8);
+    setCoresTransicao(p.coresTransicao);
+    if (p.nomeProjeto) setNomeProjeto(p.nomeProjeto);
+  }
+
+  function andarHistorico(passo: -1 | 1) {
+    const alvo = posicao.current + passo;
+    if (alvo < 0 || alvo >= historico.current.length) return;
+    posicao.current = alvo;
+    restaurando.current = true;
+    restaurar(JSON.parse(historico.current[alvo]) as Projeto);
+    setPodeDesfazer(alvo > 0);
+    setPodeRefazer(alvo < historico.current.length - 1);
+  }
+
+  /*
+   * Salvamento automático.
+   *
+   * Só age depois que o projeto tem arquivo (ou seja, foi salvo uma vez):
+   * assim nunca cria arquivo sem o usuário pedir, mas nunca mais perde o
+   * trabalho de quem já começou. Espera parar de mexer para não gravar a
+   * cada tecla.
+   */
+  const projetoSerializado = JSON.stringify(projetoAtual());
+
+  useEffect(() => {
+    if (!transcrito) return;
+    if (restaurando.current) {
+      restaurando.current = false;
+      return;
+    }
+    const id = setTimeout(() => {
+      if (historico.current[posicao.current] === projetoSerializado) return;
+      historico.current = historico.current.slice(0, posicao.current + 1);
+      historico.current.push(projetoSerializado);
+      if (historico.current.length > 80) historico.current.shift();
+      posicao.current = historico.current.length - 1;
+      setPodeDesfazer(posicao.current > 0);
+      setPodeRefazer(false);
+    }, 400);
+    return () => clearTimeout(id);
+  }, [projetoSerializado, transcrito]);
+
+  /* Ctrl+Z e Ctrl+Shift+Z (ou Ctrl+Y), fora dos campos de texto */
+  useEffect(() => {
+    function tecla(e: KeyboardEvent) {
+      if (!(e.ctrlKey || e.metaKey)) return;
+      const k = e.key.toLowerCase();
+      if (k !== 'z' && k !== 'y') return;
+      const alvo = e.target as HTMLElement | null;
+      if (alvo && (alvo.tagName === 'INPUT' || alvo.tagName === 'TEXTAREA')) return;
+      e.preventDefault();
+      andarHistorico(k === 'y' || e.shiftKey ? 1 : -1);
+    }
+    window.addEventListener('keydown', tecla);
+    return () => window.removeEventListener('keydown', tecla);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!servidorOk || !arquivoProjeto || !transcrito || salvando) return;
+    const id = setTimeout(() => void salvarProjeto(), 2500);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projetoSerializado, servidorOk, arquivoProjeto, transcrito]);
+
   /** uma cópia do projeto para guardar onde você quiser */
   function baixarCopia() {
     baixar(projetoAtual(), `${(nomeProjeto ?? nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -651,6 +743,28 @@ export default function App() {
             </select>
           </label>
         )}
+        <span className="historico">
+          <button
+            type="button"
+            className="chip chip-topo"
+            disabled={!podeDesfazer}
+            onClick={() => andarHistorico(-1)}
+            title="Desfazer (Ctrl+Z)"
+            aria-label="Desfazer"
+          >
+            ↶
+          </button>
+          <button
+            type="button"
+            className="chip chip-topo"
+            disabled={!podeRefazer}
+            onClick={() => andarHistorico(1)}
+            title="Refazer (Ctrl+Shift+Z)"
+            aria-label="Refazer"
+          >
+            ↷
+          </button>
+        </span>
         <label className="chip chip-topo">
           Abrir projeto
           <input
