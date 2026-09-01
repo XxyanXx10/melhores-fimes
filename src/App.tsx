@@ -4,6 +4,7 @@ import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
 import { CorrecoesPanel } from './components/CorrecoesPanel';
 import { Versoes } from './components/Versoes';
+import { TextoCorrido } from './components/TextoCorrido';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
@@ -44,6 +45,7 @@ import { baixar, lerArquivo, validar, type Projeto } from './projeto';
 import {
   agrupar,
   blocoAtivo,
+  deTextoCorrido,
   inicioDoBloco,
   palavraAtiva,
   paraSrt,
@@ -131,6 +133,7 @@ export default function App() {
   const [correcoes, setCorrecoes] = useState<Correcao[]>([]);
   const [corrigindo, setCorrigindo] = useState(false);
   const [vendoVersoes, setVendoVersoes] = useState(false);
+  const [vendoTexto, setVendoTexto] = useState(false);
   const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
   /** cores com que um cartão novo nasce — vêm do estilo de marca */
   const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
@@ -1130,6 +1133,7 @@ export default function App() {
           onDividir={dividirAoMeio}
           onSoltar={soltarCorte}
           onBaixarSrt={baixarSrt}
+          onVerTexto={() => setVendoTexto(true)}
           onIr={irPara}
           transcrito={transcrito}
           onTranscrever={transcrever}
@@ -1241,6 +1245,18 @@ export default function App() {
           setMudo(v === 0);
         }}
       />
+
+      {vendoTexto && (
+        <TextoCorrido
+          blocos={blocos}
+          onFechar={() => setVendoTexto(false)}
+          onAplicar={(texto) => {
+            const novas = deTextoCorrido(blocos, texto);
+            if (novas.length) setWords(novas);
+            setVendoTexto(false);
+          }}
+        />
+      )}
 
       {vendoVersoes && arquivoProjeto && (
         <Versoes

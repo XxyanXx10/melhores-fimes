@@ -694,3 +694,14 @@ button { font: inherit; cursor: pointer; }
 }
 .versoes li span { display: flex; flex-direction: column; }
 .versoes li em { font-style: normal; color: var(--suave); font-size: 11px; }
+
+/* legenda inteira ---------------------------------------------------- */
+.modal-largo { max-width: 720px; }
+.modal-botoes { display: flex; gap: 8px; justify-content: flex-end; }
+.texto-corrido {
+  width: 100%; min-height: 44vh; resize: vertical;
+  background: #0b0e13; border: 1px solid var(--linha); border-radius: 8px;
+  color: var(--texto); padding: 12px; font: inherit; line-height: 1.7;
+}
+.texto-corrido:focus { outline: none; border-color: var(--acento-2); }
+.dica.is-alerta { color: #f0b350; }

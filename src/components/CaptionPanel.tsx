@@ -13,6 +13,7 @@ type Props = {
   onDividir: (bloco: Block) => void;
   onSoltar: (bloco: Block) => void;
   onBaixarSrt: () => void;
+  onVerTexto: () => void;
   onIr: (t: number) => void;
   transcrito: boolean;
   onTranscrever: () => void;
@@ -232,9 +233,14 @@ export function CaptionPanel(p: Props) {
               );
             })}
           </ol>
-          <button type="button" className="ghost" onClick={p.onBaixarSrt}>
-            Baixar legenda (.srt)
-          </button>
+          <div className="fontes">
+            <button type="button" className="chip" onClick={p.onVerTexto}>
+              Ver a legenda inteira
+            </button>
+            <button type="button" className="chip" onClick={p.onBaixarSrt}>
+              Baixar .srt
+            </button>
+          </div>
           </>
         )}
       </section>

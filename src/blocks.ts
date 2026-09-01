@@ -131,3 +131,56 @@ export function paraSrt(blocos: Block[]): string {
     })
     .join('\n');
 }
+
+/** a legenda inteira como texto: um bloco por linha */
+export function textoCorrido(blocos: Block[]): string {
+  return blocos.map((b) => textoDoBloco(b)).join('\n');
+}
+
+/**
+ * Devolve as palavras a partir do texto corrido editado.
+ *
+ * Se o número de linhas não mudou, cada linha volta para a janela do seu
+ * bloco — os tempos ficam exatos, como na edição bloco a bloco. Se você
+ * juntou ou quebrou linhas, não há mais a quem pertencer: aí o texto é
+ * espalhado pelo mesmo intervalo, cada palavra ganhando tempo conforme o
+ * tamanho. A sincronia fica aproximada, e a interface avisa antes.
+ */
+export function deTextoCorrido(blocos: Block[], texto: string): Word[] {
+  const linhas = texto.split('\n').map((l) => l.trim()).filter(Boolean);
+  if (!linhas.length || !blocos.length) return [];
+
+  if (linhas.length === blocos.length) {
+    return blocos.flatMap((b, i) => reescrever(b, linhas[i]));
+  }
+
+  const inicio = blocos[0].start;
+  const fim = blocos[blocos.length - 1].end;
+
+  /* cada linha vira um bloco: foi assim que você escreveu */
+  const porLinha = linhas.map((l) => l.split(/\s+/).filter(Boolean));
+  const pesos = porLinha.flat().map((p) => Math.max(2, p.length));
+  const total = pesos.reduce((s, n) => s + n, 0);
+
+  const saida: Word[] = [];
+  let t = inicio;
+  let k = 0;
+  porLinha.forEach((linha, iLinha) => {
+    linha.forEach((parte, iPalavra) => {
+      const fatia = ((fim - inicio) * pesos[k]) / total;
+      const { text, emphasis } = lerMarcacao(parte);
+      saida.push({
+        text,
+        emphasis,
+        start: +t.toFixed(2),
+        end: +(t + fatia - 0.02).toFixed(2),
+        /* a primeira palavra abre a linha; as outras nunca abrem, senão o
+           tamanho do modelo quebraria a linha que você acabou de montar */
+        quebra: iPalavra === 0 ? (iLinha === 0 ? undefined : 'aqui') : 'nunca',
+      });
+      t += fatia;
+      k++;
+    });
+  });
+  return saida;
+}
