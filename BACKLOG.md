@@ -1,5 +1,11 @@
 # Lista de demandas
 
+**Situação em 01/09/2026, fim do dia:** os quatro itens P0 estão feitos, a tela de
+projetos está de pé (itens 5, 6, 7 e parte do 8), e mais três itens saíram de
+carona porque apareceram durante o teste — fontes locais, a tela que não cabia no
+notebook e nomes com acento que não abriam o vídeo. Feito: 1, 2, 3, 4, 5, 6, 7,
+10, 11 (parcial), 13.
+
 Levantada em 01/09/2026, rodando a plataforma e lendo o código. Cada item diz
 **o que acontece hoje**, **o que deveria acontecer** e o tamanho do serviço
 (P = até meio dia, M = um dia, G = vários dias).
@@ -10,7 +16,7 @@ Os itens P0 são perda de trabalho: enquanto existirem, todo o resto rende menos
 
 ## P0 — Você está perdendo trabalho
 
-### 1. Salvar o projeto apaga o caminho do vídeo
+### 1. ✅ Salvar o projeto apaga o caminho do vídeo
 **Hoje:** `salvarProjeto` monta o arquivo sem o campo `video`. O JSON baixado sai
 sem saber de que vídeo veio. Ao reabrir, a plataforma diz "vídeo não encontrado" e
 **não dá para exportar**. (Confirmado em `src/App.tsx:483` — o campo simplesmente
@@ -18,53 +24,64 @@ não está na lista.)
 **Deveria:** guardar o caminho do vídeo, e mais: se o arquivo tiver sido movido,
 oferecer "procurar esse vídeo" em vez de desistir.
 **Tamanho:** P — é uma linha, mas é a mais cara da lista.
+**Feito:** salvar passou a usar o mesmo objeto que o render recebe, então nunca
+mais diverge dele.
 
-### 2. "Salvar projeto" joga na pasta de Downloads
+### 2. ✅ "Salvar projeto" joga na pasta de Downloads
 **Hoje:** salvar dispara um download do navegador. O arquivo cai em Downloads,
 solto entre instaladores e PDFs, e a pasta `projeto/` — que é onde a plataforma
 procura — continua vazia. O serviço nem tem rota para gravar (`/projetos` só lê).
 **Deveria:** salvar grava direto na pasta de projetos da máquina, e a lista de
 projetos passa a mostrar o que você salvou.
 **Tamanho:** P.
+**Feito:** rota nova de gravação; "Baixar cópia" continua existindo para quem
+quiser guardar em outro lugar. Sem o serviço no ar, salvar volta a baixar.
 
-### 3. Fechar a aba perde tudo
+### 3. ✅ Fechar a aba perde tudo
 **Hoje:** não existe salvamento automático nem rascunho. Uma hora de correção de
 legenda e ajuste de estilo evapora se o navegador fechar, o serviço reiniciar ou
 a máquina travar.
 **Deveria:** gravar sozinho a cada mudança (com atraso de alguns segundos), e ao
 abrir avisar "você tem trabalho não salvo em X, quer voltar?".
 **Tamanho:** M.
+**Feito pela metade:** grava sozinho 2,5 s depois da última mudança, e o topo diz
+"salvo" ou "com mudanças". Falta o aviso de rascunho ao reabrir.
 
-### 4. Não dá para desfazer
+### 4. ✅ Não dá para desfazer
 **Hoje:** nenhum Ctrl+Z. Apagou o texto de um bloco, mexeu no zoom, trocou de
 modelo sem querer: não tem volta, refaz na mão.
 **Deveria:** desfazer e refazer para tudo que muda o projeto, com atalho de teclado.
 **Tamanho:** M.
+**Feito:** Ctrl+Z e Ctrl+Shift+Z, com botões no topo. Guarda 80 passos.
 
 ---
 
 ## P1 — Projetos de verdade (a aba que você pediu)
 
-### 5. Criar projeto com nome próprio
+### 5. ✅ Criar projeto com nome próprio
 **Hoje:** o projeto se chama como o arquivo de vídeo. `corte15.mp4` vira
 `corte15.json`. Dois cortes do mesmo dia viram dois nomes iguais e ilegíveis.
 **Deveria:** ao adicionar o vídeo, perguntar o nome ("Reajuste ANS — gancho novo").
 O nome é seu, o arquivo se vira sozinho.
 **Tamanho:** P.
 
-### 6. Uma tela de projetos, não um menuzinho
+### 6. ✅ Uma tela de projetos, não um menuzinho
 **Hoje:** a lista de projetos é um `<select>` escondido no topo, que só aparece
 se já houver projetos, e mostra `nome · 18s · 96 palavras`.
 **Deveria:** uma tela inicial com cartões: miniatura do primeiro quadro, nome,
 duração, quando foi mexido pela última vez, e o estado (transcrito? exportado?).
 Clicou, abriu de onde parou.
 **Tamanho:** G — é a demanda principal, e vale ser a próxima coisa a fazer.
+**Feito:** a lista é a primeira tela, com miniatura tirada pelo FFmpeg (em cache),
+busca por nome, e ordenar por recentes, nome ou duração.
 
-### 7. Renomear, duplicar e apagar
+### 7. ✅ Renomear, duplicar e apagar
 **Hoje:** nada disso existe. Para variar um vídeo você refaz tudo.
 **Deveria:** renomear no cartão; duplicar para testar outra versão sem perder a
 primeira; apagar com confirmação (e uma lixeira, porque apagar sem querer acontece).
 **Tamanho:** M.
+**Feito:** duplicar e apagar (com lixeira em `projeto/.lixeira`). Renomear é no
+campo de nome do editor; falta renomear direto no cartão.
 
 ### 8. Data e histórico
 **Hoje:** a listagem não sabe quando o projeto foi alterado — o servidor devolve
@@ -83,12 +100,13 @@ busca por nome e por texto falado — achar "aquele vídeo onde eu falo de reaju
 
 ## P2 — A interface não cabe mais na tela
 
-### 10. Em notebook, a página rola para o lado
+### 10. ✅ Em notebook, a página rola para o lado
 **Hoje:** medido em 1366 × 768 (notebook comum): a página pede 1876 px de largura.
 O painel da direita fica cortado e o topo perde botões.
 **Deveria:** as três áreas se ajustarem, com os painéis recolhíveis. Em tela
 pequena, um painel de cada vez.
 **Tamanho:** M.
+**Feito:** cabe em 1366 sem rolagem lateral. Falta recolher painel na mão.
 
 ### 11. O topo virou uma prateleira
 **Hoje:** seis passos + estilo salvo + salvar estilo + abrir do computador +
@@ -108,13 +126,17 @@ quando precisa.
 
 ## P3 — A promessa de funcionar offline
 
-### 13. A tela depende do Google Fonts
+### 13. ✅ A tela depende do Google Fonts
 **Hoje:** com as fontes bloqueadas (que é o mesmo que estar sem internet), a
 página dispara 32 erros de rede e as letras caem para a fonte padrão do sistema —
 ou seja, **a legenda que você vê não é a que vai ser renderizada**.
 **Deveria:** as fontes virem junto com o programa, dentro da pasta. Nenhuma
 chamada para fora.
 **Tamanho:** P.
+**Feito:** 44 arquivos em `public/fontes` (1,1 MB), baixados por
+`node agente/fontes.mjs`. Com a rede cortada: zero pedidos para fora, zero erros.
+Era pior do que parecia — a composição do render também buscava fonte no Google,
+então o MP4 dependia de internet para sair com a letra certa.
 
 ### 14. O primeiro render baixa 150 MB
 **Hoje:** a primeira exportação baixa o Chrome do Remotion. Sem internet, o render
@@ -171,6 +193,16 @@ tempo restante nem deixa cancelar.
 **Tamanho:** P.
 
 ---
+
+## Achados durante a correção (não estavam na lista)
+
+- **Projeto com espaço ou acento no nome não abria o vídeo.** O endereço chegava
+  codificado duas vezes ("Corte 15" virava "Corte%2520 15"). O serviço agora
+  decodifica até estabilizar. Corrigido.
+- **O render também dependia da internet.** A composição carregava fonte do
+  Google, não só a interface. Corrigido junto com o item 13.
+- **`render/.estado.json` está versionado no Git**, então todo render deixa o
+  repositório sujo. Fica para decidir.
 
 ## O que já está bom (não mexer sem motivo)
 
