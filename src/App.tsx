@@ -3,6 +3,7 @@ import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
 import { CorrecoesPanel } from './components/CorrecoesPanel';
+import { Versoes } from './components/Versoes';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
@@ -16,9 +17,11 @@ import { DURACAO_EXEMPLO, mockWords } from './data/mockTranscript';
 import { caracteresPorLinha, importar } from './importar';
 import {
   abrirDoDisco,
+  abrirVersao,
   detectarCortes,
   enderecoDoRender,
   enviarVideoFonte,
+  cancelarRender,
   estadoRender,
   apagarPreset,
   listarPresets,
@@ -34,6 +37,7 @@ import {
   transcreverArquivo,
   verificarServidor,
   type Correcao,
+  type EstadoRender,
   type ProjetoNoDisco,
 } from './transcrever';
 import { baixar, lerArquivo, validar, type Projeto } from './projeto';
@@ -126,6 +130,7 @@ export default function App() {
   const [presets, setPresets] = useState<Preset[]>([]);
   const [correcoes, setCorrecoes] = useState<Correcao[]>([]);
   const [corrigindo, setCorrigindo] = useState(false);
+  const [vendoVersoes, setVendoVersoes] = useState(false);
   const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
   /** cores com que um cartão novo nasce — vêm do estilo de marca */
   const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
@@ -135,7 +140,29 @@ export default function App() {
    * — e o usuário baixava o arquivo velho achando que era o novo.
    */
   const [pediuRender, setPediuRender] = useState(false);
-  const [render, setRender] = useState({ rodando: false, progresso: 0, saida: null as string | null, erro: null as string | null });
+  const [render, setRender] = useState<EstadoRender>({
+    rodando: false,
+    progresso: 0,
+    saida: null,
+    erro: null,
+  });
+
+  /*
+   * Quanto falta para o MP4 ficar pronto.
+   *
+   * O Remotion só diz a fração feita; o tempo restante sai da média até aqui.
+   * Antes de 3% o número dança demais e mentir é pior do que não dizer.
+   */
+  const faltaDoRender = (() => {
+    if (!render.rodando || !render.inicio || render.progresso < 0.03) return null;
+    const decorridoMs = Date.now() - render.inicio;
+    const totalMs = decorridoMs / render.progresso;
+    const faltamS = Math.max(0, Math.round((totalMs - decorridoMs) / 1000));
+    if (faltamS < 60) return `faltam ${faltamS}s`;
+    const min = Math.floor(faltamS / 60);
+    const seg = faltamS % 60;
+    return `faltam ${min} min${seg >= 30 ? ' e meio' : ''}`;
+  })();
 
   const estimativa = Math.max(20, duracao * 1.6);
   const progresso = Math.min(0.95, decorrido / estimativa);
@@ -444,7 +471,7 @@ export default function App() {
           atual.saida === e.saida &&
           atual.erro === e.erro
             ? atual
-            : { rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro },
+            : { rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro, inicio: e.inicio },
         );
       });
     checar();
@@ -535,7 +562,7 @@ export default function App() {
    * baixava o arquivo para a pasta de Downloads. O trabalho saía de onde a
    * plataforma procura, e reabrir dava "vídeo não encontrado".
    */
-  async function salvarProjeto(nomeDesejado?: string): Promise<boolean> {
+  async function salvarProjeto(nomeDesejado?: string, versionar = false): Promise<boolean> {
     const nome = (nomeDesejado ?? nomeProjeto ?? nomeArquivo ?? 'projeto').trim();
     if (!servidorOk) {
       baixar(projetoAtual(), `${nome.replace(/\.[^.]+$/, '')}.json`);
@@ -544,7 +571,7 @@ export default function App() {
     setSalvando(true);
     try {
       const projeto = { ...projetoAtual(), nomeProjeto: nome };
-      const arquivo = await gravarProjeto(projeto, arquivoProjeto ?? nome);
+      const arquivo = await gravarProjeto(projeto, arquivoProjeto ?? nome, versionar);
       setNomeProjeto(nome);
       setArquivoProjeto(arquivo);
       setSalvoEm(Date.now());
@@ -684,6 +711,21 @@ export default function App() {
         return resto;
       }),
     );
+  }
+
+  /** volta o projeto para uma versão guardada, sem sair do arquivo atual */
+  async function voltarParaVersao(versaoArquivo: string) {
+    if (!arquivoProjeto) return;
+    try {
+      /* o que está na tela agora vira uma versão também: voltar não perde nada */
+      await salvarProjeto(undefined, true);
+      const bruto = await abrirVersao(arquivoProjeto, versaoArquivo);
+      restaurar(validar(bruto));
+      setVendoVersoes(false);
+      setErro(null);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não consegui voltar para essa versão.');
+    }
   }
 
   /** a legenda em .srt, para subir no YouTube ou reaproveitar */
@@ -868,6 +910,16 @@ export default function App() {
             ↷
           </button>
         </span>
+        {servidorOk && arquivoProjeto && (
+          <button
+            type="button"
+            className="chip chip-topo"
+            onClick={() => setVendoVersoes(true)}
+            title="Voltar para uma versão anterior deste projeto"
+          >
+            Versões
+          </button>
+        )}
         <label className="chip chip-topo">
           Abrir projeto
           <input
@@ -918,7 +970,21 @@ export default function App() {
             <>
               <span className="girando" aria-hidden="true" />
               <strong>Gerando o MP4… {Math.round(render.progresso * 100)}%</strong>
-              <span className="dica">Pode continuar mexendo; o render roda por fora.</span>
+              <span className="dica">
+                {faltaDoRender ?? 'calculando quanto falta'} · pode continuar mexendo, o render roda
+                por fora
+              </span>
+              <button
+                type="button"
+                className="chip"
+                onClick={() => {
+                  void cancelarRender()
+                    .then(() => estadoRender().then((e) => e && setRender(e)))
+                    .catch((e) => setErro(e instanceof Error ? e.message : 'Não consegui cancelar.'));
+                }}
+              >
+                Cancelar
+              </button>
             </>
           )}
           {!render.rodando && render.saida && pediuRender && (
@@ -1175,6 +1241,14 @@ export default function App() {
           setMudo(v === 0);
         }}
       />
+
+      {vendoVersoes && arquivoProjeto && (
+        <Versoes
+          arquivo={arquivoProjeto}
+          onVoltarPara={(v) => void voltarParaVersao(v.arquivo)}
+          onFechar={() => setVendoVersoes(false)}
+        />
+      )}
 
       {passo === 5 && (
         <div className="modal" role="dialog" aria-modal>

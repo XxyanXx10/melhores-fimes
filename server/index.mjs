@@ -8,7 +8,7 @@
  * Nada sai do computador: o áudio nunca é enviado para lugar nenhum.
  */
 import { createServer } from 'node:http';
-import { mkdir, mkdtemp, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -93,19 +93,66 @@ async function lerEstadoRender() {
   }
 }
 
-async function iniciarRender(arquivoProjeto, nomeSaida) {
+async function escreverEstadoRender(estado) {
   await mkdir(path.dirname(ARQUIVO_ESTADO), { recursive: true });
-  await writeFile(
-    ARQUIVO_ESTADO,
-    JSON.stringify({ rodando: true, progresso: 0, saida: null, erro: null }),
-    'utf8',
-  );
+  await writeFile(ARQUIVO_ESTADO, JSON.stringify(estado), 'utf8');
+}
+
+async function iniciarRender(arquivoProjeto, nomeSaida) {
   const filho = spawn(
     process.execPath,
     [path.join(aqui, '..', 'render', 'render.mjs'), arquivoProjeto, '--saida', nomeSaida],
     { cwd: path.join(aqui, '..'), windowsHide: true, detached: true, stdio: 'ignore' },
   );
+  /* o pid vai para o estado: é por ele que o cancelar encontra o processo */
+  await escreverEstadoRender({
+    rodando: true,
+    progresso: 0,
+    saida: null,
+    erro: null,
+    pid: filho.pid,
+    inicio: Date.now(),
+  });
   filho.unref();
+}
+
+/*
+ * Histórico de versões.
+ *
+ * O salvamento automático grava a cada poucos segundos; versionar tudo encheria
+ * o disco de cópias iguais. Guardamos uma a cada VINTE minutos de trabalho, e
+ * ficamos com as vinte últimas — o suficiente para voltar de um estrago sem
+ * virar um museu.
+ */
+const ESPACO_ENTRE_VERSOES = 20 * 60 * 1000;
+const VERSOES_GUARDADAS = 20;
+
+function pastaDeVersoes(arquivo) {
+  return path.join(aqui, '..', 'projeto', '.versoes', path.basename(arquivo, '.json'));
+}
+
+async function guardarVersao(arquivo, caminhoAtual, forcar = false) {
+  if (!existsSync(caminhoAtual)) return; // primeiro salvamento: não há o que guardar
+  try {
+    const pasta = pastaDeVersoes(arquivo);
+    await mkdir(pasta, { recursive: true });
+    const existentes = (await readdir(pasta)).filter((n) => n.endsWith('.json')).sort();
+
+    const ultima = existentes[existentes.length - 1];
+    if (ultima && !forcar) {
+      const quando = Number(path.basename(ultima, '.json'));
+      if (Number.isFinite(quando) && Date.now() - quando < ESPACO_ENTRE_VERSOES) return;
+    }
+
+    await copyFile(caminhoAtual, path.join(pasta, `${Date.now()}.json`));
+
+    const sobrando = [...existentes, 'novo'].length - VERSOES_GUARDADAS;
+    for (let i = 0; i < sobrando; i++) {
+      await rm(path.join(pasta, existentes[i]), { force: true });
+    }
+  } catch {
+    /* não conseguir versionar nunca pode impedir o usuário de salvar */
+  }
 }
 
 /** vira nome de arquivo seguro: "Reajuste ANS — gancho" -> "Reajuste ANS - gancho.json" */
@@ -295,7 +342,10 @@ async function atender(req, res) {
       const pasta = path.join(aqui, '..', 'projeto');
       await mkdir(pasta, { recursive: true });
       const arquivo = nomeDeArquivo(corpo.arquivo ?? projeto.nomeProjeto ?? projeto.nome ?? 'projeto');
-      await writeFile(path.join(pasta, arquivo), JSON.stringify(projeto, null, 2), 'utf8');
+      const caminho = path.join(pasta, arquivo);
+      /* voltar para uma versão antiga guarda o estado atual antes, sempre */
+      await guardarVersao(arquivo, caminho, url.searchParams.get('versionar') === '1');
+      await writeFile(caminho, JSON.stringify(projeto, null, 2), 'utf8');
       return json(res, 200, { ok: true, arquivo });
     } catch (e) {
       return json(res, 500, { erro: e.message });
@@ -322,6 +372,49 @@ async function atender(req, res) {
    * Não usa o render do Remotion de propósito — abrir a lista de projetos
    * não pode depender de subir um Chrome para cada cartão.
    */
+  /* As versões guardadas de um projeto, da mais nova para a mais velha. */
+  if (url.pathname.startsWith('/versoes/') && req.method === 'GET') {
+    const arquivo = nomePedido(url.pathname);
+    try {
+      const pasta = pastaDeVersoes(arquivo);
+      const nomes = (await readdir(pasta)).filter((n) => n.endsWith('.json'));
+      const versoes = [];
+      for (const nome of nomes) {
+        const quando = Number(path.basename(nome, '.json'));
+        if (!Number.isFinite(quando)) continue;
+        try {
+          const j = JSON.parse(await readFile(path.join(pasta, nome), 'utf8'));
+          versoes.push({
+            arquivo: nome,
+            quando,
+            palavras: (j.palavras ?? []).length,
+            template: j.template ?? null,
+            nome: j.nomeProjeto ?? j.nome ?? null,
+          });
+        } catch {
+          /* versão ilegível fica de fora */
+        }
+      }
+      versoes.sort((a, b) => b.quando - a.quando);
+      return json(res, 200, { versoes });
+    } catch {
+      return json(res, 200, { versoes: [] });
+    }
+  }
+
+  /* O conteúdo de uma versão, para voltar a ela. */
+  if (url.pathname.startsWith('/versao/') && req.method === 'GET') {
+    const partes = url.pathname.split('/').filter(Boolean); // versao / <projeto> / <versao>
+    const projeto = path.basename(decodeURIComponent(partes[1] ?? ''));
+    const versao = path.basename(decodeURIComponent(partes[2] ?? ''));
+    try {
+      const caminho = path.join(pastaDeVersoes(projeto), versao);
+      return json(res, 200, JSON.parse(await readFile(caminho, 'utf8')));
+    } catch {
+      return json(res, 404, { erro: 'versão não encontrada' });
+    }
+  }
+
   if (url.pathname.startsWith('/miniatura/') && req.method === 'GET') {
     const nome = nomePedido(url.pathname);
     try {
@@ -447,6 +540,41 @@ async function atender(req, res) {
     } catch (e) {
       return json(res, 500, { erro: e.message });
     }
+  }
+
+  /*
+   * Cancelar o render.
+   *
+   * O processo roda solto (detached), então o serviço guarda o pid no arquivo
+   * de estado e mata o processo inteiro — o Chrome do Remotion é filho dele e
+   * cai junto, senão ficaria consumindo memória e disco à toa.
+   */
+  if (url.pathname === '/renderizar' && req.method === 'DELETE') {
+    const estado = await lerEstadoRender();
+    if (!estado.rodando || !estado.pid) {
+      return json(res, 409, { erro: 'não há render em andamento' });
+    }
+    if (process.platform === 'win32') {
+      /* no Windows, matar o pai deixa o Chrome do Remotion vivo comendo memória */
+      spawn('taskkill', ['/PID', String(estado.pid), '/T', '/F'], { windowsHide: true });
+    } else {
+      try {
+        process.kill(-estado.pid, 'SIGTERM'); // o grupo inteiro, com os filhos
+      } catch {
+        try {
+          process.kill(estado.pid, 'SIGTERM');
+        } catch {
+          /* já tinha morrido */
+        }
+      }
+    }
+    await escreverEstadoRender({
+      rodando: false,
+      progresso: estado.progresso ?? 0,
+      saida: null,
+      erro: 'Cancelado por você.',
+    });
+    return json(res, 200, { ok: true });
   }
 
   if (url.pathname === '/renderizar' && req.method === 'GET') {

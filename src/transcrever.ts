@@ -92,8 +92,13 @@ export async function listarProjetos(): Promise<ProjetoNoDisco[]> {
 }
 
 /** grava o projeto na pasta da máquina e devolve o nome do arquivo gravado */
-export async function gravarProjeto(projeto: unknown, arquivo: string): Promise<string> {
-  const r = await fetch(`${SERVIDOR}/projetos`, {
+export async function gravarProjeto(
+  projeto: unknown,
+  arquivo: string,
+  /** guarda uma versão do estado atual mesmo que a última seja recente */
+  versionar = false,
+): Promise<string> {
+  const r = await fetch(`${SERVIDOR}/projetos${versionar ? '?versionar=1' : ''}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ arquivo, projeto }),
@@ -139,6 +144,34 @@ export async function corrigirAgora(palavras: Word[]): Promise<Word[]> {
   return corpo.palavras as Word[];
 }
 
+export type VersaoNoDisco = {
+  arquivo: string;
+  quando: number;
+  palavras: number;
+  template: string | null;
+  nome: string | null;
+};
+
+/** as versões guardadas de um projeto, da mais nova para a mais velha */
+export async function listarVersoes(arquivo: string): Promise<VersaoNoDisco[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/versoes/${encodeURIComponent(arquivo)}`);
+    if (!r.ok) return [];
+    return ((await r.json()).versoes ?? []) as VersaoNoDisco[];
+  } catch {
+    return [];
+  }
+}
+
+/** o conteúdo de uma versão, para voltar a ela */
+export async function abrirVersao(arquivo: string, versao: string): Promise<unknown> {
+  const r = await fetch(
+    `${SERVIDOR}/versao/${encodeURIComponent(arquivo)}/${encodeURIComponent(versao)}`,
+  );
+  if (!r.ok) throw new Error('Não consegui abrir essa versão.');
+  return r.json();
+}
+
 /** copia um projeto com outro nome, para testar uma variação sem perder a primeira */
 export async function duplicarProjeto(arquivo: string): Promise<string> {
   const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`);
@@ -175,6 +208,8 @@ export type EstadoRender = {
   progresso: number;
   saida: string | null;
   erro: string | null;
+  /** quando o render começou (ms) — serve para estimar o que falta */
+  inicio?: number;
 };
 
 /** manda o serviço local gerar o MP4 do projeto que está aberto */
@@ -186,6 +221,15 @@ export async function pedirRender(projeto: unknown): Promise<void> {
   });
   const corpo = await r.json();
   if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui começar o render.');
+}
+
+/** interrompe o render em andamento e derruba o Chrome junto */
+export async function cancelarRender(): Promise<void> {
+  const r = await fetch(`${SERVIDOR}/renderizar`, { method: 'DELETE' });
+  if (!r.ok) {
+    const corpo = await r.json().catch(() => ({}));
+    throw new Error(corpo?.erro ?? 'Não consegui cancelar.');
+  }
 }
 
 export async function estadoRender(): Promise<EstadoRender | null> {

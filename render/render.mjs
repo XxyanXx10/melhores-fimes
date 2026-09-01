@@ -36,7 +36,10 @@ process.env.TMP = TEMPORARIO;
  * render se perca — quem quiser saber como está, lê o arquivo.
  */
 const ARQUIVO_ESTADO = path.join(raiz, 'render', '.estado.json');
+const INICIO = Date.now();
+
 async function anotar(estado) {
+  estado = { pid: process.pid, inicio: INICIO, ...estado };
   try {
     await mkdir(path.dirname(ARQUIVO_ESTADO), { recursive: true });
     await writeFile(ARQUIVO_ESTADO, JSON.stringify(estado), 'utf8');

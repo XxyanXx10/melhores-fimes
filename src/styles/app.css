@@ -685,3 +685,12 @@ button { font: inherit; cursor: pointer; }
 }
 .corte button:hover:not(:disabled) { border-color: var(--acento-2); color: var(--texto); }
 .corte button:disabled { opacity: .3; cursor: not-allowed; }
+
+/* versões anteriores ------------------------------------------------ */
+.versoes { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-direction: column; gap: 5px; max-height: 46vh; overflow-y: auto; }
+.versoes li {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 8px; padding: 8px 10px;
+}
+.versoes li span { display: flex; flex-direction: column; }
+.versoes li em { font-style: normal; color: var(--suave); font-size: 11px; }
