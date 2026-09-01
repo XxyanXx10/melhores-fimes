@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
+import { CorrecoesPanel } from './components/CorrecoesPanel';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
@@ -22,13 +23,17 @@ import {
   apagarPreset,
   listarPresets,
   apagarProjeto,
+  corrigirAgora,
   duplicarProjeto,
+  guardarCorrecoes,
+  listarCorrecoes,
   gravarProjeto,
   listarProjetos,
   salvarPreset,
   pedirRender,
   transcreverArquivo,
   verificarServidor,
+  type Correcao,
   type ProjetoNoDisco,
 } from './transcrever';
 import { baixar, lerArquivo, validar, type Projeto } from './projeto';
@@ -111,6 +116,8 @@ export default function App() {
   /** caminho do vídeo no disco — o render precisa dele, o navegador não */
   const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
   const [presets, setPresets] = useState<Preset[]>([]);
+  const [correcoes, setCorrecoes] = useState<Correcao[]>([]);
+  const [corrigindo, setCorrigindo] = useState(false);
   const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
   /** cores com que um cartão novo nasce — vêm do estilo de marca */
   const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
@@ -156,6 +163,7 @@ export default function App() {
       setCarregandoLista(false);
     });
     void listarPresets().then(setPresets);
+    void listarCorrecoes().then(setCorrecoes);
   }, [servidorOk]);
 
   /* volume do vídeo enviado */
@@ -1017,6 +1025,24 @@ export default function App() {
           estimativa={estimativa}
           erro={erro}
         >
+          <CorrecoesPanel
+            correcoes={correcoes}
+            temLegenda={transcrito}
+            aplicando={corrigindo}
+            onSalvar={(lista) => {
+              setCorrecoes(lista);
+              void guardarCorrecoes(lista).catch((e) =>
+                setErro(e instanceof Error ? e.message : 'Não consegui salvar as correções.'),
+              );
+            }}
+            onAplicarAgora={() => {
+              setCorrigindo(true);
+              void corrigirAgora(words)
+                .then(setWords)
+                .catch((e) => setErro(e instanceof Error ? e.message : 'Não consegui corrigir.'))
+                .finally(() => setCorrigindo(false));
+            }}
+          />
           <FotosPanel
             fotos={fotos}
             tempo={tempo}

@@ -69,7 +69,8 @@ export async function transcreverVideo(cfg, video) {
 
     const palavras = juntarPalavras(lerJsonWhisper(JSON.parse(await readFile(`${base}.json`, 'utf8'))));
     if (!palavras.length) throw new Error('O Whisper não devolveu nenhuma palavra.');
-    return palavras;
+    /* as correções que se repetem entram aqui, antes de qualquer revisão humana */
+    return aplicarCorrecoes(palavras, await lerCorrecoes());
   } finally {
     await rm(pasta, { recursive: true, force: true });
   }
@@ -155,4 +156,67 @@ export function montarProjeto(video, palavras, template = 'port1-autoridade', me
     fotos: [],
     palavras,
   };
+}
+
+/**
+ * Correções que se repetem em todo vídeo ("INS" → "ANS", nomes de clientes).
+ *
+ * Aceita expressão de mais de uma palavra: "porto um" → "Port1" junta os dois
+ * pedaços num só, com o começo do primeiro e o fim do último. A pontuação
+ * grudada na palavra é preservada, senão "INS." viraria "ANS" e comeria o ponto.
+ */
+const BORDAS = /^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u;
+
+function nucleoDaPalavra(texto) {
+  const m = texto.match(BORDAS);
+  return m ? { antes: m[1], meio: m[2], depois: m[3] } : { antes: '', meio: texto, depois: '' };
+}
+
+export function aplicarCorrecoes(palavras, correcoes) {
+  const regras = (correcoes ?? [])
+    .filter((c) => c && c.de && c.para)
+    .map((c) => ({ de: c.de.trim().toLowerCase().split(/\s+/), para: c.para }))
+    .sort((a, b) => b.de.length - a.de.length); // as mais longas mandam
+  if (!regras.length) return palavras;
+
+  const saida = [];
+  for (let i = 0; i < palavras.length; ) {
+    let casou = null;
+    for (const regra of regras) {
+      const janela = palavras.slice(i, i + regra.de.length);
+      if (janela.length < regra.de.length) continue;
+      const iguais = janela.every(
+        (w, k) => nucleoDaPalavra(w.text).meio.toLowerCase() === regra.de[k],
+      );
+      if (iguais) {
+        casou = { regra, janela };
+        break;
+      }
+    }
+    if (casou) {
+      const { antes } = nucleoDaPalavra(casou.janela[0].text);
+      const { depois } = nucleoDaPalavra(casou.janela[casou.janela.length - 1].text);
+      saida.push({
+        text: `${antes}${casou.regra.para}${depois}`,
+        start: casou.janela[0].start,
+        end: casou.janela[casou.janela.length - 1].end,
+      });
+      i += casou.janela.length;
+    } else {
+      saida.push(palavras[i]);
+      i++;
+    }
+  }
+  return saida;
+}
+
+/** as correções salvas pelo usuário, em correcoes.json na raiz */
+export async function lerCorrecoes() {
+  try {
+    const bruto = await readFile(path.join(raiz, 'correcoes.json'), 'utf8');
+    const lista = JSON.parse(bruto);
+    return Array.isArray(lista) ? lista : [];
+  } catch {
+    return [];
+  }
 }

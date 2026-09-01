@@ -644,3 +644,33 @@ button { font: inherit; cursor: pointer; }
 .tp-confirma p { margin: 0; font-size: 12.5px; line-height: 1.45; }
 .tp-confirma div { display: flex; gap: 6px; }
 .chip-perigo { border-color: #6b2b21; color: #ffb4a8; }
+
+/* correções que se repetem ------------------------------------------ */
+.dobra {
+  background: none; border: 0; color: inherit; font: inherit; padding: 0;
+  display: flex; align-items: center; gap: 6px; text-transform: inherit; letter-spacing: inherit;
+}
+.dobra b {
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 999px;
+  padding: 0 6px; font-size: 10px; color: var(--suave);
+}
+.correcoes { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.correcoes li {
+  display: grid; grid-template-columns: 1fr auto 1fr auto; gap: 6px; align-items: center;
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 6px; padding: 5px 8px;
+  font-size: 12px;
+}
+.correcoes .de { color: #ffb4a8; text-decoration: line-through; overflow: hidden; text-overflow: ellipsis; }
+.correcoes .para { color: #7bd6a2; font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+.correcoes .seta, .correcao-nova .seta { color: var(--suave); font-size: 11px; }
+.correcoes li button {
+  background: none; border: 0; color: var(--suave); font-size: 15px; line-height: 1; padding: 0 2px;
+}
+.correcoes li button:hover { color: #ffb4a8; }
+.correcao-nova { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; }
+.correcao-nova input {
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 6px;
+  color: var(--texto); padding: 6px 8px; font: inherit; font-size: 12px; min-width: 0;
+}
+.correcao-nova input:focus { outline: none; border-color: var(--acento-2); }
+.correcao-nova .chip { grid-column: 1 / -1; margin-top: 6px; }

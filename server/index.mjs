@@ -16,9 +16,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  aplicarCorrecoes,
   conferirFerramentas,
   detectarCortes,
   lerConfig,
+  lerCorrecoes,
   sondarVideo,
   transcreverVideo,
 } from '../agente/nucleo.mjs';
@@ -137,7 +139,20 @@ function nomePedido(caminho) {
   return path.basename(atual);
 }
 
-const servidor = createServer(async (req, res) => {
+const servidor = createServer((req, res) => {
+  /*
+   * Qualquer erro solto aqui dentro derrubava o processo: o usuário perdia o
+   * serviço no meio do trabalho, com a plataforma aberta na tela. Agora a
+   * requisição falha sozinha e o resto continua de pé.
+   */
+  atender(req, res).catch((e) => {
+    console.error('Erro ao atender', req.method, req.url, '→', e?.message ?? e);
+    if (!res.headersSent) json(res, 500, { erro: e?.message ?? 'erro inesperado' });
+    else res.end();
+  });
+});
+
+async function atender(req, res) {
   const url = new URL(req.url, 'http://localhost');
 
   if (req.method === 'OPTIONS') return json(res, 204, {});
@@ -149,6 +164,41 @@ const servidor = createServer(async (req, res) => {
    * abre. Assim o usuário escolhe o projeto numa lista e recebe legenda,
    * ajustes E o vídeo — sem precisar arrastar nada.
    */
+  /* Correções que se repetem em todo vídeo: "INS" -> "ANS", nomes de clientes. */
+  if (url.pathname === '/correcoes' && req.method === 'GET') {
+    return json(res, 200, { correcoes: await lerCorrecoes() });
+  }
+
+  if (url.pathname === '/correcoes' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const lista = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!Array.isArray(lista)) return json(res, 400, { erro: 'esperava uma lista' });
+      const limpa = lista
+        .filter((c) => c && typeof c.de === 'string' && typeof c.para === 'string')
+        .map((c) => ({ de: c.de.trim(), para: c.para.trim() }))
+        .filter((c) => c.de && c.para);
+      await writeFile(path.join(aqui, '..', 'correcoes.json'), JSON.stringify(limpa, null, 2), 'utf8');
+      return json(res, 200, { ok: true, correcoes: limpa });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  /* Aplicar as correções numa legenda que já existe. */
+  if (url.pathname === '/corrigir' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { palavras } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!Array.isArray(palavras)) return json(res, 400, { erro: 'esperava palavras' });
+      return json(res, 200, { palavras: aplicarCorrecoes(palavras, await lerCorrecoes()) });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   /* Estilos de marca salvos, para aplicar em série. */
   if (url.pathname === '/presets' && req.method === 'GET') {
     try {
@@ -548,7 +598,7 @@ const servidor = createServer(async (req, res) => {
   if (req.method === 'GET') return servirEstatico(res, url.pathname);
 
   json(res, 404, { erro: 'rota desconhecida' });
-});
+}
 
 /*
  * Ao reiniciar (o --watch reinicia a cada edição), o processo novo às vezes

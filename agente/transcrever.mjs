@@ -7,44 +7,21 @@
  * Feito para ser rodado por um assistente (Claude, ChatGPT, Antigravity…),
  * não pelo usuário. Roda 100% local: o áudio não sai da máquina.
  */
-import { spawn } from 'node:child_process';
-import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { juntarPalavras, lerJsonWhisper } from '../server/merge.mjs';
-import { montarProjeto, sondarVideo } from './nucleo.mjs';
+import { conferirFerramentas, lerConfig, montarProjeto, transcreverVideo } from './nucleo.mjs';
 
-const aqui = path.dirname(fileURLToPath(import.meta.url));
-const raiz = path.join(aqui, '..');
+const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function argumento(nome, padrao) {
   const i = process.argv.indexOf(`--${nome}`);
   return i > 0 ? process.argv[i + 1] : padrao;
 }
 
-async function config() {
-  const proprio = path.join(raiz, 'server', 'config.json');
-  const alvo = existsSync(proprio) ? proprio : path.join(raiz, 'server', 'config.example.json');
-  return JSON.parse(await readFile(alvo, 'utf8'));
-}
 
-function rodar(cmd, args, rotulo) {
-  return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
-    let erro = '';
-    p.stderr.on('data', (d) => (erro += d));
-    p.on('error', (e) => reject(new Error(`${rotulo}: ${e.message}`)));
-    p.on('close', (c) =>
-      c === 0 ? resolve() : reject(new Error(`${rotulo} falhou (código ${c})\n${erro.slice(-1200)}`)),
-    );
-  });
-}
 
-function duracaoDe(palavras) {
-  return palavras.length ? palavras[palavras.length - 1].end : 0;
-}
 
 const video = process.argv[2];
 if (!video) {
@@ -56,34 +33,18 @@ if (!existsSync(video)) {
   process.exit(1);
 }
 
-const cfg = await config();
-for (const [rotulo, caminho] of [['whisper-cli', cfg.whisperCli], ['modelo', cfg.modelo]]) {
-  if (!existsSync(caminho)) {
-    console.error(`${rotulo} não encontrado: ${caminho}\nAjuste server/config.json.`);
-    process.exit(1);
-  }
+const cfg = await lerConfig();
+const faltando = conferirFerramentas(cfg);
+if (faltando.length) {
+  console.error('Não encontrei:\n  ' + faltando.join('\n  ') + '\nAjuste server/config.json.');
+  process.exit(1);
 }
 
-const pasta = await mkdtemp(path.join(tmpdir(), 'mf-'));
 try {
-  const wav = path.join(pasta, 'audio.wav');
-  console.log('Extraindo o áudio…');
-  await rodar(cfg.ffmpeg, ['-y', '-i', video, '-vn', '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', wav], 'FFmpeg');
+  console.log('Extraindo o áudio e transcrevendo com o whisper.cpp (pode demorar)…');
+  const palavras = await transcreverVideo(cfg, video);
 
-  console.log('Transcrevendo com o whisper.cpp (pode demorar)…');
-  const base = path.join(pasta, 'saida');
-  const args = ['-m', cfg.modelo, '-l', cfg.idioma, '-ml', '1', '-oj', '-of', base, wav];
-  if (cfg.threads > 0) args.unshift('-t', String(cfg.threads));
-  await rodar(cfg.whisperCli, args, 'whisper.cpp');
-
-  const palavras = juntarPalavras(lerJsonWhisper(JSON.parse(await readFile(`${base}.json`, 'utf8'))));
-  if (!palavras.length) throw new Error('O Whisper não devolveu nenhuma palavra.');
-
-  // fps e tamanho do arquivo de origem: a composição do Remotion nasce daí
-  const meta = await sondarVideo(cfg, video);
-  const projeto = montarProjeto(video, palavras, argumento('template', 'port1-autoridade'), meta);
-  projeto.duracao = duracaoDe(palavras);
-
+  const projeto = montarProjeto(video, palavras, argumento('template', 'port1-autoridade'));
   const saida = argumento(
     'saida',
     path.join(raiz, 'projeto', `${path.basename(video, path.extname(video))}.json`),
@@ -93,7 +54,8 @@ try {
 
   console.log(`\n✓ ${palavras.length} palavras — ${projeto.duracao.toFixed(1)}s`);
   console.log(`✓ Projeto: ${saida}`);
-  console.log('\nAbra a plataforma e arraste esse arquivo para dentro dela.');
-} finally {
-  await rm(pasta, { recursive: true, force: true });
+  console.log('\nAbra a plataforma: as correções que se repetem já foram aplicadas.');
+} catch (e) {
+  console.error(`\n✗ ${e.message}`);
+  process.exit(1);
 }

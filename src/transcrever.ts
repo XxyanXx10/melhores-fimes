@@ -103,6 +103,42 @@ export async function gravarProjeto(projeto: unknown, arquivo: string): Promise<
   return corpo.arquivo as string;
 }
 
+export type Correcao = { de: string; para: string };
+
+/** a lista de correções que se repetem em todo vídeo */
+export async function listarCorrecoes(): Promise<Correcao[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/correcoes`);
+    if (!r.ok) return [];
+    return ((await r.json()).correcoes ?? []) as Correcao[];
+  } catch {
+    return [];
+  }
+}
+
+export async function guardarCorrecoes(lista: Correcao[]): Promise<Correcao[]> {
+  const r = await fetch(`${SERVIDOR}/correcoes`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(lista),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui salvar as correções.');
+  return corpo.correcoes as Correcao[];
+}
+
+/** passa as correções na legenda que já está na tela */
+export async function corrigirAgora(palavras: Word[]): Promise<Word[]> {
+  const r = await fetch(`${SERVIDOR}/corrigir`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ palavras }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui aplicar as correções.');
+  return corpo.palavras as Word[];
+}
+
 /** copia um projeto com outro nome, para testar uma variação sem perder a primeira */
 export async function duplicarProjeto(arquivo: string): Promise<string> {
   const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`);
