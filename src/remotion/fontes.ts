@@ -1,65 +1,54 @@
 /**
  * Carrega as fontes dentro da composição.
  *
- * A interface pega as fontes do <link> no index.html, mas o Renderer roda
- * sem index.html nenhum. Sem isto, a legenda sai com fonte de sistema no
- * MP4 e ninguém percebe até o final do render. Carregando aqui, prévia e
- * render usam a mesma fonte pelo mesmo caminho.
- *
- * Pedimos só os pesos que os modelos usam e só o subconjunto latino:
- * sem isso, uma família como a Inter dispara mais de cem requisições e
- * atrasa cada render sem nenhum ganho visível em português.
+ * As fontes moram em public/fontes (baixadas uma vez por agente/fontes.mjs).
+ * Antes vinham do Google a cada render: sem internet, o MP4 saía com fonte
+ * de sistema e ninguém percebia até o final — a prévia mentia sobre o
+ * resultado. Agora prévia e render leem o mesmo arquivo do disco.
  */
-import { loadFont as anton } from '@remotion/google-fonts/Anton';
-import { loadFont as archivoBlack } from '@remotion/google-fonts/ArchivoBlack';
-import { loadFont as bebasNeue } from '@remotion/google-fonts/BebasNeue';
-import { loadFont as caveat } from '@remotion/google-fonts/Caveat';
-import { loadFont as inter } from '@remotion/google-fonts/Inter';
-import { loadFont as montserrat } from '@remotion/google-fonts/Montserrat';
-import { loadFont as playfairDisplay } from '@remotion/google-fonts/PlayfairDisplay';
-import { loadFont as poppins } from '@remotion/google-fonts/Poppins';
-import { loadFont as robotoCondensed } from '@remotion/google-fonts/RobotoCondensed';
+import { continueRender, delayRender, staticFile } from 'remotion';
 
+/** o que a composição precisa ter pronto antes de desenhar a primeira legenda */
+const NECESSARIAS = [
+  '400 16px "Anton"',
+  '400 16px "Archivo Black"',
+  '400 16px "Bebas Neue"',
+  '700 16px "Caveat"',
+  '900 16px "Inter"',
+  '900 16px "Montserrat"',
+  '700 16px "Playfair Display"',
+  'italic 700 16px "Playfair Display"',
+  '800 16px "Poppins"',
+  '700 16px "Roboto Condensed"',
+];
+
+const CSS_LOCAL = 'fontes/fontes.css';
 let carregadas = false;
 
 /** chamado uma vez pela composição, antes de desenhar qualquer legenda */
 export function carregarFontes() {
-  if (carregadas) return;
+  if (carregadas || typeof document === 'undefined') return;
   carregadas = true;
-  const s = ['latin', 'latin-ext'] as const;
-  const aviso = true;
-  anton('normal', { weights: ['400'], subsets: [...s], ignoreTooManyRequestsWarning: aviso });
-  archivoBlack('normal', { weights: ['400'], subsets: [...s], ignoreTooManyRequestsWarning: aviso });
-  bebasNeue('normal', { weights: ['400'], subsets: [...s], ignoreTooManyRequestsWarning: aviso });
-  caveat('normal', { weights: ['700'], subsets: [...s], ignoreTooManyRequestsWarning: aviso });
-  inter('normal', {
-    weights: ['400', '600', '800', '900'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
-  montserrat('normal', {
-    weights: ['700', '800', '900'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
-  playfairDisplay('normal', {
-    weights: ['700'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
-  playfairDisplay('italic', {
-    weights: ['700'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
-  poppins('normal', {
-    weights: ['600', '800'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
-  robotoCondensed('normal', {
-    weights: ['700'],
-    subsets: [...s],
-    ignoreTooManyRequestsWarning: aviso,
-  });
+
+  const espera = delayRender('Carregando as fontes locais');
+  const pronto = () =>
+    Promise.all(NECESSARIAS.map((f) => document.fonts.load(f).catch(() => undefined)))
+      .then(() => continueRender(espera))
+      .catch(() => continueRender(espera));
+
+  const href = staticFile(CSS_LOCAL);
+  const jaTem = [...document.styleSheets].some((s) => s.href?.includes(CSS_LOCAL));
+
+  if (jaTem) {
+    void pronto();
+    return;
+  }
+
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  link.onload = () => void pronto();
+  /* sem as fontes o vídeo ainda sai, com a fonte do sistema — não travamos o render */
+  link.onerror = () => continueRender(espera);
+  document.head.appendChild(link);
 }

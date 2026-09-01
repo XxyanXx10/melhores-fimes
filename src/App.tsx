@@ -103,6 +103,8 @@ export default function App() {
   const [arquivoProjeto, setArquivoProjeto] = useState<string | null>(null);
   const [salvando, setSalvando] = useState(false);
   const [salvoEm, setSalvoEm] = useState<number | null>(null);
+  /** como o projeto estava na última gravação — serve para saber se há mudança pendente */
+  const [ultimoSalvo, setUltimoSalvo] = useState<string | null>(null);
   /** a lista de projetos ocupa a tela inteira até você escolher um */
   const [naListaDeProjetos, setNaListaDeProjetos] = useState(true);
   const [carregandoLista, setCarregandoLista] = useState(true);
@@ -374,6 +376,7 @@ export default function App() {
       setTocando(false);
       setNaListaDeProjetos(false);
       aplicarProjeto(p);
+      setSalvoEm(Date.now());
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui abrir esse projeto.');
     }
@@ -591,6 +594,12 @@ export default function App() {
    */
   const projetoSerializado = JSON.stringify(projetoAtual());
 
+  /* logo depois de abrir ou gravar, o que está na tela É o que está no disco */
+  useEffect(() => {
+    if (salvoEm && !salvando) setUltimoSalvo(projetoSerializado);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [salvoEm, salvando]);
+
   useEffect(() => {
     if (!transcrito) return;
     if (restaurando.current) {
@@ -747,7 +756,15 @@ export default function App() {
                 if (nomeProjeto?.trim() && arquivoProjeto) void salvarProjeto();
               }}
             />
-            <em>{salvando ? 'salvando…' : salvoEm ? 'salvo' : 'não salvo'}</em>
+            <em>
+              {salvando
+                ? 'salvando…'
+                : ultimoSalvo === projetoSerializado
+                  ? 'salvo'
+                  : salvoEm
+                    ? 'com mudanças'
+                    : 'não salvo'}
+            </em>
           </label>
         )}
         <StepBar passos={PASSOS} atual={passo} concluidos={concluidos} onSelect={setPasso} />

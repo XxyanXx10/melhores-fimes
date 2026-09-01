@@ -117,6 +117,26 @@ function nomeDeArquivo(bruto) {
   return `${limpo || 'projeto'}.json`;
 }
 
+/*
+ * Alguns componentes codificam o endereço mais de uma vez, e "Corte 15.json"
+ * chega como "Corte%2520 15.json". Decodificamos até parar de mudar, senão
+ * projeto com espaço ou acento no nome simplesmente não abre o vídeo.
+ */
+function nomePedido(caminho) {
+  let atual = caminho;
+  for (let i = 0; i < 3; i++) {
+    let proximo;
+    try {
+      proximo = decodeURIComponent(atual);
+    } catch {
+      break;
+    }
+    if (proximo === atual) break;
+    atual = proximo;
+  }
+  return path.basename(atual);
+}
+
 const servidor = createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
 
@@ -234,7 +254,7 @@ const servidor = createServer(async (req, res) => {
 
   /* Apagar um projeto: vai para projeto/.lixeira, não some de vez. */
   if (url.pathname.startsWith('/projetos/') && req.method === 'DELETE') {
-    const nome = path.basename(decodeURIComponent(url.pathname));
+    const nome = nomePedido(url.pathname);
     try {
       const pasta = path.join(aqui, '..', 'projeto');
       const lixeira = path.join(pasta, '.lixeira');
@@ -253,7 +273,7 @@ const servidor = createServer(async (req, res) => {
    * não pode depender de subir um Chrome para cada cartão.
    */
   if (url.pathname.startsWith('/miniatura/') && req.method === 'GET') {
-    const nome = path.basename(decodeURIComponent(url.pathname));
+    const nome = nomePedido(url.pathname);
     try {
       const cache = path.join(aqui, '..', 'projeto', '.miniaturas');
       await mkdir(cache, { recursive: true });
@@ -282,7 +302,7 @@ const servidor = createServer(async (req, res) => {
   }
 
   if (url.pathname.startsWith('/projetos/') && req.method === 'GET') {
-    const nome = path.basename(decodeURIComponent(url.pathname));
+    const nome = nomePedido(url.pathname);
     try {
       return json(res, 200, JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8')));
     } catch {
@@ -292,7 +312,7 @@ const servidor = createServer(async (req, res) => {
 
   /* O vídeo de um projeto, direto de onde ele está no disco. */
   if (url.pathname.startsWith('/video-do-projeto/') && req.method === 'GET') {
-    const nome = path.basename(decodeURIComponent(url.pathname));
+    const nome = nomePedido(url.pathname);
     try {
       const j = JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8'));
       if (!j.video || !existsSync(j.video)) return json(res, 404, { erro: 'vídeo não encontrado' });
