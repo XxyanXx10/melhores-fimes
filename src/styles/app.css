@@ -674,3 +674,14 @@ button { font: inherit; cursor: pointer; }
 }
 .correcao-nova input:focus { outline: none; border-color: var(--acento-2); }
 .correcao-nova .chip { grid-column: 1 / -1; margin-top: 6px; }
+
+/* juntar e separar blocos ------------------------------------------- */
+.blocos li { grid-template-columns: 52px 1fr auto auto; }
+.corte { display: flex; gap: 1px; opacity: 0; transition: opacity .12s; }
+.blocos li:hover .corte, .blocos li:focus-within .corte, .blocos li.is-active .corte { opacity: 1; }
+.corte button {
+  background: var(--panel-2); border: 1px solid var(--linha); color: var(--suave);
+  border-radius: 5px; padding: 2px 5px; font-size: 11px; line-height: 1.2;
+}
+.corte button:hover:not(:disabled) { border-color: var(--acento-2); color: var(--texto); }
+.corte button:disabled { opacity: .3; cursor: not-allowed; }

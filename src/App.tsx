@@ -37,7 +37,15 @@ import {
   type ProjetoNoDisco,
 } from './transcrever';
 import { baixar, lerArquivo, validar, type Projeto } from './projeto';
-import { agrupar, blocoAtivo, palavraAtiva, reescrever, ultimaIniciada } from './blocks';
+import {
+  agrupar,
+  blocoAtivo,
+  inicioDoBloco,
+  palavraAtiva,
+  paraSrt,
+  reescrever,
+  ultimaIniciada,
+} from './blocks';
 import type {
   Block,
   CaptionStyle,
@@ -649,6 +657,47 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projetoSerializado, servidorOk, arquivoProjeto, transcrito]);
 
+  /**
+   * Corte manual dos blocos.
+   *
+   * O tamanho do modelo serve para quase tudo, mas às vezes a frase pede
+   * outro corte. Marcar a palavra é mais seguro do que mexer nos tempos.
+   */
+  function juntarComAnterior(bloco: Block) {
+    const i = inicioDoBloco(words, bloco);
+    if (i <= 0) return;
+    setWords(words.map((w, k) => (k === i ? { ...w, quebra: 'nunca' as const } : w)));
+  }
+
+  function dividirAoMeio(bloco: Block) {
+    if (bloco.words.length < 2) return;
+    const i = inicioDoBloco(words, bloco) + Math.ceil(bloco.words.length / 2);
+    setWords(words.map((w, k) => (k === i ? { ...w, quebra: 'aqui' as const } : w)));
+  }
+
+  function soltarCorte(bloco: Block) {
+    const i = inicioDoBloco(words, bloco);
+    setWords(
+      words.map((w, k) => {
+        if (k !== i) return w;
+        const { quebra: _ignora, ...resto } = w;
+        return resto;
+      }),
+    );
+  }
+
+  /** a legenda em .srt, para subir no YouTube ou reaproveitar */
+  function baixarSrt() {
+    const nome = `${(nomeProjeto ?? nomeArquivo ?? 'legenda').replace(/\.[^.]+$/, '')}.srt`;
+    const blob = new Blob([paraSrt(blocos)], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nome;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   /** uma cópia do projeto para guardar onde você quiser */
   function baixarCopia() {
     baixar(projetoAtual(), `${(nomeProjeto ?? nomeArquivo ?? 'projeto').replace(/\.[^.]+$/, '')}.json`);
@@ -1011,6 +1060,10 @@ export default function App() {
           tempo={tempo}
           onEditar={editar}
           onMarcar={marcar}
+          onJuntar={juntarComAnterior}
+          onDividir={dividirAoMeio}
+          onSoltar={soltarCorte}
+          onBaixarSrt={baixarSrt}
           onIr={irPara}
           transcrito={transcrito}
           onTranscrever={transcrever}

@@ -9,6 +9,10 @@ type Props = {
   onEditar: (bloco: Block, texto: string) => void;
   /** troca a ênfase de uma palavra: nenhuma -> 1 -> 2 -> nenhuma */
   onMarcar: (bloco: Block, indice: number) => void;
+  onJuntar: (bloco: Block) => void;
+  onDividir: (bloco: Block) => void;
+  onSoltar: (bloco: Block) => void;
+  onBaixarSrt: () => void;
   onIr: (t: number) => void;
   transcrito: boolean;
   onTranscrever: () => void;
@@ -159,7 +163,7 @@ export function CaptionPanel(p: Props) {
             Cada clique passa para a próxima ênfase.
           </p>
           <ol className="blocos">
-            {p.blocos.map((b) => {
+            {p.blocos.map((b, i) => {
               const texto = textoDoBloco(b);
               const n = linhas(texto, p.maxChars);
               const ativo = p.tempo >= b.start && p.tempo <= b.end;
@@ -179,6 +183,36 @@ export function CaptionPanel(p: Props) {
                       {n} linhas
                     </span>
                   )}
+                  <span className="corte">
+                    <button
+                      type="button"
+                      onClick={() => p.onJuntar(b)}
+                      disabled={i === 0}
+                      title="Juntar com o bloco de cima"
+                      aria-label="Juntar com o bloco de cima"
+                    >
+                      ⤒
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => p.onDividir(b)}
+                      disabled={b.words.length < 2}
+                      title="Dividir este bloco ao meio"
+                      aria-label="Dividir este bloco ao meio"
+                    >
+                      ✂
+                    </button>
+                    {b.words[0]?.quebra && (
+                      <button
+                        type="button"
+                        onClick={() => p.onSoltar(b)}
+                        title="Desfazer o corte manual e voltar ao do modelo"
+                        aria-label="Voltar ao corte do modelo"
+                      >
+                        ↺
+                      </button>
+                    )}
+                  </span>
                   {ativo && (
                     <div className="marcar">
                       {b.words.map((w, i) => (
@@ -198,6 +232,9 @@ export function CaptionPanel(p: Props) {
               );
             })}
           </ol>
+          <button type="button" className="ghost" onClick={p.onBaixarSrt}>
+            Baixar legenda (.srt)
+          </button>
           </>
         )}
       </section>

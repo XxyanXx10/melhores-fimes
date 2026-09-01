@@ -1,18 +1,38 @@
 import type { Block, Word } from './types';
 
+/**
+ * Corta a legenda em blocos.
+ *
+ * O tamanho vem do modelo, mas o corte manual manda: uma palavra marcada com
+ * 'aqui' começa bloco mesmo no meio, e uma marcada com 'nunca' nunca começa —
+ * é assim que "juntar" e "separar" funcionam sem mexer nos tempos.
+ */
 export function agrupar(words: Word[], porBloco: number): Block[] {
   const blocos: Block[] = [];
-  for (let i = 0; i < words.length; i += porBloco) {
-    const fatia = words.slice(i, i + porBloco);
-    if (!fatia.length) continue;
+  let atual: Word[] = [];
+  let inicio = 0;
+
+  const fechar = () => {
+    if (!atual.length) return;
     blocos.push({
-      id: `b${i}`,
-      start: fatia[0].start,
-      end: fatia[fatia.length - 1].end,
-      words: fatia,
+      id: `b${inicio}`,
+      start: atual[0].start,
+      end: atual[atual.length - 1].end,
+      words: atual,
       highlight: 0,
     });
-  }
+    atual = [];
+  };
+
+  words.forEach((w, i) => {
+    const comecaAqui = w.quebra === 'aqui';
+    const nuncaComeca = w.quebra === 'nunca';
+    if (atual.length && (comecaAqui || (atual.length >= porBloco && !nuncaComeca))) fechar();
+    if (!atual.length) inicio = i;
+    atual.push(w);
+  });
+  fechar();
+
   return blocos;
 }
 
@@ -87,4 +107,27 @@ export function formatarTempo(t: number): string {
   const m = Math.floor(s / 60);
   const r = (s % 60).toFixed(1).padStart(4, '0');
   return `${m}:${r}`;
+}
+
+/** o índice, na legenda inteira, em que cada bloco começa */
+export function inicioDoBloco(words: Word[], bloco: Block): number {
+  return words.indexOf(bloco.words[0]);
+}
+
+/** legenda no formato .srt, para subir no YouTube ou reaproveitar */
+export function paraSrt(blocos: Block[]): string {
+  const carimbo = (t: number) => {
+    const ms = Math.max(0, Math.round(t * 1000));
+    const h = String(Math.floor(ms / 3600000)).padStart(2, '0');
+    const m = String(Math.floor((ms % 3600000) / 60000)).padStart(2, '0');
+    const s = String(Math.floor((ms % 60000) / 1000)).padStart(2, '0');
+    return `${h}:${m}:${s},${String(ms % 1000).padStart(3, '0')}`;
+  };
+  return blocos
+    .map((b, i) => {
+      /* a marcação de ênfase é da plataforma; num .srt ela só atrapalha */
+      const texto = b.words.map((w) => w.text).join(' ').replace(/\*/g, '');
+      return `${i + 1}\n${carimbo(b.start)} --> ${carimbo(b.end)}\n${texto}\n`;
+    })
+    .join('\n');
 }

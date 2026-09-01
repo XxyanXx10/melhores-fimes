@@ -55,7 +55,18 @@ export type Template = {
 };
 
 /** ênfase manual numa palavra: 1 ou 2, cada uma com seu visual no template */
-export type Word = { text: string; start: number; end: number; emphasis?: 1 | 2 };
+export type Word = {
+  text: string;
+  start: number;
+  end: number;
+  emphasis?: 1 | 2;
+  /**
+   * Corte manual dos blocos, quando o do modelo não serve para aquela frase.
+   * 'aqui'  — começa um bloco novo nesta palavra
+   * 'nunca' — esta palavra nunca começa bloco (junta com o de cima)
+   */
+  quebra?: 'aqui' | 'nunca';
+};
 
 export type Block = {
   id: string;
