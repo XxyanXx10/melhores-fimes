@@ -1,10 +1,10 @@
 # Lista de demandas
 
-**Situação em 01/09/2026, fim do dia:** os quatro itens P0 estão feitos, a tela de
-projetos está de pé (itens 5, 6, 7 e parte do 8), e mais três itens saíram de
-carona porque apareceram durante o teste — fontes locais, a tela que não cabia no
-notebook e nomes com acento que não abriam o vídeo. Feito: 1, 2, 3, 4, 5, 6, 7,
-10, 11 (parcial), 13.
+**Situação em 01/09/2026, fim do dia:** doze itens feitos. Os quatro P0, a tela de
+projetos (5, 6, 7 e parte do 8), as fontes locais (13), a tela que não cabia no
+notebook (10), as correções que se repetem (15), o corte manual de blocos (18) e a
+legenda em .srt (21). Mais três defeitos apareceram durante o teste e foram
+corrigidos junto — estão listados no fim.
 
 Levantada em 01/09/2026, rodando a plataforma e lendo o código. Cada item diz
 **o que acontece hoje**, **o que deveria acontecer** e o tamanho do serviço
@@ -149,11 +149,16 @@ antes: "faltam 150 MB para a primeira exportação".
 
 ## P4 — O trabalho de todo dia
 
-### 15. Corrigir palavra que o Whisper sempre erra
+### 15. ✅ Corrigir palavra que o Whisper sempre erra
 **Hoje:** `ANS` vira `INS` em todo vídeo, e você corrige em todo vídeo.
 **Deveria:** uma lista de correções suas ("INS → ANS", "Port1", nomes de clientes),
 aplicada sozinha no fim da transcrição.
 **Tamanho:** P — e é a que mais economiza tempo por semana.
+**Feito:** painel na legenda, guardado em `correcoes.json`. Passa sozinha nos três
+caminhos (serviço, script e vigia de pasta), aceita expressão de mais de uma
+palavra ("porto um" → "Port1", juntando os tempos), preserva a pontuação e só
+troca palavra inteira — "insustentável" não vira nada. Também dá para aplicar
+numa legenda que já existe.
 
 ### 16. Ver a legenda inteira como texto
 **Hoje:** só bloco a bloco, num campo por vez.
@@ -167,10 +172,12 @@ arrastar o começo ou o fim quando o Whisper entra atrasado.
 **Deveria:** pegar a borda do bloco na linha do tempo e arrastar.
 **Tamanho:** M.
 
-### 18. Juntar e separar blocos
+### 18. ✅ Juntar e separar blocos
 **Hoje:** o corte dos blocos vem do número de palavras do modelo, e pronto.
 **Deveria:** juntar dois blocos ou quebrar um, na mão, onde a frase pede.
 **Tamanho:** P.
+**Feito:** juntar com o de cima, dividir ao meio e voltar ao corte do modelo. A
+marca fica na palavra, não nos tempos, e viaja junto no arquivo de projeto.
 
 ---
 
@@ -187,10 +194,11 @@ tempo restante nem deixa cancelar.
 **Deveria:** uma fila — marca cinco cortes, sai para almoçar, volta com os cinco.
 **Tamanho:** M.
 
-### 21. Legenda separada (.srt)
+### 21. ✅ Legenda separada (.srt)
 **Hoje:** a legenda só sai queimada no vídeo.
 **Deveria:** exportar `.srt` também, para subir no YouTube ou reaproveitar.
 **Tamanho:** P.
+**Feito:** botão no fim da lista de blocos. A marcação de ênfase sai do arquivo.
 
 ---
 
@@ -201,6 +209,12 @@ tempo restante nem deixa cancelar.
   decodifica até estabilizar. Corrigido.
 - **O render também dependia da internet.** A composição carregava fonte do
   Google, não só a interface. Corrigido junto com o item 13.
+- **Um erro em qualquer rota derrubava o serviço inteiro** — o usuário perdia a
+  transcrição no meio do trabalho, com a plataforma aberta. Agora a requisição
+  falha sozinha e o resto continua de pé. Corrigido.
+- **O script de transcrição tinha uma cópia própria da lógica**, então ficava de
+  fora de qualquer melhoria feita no serviço — as correções, por exemplo. Os três
+  caminhos agora usam o mesmo núcleo. Corrigido.
 - **`render/.estado.json` está versionado no Git**, então todo render deixa o
   repositório sujo. Fica para decidir.
 
@@ -214,10 +228,12 @@ tempo restante nem deixa cancelar.
 
 ---
 
-## Ordem sugerida
+## O que sobrou, em ordem
 
-1. **P0 inteiro** (itens 1–4). São dois dias e param a sangria.
-2. **Item 6**, a tela de projetos, puxando junto os itens 5, 7 e 8.
-3. **Itens 10 e 11**, para a tela caber no notebook.
-4. **Itens 13 e 15**, baratos e de retorno diário.
-5. O resto conforme incomodar.
+1. **Item 19** — quanto falta no render e poder cancelar. Pequeno.
+2. **Item 8** — histórico de versões do projeto, para voltar a uma anterior.
+3. **Item 16** — ler e editar a legenda inteira como texto corrido.
+4. **Item 17** — arrastar a borda do bloco quando o Whisper entra atrasado.
+5. **Item 9** — agrupar por cliente e buscar pelo que foi falado.
+6. **Item 20** — fila de exportação, para marcar cinco cortes e sair.
+7. **Itens 11 e 12** — arrumar o topo e recolher painel.
