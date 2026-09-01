@@ -246,6 +246,41 @@ const servidor = createServer(async (req, res) => {
     }
   }
 
+  /*
+   * Miniatura do projeto: um quadro do vídeo, tirado com o FFmpeg.
+   *
+   * Não usa o render do Remotion de propósito — abrir a lista de projetos
+   * não pode depender de subir um Chrome para cada cartão.
+   */
+  if (url.pathname.startsWith('/miniatura/') && req.method === 'GET') {
+    const nome = path.basename(decodeURIComponent(url.pathname));
+    try {
+      const cache = path.join(aqui, '..', 'projeto', '.miniaturas');
+      await mkdir(cache, { recursive: true });
+      const jpg = path.join(cache, `${path.basename(nome, '.json')}.jpg`);
+
+      if (!existsSync(jpg)) {
+        const j = JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8'));
+        if (!j.video || !existsSync(j.video)) return json(res, 404, { erro: 'sem vídeo' });
+        const em = Math.min(1, (j.duracao ?? 2) / 3).toFixed(2);
+        await new Promise((resolve, reject) => {
+          const f = spawn(
+            cfg.ffmpeg,
+            ['-y', '-ss', em, '-i', j.video, '-frames:v', '1', '-vf', 'scale=-2:320', jpg],
+            { windowsHide: true },
+          );
+          f.on('error', reject);
+          f.on('close', (c) => (c === 0 ? resolve() : reject(new Error('ffmpeg'))));
+        });
+      }
+      const info = await stat(jpg);
+      res.writeHead(200, { 'content-type': 'image/jpeg', 'content-length': info.size });
+      return createReadStream(jpg).pipe(res);
+    } catch (e) {
+      return json(res, 404, { erro: e.message });
+    }
+  }
+
   if (url.pathname.startsWith('/projetos/') && req.method === 'GET') {
     const nome = path.basename(decodeURIComponent(url.pathname));
     try {

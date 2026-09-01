@@ -103,6 +103,15 @@ export async function gravarProjeto(projeto: unknown, arquivo: string): Promise<
   return corpo.arquivo as string;
 }
 
+/** copia um projeto com outro nome, para testar uma variação sem perder a primeira */
+export async function duplicarProjeto(arquivo: string): Promise<string> {
+  const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`);
+  if (!r.ok) throw new Error('Não consegui ler esse projeto.');
+  const projeto = (await r.json()) as Record<string, unknown>;
+  const nome = `${(projeto.nomeProjeto ?? projeto.nome ?? arquivo) as string} (cópia)`;
+  return gravarProjeto({ ...projeto, nomeProjeto: nome, arquivo: undefined }, nome);
+}
+
 /** manda o projeto para a lixeira (projeto/.lixeira), não apaga de vez */
 export async function apagarProjeto(arquivo: string): Promise<void> {
   const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`, { method: 'DELETE' });

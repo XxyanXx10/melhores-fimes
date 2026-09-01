@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
+import { TelaProjetos } from './components/TelaProjetos';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
 import { FotosPanel } from './components/FotosPanel';
@@ -20,6 +21,8 @@ import {
   estadoRender,
   apagarPreset,
   listarPresets,
+  apagarProjeto,
+  duplicarProjeto,
   gravarProjeto,
   listarProjetos,
   salvarPreset,
@@ -100,6 +103,9 @@ export default function App() {
   const [arquivoProjeto, setArquivoProjeto] = useState<string | null>(null);
   const [salvando, setSalvando] = useState(false);
   const [salvoEm, setSalvoEm] = useState<number | null>(null);
+  /** a lista de projetos ocupa a tela inteira até você escolher um */
+  const [naListaDeProjetos, setNaListaDeProjetos] = useState(true);
+  const [carregandoLista, setCarregandoLista] = useState(true);
   /** caminho do vídeo no disco — o render precisa dele, o navegador não */
   const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
   const [presets, setPresets] = useState<Preset[]>([]);
@@ -143,7 +149,10 @@ export default function App() {
   /* projetos que já existem na pasta do computador */
   useEffect(() => {
     if (!servidorOk) return;
-    void listarProjetos().then(setNoDisco);
+    void listarProjetos().then((l) => {
+      setNoDisco(l);
+      setCarregandoLista(false);
+    });
     void listarPresets().then(setPresets);
   }, [servidorOk]);
 
@@ -245,6 +254,9 @@ export default function App() {
   }, []);
 
   function enviar(f: File) {
+    setNaListaDeProjetos(false);
+    setArquivoProjeto(null);
+    setNomeProjeto(f.name.replace(/\.[^.]+$/, ''));
     const url = URL.createObjectURL(f);
     setArquivo(f);
     setErro(null);
@@ -336,6 +348,7 @@ export default function App() {
       setNomeProjeto(p.nomeProjeto ?? p.nome ?? f.name.replace(/\.json$/i, ''));
       setArquivoProjeto(p.arquivo ?? null);
       setSalvoEm(null);
+      setNaListaDeProjetos(false);
       aplicarProjeto(p);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui ler esse arquivo de projeto.');
@@ -359,6 +372,7 @@ export default function App() {
       setArquivoProjeto(arquivo);
       setSalvoEm(null);
       setTocando(false);
+      setNaListaDeProjetos(false);
       aplicarProjeto(p);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui abrir esse projeto.');
@@ -685,6 +699,28 @@ export default function App() {
     false,
   ];
 
+  if (naListaDeProjetos && servidorOk) {
+    return (
+      <TelaProjetos
+        projetos={noDisco}
+        carregando={carregandoLista}
+        onAbrir={(a) => void abrirDaPasta(a)}
+        onNovo={enviar}
+        onDuplicar={(a) =>
+          void duplicarProjeto(a)
+            .then(() => listarProjetos().then(setNoDisco))
+            .catch((e) => setErro(e instanceof Error ? e.message : 'Não consegui duplicar.'))
+        }
+        onApagar={(a) =>
+          void apagarProjeto(a)
+            .then(() => listarProjetos().then(setNoDisco))
+            .catch((e) => setErro(e instanceof Error ? e.message : 'Não consegui apagar.'))
+        }
+        onFechar={transcrito ? () => setNaListaDeProjetos(false) : null}
+      />
+    );
+  }
+
   return (
     <div
       className={`app ${arrastando ? 'is-arrastando' : ''}`}
@@ -723,25 +759,18 @@ export default function App() {
           onSalvar={(nome) => void guardarPreset(nome)}
           onApagar={(id) => void removerPreset(id)}
         />
-        {noDisco.length > 0 && (
-          <label className="chip chip-topo">
-            Abrir do computador
-            <select
-              value=""
-              onChange={(e) => {
-                if (e.target.value) void abrirDaPasta(e.target.value);
-                e.target.value = '';
-              }}
-            >
-              <option value="">Escolha um projeto…</option>
-              {noDisco.map((d) => (
-                <option key={d.arquivo} value={d.arquivo} disabled={!d.temVideo}>
-                  {d.nome} · {d.duracao.toFixed(0)}s · {d.palavras} palavras
-                  {d.temVideo ? '' : ' (vídeo não encontrado)'}
-                </option>
-              ))}
-            </select>
-          </label>
+        {servidorOk && (
+          <button
+            type="button"
+            className="chip chip-topo"
+            onClick={() => {
+              void listarProjetos().then(setNoDisco);
+              setNaListaDeProjetos(true);
+            }}
+            title="Ver todos os projetos"
+          >
+            Projetos
+          </button>
         )}
         <span className="historico">
           <button
