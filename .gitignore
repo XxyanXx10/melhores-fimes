@@ -17,3 +17,8 @@ presets/
 render/.fontes/
 backups/
 projeto/.miniaturas/
+render/.estado.json
+render/.tmp/
+render/*.mp4
+correcoes.json
+projeto/.versoes/
