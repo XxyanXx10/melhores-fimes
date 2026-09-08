@@ -718,3 +718,14 @@ button { font: inherit; cursor: pointer; }
   height: 5px; border-radius: 3px; background: #3a2118; overflow: hidden; margin-top: 4px;
 }
 .barra-corte span { display: block; height: 100%; background: #7bd6a2; }
+
+/* montagem a partir de takes ----------------------------------------- */
+.takes-lista {
+  list-style: decimal inside; margin: 0 0 12px; padding: 8px 10px; max-height: 30vh; overflow-y: auto;
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 8px;
+  display: flex; flex-direction: column; gap: 3px; font-size: 12px;
+}
+.takes-lista li { display: flex; justify-content: space-between; gap: 10px; }
+.takes-lista em { font-style: normal; color: var(--suave); font-variant-numeric: tabular-nums; }
+.montando { display: flex; flex-direction: column; gap: 6px; padding: 18px 0; }
+.montando strong { font-size: 14px; }

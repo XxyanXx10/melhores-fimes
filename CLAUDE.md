@@ -32,6 +32,25 @@ grava `projeto/<nome>.json`. Um de cada vez, em fila, e nunca duas vezes o mesmo
 arquivo. É o modo preferido quando o usuário disser "quando eu adicionar o vídeo,
 transcreve" — deixe rodando em segundo plano.
 
+## Montar um vídeo a partir dos takes
+
+```bash
+node agente/montar.mjs "E:/Video/Cortes/Reajuste" --nome "Reajuste ANS"
+```
+
+É como o vídeo nasce de verdade: uma frase por take, cada um começando com a
+claquete falada ("um, dois, três, gravando"). O script transcreve cada take,
+joga fora tudo até o "gravando", tira os silêncios, cola os pedaços na ordem
+dos nomes dos arquivos e grava `projeto/<nome>.json` com a legenda já no tempo
+do vídeo montado. Na plataforma é o botão **Montar a partir de takes**.
+
+A ordem importa: **cortes primeiro, legenda depois**. Legendar antes de cortar
+é legendar pausa que não vai existir.
+
+Palavras da claquete são reconhecidas por `CLAQUETE_PADRAO` em `agente/takes.mjs`
+(gravando, gravação, ação, valendo), e só valem nos primeiros 12 segundos — senão
+"a gente está gravando" no meio da fala viraria corte.
+
 ## Cortar os silêncios de um vídeo
 
 ```bash

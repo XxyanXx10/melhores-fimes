@@ -25,6 +25,7 @@ import {
   transcreverVideo,
 } from '../agente/nucleo.mjs';
 import { cortarSilencios } from '../agente/cortar.mjs';
+import { montarTakes } from '../agente/montar.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -187,6 +188,9 @@ function nomePedido(caminho) {
   return path.basename(atual);
 }
 
+/** andamento da montagem em curso — uma por vez, porque cada uma usa a máquina inteira */
+let montagemEmCurso = null;
+
 const servidor = createServer((req, res) => {
   /*
    * Qualquer erro solto aqui dentro derrubava o processo: o usuário perdia o
@@ -212,6 +216,47 @@ async function atender(req, res) {
    * abre. Assim o usuário escolhe o projeto numa lista e recebe legenda,
    * ajustes E o vídeo — sem precisar arrastar nada.
    */
+  /*
+   * Montar um vídeo a partir de vários takes.
+   *
+   * O usuário grava frase a frase, cada take começando com a claquete falada.
+   * Aqui os arquivos já foram enviados um a um; esta rota transcreve, tira a
+   * claquete e os silêncios, cola tudo em ordem e devolve o projeto pronto.
+   *
+   * É demorado (uma transcrição por take), então o andamento vai para disco e
+   * pode ser consultado enquanto roda.
+   */
+  if (url.pathname === '/montar' && req.method === 'POST') {
+    if (montagemEmCurso) return json(res, 409, { erro: 'já tem uma montagem em andamento' });
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { arquivos, nome, silencioMinimo } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!Array.isArray(arquivos) || !arquivos.length) {
+        return json(res, 400, { erro: 'nenhum take recebido' });
+      }
+      montagemEmCurso = { etapa: 'começando', take: 0, de: arquivos.length };
+      /* responde na hora: quem chamou acompanha por /montar (GET) */
+      json(res, 200, { ok: true, takes: arquivos.length });
+
+      montarTakes(arquivos, {
+        nome,
+        silencioMinimo: Number(silencioMinimo) > 0 ? Number(silencioMinimo) : undefined,
+        aoAndar: (e) => (montagemEmCurso = { ...e, de: e.de ?? arquivos.length }),
+      })
+        .then((r) => (montagemEmCurso = { etapa: 'pronto', resultado: r }))
+        .catch((e) => (montagemEmCurso = { etapa: 'erro', erro: e.message }));
+      return;
+    } catch (e) {
+      montagemEmCurso = null;
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/montar' && req.method === 'GET') {
+    return json(res, 200, montagemEmCurso ?? { etapa: 'parado' });
+  }
+
   /*
    * Corte automático dos silêncios.
    *

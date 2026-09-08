@@ -9,6 +9,7 @@ type Props = {
   onApagar: (arquivo: string) => void;
   onDuplicar: (arquivo: string) => void;
   onFechar: (() => void) | null;
+  onMontar: () => void;
   carregando: boolean;
 };
 
@@ -72,6 +73,9 @@ export function TelaProjetos(p: Props) {
         </div>
 
         <div className="tp-acoes">
+          <button type="button" className="chip chip-topo" onClick={p.onMontar}>
+            Montar a partir de takes
+          </button>
           <label className="primario">
             Novo projeto
             <input
@@ -128,7 +132,8 @@ export function TelaProjetos(p: Props) {
         <div className="tp-vazio">
           <p>
             Envie um vídeo vertical: a transcrição começa sozinha e o projeto passa a viver nesta
-            lista, com o nome que você quiser.
+            lista, com o nome que você quiser. Gravou por takes? Use <strong>Montar a partir de
+            takes</strong>: a claquete e os silêncios saem, e os pedaços viram um vídeo só.
           </p>
         </div>
       ) : !lista.length ? (

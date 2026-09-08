@@ -172,6 +172,47 @@ export async function abrirVersao(arquivo: string, versao: string): Promise<unkn
   return r.json();
 }
 
+export type AndarMontagem = {
+  etapa: 'parado' | 'começando' | 'transcrevendo' | 'montando' | 'pronto' | 'erro';
+  take?: number;
+  de?: number;
+  arquivo?: string;
+  segundos?: number;
+  total?: number;
+  erro?: string;
+  resultado?: {
+    arquivoProjeto: string;
+    takes: number;
+    descartados: number;
+    duracao: number;
+    duracaoBruta: number;
+  };
+};
+
+/** manda montar um vídeo a partir dos takes já enviados para o disco */
+export async function montarTakes(
+  arquivos: string[],
+  nome: string,
+  silencioMinimo: number,
+): Promise<void> {
+  const r = await fetch(`${SERVIDOR}/montar`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ arquivos, nome, silencioMinimo }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui começar a montagem.');
+}
+
+export async function andarMontagem(): Promise<AndarMontagem> {
+  try {
+    const r = await fetch(`${SERVIDOR}/montar`);
+    return r.ok ? ((await r.json()) as AndarMontagem) : { etapa: 'parado' };
+  } catch {
+    return { etapa: 'parado' };
+  }
+}
+
 export type ResumoCorte = {
   cortes: number;
   removido: number;

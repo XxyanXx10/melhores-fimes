@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
+import { Montagem } from './components/Montagem';
 import { CorrecoesPanel } from './components/CorrecoesPanel';
 import { CortesPanel } from './components/CortesPanel';
 import { Versoes } from './components/Versoes';
@@ -135,6 +136,7 @@ export default function App() {
   const [correcoes, setCorrecoes] = useState<Correcao[]>([]);
   const [corrigindo, setCorrigindo] = useState(false);
   const [vendoVersoes, setVendoVersoes] = useState(false);
+  const [montando, setMontando] = useState(false);
   const [vendoTexto, setVendoTexto] = useState(false);
   const [cortandoSilencio, setCortandoSilencio] = useState(false);
   const [videoOriginal, setVideoOriginal] = useState<string | null>(null);
@@ -866,8 +868,20 @@ export default function App() {
     false,
   ];
 
+  const janelaMontagem = montando ? (
+    <Montagem
+      onFechar={() => setMontando(false)}
+      onPronto={(arquivoProjeto) => {
+        setMontando(false);
+        void listarProjetos().then(setNoDisco);
+        void abrirDaPasta(arquivoProjeto);
+      }}
+    />
+  ) : null;
+
   if (naListaDeProjetos && servidorOk) {
     return (
+      <>
       <TelaProjetos
         projetos={noDisco}
         carregando={carregandoLista}
@@ -884,7 +898,10 @@ export default function App() {
             .catch((e) => setErro(e instanceof Error ? e.message : 'Não consegui apagar.'))
         }
         onFechar={transcrito ? () => setNaListaDeProjetos(false) : null}
+        onMontar={() => setMontando(true)}
       />
+      {janelaMontagem}
+      </>
     );
   }
 
@@ -1316,6 +1333,8 @@ export default function App() {
           setMudo(v === 0);
         }}
       />
+
+      {janelaMontagem}
 
       {vendoTexto && (
         <TextoCorrido

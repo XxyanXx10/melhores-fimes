@@ -82,7 +82,10 @@ export function validar(dado: unknown): Projeto {
     }
     // emphasis é opcional, mas não pode ser perdido ao salvar e reabrir
     const emphasis = w.emphasis === 1 || w.emphasis === 2 ? w.emphasis : undefined;
-    return { text: w.text, start: w.start, end: w.end, emphasis };
+    /* o mesmo vale para o corte manual de blocos: sem isto, juntar e separar
+       blocos (e a quebra entre takes montados) sumia ao reabrir o projeto */
+    const quebra = w.quebra === 'aqui' || w.quebra === 'nunca' ? w.quebra : undefined;
+    return { text: w.text, start: w.start, end: w.end, emphasis, quebra };
   });
   return {
     versao: 1,

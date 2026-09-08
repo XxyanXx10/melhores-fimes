@@ -30,13 +30,28 @@ function argumento(nome, padrao) {
  * mantém o carimbo de tempo do original e o vídeo sai com buracos parados.
  */
 export function filtroDeCorte(trechos) {
+  const n = trechos.length;
   const partes = [];
-  for (const [i, t] of trechos.entries()) {
-    partes.push(`[0:v]trim=start=${t.start}:end=${t.end},setpts=PTS-STARTPTS[v${i}]`);
-    partes.push(`[0:a]atrim=start=${t.start}:end=${t.end},asetpts=PTS-STARTPTS[a${i}]`);
+
+  /*
+   * Uma entrada só pode ser consumida uma vez: para tirar cinco pedaços do
+   * mesmo vídeo é preciso dividi-lo em cinco antes. Sem o split, o FFmpeg
+   * recusa o comando inteiro.
+   */
+  const v = Array.from({ length: n }, (_, i) => (n === 1 ? '0:v' : `sv${i}`));
+  const a = Array.from({ length: n }, (_, i) => (n === 1 ? '0:a' : `sa${i}`));
+  if (n > 1) {
+    partes.push(`[0:v]split=${n}${v.map((r) => `[${r}]`).join('')}`);
+    partes.push(`[0:a]asplit=${n}${a.map((r) => `[${r}]`).join('')}`);
   }
+
+  trechos.forEach((t, i) => {
+    partes.push(`[${v[i]}]trim=start=${t.start}:end=${t.end},setpts=PTS-STARTPTS[v${i}]`);
+    partes.push(`[${a[i]}]atrim=start=${t.start}:end=${t.end},asetpts=PTS-STARTPTS[a${i}]`);
+  });
+
   const entradas = trechos.map((_, i) => `[v${i}][a${i}]`).join('');
-  partes.push(`${entradas}concat=n=${trechos.length}:v=1:a=1[vsaida][asaida]`);
+  partes.push(`${entradas}concat=n=${n}:v=1:a=1[vsaida][asaida]`);
   return partes.join(';');
 }
 
