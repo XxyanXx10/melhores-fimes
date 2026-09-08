@@ -13,8 +13,10 @@ import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { createReadStream, existsSync } from 'node:fs';
 import fsSync from 'node:fs';
 import { createServer } from 'node:http';
+import { cpus } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lerConfig } from '../agente/nucleo.mjs';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -176,15 +178,39 @@ if (still !== undefined) {
   fonteVideo.fechar();
 } else {
   const saida = argumento('saida') ?? path.join(raiz, 'render', `${path.basename(arquivo, '.json')}.mp4`);
+  /*
+   * Velocidade.
+   *
+   * O render desenha quadro a quadro num Chrome: 45 s a 25 fps são 1125
+   * telas. Com concurrency 2 isso usava dois núcleos de uma máquina que tem
+   * muito mais, e o x264 saía no preset lento por padrão. As opções abaixo
+   * atacam os três gargalos: mais quadros ao mesmo tempo, compressão rápida
+   * e, quando a placa de vídeo aceita, codificação por hardware.
+   *
+   * `concurrency` pode ser fixado em server/config.json quando a máquina
+   * tiver pouca memória — foi por isso que um dia travou em 2.
+   */
+  const cfg = await lerConfig();
+  const nucleos = cpus().length;
+  const emParalelo = cfg.concurrency > 0 ? cfg.concurrency : Math.max(2, Math.min(8, Math.floor(nucleos / 2)));
+  console.log(`Usando ${emParalelo} de ${nucleos} núcleos.`);
+
   await renderMedia({
     composition,
     serveUrl: servedUrl,
     codec: 'h264',
     outputLocation: saida,
     inputProps,
-    // menos abas do Chrome ao mesmo tempo: menos memória e menos disco,
-    // que é o que derruba o render numa máquina com pouco espaço livre
-    concurrency: 2,
+    concurrency: emParalelo,
+    /* usa a placa de vídeo para codificar quando ela deixa; senão, segue na CPU */
+    hardwareAcceleration: 'if-possible',
+    /* o preset lento do x264 rende arquivo menor, não vídeo melhor para redes */
+    x264Preset: 'veryfast',
+    imageFormat: 'jpeg',
+    jpegQuality: 80,
+    /* decodificar o vídeo de origem é metade do custo de cada quadro */
+    offthreadVideoThreads: Math.max(2, Math.min(4, Math.floor(nucleos / 4))),
+    offthreadVideoCacheSizeInBytes: 512 * 1024 * 1024,
     onProgress: ({ progress }) => {
       process.stdout.write(`\rRenderizando… ${Math.round(progress * 100)}%`);
       void anotar({ rodando: true, progresso: progress, saida: null, erro: null });

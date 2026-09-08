@@ -4,5 +4,6 @@
   "ffmpeg": "ffmpeg",
   "idioma": "pt",
   "threads": 0,
-  "porta": 5175
+  "porta": 5175,
+  "concurrency": 0
 }
