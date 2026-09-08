@@ -15,6 +15,8 @@ export type Projeto = {
   video?: string;
   /** nome do arquivo de vídeo de origem */
   nome?: string;
+  /** o vídeo antes do corte de silêncios, quando houve corte */
+  videoOriginal?: string;
   /** nome que o usuário deu ao projeto — é ele que aparece na lista */
   nomeProjeto?: string;
   /** nome do arquivo .json na pasta de projetos, quando já foi salvo */
@@ -87,6 +89,7 @@ export function validar(dado: unknown): Projeto {
     video: p.video,
     nome: p.nome,
     nomeProjeto: p.nomeProjeto,
+    videoOriginal: p.videoOriginal,
     arquivo: p.arquivo,
     duracao: p.duracao || palavras[palavras.length - 1].end,
     fps: p.fps && p.fps > 0 ? p.fps : 30,

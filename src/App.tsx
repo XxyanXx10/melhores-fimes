@@ -3,6 +3,7 @@ import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
 import { CorrecoesPanel } from './components/CorrecoesPanel';
+import { CortesPanel } from './components/CortesPanel';
 import { Versoes } from './components/Versoes';
 import { TextoCorrido } from './components/TextoCorrido';
 import { Preview } from './components/Preview';
@@ -28,6 +29,7 @@ import {
   listarPresets,
   apagarProjeto,
   corrigirAgora,
+  cortarSilencios,
   duplicarProjeto,
   guardarCorrecoes,
   listarCorrecoes,
@@ -134,6 +136,8 @@ export default function App() {
   const [corrigindo, setCorrigindo] = useState(false);
   const [vendoVersoes, setVendoVersoes] = useState(false);
   const [vendoTexto, setVendoTexto] = useState(false);
+  const [cortandoSilencio, setCortandoSilencio] = useState(false);
+  const [videoOriginal, setVideoOriginal] = useState<string | null>(null);
   const [presetAplicado, setPresetAplicado] = useState<string | null>(null);
   /** cores com que um cartão novo nasce — vêm do estilo de marca */
   const [cartaoPadrao, setCartaoPadrao] = useState({ cor: 'rgba(14,27,46,0.94)', destaque: '#FFD60A' });
@@ -412,6 +416,7 @@ export default function App() {
       const { projeto, videoUrl } = await abrirDoDisco(arquivo);
       const p = validar(projeto);
       setCaminhoDoVideo((projeto as { video?: string }).video ?? null);
+      setVideoOriginal((projeto as { videoOriginal?: string }).videoOriginal ?? null);
       setSrc(videoUrl);
       setArquivo(null);
       setDuracao(p.duracao);
@@ -433,6 +438,7 @@ export default function App() {
     return {
       versao: 1,
       video: caminhoDoVideo ?? undefined,
+      videoOriginal: videoOriginal ?? undefined,
       nome: nomeArquivo ?? undefined,
       nomeProjeto: nomeProjeto ?? undefined,
       arquivo: arquivoProjeto ?? undefined,
@@ -728,6 +734,30 @@ export default function App() {
       setErro(null);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui voltar para essa versão.');
+    }
+  }
+
+  /**
+   * Corta os silêncios e recarrega o projeto do disco.
+   *
+   * Quem faz o corte é o serviço, porque ele mexe no arquivo de vídeo; a tela
+   * só pede e depois relê, para pegar a legenda com os tempos novos.
+   */
+  async function cortarPausas(silencioMinimo: number) {
+    if (!arquivoProjeto) return;
+    setCortandoSilencio(true);
+    setErro(null);
+    try {
+      const r = await cortarSilencios(arquivoProjeto, silencioMinimo);
+      if (r.semCortes) {
+        setErro('Nenhum silêncio grande o bastante para cortar.');
+        return;
+      }
+      await abrirDaPasta(arquivoProjeto);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não consegui cortar os silêncios.');
+    } finally {
+      setCortandoSilencio(false);
     }
   }
 
@@ -1148,6 +1178,15 @@ export default function App() {
           estimativa={estimativa}
           erro={erro}
         >
+          <CortesPanel
+            palavras={words}
+            duracao={duracao}
+            podeCortar={!!arquivoProjeto && !!caminhoDoVideo && transcrito}
+            cortando={cortandoSilencio}
+            jaCortado={!!videoOriginal}
+            onCortar={(s) => void cortarPausas(s)}
+            onDesfazer={() => setErro('Para voltar ao original, corte de novo com o limiar maior — ou abra o vídeo original em um projeto novo.')}
+          />
           <CorrecoesPanel
             correcoes={correcoes}
             temLegenda={transcrito}

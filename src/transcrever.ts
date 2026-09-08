@@ -172,6 +172,27 @@ export async function abrirVersao(arquivo: string, versao: string): Promise<unkn
   return r.json();
 }
 
+export type ResumoCorte = {
+  cortes: number;
+  removido: number;
+  duracaoOriginal: number;
+  duracaoNova: number;
+  saida: string | null;
+  semCortes?: boolean;
+};
+
+/** corta os silêncios do vídeo do projeto e devolve o que mudou */
+export async function cortarSilencios(arquivo: string, silencioMinimo: number): Promise<ResumoCorte> {
+  const r = await fetch(`${SERVIDOR}/cortar-silencios`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ arquivo, silencioMinimo }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui cortar os silêncios.');
+  return corpo as ResumoCorte;
+}
+
 /** copia um projeto com outro nome, para testar uma variação sem perder a primeira */
 export async function duplicarProjeto(arquivo: string): Promise<string> {
   const r = await fetch(`${SERVIDOR}/projetos/${encodeURIComponent(arquivo)}`);

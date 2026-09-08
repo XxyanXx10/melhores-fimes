@@ -24,6 +24,7 @@ import {
   sondarVideo,
   transcreverVideo,
 } from '../agente/nucleo.mjs';
+import { cortarSilencios } from '../agente/cortar.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -211,6 +212,30 @@ async function atender(req, res) {
    * abre. Assim o usuário escolhe o projeto numa lista e recebe legenda,
    * ajustes E o vídeo — sem precisar arrastar nada.
    */
+  /*
+   * Corte automático dos silêncios.
+   *
+   * Reescreve o projeto apontando para o vídeo cortado; o original fica
+   * guardado em videoOriginal, então dá para refazer o corte com outro
+   * limiar sem perder nada.
+   */
+  if (url.pathname === '/cortar-silencios' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { arquivo, silencioMinimo } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      const caminho = path.join(aqui, '..', 'projeto', path.basename(arquivo ?? ''));
+      if (!existsSync(caminho)) return json(res, 404, { erro: 'projeto não encontrado' });
+
+      const r = await cortarSilencios(caminho, {
+        silencioMinimo: Number(silencioMinimo) > 0 ? Number(silencioMinimo) : undefined,
+      });
+      return json(res, 200, r);
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   /* Correções que se repetem em todo vídeo: "INS" -> "ANS", nomes de clientes. */
   if (url.pathname === '/correcoes' && req.method === 'GET') {
     return json(res, 200, { correcoes: await lerCorrecoes() });

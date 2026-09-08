@@ -32,6 +32,20 @@ grava `projeto/<nome>.json`. Um de cada vez, em fila, e nunca duas vezes o mesmo
 arquivo. É o modo preferido quando o usuário disser "quando eu adicionar o vídeo,
 transcreve" — deixe rodando em segundo plano.
 
+## Cortar os silêncios de um vídeo
+
+```bash
+node agente/cortar.mjs projeto/Corte15.json --silencio 0.35
+```
+
+Usa os tempos da transcrição para achar as pausas, corta com FFmpeg, grava
+`<nome>-cortado.mp4` ao lado do original e recalcula os tempos da legenda. O
+original fica guardado em `videoOriginal` dentro do projeto. Como o vídeo
+encurta, o render também fica mais rápido na mesma proporção.
+
+O limiar é o silêncio **cru** entre duas palavras; as folgas de entrada e saída
+entram depois, para a fala não sair cortada.
+
 ## Guardar o trabalho antes de mexer
 
 ```bash

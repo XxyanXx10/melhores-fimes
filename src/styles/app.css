@@ -705,3 +705,16 @@ button { font: inherit; cursor: pointer; }
 }
 .texto-corrido:focus { outline: none; border-color: var(--acento-2); }
 .dica.is-alerta { color: #f0b350; }
+
+/* corte de silêncios ------------------------------------------------- */
+.previa-corte {
+  background: var(--panel-2); border: 1px solid var(--linha); border-radius: 8px;
+  padding: 9px 11px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 3px;
+}
+.previa-corte strong { font-size: 15px; color: #7bd6a2; font-variant-numeric: tabular-nums; }
+.previa-corte em { font-style: normal; font-size: 11.5px; color: var(--suave); }
+.previa-corte.is-vazia em { color: var(--suave); }
+.barra-corte {
+  height: 5px; border-radius: 3px; background: #3a2118; overflow: hidden; margin-top: 4px;
+}
+.barra-corte span { display: block; height: 100%; background: #7bd6a2; }
