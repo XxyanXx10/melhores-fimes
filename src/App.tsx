@@ -571,11 +571,11 @@ export default function App() {
    * baixava o arquivo para a pasta de Downloads. O trabalho saía de onde a
    * plataforma procura, e reabrir dava "vídeo não encontrado".
    */
-  async function salvarProjeto(nomeDesejado?: string, versionar = false): Promise<boolean> {
+  async function salvarProjeto(nomeDesejado?: string, versionar = false): Promise<string | null> {
     const nome = (nomeDesejado ?? nomeProjeto ?? nomeArquivo ?? 'projeto').trim();
     if (!servidorOk) {
       baixar(projetoAtual(), `${nome.replace(/\.[^.]+$/, '')}.json`);
-      return true;
+      return null;
     }
     setSalvando(true);
     try {
@@ -586,10 +586,10 @@ export default function App() {
       setSalvoEm(Date.now());
       setErro(null);
       void listarProjetos().then(setNoDisco);
-      return true;
+      return arquivo;
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui salvar o projeto.');
-      return false;
+      return null;
     } finally {
       setSalvando(false);
     }
@@ -744,16 +744,22 @@ export default function App() {
    * só pede e depois relê, para pegar a legenda com os tempos novos.
    */
   async function cortarPausas(silencioMinimo: number) {
-    if (!arquivoProjeto) return;
     setCortandoSilencio(true);
     setErro(null);
     try {
-      const r = await cortarSilencios(arquivoProjeto, silencioMinimo);
+      /* o corte mexe no arquivo do disco: se o projeto ainda não foi salvo,
+         salvamos antes em vez de barrar o usuário com um botão cinza */
+      const alvo = arquivoProjeto ?? (await salvarProjeto());
+      if (!alvo) {
+        setErro('Não consegui salvar o projeto antes de cortar.');
+        return;
+      }
+      const r = await cortarSilencios(alvo, silencioMinimo);
       if (r.semCortes) {
         setErro('Nenhum silêncio grande o bastante para cortar.');
         return;
       }
-      await abrirDaPasta(arquivoProjeto);
+      await abrirDaPasta(alvo);
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Não consegui cortar os silêncios.');
     } finally {
@@ -1181,7 +1187,13 @@ export default function App() {
           <CortesPanel
             palavras={words}
             duracao={duracao}
-            podeCortar={!!arquivoProjeto && !!caminhoDoVideo && transcrito}
+            impedimento={
+              !transcrito
+                ? 'Gere a legenda primeiro: é ela que diz onde está a fala.'
+                : !caminhoDoVideo
+                  ? 'Este projeto não sabe onde o vídeo está no disco. Abra-o pela tela de Projetos, ou envie o vídeo de novo.'
+                  : null
+            }
             cortando={cortandoSilencio}
             jaCortado={!!videoOriginal}
             onCortar={(s) => void cortarPausas(s)}

@@ -6,7 +6,8 @@ import { resumoDoCorte } from '../../agente/cortes.mjs';
 type Props = {
   palavras: Word[];
   duracao: number;
-  podeCortar: boolean;
+  /** null = dá para cortar; texto = o que falta, dito ao usuário */
+  impedimento: string | null;
   cortando: boolean;
   jaCortado: boolean;
   onCortar: (silencioMinimo: number) => void;
@@ -87,16 +88,15 @@ export function CortesPanel(p: Props) {
       <button
         type="button"
         className="chip chip-forte"
-        disabled={!p.podeCortar || p.cortando || !previa?.cortes}
+        disabled={!!p.impedimento || p.cortando || !previa?.cortes}
         onClick={() => p.onCortar(silencio)}
-        title={
-          p.podeCortar
-            ? 'Gera um vídeo novo sem as pausas e ajusta a legenda'
-            : 'Salve o projeto primeiro — o corte trabalha no arquivo do disco'
-        }
+        title="Gera um vídeo novo sem as pausas e ajusta a legenda"
       >
         {p.cortando ? 'Cortando…' : 'Cortar silêncios'}
       </button>
+
+      {/* botão cinza sem explicação é o que mais irrita: aqui o motivo aparece */}
+      {p.impedimento && <p className="dica is-alerta">{p.impedimento}</p>}
 
       <p className="dica">
         Gera um arquivo novo ao lado do original, com a legenda já ajustada. O vídeo original não é
