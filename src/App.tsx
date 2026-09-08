@@ -551,11 +551,7 @@ export default function App() {
        * o navegador só tem um blob — então mandamos para o serviço guardar
        * antes. Aberto por "Abrir do computador", o caminho já existe.
        */
-      let caminho = caminhoDoVideo;
-      if (!caminho && arquivo) {
-        caminho = await enviarVideoFonte(arquivo);
-        setCaminhoDoVideo(caminho);
-      }
+      const caminho = await garantirCaminhoDoVideo();
       await pedirRender({ ...projetoAtual(), video: caminho ?? undefined });
       setRender({ rodando: true, progresso: 0, saida: null, erro: null });
       setPasso(5);
@@ -738,6 +734,21 @@ export default function App() {
   }
 
   /**
+   * Garante que o vídeo existe no disco e devolve o caminho.
+   *
+   * O navegador só tem um blob do arquivo que você arrastou. Render e corte
+   * precisam de um arquivo de verdade, então mandamos para o serviço guardar
+   * na primeira vez que alguém precisa — e nunca mais.
+   */
+  async function garantirCaminhoDoVideo(): Promise<string | null> {
+    if (caminhoDoVideo) return caminhoDoVideo;
+    if (!arquivo) return null;
+    const caminho = await enviarVideoFonte(arquivo);
+    setCaminhoDoVideo(caminho);
+    return caminho;
+  }
+
+  /**
    * Corta os silêncios e recarrega o projeto do disco.
    *
    * Quem faz o corte é o serviço, porque ele mexe no arquivo de vídeo; a tela
@@ -747,13 +758,22 @@ export default function App() {
     setCortandoSilencio(true);
     setErro(null);
     try {
-      /* o corte mexe no arquivo do disco: se o projeto ainda não foi salvo,
-         salvamos antes em vez de barrar o usuário com um botão cinza */
-      const alvo = arquivoProjeto ?? (await salvarProjeto());
-      if (!alvo) {
-        setErro('Não consegui salvar o projeto antes de cortar.');
+      /* o corte trabalha em arquivos: o vídeo precisa estar no disco e o
+         projeto precisa estar salvo. Fazemos os dois aqui, sem pedir nada. */
+      const caminho = await garantirCaminhoDoVideo();
+      if (!caminho) {
+        setErro('Envie o vídeo primeiro — o corte precisa do arquivo, não só da prévia.');
         return;
       }
+      const nome = (nomeProjeto ?? nomeArquivo ?? 'projeto').trim();
+      const alvo = await gravarProjeto(
+        { ...projetoAtual(), video: caminho, nomeProjeto: nome },
+        arquivoProjeto ?? nome,
+      );
+      setArquivoProjeto(alvo);
+      setNomeProjeto(nome);
+      setSalvoEm(Date.now());
+
       const r = await cortarSilencios(alvo, silencioMinimo);
       if (r.semCortes) {
         setErro('Nenhum silêncio grande o bastante para cortar.');
@@ -1190,8 +1210,8 @@ export default function App() {
             impedimento={
               !transcrito
                 ? 'Gere a legenda primeiro: é ela que diz onde está a fala.'
-                : !caminhoDoVideo
-                  ? 'Este projeto não sabe onde o vídeo está no disco. Abra-o pela tela de Projetos, ou envie o vídeo de novo.'
+                : !caminhoDoVideo && !arquivo
+                  ? 'Este projeto não sabe onde o vídeo está. Abra-o pela tela de Projetos, ou envie o vídeo de novo.'
                   : null
             }
             cortando={cortandoSilencio}
