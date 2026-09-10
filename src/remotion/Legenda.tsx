@@ -19,6 +19,13 @@ type Props = {
   style: CaptionStyle;
   /** largura do quadro em px, para converter os tamanhos relativos */
   largura: number;
+  /**
+   * Pedaço do quadro que o vídeo principal ocupa agora, em % — o quadro
+   * inteiro, ou só o que sobra quando uma tela dividida encolhe ele pra um
+   * lado. "Posição" e "Margem segura" passam a valer sobre ESTE retângulo,
+   * não sobre o quadro inteiro — senão a legenda não acompanha o encolhimento.
+   */
+  regiao: { top: number; left: number; width: number; height: number };
 };
 
 /** o visual da palavra falada — cor, caixa atrás, sublinhado ou só escala */
@@ -67,7 +74,7 @@ function enfase(slot: 1 | 2 | undefined, style: CaptionStyle): React.CSSProperti
   };
 }
 
-export function Legenda({ bloco, ativa, revelada, style, largura }: Props) {
+export function Legenda({ bloco, ativa, revelada, style, largura, regiao }: Props) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -114,12 +121,18 @@ export function Legenda({ bloco, ativa, revelada, style, largura }: Props) {
     paintOrder: 'stroke fill',
   };
 
+  // "Posição" e "Margem segura" são % do pedaço que o vídeo principal
+  // ocupa, não do quadro inteiro — por isto a soma com regiao.top/left.
+  const topPct = regiao.top + (style.positionY / 100) * regiao.height;
+  const leftPct = regiao.left + (style.safeMargin / 100) * regiao.width;
+  const rightPct = 100 - regiao.left - regiao.width + (style.safeMargin / 100) * regiao.width;
+
   return (
     <AbsoluteFill
       style={{
-        top: `${style.positionY}%`,
-        left: `${style.safeMargin}%`,
-        right: `${style.safeMargin}%`,
+        top: `${topPct}%`,
+        left: `${leftPct}%`,
+        right: `${rightPct}%`,
         bottom: 'auto',
         width: 'auto',
         height: 'auto',

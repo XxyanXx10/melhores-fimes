@@ -1,4 +1,4 @@
-import { Img, OffthreadVideo, staticFile, interpolate } from 'remotion';
+import { Img, OffthreadVideo, staticFile, interpolate, useVideoConfig } from 'remotion';
 import type { Divisao as DivisaoSpec } from '../types';
 
 /** vídeo ou imagem? decidido pela extensão, que é o que temos */
@@ -41,20 +41,32 @@ export function regiaoExtra(d: DivisaoSpec, p: number): React.CSSProperties {
 /**
  * A região que sobra para o vídeo principal — o complemento exato da
  * de cima. Os dois somam o quadro inteiro, sem faixa preta no meio.
+ *
+ * Em números (% do quadro), não em CSS pronto: quem precisa só desenhar a
+ * caixa usa `regiaoPrincipal`; quem precisa fazer conta em cima dela (a
+ * legenda, para não cair em cima da mídia extra) usa esta.
  */
-export function regiaoPrincipal(d: DivisaoSpec | undefined, p: number): React.CSSProperties {
-  if (!d) return { inset: 0 };
+export function regiaoPrincipalCaixa(
+  d: DivisaoSpec | undefined,
+  p: number,
+): { top: number; left: number; width: number; height: number } {
+  if (!d) return { top: 0, left: 0, width: 100, height: 100 };
   const tamanho = d.proporcao * p;
   switch (d.lado) {
     case 'cima':
-      return { left: 0, right: 0, top: `${tamanho}%`, height: `${100 - tamanho}%` };
+      return { top: tamanho, left: 0, width: 100, height: 100 - tamanho };
     case 'baixo':
-      return { left: 0, right: 0, top: 0, height: `${100 - tamanho}%` };
+      return { top: 0, left: 0, width: 100, height: 100 - tamanho };
     case 'esquerda':
-      return { top: 0, bottom: 0, left: `${tamanho}%`, width: `${100 - tamanho}%` };
+      return { top: 0, left: tamanho, width: 100 - tamanho, height: 100 };
     default:
-      return { top: 0, bottom: 0, left: 0, width: `${100 - tamanho}%` };
+      return { top: 0, left: 0, width: 100 - tamanho, height: 100 };
   }
+}
+
+export function regiaoPrincipal(d: DivisaoSpec | undefined, p: number): React.CSSProperties {
+  const { top, left, width, height } = regiaoPrincipalCaixa(d, p);
+  return { top: `${top}%`, left: `${left}%`, width: `${width}%`, height: `${height}%` };
 }
 
 /**
@@ -81,6 +93,7 @@ export function progressoDivisao(d: DivisaoSpec, t: number, fps: number): number
 
 export function Divisao({ divisao, progresso }: { divisao: DivisaoSpec; progresso: number }) {
   const fonte = resolverFonte(divisao.src);
+  const { fps } = useVideoConfig();
 
   return (
     <div
@@ -96,6 +109,7 @@ export function Divisao({ divisao, progresso }: { divisao: DivisaoSpec; progress
         <OffthreadVideo
           src={fonte}
           muted={divisao.mudo}
+          trimBefore={Math.max(0, Math.round(divisao.recorte * fps))}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       ) : (

@@ -149,6 +149,13 @@ export type Divisao = {
   entrada: 'corte' | 'fade' | 'desliza';
   /** o áudio do vídeo extra atrapalha a fala; por padrão fica mudo */
   mudo: boolean;
+  /**
+   * Segundo do PRÓPRIO arquivo extra onde a reprodução começa — não tem a
+   * ver com `start`, que é quando a divisão entra no vídeo principal. Sem
+   * isto, a mídia extra toca sempre do 0:00 dela, nunca do trecho que você
+   * quer mostrar.
+   */
+  recorte: number;
 };
 
 /** as duas cores do degradê das transições, independentes da legenda */

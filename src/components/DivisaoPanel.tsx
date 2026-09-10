@@ -46,6 +46,7 @@ export function DivisaoPanel(p: Props) {
         proporcao: 50,
         entrada: 'desliza',
         mudo: true,
+        recorte: 0,
       });
     } catch (e) {
       setErro(e instanceof Error ? e.message : 'Falha ao enviar o arquivo.');
@@ -189,14 +190,32 @@ export function DivisaoPanel(p: Props) {
                       </div>
                     </div>
                     {ehVideo(d.src) && (
-                      <label className="campo campo-check">
-                        <input
-                          type="checkbox"
-                          checked={d.mudo}
-                          onChange={(e) => p.onMudar(d.id, { mudo: e.target.checked })}
-                        />
-                        <span>Sem áudio (recomendado: a fala é a do seu vídeo)</span>
-                      </label>
+                      <>
+                        <label className="campo">
+                          <span>Começa no arquivo em</span>
+                          <input
+                            type="range"
+                            min={0}
+                            max={300}
+                            step={0.5}
+                            value={d.recorte}
+                            onChange={(e) => p.onMudar(d.id, { recorte: Number(e.target.value) })}
+                          />
+                          <span>{formatarTempo(d.recorte)}</span>
+                        </label>
+                        <p className="dica">
+                          O ponto do vídeo extra em que ele começa a tocar — sem mexer aqui, ele
+                          sempre toca do começo dele mesmo.
+                        </p>
+                        <label className="campo campo-check">
+                          <input
+                            type="checkbox"
+                            checked={d.mudo}
+                            onChange={(e) => p.onMudar(d.id, { mudo: e.target.checked })}
+                          />
+                          <span>Sem áudio (recomendado: a fala é a do seu vídeo)</span>
+                        </label>
+                      </>
                     )}
                   </div>
                 )}

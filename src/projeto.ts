@@ -104,7 +104,10 @@ export function validar(dado: unknown): Projeto {
     forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
     fotos: Array.isArray(p.fotos) ? p.fotos : [],
     cartoes: Array.isArray(p.cartoes) ? p.cartoes : [],
-    divisoes: Array.isArray(p.divisoes) ? p.divisoes : [],
+    // projetos salvos antes do recorte do vídeo extra existir não têm o campo
+    divisoes: Array.isArray(p.divisoes)
+      ? p.divisoes.map((d) => ({ ...d, recorte: d.recorte ?? 0 }))
+      : [],
     cortes: normalizarCortes(p.cortes),
     transicao: p.transicao ?? 'off',
     forcaTransicao: typeof p.forcaTransicao === 'number' ? p.forcaTransicao : 1,

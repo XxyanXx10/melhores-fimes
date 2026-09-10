@@ -27,6 +27,7 @@ import {
   fatorTamanho,
   progressoDivisao,
   regiaoPrincipal,
+  regiaoPrincipalCaixa,
 } from './Divisao';
 import { Legenda } from './Legenda';
 import {
@@ -214,12 +215,23 @@ export function Composicao(props: PropsComposicao) {
         </Sequence>
       ))}
 
+      {/*
+       * `regiao` é o pedaço de tela que o vídeo principal de fato ocupa —
+       * o quadro inteiro, ou só o que sobra quando uma tela dividida
+       * encolhe ele pra um lado. Sem passar isto, "Posição" (Alta/Meio/
+       * Padrão/Baixa) era sempre relativa ao quadro inteiro: a legenda
+       * tanto podia cair em cima da mídia extra quanto ficar espremida
+       * no rosto da pessoa, porque a % não acompanhava o encolhimento.
+       * A legenda continua por cima de tudo (cartões, fotos, transição),
+       * só a posição dela é que passa a levar a divisão em conta.
+       */}
       <Legenda
         bloco={bloco}
         ativa={palavraAtiva(bloco, t)}
         revelada={ultimaIniciada(bloco, t)}
         style={estilo}
         largura={largura}
+        regiao={regiaoPrincipalCaixa(divisao, divisao ? fatorTamanho(divisao, progresso) : 0)}
       />
     </AbsoluteFill>
   );
