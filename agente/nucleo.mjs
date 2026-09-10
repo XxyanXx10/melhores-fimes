@@ -1,13 +1,21 @@
 /** Coração da transcrição, usado pela plataforma, pelo script e pelo vigia. */
 import { spawn } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { juntarPalavras, lerJsonWhisper } from '../server/merge.mjs';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/*
+ * `os.tmpdir()` cai no temporário do sistema, que costuma ficar no C: — numa
+ * máquina com o C: cheio (o Windows sozinho já ocupa dezenas de GB ali) a
+ * transcrição morria com "ENOSPC: no space left on device". O render já
+ * tinha esse problema e foi corrigido apontando para o disco do projeto;
+ * aqui é o mesmo remédio.
+ */
+const TEMPORARIO = path.join(raiz, 'agente', '.tmp');
 
 export const VIDEOS = ['.mp4', '.mov', '.mkv', '.avi', '.webm', '.m4v'];
 
@@ -54,7 +62,8 @@ function rodar(cmd, args, rotulo) {
 
 /** vídeo -> palavras com tempo, já reagrupadas */
 export async function transcreverVideo(cfg, video) {
-  const pasta = await mkdtemp(path.join(tmpdir(), 'mf-'));
+  await mkdir(TEMPORARIO, { recursive: true });
+  const pasta = await mkdtemp(path.join(TEMPORARIO, 'mf-'));
   try {
     const wav = path.join(pasta, 'audio.wav');
     await rodar(
