@@ -202,9 +202,14 @@ if (still !== undefined) {
     outputLocation: saida,
     inputProps,
     concurrency: emParalelo,
-    /* usa a placa de vídeo para codificar quando ela deixa; senão, segue na CPU */
-    hardwareAcceleration: 'if-possible',
-    /* o preset lento do x264 rende arquivo menor, não vídeo melhor para redes */
+    /*
+     * A codificação por GPU (NVENC) foi tentada aqui, mas nesta máquina o
+     * render trava por volta de 2% e morre com "write EOF" — reproduzido em
+     * seis tentativas seguidas, mesmo depois de corrigir o conflito de
+     * `x264Preset` com o NVENC. Desligada até alguém investigar o driver.
+     * `x264Preset` só faz efeito no x264 (CPU) mesmo, então segue com ele.
+     */
+    hardwareAcceleration: 'disable',
     x264Preset: 'veryfast',
     imageFormat: 'jpeg',
     jpegQuality: 80,

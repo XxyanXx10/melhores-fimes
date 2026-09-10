@@ -43,7 +43,14 @@ for (const url of urls) {
   const nome = path.basename(new URL(url).pathname);
   const dados = Buffer.from(await (await fetch(url)).arrayBuffer());
   await writeFile(path.join(destino, nome), dados);
-  css = css.split(url).join(`/fontes/${nome}`);
+  /*
+   * Relativo, não `/fontes/${nome}`: o Vite serve public/ na raiz, mas o
+   * bundler do Remotion (usado no render final) serve os mesmos arquivos
+   * sob /public/ — um caminho absoluto acerta só um dos dois. Relativo ao
+   * próprio fontes.css funciona nos dois, porque ele mora ao lado do woff2
+   * nas duas convenções.
+   */
+  css = css.split(url).join(nome);
   baixados++;
   bytes += dados.length;
   process.stdout.write(`\r  ${baixados}/${urls.length}`);
