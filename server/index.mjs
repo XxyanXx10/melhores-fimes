@@ -46,8 +46,16 @@ const TIPOS = {
   '.woff2': 'font/woff2',
 };
 
-/** Serve a própria plataforma (pasta dist), para bastar um processo só. */
-async function servirEstatico(res, caminho) {
+/**
+ * Serve a própria plataforma (pasta dist), para bastar um processo só.
+ *
+ * Precisa entender `Range`: sem isto, todo vídeo servido daqui (tela
+ * dividida, fotos com vídeo) baixa inteiro a cada pedido e o navegador não
+ * consegue buscar um ponto exato do arquivo — a busca do Remotion Player
+ * trava em preto. O vídeo principal já tinha isto na própria rota dele;
+ * faltava aqui, que é por onde passa tudo que mora em public/.
+ */
+async function servirEstatico(req, res, caminho) {
   const dist = path.join(aqui, '..', 'dist');
   let alvo = path.join(dist, caminho === '/' ? 'index.html' : decodeURIComponent(caminho));
   if (!alvo.startsWith(dist)) return json(res, 403, { erro: 'caminho inválido' });
@@ -56,10 +64,24 @@ async function servirEstatico(res, caminho) {
   } catch {
     alvo = path.join(dist, 'index.html');
   }
+  const tipo = TIPOS[path.extname(alvo)] ?? 'application/octet-stream';
   try {
-    const corpo = await readFile(alvo);
-    res.writeHead(200, { 'content-type': TIPOS[path.extname(alvo)] ?? 'application/octet-stream' });
-    res.end(corpo);
+    const info = await stat(alvo);
+    const faixa = req.headers.range;
+    if (faixa) {
+      const [de, ate] = faixa.replace(/bytes=/, '').split('-');
+      const inicio = Number(de);
+      const fim = ate ? Number(ate) : info.size - 1;
+      res.writeHead(206, {
+        'content-type': tipo,
+        'content-range': `bytes ${inicio}-${fim}/${info.size}`,
+        'accept-ranges': 'bytes',
+        'content-length': fim - inicio + 1,
+      });
+      return createReadStream(alvo, { start: inicio, end: fim }).pipe(res);
+    }
+    res.writeHead(200, { 'content-type': tipo, 'accept-ranges': 'bytes', 'content-length': info.size });
+    createReadStream(alvo).pipe(res);
   } catch {
     json(res, 404, { erro: 'a plataforma ainda não foi construída — rode: npm run build' });
   }
@@ -740,13 +762,35 @@ async function atender(req, res) {
     const relativo = decodeURIComponent(url.pathname).slice('/midia/'.length);
     const alvo = path.join(raiz, relativo);
     if (!alvo.startsWith(raiz)) return json(res, 403, { erro: 'caminho inválido' });
+    const tipo = TIPOS[path.extname(alvo)] ?? 'application/octet-stream';
     try {
-      const corpo = await readFile(alvo);
+      const info = await stat(alvo);
+      const faixa = req.headers.range;
+      /*
+       * A tela dividida usa vídeo daqui, e sem `Range` o <video> do
+       * navegador não busca um ponto exato do arquivo — o Remotion Player
+       * trava em preto ao tentar posicionar o frame certo na prévia.
+       */
+      if (faixa) {
+        const [de, ate] = faixa.replace(/bytes=/, '').split('-');
+        const inicio = Number(de);
+        const fim = ate ? Number(ate) : info.size - 1;
+        res.writeHead(206, {
+          'content-type': tipo,
+          'access-control-allow-origin': '*',
+          'content-range': `bytes ${inicio}-${fim}/${info.size}`,
+          'accept-ranges': 'bytes',
+          'content-length': fim - inicio + 1,
+        });
+        return createReadStream(alvo, { start: inicio, end: fim }).pipe(res);
+      }
       res.writeHead(200, {
-        'content-type': TIPOS[path.extname(alvo)] ?? 'application/octet-stream',
+        'content-type': tipo,
         'access-control-allow-origin': '*',
+        'accept-ranges': 'bytes',
+        'content-length': info.size,
       });
-      return res.end(corpo);
+      return createReadStream(alvo).pipe(res);
     } catch {
       return json(res, 404, { erro: 'mídia não encontrada' });
     }
@@ -793,7 +837,7 @@ async function atender(req, res) {
     }
   }
 
-  if (req.method === 'GET') return servirEstatico(res, url.pathname);
+  if (req.method === 'GET') return servirEstatico(req, res, url.pathname);
 
   json(res, 404, { erro: 'rota desconhecida' });
 }
