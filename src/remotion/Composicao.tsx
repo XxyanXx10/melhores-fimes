@@ -183,7 +183,23 @@ export function Composicao(props: PropsComposicao) {
         </div>
       )}
 
-      {divisao && <Divisao divisao={divisao} progresso={progresso} />}
+      {/*
+       * O <Sequence> não é enfeite: sem ele, o OffthreadVideo lá dentro usa o
+       * frame ABSOLUTO da composição para escolher o quadro do clipe. Uma
+       * divisão que começa aos 34s pedia o segundo 34 de um clipe de 12s — o
+       * arquivo já tinha acabado, e o que aparecia era o último quadro dele,
+       * parado, pelo resto da divisão. Com a Sequence, o clipe começa do
+       * princípio quando a divisão entra, que é o que se espera.
+       */}
+      {divisao && (
+        <Sequence
+          key={divisao.id}
+          from={Math.round(divisao.start * fps)}
+          durationInFrames={Math.max(1, Math.round(divisao.duracao * fps))}
+        >
+          <Divisao divisao={divisao} progresso={progresso} />
+        </Sequence>
+      )}
 
       <Transicao
         tipo={tipoCorte}
