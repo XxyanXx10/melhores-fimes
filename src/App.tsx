@@ -374,7 +374,8 @@ export default function App() {
 
   function aplicarProjeto(p: Projeto) {
       setWords(p.palavras);
-      setTranscrito(true);
+      // projeto salvo antes da transcrição terminar: ainda não tem legenda
+      if (p.palavras.length) setTranscrito(true);
       if (!src) setDuracao(p.duracao);
       setTemplateId(templates.some((t) => t.id === p.template) ? p.template : defaultTemplateId);
       setOverride(p.estilo);
@@ -684,12 +685,20 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /*
+   * Antes exigia `arquivoProjeto` (já ter sido salvo uma vez) e `transcrito`
+   * (legenda pronta) — então nada era gravado enquanto a transcrição não
+   * terminasse. Se ela falhasse (sem memória, por exemplo, com outro programa
+   * pesado aberto), tudo que a pessoa já tinha montado — vídeo enviado,
+   * estilo escolhido — ia embora ao fechar a aba, sem nenhum arquivo pra
+   * recuperar. Basta ter um vídeo carregado pra valer a pena salvar.
+   */
   useEffect(() => {
-    if (!servidorOk || !arquivoProjeto || !transcrito || salvando) return;
+    if (!servidorOk || !src || salvando) return;
     const id = setTimeout(() => void salvarProjeto(), 2500);
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projetoSerializado, servidorOk, arquivoProjeto, transcrito]);
+  }, [projetoSerializado, servidorOk, src]);
 
   /**
    * Corte manual dos blocos.

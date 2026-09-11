@@ -73,10 +73,17 @@ function normalizarCortes(bruto: unknown): Corte[] {
 
 export function validar(dado: unknown): Projeto {
   const p = dado as Partial<Projeto>;
-  if (!p || !Array.isArray(p.palavras) || !p.palavras.length) {
-    throw new Error('Arquivo de projeto sem palavras — não parece um projeto da plataforma.');
+  if (!p || typeof p !== 'object') {
+    throw new Error('Arquivo de projeto vazio — não parece um projeto da plataforma.');
   }
-  const palavras = p.palavras.map((w) => {
+  /*
+   * Sem palavra nenhuma ainda é um projeto válido: é o estado de "enviei o
+   * vídeo, escolhi o estilo, ainda não transcrevi". Recusar isto forçava o
+   * autosave a esperar a transcrição terminar — e se ela falhasse (sem
+   * memória, por exemplo), tudo que a pessoa já tinha montado na tela ia
+   * embora, sem nenhum arquivo pra recuperar.
+   */
+  const palavras = (Array.isArray(p.palavras) ? p.palavras : []).map((w) => {
     if (typeof w?.text !== 'string' || typeof w?.start !== 'number' || typeof w?.end !== 'number') {
       throw new Error('Cada palavra precisa ter text, start e end.');
     }
@@ -94,7 +101,7 @@ export function validar(dado: unknown): Projeto {
     nomeProjeto: p.nomeProjeto,
     videoOriginal: p.videoOriginal,
     arquivo: p.arquivo,
-    duracao: p.duracao || palavras[palavras.length - 1].end,
+    duracao: p.duracao || palavras[palavras.length - 1]?.end || 1,
     fps: p.fps && p.fps > 0 ? p.fps : 30,
     largura: p.largura && p.largura > 0 ? p.largura : 1080,
     altura: p.altura && p.altura > 0 ? p.altura : 1920,
