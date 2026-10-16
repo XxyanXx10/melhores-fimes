@@ -11,11 +11,11 @@
  * não vai existir no vídeo final.
  */
 import { spawn } from 'node:child_process';
-import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { VIDEOS, conferirFerramentas, lerConfig, sondarVideo, transcreverVideo } from './nucleo.mjs';
+import { VIDEOS, conferirFerramentas, detectarSilencios, lerConfig, sondarVideo, transcreverVideo } from './nucleo.mjs';
 import { montar, ordemNatural } from './takes.mjs';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -96,10 +96,51 @@ function rodar(cmd, args, aoProgresso) {
   });
 }
 
-/** os arquivos de vídeo de uma pasta, na ordem em que uma pessoa os leria */
-export async function takesDaPasta(pasta) {
+/**
+ * Os caminhos de vídeo de uma pasta, na ordem escolhida.
+ *
+ * `data` (padrão) é a ordem em que os takes foram gravados de verdade — a data
+ * de criação do arquivo. É o critério certo quando a numeração da câmera
+ * reinicia ou pula (celular, cartão trocado no meio da gravação); o nome do
+ * arquivo sozinho não garante isso. `nome` fica disponível para quando os
+ * arquivos já vêm numerados do jeito certo e o usuário prefere confiar nisso.
+ */
+export async function takesDaPasta(pasta, opcoes = {}) {
   const nomes = (await readdir(pasta)).filter((n) => VIDEOS.includes(path.extname(n).toLowerCase()));
-  return nomes.sort(ordemNatural).map((n) => path.join(pasta, n));
+  const caminhos = nomes.map((n) => path.join(pasta, n));
+  if (opcoes.ordem === 'nome') return caminhos.sort((a, b) => ordemNatural(path.basename(a), path.basename(b)));
+
+  const comData = await Promise.all(
+    caminhos.map(async (caminho) => ({ caminho, quando: await dataDeCriacao(caminho) })),
+  );
+  comData.sort((a, b) => a.quando - b.quando);
+  return comData.map((c) => c.caminho);
+}
+
+/**
+ * Data de criação de um arquivo. No Windows/NTFS `birthtime` é a data real de
+ * criação; em sistemas onde o filesystem não guarda isso, ele volta igual à
+ * data de modificação — por isso o fallback explícito.
+ */
+async function dataDeCriacao(caminho) {
+  const info = await stat(caminho);
+  return info.birthtimeMs || info.mtimeMs;
+}
+
+/** como takesDaPasta, mas com os detalhes que a plataforma mostra antes de montar */
+export async function listarTakesDaPasta(pasta, opcoes = {}) {
+  const ordenados = await takesDaPasta(pasta, opcoes);
+  return Promise.all(
+    ordenados.map(async (caminho) => {
+      const info = await stat(caminho);
+      return {
+        caminho,
+        nome: path.basename(caminho),
+        tamanho: info.size,
+        criadoEm: info.birthtimeMs || info.mtimeMs,
+      };
+    }),
+  );
 }
 
 export async function montarTakes(arquivos, opcoes = {}) {
@@ -114,9 +155,11 @@ export async function montarTakes(arquivos, opcoes = {}) {
     opcoes.aoAndar?.({ etapa: 'transcrevendo', take: i + 1, de: arquivos.length, arquivo });
     const info = await sondarVideo(cfg, arquivo).catch(() => null);
     const palavras = await transcreverVideo(cfg, arquivo);
+    const silencios = await detectarSilencios(cfg, arquivo);
     takes.push({
       arquivo,
       palavras,
+      silencios,
       duracao: info?.duracao ?? (palavras.length ? palavras[palavras.length - 1].end : 0),
       largura: info?.largura,
       altura: info?.altura,
@@ -204,8 +247,9 @@ if (process.argv[1] && process.argv[1].endsWith('montar.mjs')) {
     process.exit(1);
   }
   try {
-    const arquivos = await takesDaPasta(alvo);
-    console.log(`${arquivos.length} takes encontrados.`);
+    const ordem = argumento('ordem', 'data') === 'nome' ? 'nome' : 'data';
+    const arquivos = await takesDaPasta(alvo, { ordem });
+    console.log(`${arquivos.length} takes encontrados (ordem: ${ordem === 'nome' ? 'nome do arquivo' : 'data de criação'}).`);
     const r = await montarTakes(arquivos, {
       nome: argumento('nome'),
       silencioMinimo: Number(argumento('silencio', 0.35)),

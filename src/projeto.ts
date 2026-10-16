@@ -1,13 +1,16 @@
 import type {
   CaptionStyle,
   Cartao,
+  CenaRemotion,
   CoresTransicao,
   Corte,
   Divisao,
   Foto,
   Movimento,
+  Som,
   TipoTransicao,
   Word,
+  Zoom,
 } from './types';
 
 export type Projeto = {
@@ -31,10 +34,16 @@ export type Projeto = {
   /** movimento de câmera: modo e intensidade */
   movimento?: Movimento;
   forcaZoom?: number;
+  /** zooms marcados à mão (por cima do movimento automático) */
+  zoomsManuais?: Zoom[];
   /** fotos e b-roll por cima do vídeo */
   fotos?: Foto[];
+  /** música e efeitos sonoros */
+  sons?: Som[];
   /** cartões de texto animados pela própria composição */
   cartoes?: Cartao[];
+  /** cenas dinâmicas nativas do Remotion (ChatGPT, Contexto IA, Checklist, etc.) */
+  cenasRemotion?: CenaRemotion[];
   /** telas divididas (layout de reação) */
   divisoes?: Divisao[];
   /** cortes que o vídeo já tem, achados pelo FFmpeg */
@@ -109,8 +118,11 @@ export function validar(dado: unknown): Projeto {
     estilo: p.estilo ?? {},
     movimento: p.movimento ?? 'off',
     forcaZoom: typeof p.forcaZoom === 'number' ? p.forcaZoom : 1,
+    zoomsManuais: Array.isArray(p.zoomsManuais) ? p.zoomsManuais : [],
     fotos: Array.isArray(p.fotos) ? p.fotos : [],
+    sons: Array.isArray(p.sons) ? p.sons : [],
     cartoes: Array.isArray(p.cartoes) ? p.cartoes : [],
+    cenasRemotion: Array.isArray(p.cenasRemotion) ? p.cenasRemotion : [],
     // projetos salvos antes do recorte do vídeo extra existir não têm o campo
     divisoes: Array.isArray(p.divisoes)
       ? p.divisoes.map((d) => ({ ...d, recorte: d.recorte ?? 0 }))

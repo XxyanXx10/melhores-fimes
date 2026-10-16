@@ -57,6 +57,9 @@ export function prepararTake(take, opcoes = {}) {
 
   const trechos = trechosDeFala(depoisDaClaquete, {
     ...opcoes,
+    /* silêncio medido no áudio do take (o whisper não deixa buraco entre palavras) */
+    silencios: take.silencios,
+    inicio: claquete ?? 0,
     duracao: take.duracao,
   });
 

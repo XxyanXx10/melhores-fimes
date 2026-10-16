@@ -65,6 +65,21 @@ export async function detectarCortes(arquivo: File): Promise<number[]> {
   return (corpo.cortes ?? []) as number[];
 }
 
+export type Silencio = { start: number; end: number };
+
+/**
+ * Os silêncios reais do vídeo (caminho já no disco), medidos no áudio.
+ *
+ * A transcrição não serve para isso — o whisper devolve as palavras coladas,
+ * sem nenhum buraco entre elas mesmo depois de uma pausa de verdade.
+ */
+export async function detectarSilenciosDoVideo(caminhoVideo: string): Promise<Silencio[]> {
+  const r = await fetch(`${SERVIDOR}/silencios?video=${encodeURIComponent(caminhoVideo)}`);
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui medir os silêncios desse vídeo.');
+  return (corpo.silencios ?? []) as Silencio[];
+}
+
 export type ProjetoNoDisco = {
   arquivo: string;
   nome: string;
@@ -94,7 +109,13 @@ export async function listarProjetos(): Promise<ProjetoNoDisco[]> {
 /** grava o projeto na pasta da máquina e devolve o nome do arquivo gravado */
 export async function gravarProjeto(
   projeto: unknown,
-  arquivo: string,
+  /**
+   * O arquivo onde esse projeto já mora — undefined quando ainda não foi
+   * salvo nenhuma vez. Nesse caso o servidor escolhe um nome livre; ele
+   * nunca sobrescreve outro projeto só porque o nome bateu (dois vídeos
+   * chamados "corte.mp4", por exemplo).
+   */
+  arquivo: string | undefined,
   /** guarda uma versão do estado atual mesmo que a última seja recente */
   versionar = false,
 ): Promise<string> {
@@ -188,6 +209,31 @@ export type AndarMontagem = {
     duracaoBruta: number;
   };
 };
+
+export type TakeDaPasta = {
+  /** caminho absoluto no disco — vai direto para /montar, sem passar pelo navegador */
+  caminho: string;
+  nome: string;
+  tamanho: number;
+  /** data de criação do arquivo, em ms desde epoch */
+  criadoEm: number;
+};
+
+/**
+ * Pede ao serviço os vídeos de uma pasta, já na ordem em que foram gravados
+ * (data de criação — `ordem: 'nome'` usa o nome do arquivo em vez disso).
+ */
+export async function listarTakesDaPasta(
+  pasta: string,
+  ordem: 'data' | 'nome' = 'data',
+): Promise<TakeDaPasta[]> {
+  const r = await fetch(
+    `${SERVIDOR}/pasta-de-takes?pasta=${encodeURIComponent(pasta)}&ordem=${ordem}`,
+  );
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui ler essa pasta.');
+  return corpo.takes as TakeDaPasta[];
+}
 
 /** manda montar um vídeo a partir dos takes já enviados para o disco */
 export async function montarTakes(
@@ -359,3 +405,211 @@ export async function enviarVideoFonte(arquivo: File): Promise<string> {
   if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui guardar o vídeo para o render.');
   return corpo.caminho as string;
 }
+
+/* ==================================================================
+ * ABA CANAL DARK & FILA DE EXPORTAÇÃO EM LOTE
+ * ================================================================== */
+
+export type ItemFundoDark = {
+  caminho: string;
+  src: string | null;
+  nome: string;
+  tamanho: number;
+  origem: 'biblioteca' | 'pasta';
+};
+
+export type ItemAudioBib = {
+  src: string;
+  nome: string;
+  tamanho: number;
+  tipo: 'musica' | 'efeito';
+};
+
+export type ItemImagemBib = {
+  src: string;
+  nome: string;
+  tamanho: number;
+};
+
+export type BibliotecaDark = {
+  videosFundo: ItemFundoDark[];
+  musicas: ItemAudioBib[];
+  efeitos: ItemAudioBib[];
+  imagens: ItemImagemBib[];
+};
+
+export async function listarBibliotecaDark(pastaFundoExterna?: string): Promise<BibliotecaDark> {
+  try {
+    const q = pastaFundoExterna ? `?pasta=${encodeURIComponent(pastaFundoExterna)}` : '';
+    const r = await fetch(`${SERVIDOR}/dark/biblioteca${q}`);
+    if (!r.ok) return { videosFundo: [], musicas: [], efeitos: [], imagens: [] };
+    return (await r.json()) as BibliotecaDark;
+  } catch {
+    return { videosFundo: [], musicas: [], efeitos: [], imagens: [] };
+  }
+}
+
+export type NarracaoDark = {
+  caminho: string;
+  nome: string;
+  tamanho: number;
+  ehVideo?: boolean;
+  titulo?: string;
+};
+
+export async function listarNarracoesDaPasta(pasta: string): Promise<NarracaoDark[]> {
+  const r = await fetch(`${SERVIDOR}/dark/narracoes?pasta=${encodeURIComponent(pasta)}`);
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui ler essa pasta.');
+  return (corpo.itens ?? []) as NarracaoDark[];
+}
+
+export async function enviarNarracaoDark(arquivo: File): Promise<NarracaoDark> {
+  const r = await fetch(`${SERVIDOR}/dark/upload-narracao?nome=${encodeURIComponent(arquivo.name)}`, {
+    method: 'POST',
+    body: arquivo,
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Falha ao enviar o áudio de narração.');
+  return {
+    caminho: corpo.caminho as string,
+    nome: corpo.nome as string,
+    tamanho: Number(corpo.tamanho) || arquivo.size,
+    ehVideo: arquivo.type.startsWith('video/'),
+    titulo: arquivo.name.replace(/\.[^.]+$/, ''),
+  };
+}
+
+export type OpcoesLoteDark = {
+  formato: '9:16' | '16:9' | '1:1';
+  template: string;
+  movimento: 'off' | 'natural' | 'suave' | 'ritmo';
+  forcaZoom: number;
+  modoFundo: 'remotion' | 'contexto' | 'dinamico' | 'loop' | 'escuro' | 'original';
+  intervaloTrocaFundo: number;
+  escurecerFundo: boolean;
+  buscarImagensReaisWeb?: boolean;
+  gerarCenasRemotion?: boolean;
+  pexelsKey?: string;
+  pastaFundoExterna?: string;
+  videosFundoEscolhidos?: string[];
+  cortarSilenciosAudio: boolean;
+  silencioMinimo: number;
+  gerarCartoesChave: boolean;
+  imagensApoio?: string[];
+  repetirImagensApoio?: boolean;
+  efeitosAutomaticos: boolean;
+  musicaFundo?: string;
+  volumeMusica?: number;
+  transicao?: 'off' | 'variado' | 'flash' | 'escurece' | 'whip' | 'zoom';
+  prefixoNome?: string;
+  exportarFila?: boolean;
+};
+
+export type FotoRealGerada = {
+  id: string;
+  src: string;
+  start: number;
+  duracao: number;
+  entrada: 'corte' | 'fade' | 'escala' | 'sobe';
+  largura: number;
+  x: number;
+  y: number;
+  rotulo?: string;
+};
+
+export async function buscarCenasReaisDaFala(
+  palavras: Word[],
+  duracao: number,
+  formato: '9:16' | '16:9' | '1:1' = '9:16',
+): Promise<FotoRealGerada[]> {
+  const r = await fetch(`${SERVIDOR}/dark/cenas-reais`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ palavras, duracao, formato }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui buscar as cenas reais da fala.');
+  return (corpo.fotos ?? []) as FotoRealGerada[];
+}
+
+export type EstadoLoteDark = {
+  etapa: 'parado' | 'processando' | 'pronto' | 'erro';
+  atual?: number;
+  total?: number;
+  nome?: string;
+  detalhe?: string;
+  erro?: string | null;
+  criados?: Array<{
+    arquivoProjeto: string;
+    nomeProjeto: string;
+    duracao: number;
+    palavras: number;
+    cartoes: number;
+    fotos: number;
+    cortes: number;
+  }>;
+};
+
+export async function iniciarLoteDark(
+  arquivos: Array<{ caminho: string; titulo?: string }>,
+  opcoes: OpcoesLoteDark,
+): Promise<void> {
+  const r = await fetch(`${SERVIDOR}/dark/lote`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ arquivos, opcoes }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui iniciar a criação em lote.');
+}
+
+export async function estadoLoteDark(): Promise<EstadoLoteDark> {
+  try {
+    const r = await fetch(`${SERVIDOR}/dark/lote`);
+    return r.ok ? ((await r.json()) as EstadoLoteDark) : { etapa: 'parado' };
+  } catch {
+    return { etapa: 'parado' };
+  }
+}
+
+export type ItemFilaRender = {
+  id: string;
+  arquivo: string;
+  nome: string;
+  status: 'aguardando' | 'renderizando' | 'pronto' | 'erro' | 'cancelado';
+  progresso: number;
+  saida: string | null;
+  erro: string | null;
+  inicio?: number;
+};
+
+export async function listarFilaRender(): Promise<ItemFilaRender[]> {
+  try {
+    const r = await fetch(`${SERVIDOR}/fila-render`);
+    if (!r.ok) return [];
+    return ((await r.json()).fila ?? []) as ItemFilaRender[];
+  } catch {
+    return [];
+  }
+}
+
+export async function enfileirarRenders(arquivos: string[]): Promise<ItemFilaRender[]> {
+  const r = await fetch(`${SERVIDOR}/fila-render`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ arquivos }),
+  });
+  const corpo = await r.json();
+  if (!r.ok) throw new Error(corpo?.erro ?? 'Não consegui adicionar à fila de exportação.');
+  return (corpo.fila ?? []) as ItemFilaRender[];
+}
+
+export async function removerDaFilaRender(id?: string, limparConcluidos = false): Promise<ItemFilaRender[]> {
+  const q = limparConcluidos ? '?limpar=1' : id ? `?id=${encodeURIComponent(id)}` : '';
+  const r = await fetch(`${SERVIDOR}/fila-render${q}`, { method: 'DELETE' });
+  const corpo = await r.json().catch(() => ({ fila: [] }));
+  return (corpo.fila ?? []) as ItemFilaRender[];
+}
+
+

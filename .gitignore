@@ -23,3 +23,18 @@ render/*.mp4
 correcoes.json
 projeto/.versoes/
 agente/.tmp/
+server/config.*.bak.json
+
+# pastas e marcas temporárias do render
+render/*/
+render/.inicio_*
+
+# logs e sobras de testes na raiz
+/*.txt
+/corte_manual_tmp.mjs
+/palavras_*.json
+
+# trabalho do usuário no Canal Dark (vai no backup, não no Git, como os projetos)
+ideias/ideias.json
+banco-cenas/
+tmp_diag/

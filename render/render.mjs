@@ -3,6 +3,7 @@
  *
  *   node render/render.mjs projeto/Corte.json
  *   node render/render.mjs projeto/Corte.json --still 90   (um frame só, para conferir)
+ *   node render/render.mjs projeto/Corte.json --segundos 0-10   (só um trecho, para conferir rápido)
  *
  * Usa a MESMA composição que o Player desenha na prévia — nada aqui
  * redesenha nada. Se sair diferente da prévia, é bug, não configuração.
@@ -134,8 +135,11 @@ const inputProps = {
   estiloOverride: projeto.estilo ?? {},
   movimento: projeto.movimento ?? 'off',
   forcaZoom: projeto.forcaZoom ?? 1,
+  zoomsManuais: projeto.zoomsManuais ?? [],
   fotos: projeto.fotos ?? [],
+  sons: projeto.sons ?? [],
   cartoes: projeto.cartoes ?? [],
+  cenasRemotion: projeto.cenasRemotion ?? [],
   divisoes: projeto.divisoes ?? [],
   // aceita a lista antiga (só instantes) e a nova (com liga/desliga)
   cortes: (projeto.cortes ?? []).map((c) => (typeof c === 'number' ? { t: c, ativo: true } : c)),
@@ -195,12 +199,22 @@ if (still !== undefined) {
   const emParalelo = cfg.concurrency > 0 ? cfg.concurrency : Math.max(2, Math.min(8, Math.floor(nucleos / 2)));
   console.log(`Usando ${emParalelo} de ${nucleos} núcleos.`);
 
+  /* "--segundos 0-10" renderiza só esse pedaço: confere uma mudança sem esperar o vídeo todo */
+  const pedido = argumento('segundos');
+  const trecho = pedido
+    ? (() => {
+        const [de, ate] = pedido.split('-').map(Number);
+        return [Math.round(de * fps), Math.min(Math.round(ate * fps), composition.durationInFrames) - 1];
+      })()
+    : null;
+
   await renderMedia({
     composition,
     serveUrl: servedUrl,
     codec: 'h264',
     outputLocation: saida,
     inputProps,
+    frameRange: trecho,
     concurrency: emParalelo,
     /*
      * A codificação por GPU (NVENC) foi tentada aqui, mas nesta máquina o
@@ -209,8 +223,10 @@ if (still !== undefined) {
      * `x264Preset` com o NVENC. Desligada até alguém investigar o driver.
      * `x264Preset` só faz efeito no x264 (CPU) mesmo, então segue com ele.
      */
-    hardwareAcceleration: 'disable',
-    x264Preset: 'veryfast',
+    // "--gpu" liga a placa de vídeo (desenho e codificação) para tentar de novo
+    ...(process.argv.includes('--gpu')
+      ? { hardwareAcceleration: 'if-possible', chromiumOptions: { gl: 'angle' } }
+      : { hardwareAcceleration: 'disable', x264Preset: 'veryfast' }),
     imageFormat: 'jpeg',
     jpegQuality: 80,
     /* decodificar o vídeo de origem é metade do custo de cada quadro */

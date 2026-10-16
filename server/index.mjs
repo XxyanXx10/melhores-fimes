@@ -19,13 +19,18 @@ import {
   aplicarCorrecoes,
   conferirFerramentas,
   detectarCortes,
+  detectarSilencios,
   lerConfig,
   lerCorrecoes,
   sondarVideo,
   transcreverVideo,
 } from '../agente/nucleo.mjs';
 import { cortarSilencios } from '../agente/cortar.mjs';
-import { montarTakes } from '../agente/montar.mjs';
+import { listarTakesDaPasta, montarTakes } from '../agente/montar.mjs';
+import { gerarLoteDark, listarBibliotecaDark, listarNarracoesDaPasta } from '../agente/dark.mjs';
+import { buscarIdeias, definirChamada, editarRoteiro, escreverRoteiros, lerIdeias, marcar, produzir } from '../agente/ideias.mjs';
+import { execFile } from 'node:child_process';
+import { buscarMidiasReaisParaTranscricao } from '../agente/cenas.mjs';
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -42,6 +47,11 @@ const TIPOS = {
   '.gif': 'image/gif',
   '.avif': 'image/avif',
   '.mp4': 'video/mp4',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
+  '.m4a': 'audio/mp4',
+  '.aac': 'audio/aac',
+  '.ogg': 'audio/ogg',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
 };
@@ -93,7 +103,7 @@ function json(res, status, corpo) {
     'content-type': 'application/json; charset=utf-8',
     'access-control-allow-origin': '*',
     'access-control-allow-headers': '*',
-    'access-control-allow-methods': 'GET,POST,OPTIONS',
+    'access-control-allow-methods': 'GET,POST,DELETE,OPTIONS',
   });
   res.end(texto);
 }
@@ -138,6 +148,115 @@ async function iniciarRender(arquivoProjeto, nomeSaida) {
     inicio: Date.now(),
   });
   filho.unref();
+}
+
+/*
+ * Fila de Exportação em Lote (Render Queue).
+ * Permite enfileirar vários projetos (da Tela de Projetos ou do Canal Dark)
+ * e exporta os MP4s em sequência automaticamente.
+ */
+let filaRender = [];
+let checandoFila = false;
+
+async function sincronizarEAvancarFila() {
+  if (checandoFila) return;
+  checandoFila = true;
+  try {
+    const estado = await lerEstadoRender();
+    const atual = filaRender.find((x) => x.status === 'renderizando');
+
+    if (atual) {
+      if (estado.rodando) {
+        atual.progresso = estado.progresso ?? 0;
+        atual.inicio = estado.inicio ?? atual.inicio;
+        return;
+      }
+      // Terminou ou falhou
+      if (estado.saida && !estado.erro) {
+        atual.status = 'pronto';
+        atual.progresso = 1;
+        atual.saida = estado.saida;
+      } else {
+        atual.status = 'erro';
+        atual.erro = estado.erro ?? 'Render interrompido';
+      }
+    }
+
+    // Se ainda houver um render avulso rodando fora da fila, espera terminar
+    if (estado.rodando) return;
+
+    const proximo = filaRender.find((x) => x.status === 'aguardando');
+    if (!proximo) return;
+
+    const caminhoProjeto = path.join(aqui, '..', 'projeto', path.basename(proximo.arquivo));
+    if (!existsSync(caminhoProjeto)) {
+      proximo.status = 'erro';
+      proximo.erro = 'Arquivo de projeto não encontrado';
+      return;
+    }
+
+    const pJson = JSON.parse(await readFile(caminhoProjeto, 'utf8'));
+    if (!pJson.video || !existsSync(pJson.video)) {
+      proximo.status = 'erro';
+      proximo.erro = 'Vídeo de origem não encontrado no disco';
+      return;
+    }
+
+    const base = path.basename(proximo.arquivo, '.json').replace(/[^\w.-]/g, '_');
+    const agora = new Date();
+    const carimbo = [
+      agora.getFullYear(),
+      String(agora.getMonth() + 1).padStart(2, '0'),
+      String(agora.getDate()).padStart(2, '0'),
+      '-',
+      String(agora.getHours()).padStart(2, '0'),
+      String(agora.getMinutes()).padStart(2, '0'),
+    ].join('');
+    const saida = path.join(aqui, '..', 'render', `${base}-${carimbo}.mp4`);
+
+    proximo.status = 'renderizando';
+    proximo.progresso = 0;
+    proximo.inicio = Date.now();
+    await iniciarRender(caminhoProjeto, saida);
+  } catch (e) {
+    console.error('Erro na fila de render:', e?.message ?? e);
+  } finally {
+    checandoFila = false;
+  }
+}
+
+setInterval(() => {
+  if (filaRender.some((x) => x.status === 'aguardando' || x.status === 'renderizando')) {
+    void sincronizarEAvancarFila();
+  }
+}, 2000);
+
+async function enfileirarRenders(arquivos) {
+  const pasta = path.join(aqui, '..', 'projeto');
+  for (const arq of arquivos) {
+    const limpo = path.basename(String(arq));
+    if (!limpo.endsWith('.json')) continue;
+    if (filaRender.some((x) => x.arquivo === limpo && (x.status === 'aguardando' || x.status === 'renderizando'))) {
+      continue;
+    }
+    let nomeExibicao = limpo.replace(/\.json$/i, '');
+    try {
+      const j = JSON.parse(await readFile(path.join(pasta, limpo), 'utf8'));
+      nomeExibicao = j.nomeProjeto ?? j.nome ?? nomeExibicao;
+    } catch {
+      /* mantém nome do arquivo */
+    }
+    filaRender.push({
+      id: `fr_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      arquivo: limpo,
+      nome: nomeExibicao,
+      status: 'aguardando',
+      progresso: 0,
+      saida: null,
+      erro: null,
+    });
+  }
+  await sincronizarEAvancarFila();
 }
 
 /*
@@ -190,6 +309,18 @@ function nomeDeArquivo(bruto) {
   return `${limpo || 'projeto'}.json`;
 }
 
+/* Como nomeDeArquivo, mas nunca pisa num arquivo que já existe. */
+async function nomeDeArquivoLivre(pasta, bruto) {
+  const base = nomeDeArquivo(bruto).replace(/\.json$/i, '');
+  let tentativa = `${base}.json`;
+  let n = 2;
+  while (existsSync(path.join(pasta, tentativa))) {
+    tentativa = `${base}-${n}.json`;
+    n++;
+  }
+  return tentativa;
+}
+
 /*
  * Alguns componentes codificam o endereço mais de uma vez, e "Corte 15.json"
  * chega como "Corte%2520 15.json". Decodificamos até parar de mudar, senão
@@ -213,6 +344,45 @@ function nomePedido(caminho) {
 /** andamento da montagem em curso — uma por vez, porque cada uma usa a máquina inteira */
 let montagemEmCurso = null;
 
+/** andamento da criação em lote do Canal Dark */
+let loteDarkEmCurso = null;
+/** andamento da aba Ideias (busca, roteiros, produção) */
+let ideiasEmCurso = { etapa: 'parado' };
+
+/** balão de aviso no Windows quando um trabalho longo termina */
+function avisarWindows(titulo, texto) {
+  const t = (x) => String(x).replace(/'/g, "''");
+  const ps = `Add-Type -AssemblyName System.Windows.Forms; $n = New-Object System.Windows.Forms.NotifyIcon; $n.Icon = [System.Drawing.SystemIcons]::Information; $n.Visible = $true; $n.ShowBalloonTip(10000, '${t(titulo)}', '${t(texto)}', 'Info'); Start-Sleep 11; $n.Dispose()`;
+  execFile('powershell', ['-NoProfile', '-Command', ps], () => {});
+}
+
+/** roda um trabalho da aba Ideias em segundo plano, um por vez */
+function trabalhoIdeias(nome, fn) {
+  if (ideiasEmCurso.etapa === 'rodando') return false;
+  ideiasEmCurso = { etapa: 'rodando', nome, detalhe: 'Começando…' };
+  fn((p) => (ideiasEmCurso = { ...ideiasEmCurso, ...p }))
+    .then((r) => {
+      ideiasEmCurso = { etapa: 'pronto', nome, detalhe: 'Concluído', resultado: r };
+      if (nome === 'produzir') avisarWindows('Melhores Fimes', 'Áudios e vídeos base prontos — falta montar as cenas.');
+    })
+    .catch((e) => (ideiasEmCurso = { etapa: 'erro', nome, erro: e.message }));
+  return true;
+}
+
+async function lerCorpo(req) {
+  const pedacos = [];
+  for await (const c of req) pedacos.push(c);
+  return pedacos.length ? JSON.parse(Buffer.concat(pedacos).toString('utf8')) : {};
+}
+
+/**
+ * Silêncios já medidos, por caminho de vídeo — a promessa em si, não só o
+ * resultado, para duas chamadas em cima do mesmo vídeo (o React monta o
+ * componente duas vezes em desenvolvimento) não disparem o FFmpeg duas
+ * vezes em paralelo. Vive só na memória: se o serviço reiniciar, mede nulo.
+ */
+const cacheSilencios = new Map();
+
 const servidor = createServer((req, res) => {
   /*
    * Qualquer erro solto aqui dentro derrubava o processo: o usuário perdia o
@@ -231,6 +401,191 @@ async function atender(req, res) {
 
   if (req.method === 'OPTIONS') return json(res, 204, {});
 
+  /* ==================================================================
+   * ABA CANAL DARK & FILA DE EXPORTAÇÃO EM LOTE
+   * ================================================================== */
+
+  /* ==================== ABA IDEIAS DE CONTEÚDO ==================== */
+  if (url.pathname === '/ideias' && req.method === 'GET') {
+    return json(res, 200, { ...(await lerIdeias()), andamento: ideiasEmCurso });
+  }
+  if (url.pathname === '/ideias/buscar' && req.method === 'POST') {
+    const ok = trabalhoIdeias('buscar', async (andar) => {
+      andar({ detalhe: 'Lendo as notícias e pedindo notas ao Gemini…' });
+      return buscarIdeias();
+    });
+    return json(res, ok ? 200 : 409, ok ? { ok } : { erro: 'já tem um trabalho rodando' });
+  }
+  if (url.pathname === '/ideias/marcar' && req.method === 'POST') {
+    const { ids, status } = await lerCorpo(req);
+    await marcar(ids ?? [], status);
+    return json(res, 200, { ok: true });
+  }
+  if (url.pathname === '/ideias/chamada' && req.method === 'POST') {
+    const { id, comChamada } = await lerCorpo(req);
+    await definirChamada(id, comChamada);
+    return json(res, 200, { ok: true });
+  }
+  if (url.pathname === '/ideias/roteiro' && req.method === 'POST') {
+    const { id, roteiro } = await lerCorpo(req);
+    await editarRoteiro(id, roteiro);
+    return json(res, 200, { ok: true });
+  }
+  if (url.pathname === '/ideias/roteiros' && req.method === 'POST') {
+    const { ids } = await lerCorpo(req);
+    const ok = trabalhoIdeias('roteiros', (andar) => escreverRoteiros(ids ?? [], andar));
+    return json(res, ok ? 200 : 409, ok ? { ok } : { erro: 'já tem um trabalho rodando' });
+  }
+  if (url.pathname === '/ideias/produzir' && req.method === 'POST') {
+    const { ids } = await lerCorpo(req);
+    const ok = trabalhoIdeias('produzir', (andar) => produzir(ids ?? [], andar));
+    return json(res, ok ? 200 : 409, ok ? { ok } : { erro: 'já tem um trabalho rodando' });
+  }
+
+  if (url.pathname === '/dark/biblioteca' && req.method === 'GET') {
+    try {
+      const pasta = url.searchParams.get('pasta')?.trim() || undefined;
+      const bib = await listarBibliotecaDark(pasta);
+      return json(res, 200, bib);
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/dark/narracoes' && req.method === 'GET') {
+    try {
+      const pasta = url.searchParams.get('pasta')?.trim();
+      if (!pasta) return json(res, 400, { erro: 'informe o caminho da pasta' });
+      if (!existsSync(pasta) || !(await stat(pasta)).isDirectory()) {
+        return json(res, 404, { erro: 'pasta não encontrada no computador' });
+      }
+      const itens = await listarNarracoesDaPasta(pasta);
+      return json(res, 200, { pasta, itens });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/dark/upload-narracao' && req.method === 'POST') {
+    const bruto = url.searchParams.get('nome') ?? 'narracao.mp3';
+    const nome = path.basename(bruto).replace(/[^\w.\- ()áàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ]/g, '_');
+    try {
+      const pasta = path.join(aqui, '..', 'render', '.fontes', 'narracoes');
+      await mkdir(pasta, { recursive: true });
+      const alvo = path.join(pasta, `${Date.now()}-${nome}`);
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const buf = Buffer.concat(pedacos);
+      await writeFile(alvo, buf);
+      return json(res, 200, { caminho: alvo, nome: bruto, tamanho: buf.length });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/dark/lote' && req.method === 'POST') {
+    if (loteDarkEmCurso && loteDarkEmCurso.etapa === 'processando') {
+      return json(res, 409, { erro: 'já existe uma geração de lote em andamento' });
+    }
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { arquivos, opcoes } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!Array.isArray(arquivos) || !arquivos.length) {
+        return json(res, 400, { erro: 'nenhum arquivo de narração enviado' });
+      }
+      loteDarkEmCurso = {
+        etapa: 'processando',
+        atual: 0,
+        total: arquivos.length,
+        nome: '',
+        detalhe: 'Iniciando fábrica de vídeos…',
+        criados: [],
+        erro: null,
+      };
+      json(res, 200, { ok: true, total: arquivos.length });
+
+      gerarLoteDark(arquivos, {
+        ...(opcoes ?? {}),
+        aoAndar: (progresso) => {
+          loteDarkEmCurso = { ...loteDarkEmCurso, ...progresso };
+        },
+      })
+        .then(async (criados) => {
+          loteDarkEmCurso = {
+            etapa: 'pronto',
+            atual: arquivos.length,
+            total: arquivos.length,
+            nome: '',
+            detalhe: 'Todos os projetos foram criados!',
+            criados,
+            erro: null,
+          };
+          if (opcoes?.exportarFila && criados.length) {
+            await enfileirarRenders(criados.map((c) => c.arquivoProjeto));
+          }
+        })
+        .catch((e) => {
+          loteDarkEmCurso = {
+            etapa: 'erro',
+            atual: loteDarkEmCurso?.atual ?? 0,
+            total: arquivos.length,
+            nome: loteDarkEmCurso?.nome ?? '',
+            detalhe: '',
+            criados: loteDarkEmCurso?.criados ?? [],
+            erro: e.message ?? 'Erro ao gerar lote Dark',
+          };
+        });
+      return;
+    } catch (e) {
+      loteDarkEmCurso = null;
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/dark/lote' && req.method === 'GET') {
+    return json(res, 200, loteDarkEmCurso ?? { etapa: 'parado' });
+  }
+
+  if (url.pathname === '/fila-render' && req.method === 'GET') {
+    await sincronizarEAvancarFila();
+    return json(res, 200, { fila: filaRender });
+  }
+
+  if (url.pathname === '/fila-render' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { arquivos } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
+      if (!Array.isArray(arquivos) || !arquivos.length) {
+        return json(res, 400, { erro: 'informe ao menos um projeto para exportar' });
+      }
+      await enfileirarRenders(arquivos);
+      return json(res, 200, { ok: true, fila: filaRender });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  if (url.pathname === '/fila-render' && req.method === 'DELETE') {
+    const id = url.searchParams.get('id');
+    const limparConcluidos = url.searchParams.get('limpar') === '1';
+    if (limparConcluidos) {
+      filaRender = filaRender.filter((x) => x.status === 'aguardando' || x.status === 'renderizando');
+      return json(res, 200, { ok: true, fila: filaRender });
+    }
+    if (id) {
+      const item = filaRender.find((x) => x.id === id);
+      if (item && item.status === 'aguardando') {
+        filaRender = filaRender.filter((x) => x.id !== id);
+      }
+      return json(res, 200, { ok: true, fila: filaRender });
+    }
+    // Cancela todos os aguardando
+    filaRender = filaRender.map((x) => (x.status === 'aguardando' ? { ...x, status: 'cancelado' } : x));
+    return json(res, 200, { ok: true, fila: filaRender });
+  }
+
   /*
    * Abrir um projeto inteiro pela plataforma.
    *
@@ -248,6 +603,29 @@ async function atender(req, res) {
    * É demorado (uma transcrição por take), então o andamento vai para disco e
    * pode ser consultado enquanto roda.
    */
+  /*
+   * Os takes de uma pasta, já em ordem — sem passar pelo navegador.
+   *
+   * Os arquivos já estão na máquina; reenviá-los por HTTP só para montar
+   * seria copiar gigabytes à toa. O serviço lê a pasta direto e devolve os
+   * caminhos absolutos, prontos para ir para /montar.
+   */
+  if (url.pathname === '/pasta-de-takes' && req.method === 'GET') {
+    try {
+      const pasta = url.searchParams.get('pasta')?.trim();
+      if (!pasta) return json(res, 400, { erro: 'informe o caminho da pasta' });
+      if (!existsSync(pasta) || !(await stat(pasta)).isDirectory()) {
+        return json(res, 404, { erro: 'não encontrei essa pasta' });
+      }
+      const ordem = url.searchParams.get('ordem') === 'nome' ? 'nome' : 'data';
+      const takes = await listarTakesDaPasta(pasta, { ordem });
+      if (!takes.length) return json(res, 200, { pasta, ordem, takes: [] });
+      return json(res, 200, { pasta, ordem, takes });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
   if (url.pathname === '/montar' && req.method === 'POST') {
     if (montagemEmCurso) return json(res, 409, { erro: 'já tem uma montagem em andamento' });
     try {
@@ -277,6 +655,31 @@ async function atender(req, res) {
 
   if (url.pathname === '/montar' && req.method === 'GET') {
     return json(res, 200, montagemEmCurso ?? { etapa: 'parado' });
+  }
+
+  /*
+   * Os silêncios reais de um vídeo, medidos no áudio.
+   *
+   * Usado tanto pela prévia (o número que aparece antes de cortar) quanto,
+   * por baixo, pelo corte de verdade — os dois têm que concordar. Cacheado
+   * em memória pelo caminho do arquivo: o controle de limiar na tela muda o
+   * que conta como "silêncio grande o bastante" sem precisar medir de novo,
+   * então aqui sempre mede tudo (bem miúdo) e quem filtra é quem chamou.
+   */
+  if (url.pathname === '/silencios' && req.method === 'GET') {
+    try {
+      const video = url.searchParams.get('video')?.trim();
+      if (!video) return json(res, 400, { erro: 'informe o caminho do vídeo' });
+      if (!existsSync(video)) return json(res, 404, { erro: 'não encontrei esse vídeo' });
+
+      if (!cacheSilencios.has(video)) {
+        cacheSilencios.set(video, detectarSilencios(cfg, video));
+      }
+      const silencios = await cacheSilencios.get(video);
+      return json(res, 200, { silencios });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
   }
 
   /*
@@ -333,6 +736,41 @@ async function atender(req, res) {
       const { palavras } = JSON.parse(Buffer.concat(pedacos).toString('utf8'));
       if (!Array.isArray(palavras)) return json(res, 400, { erro: 'esperava palavras' });
       return json(res, 200, { palavras: aplicarCorrecoes(palavras, await lerCorrecoes()) });
+    } catch (e) {
+      return json(res, 500, { erro: e.message });
+    }
+  }
+
+  /* Busca imagens/cenas reais da Web correspondentes ao que está sendo falado na legenda */
+  if (url.pathname === '/dark/cenas-reais' && req.method === 'POST') {
+    try {
+      const pedacos = [];
+      for await (const c of req) pedacos.push(c);
+      const { palavras, duracao, intervaloCena, formato } = JSON.parse(
+        Buffer.concat(pedacos).toString('utf8'),
+      );
+      if (!Array.isArray(palavras) || !palavras.length) {
+        return json(res, 400, { erro: 'Nenhuma palavra na legenda para buscar cenas.' });
+      }
+      const cenas = await buscarMidiasReaisParaTranscricao(palavras, Number(duracao) || 30, {
+        intervaloCena: Number(intervaloCena) || 5.2,
+        formato: formato ?? '9:16',
+        pexelsKey: cfg.pexelsKey,
+      });
+      const fotosGeradas = cenas
+        .filter((c) => c.imagemWeb?.src)
+        .map((c, idx) => ({
+          id: `f_real_${Date.now()}_${idx}`,
+          src: c.imagemWeb.src,
+          start: +(c.start + 0.15).toFixed(2),
+          duracao: Math.max(2.0, Math.min(3.8, +(c.duracao - 0.35).toFixed(2))),
+          entrada: idx % 2 === 0 ? 'escala' : 'sobe',
+          largura: formato === '16:9' ? 46 : 74,
+          x: 50,
+          y: formato === '16:9' ? 34 : 26,
+          rotulo: c.rotulo,
+        }));
+      return json(res, 200, { ok: true, cenas, fotos: fotosGeradas });
     } catch (e) {
       return json(res, 500, { erro: e.message });
     }
@@ -433,7 +871,17 @@ async function atender(req, res) {
       }
       const pasta = path.join(aqui, '..', 'projeto');
       await mkdir(pasta, { recursive: true });
-      const arquivo = nomeDeArquivo(corpo.arquivo ?? projeto.nomeProjeto ?? projeto.nome ?? 'projeto');
+      /*
+       * `corpo.arquivo` só vem preenchido quando o cliente já sabe em qual
+       * arquivo esse projeto mora (reabriu, ou já salvou antes) — aí sim
+       * sobrescreve. Sem ele, é um projeto novo que nunca foi salvo: se dois
+       * vídeos tiverem o mesmo nome (ex.: "corte.mp4" de gravações
+       * diferentes), o nome derivado colide, e um salvava por cima do
+       * outro sem avisar. Agora gera um nome livre em vez de arriscar.
+       */
+      const arquivo = corpo.arquivo
+        ? nomeDeArquivo(corpo.arquivo)
+        : await nomeDeArquivoLivre(pasta, projeto.nomeProjeto ?? projeto.nome ?? 'projeto');
       const caminho = path.join(pasta, arquivo);
       /* voltar para uma versão antiga guarda o estado atual antes, sempre */
       await guardarVersao(arquivo, caminho, url.searchParams.get('versionar') === '1');
@@ -740,7 +1188,7 @@ async function atender(req, res) {
   if (url.pathname === '/midia' && req.method === 'POST') {
     const bruto = url.searchParams.get('nome') ?? 'foto.png';
     const nome = path.basename(bruto).replace(/[^\w.-]/g, '_');
-    if (!/\.(png|jpe?g|webp|gif|avif|mp4|webm|mov|m4v)$/i.test(nome)) {
+    if (!/\.(png|jpe?g|webp|gif|avif|mp4|webm|mov|m4v|mp3|wav|m4a|aac|ogg)$/i.test(nome)) {
       return json(res, 400, { erro: 'formato não suportado' });
     }
     try {

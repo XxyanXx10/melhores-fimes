@@ -47,6 +47,8 @@ type Props = {
   onIrPara: (t: number) => void;
   detectando: boolean;
   onDetectar: () => void;
+  tamanho?: { largura: number; altura: number };
+  onTamanho?: (t: { largura: number; altura: number }) => void;
 };
 
 const TRANSICOES: Array<[TipoTransicao, string]> = [
@@ -105,7 +107,7 @@ export function LeftPanel(p: Props) {
   return (
     <aside className="panel panel-left">
       <section className="bloco">
-        <h2>1. Vídeo</h2>
+        <h2>1. Vídeo & Formato</h2>
         <label className="upload">
           <input
             type="file"
@@ -115,8 +117,34 @@ export function LeftPanel(p: Props) {
               if (f) p.onUpload(f);
             }}
           />
-          <span>{p.nomeArquivo ?? 'Enviar vídeo (9:16)'}</span>
+          <span>{p.nomeArquivo ?? 'Enviar vídeo (9:16 ou 16:9)'}</span>
         </label>
+        {p.onTamanho && (
+          <div className="campo campo-linha" style={{ marginTop: 10 }}>
+            <span>Formato</span>
+            <div className="chips">
+              {(
+                [
+                  ['9:16 (Vertical)', 1080, 1920],
+                  ['16:9 (YouTube)', 1920, 1080],
+                  ['1:1 (Quadrado)', 1080, 1080],
+                ] as const
+              ).map(([rotulo, l, a]) => {
+                const ativo = p.tamanho?.largura === l && p.tamanho?.altura === a;
+                return (
+                  <button
+                    key={rotulo}
+                    type="button"
+                    className={`chip ${ativo ? 'is-active' : ''}`}
+                    onClick={() => p.onTamanho?.({ largura: l, altura: a })}
+                  >
+                    {rotulo}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
         <label className="campo campo-check">
           <input
             type="checkbox"
@@ -128,8 +156,8 @@ export function LeftPanel(p: Props) {
         </label>
         <p className="dica">
           {p.servidorOk
-            ? 'Vertical (9:16) fica melhor. A legenda aparece sozinha quando a transcrição terminar.'
-            : 'Vertical (9:16) fica melhor. Sem vídeo, a prévia usa um fundo de exemplo — sem som.'}
+            ? 'Suporta Vertical (9:16), Horizontal (16:9) e Quadrado (1:1). A legenda aparece sozinha quando a transcrição terminar.'
+            : 'Sem vídeo, a prévia usa um fundo de exemplo — sem som.'}
         </p>
       </section>
 

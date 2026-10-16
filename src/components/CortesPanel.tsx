@@ -1,11 +1,16 @@
 import { useMemo, useState } from 'react';
 import type { Word } from '../types';
+import type { Silencio } from '../transcrever';
 // a mesma conta que o serviço usa para cortar de verdade: a prévia nunca mente
 import { resumoDoCorte } from '../../agente/cortes.mjs';
 
 type Props = {
   palavras: Word[];
   duracao: number;
+  /** silêncios reais do áudio (ver detectarSilenciosDoVideo) — a prévia depende disso */
+  silencios: Silencio[];
+  /** true enquanto o serviço ainda está medindo os silêncios desse vídeo */
+  medindoSilencios: boolean;
   /** null = dá para cortar; texto = o que falta, dito ao usuário */
   impedimento: string | null;
   cortando: boolean;
@@ -23,17 +28,20 @@ function segundos(s: number): string {
 /**
  * Corte automático dos silêncios.
  *
- * A transcrição já sabe onde está a fala; o que sobra entre as palavras é
- * respiração e pausa. A conta roda aqui na tela, então você vê quanto sai
- * antes de mandar cortar.
+ * O silêncio vem do volume do áudio, medido pelo serviço (ver
+ * `detectarSilenciosDoVideo`) — a transcrição sozinha não serve para isso: o
+ * whisper devolve as palavras coladas, sem nenhum buraco entre elas mesmo
+ * depois de uma pausa de verdade. A conta com o limiar roda aqui na tela, em
+ * cima do que já foi medido, então você vê quanto sai antes de mandar
+ * cortar, sem esperar o FFmpeg de novo a cada arrasto do controle.
  */
 export function CortesPanel(p: Props) {
   const [silencio, setSilencio] = useState(0.35);
 
   const previa = useMemo(() => {
-    if (!p.palavras.length || !p.duracao) return null;
-    return resumoDoCorte(p.palavras, p.duracao, { silencioMinimo: silencio });
-  }, [p.palavras, p.duracao, silencio]);
+    if (!p.palavras.length || !p.duracao || p.medindoSilencios) return null;
+    return resumoDoCorte(p.palavras, p.duracao, { silencioMinimo: silencio, silencios: p.silencios });
+  }, [p.palavras, p.duracao, p.silencios, p.medindoSilencios, silencio]);
 
   return (
     <section className="bloco">
@@ -63,6 +71,10 @@ export function CortesPanel(p: Props) {
         />
         <output>{silencio.toFixed(2)}s</output>
       </label>
+
+      {!p.impedimento && p.medindoSilencios && (
+        <p className="dica">Medindo os silêncios do áudio…</p>
+      )}
 
       {previa && (
         <div className={`previa-corte ${previa.cortes ? '' : 'is-vazia'}`}>

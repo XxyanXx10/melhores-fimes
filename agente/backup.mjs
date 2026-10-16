@@ -43,6 +43,9 @@ const itens = [
   ['projeto', 'projetos (legendas, estilos e ajustes de cada vídeo)'],
   ['server/config.json', 'caminhos do Whisper e do FFmpeg'],
   ['presets', 'estilos de marca salvos'],
+  ['correcoes.json', 'correções que se repetem na legenda'],
+  ['ideias', 'ideias, roteiros e estilo de roteiro do Canal Dark'],
+  ['banco-cenas', 'banco de cenas e planos do Canal Dark'],
 ];
 if (tudo) itens.push(['public/midia', 'fotos e vídeos de apoio']);
 

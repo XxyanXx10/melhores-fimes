@@ -1,13 +1,20 @@
 /**
  * Corte automático dos silêncios.
  *
- * A transcrição já sabe onde cada palavra começa e termina; o que sobra entre
- * elas é respiração, pausa e "éééé". Daqui saem os trechos que ficam no vídeo
- * final, e os tempos da legenda recalculados para a nova duração.
+ * A ideia original era usar o buraco entre o fim de uma palavra e o começo
+ * da próxima — de graça, porque a transcrição já foi feita. Só que o
+ * whisper.cpp, no modo de timestamp por palavra (`-ml 1`), devolve as
+ * palavras coladas: o fim de uma bate exatamente com o começo da seguinte,
+ * mesmo depois de uma pausa de verdade na fala. Testamos e confirmamos —
+ * `end` e `start` empatados até depois de ponto de interrogação. Ou seja,
+ * o buraco nunca existe nos dados, e o corte por palavra nunca acha nada.
  *
- * Trabalhar sobre as palavras, e não sobre o volume do áudio, evita cortar no
- * meio de uma frase falada baixinho — e é de graça, porque a transcrição já foi
- * feita.
+ * Por isso o silêncio agora vem de fora: `opcoes.silencios` são os
+ * intervalos que o FFmpeg mediu de verdade no volume do áudio (ver
+ * `detectarSilencios` em `nucleo.mjs`). As palavras continuam servindo para
+ * remapear a legenda depois do corte (`remapear`), só não para achar onde
+ * cortar. Sem `opcoes.silencios`, cai de volta no cálculo por palavra —
+ * mantido para quem ainda não tem os silêncios medidos.
  */
 
 const PADRAO = {
@@ -19,11 +26,39 @@ const PADRAO = {
   folgaFim: 0.25,
 };
 
+/** blocos de fala como o complemento dos silêncios medidos no áudio */
+function blocosPorAudio(silencios, silencioMinimo, duracao, inicio = 0) {
+  const relevantes = [...silencios]
+    .filter((s) => s.end - s.start >= silencioMinimo)
+    .sort((a, b) => a.start - b.start);
+
+  const blocos = [];
+  /* `inicio`: nada antes disso entra (a claquete falada de um take) */
+  let cursor = inicio;
+  for (const s of relevantes) {
+    if (s.start > cursor) blocos.push({ start: cursor, end: Math.min(s.start, duracao) });
+    cursor = Math.max(cursor, s.end);
+  }
+  if (cursor < duracao) blocos.push({ start: cursor, end: duracao });
+  return blocos.filter((b) => b.end > b.start);
+}
+
+/** blocos de fala pelo buraco cru entre palavras — o método antigo, de reserva */
+function blocosPorPalavras(palavras, silencioMinimo) {
+  const ordenadas = [...palavras].sort((a, b) => a.start - b.start);
+  const blocos = [{ start: ordenadas[0].start, end: ordenadas[0].end }];
+  for (const w of ordenadas.slice(1)) {
+    const atual = blocos[blocos.length - 1];
+    if (w.start - atual.end >= silencioMinimo) blocos.push({ start: w.start, end: w.end });
+    else atual.end = Math.max(atual.end, w.end);
+  }
+  return blocos;
+}
+
 /**
  * Os pedaços do vídeo original que ficam, em ordem e sem se sobrepor.
  *
- * A comparação é feita no silêncio cru — o buraco entre o fim de uma palavra e
- * o começo da próxima. As folgas entram depois, só para a fala não sair
+ * As folgas entram depois de decididos os blocos, só para a fala não sair
  * cortada: se elas entrassem antes, "cortar a partir de 0,35 s" na verdade
  * cortaria a partir de 0,72 s, e o controle mentiria para você.
  */
@@ -32,23 +67,28 @@ export function trechosDeFala(palavras, opcoes = {}) {
   const duracao = opcoes.duracao ?? (palavras.length ? palavras[palavras.length - 1].end : 0);
   if (!palavras.length) return [];
 
-  const ordenadas = [...palavras].sort((a, b) => a.start - b.start);
+  const blocos = opcoes.silencios?.length
+    ? blocosPorAudio(opcoes.silencios, silencioMinimo, duracao, opcoes.inicio ?? 0)
+    : blocosPorPalavras(palavras, silencioMinimo);
+  if (!blocos.length) return [];
 
-  /* primeiro os blocos de fala contínua, medidos sem folga nenhuma */
-  const blocos = [{ start: ordenadas[0].start, end: ordenadas[0].end }];
-  for (const w of ordenadas.slice(1)) {
-    const atual = blocos[blocos.length - 1];
-    if (w.start - atual.end >= silencioMinimo) blocos.push({ start: w.start, end: w.end });
-    else atual.end = Math.max(atual.end, w.end);
-  }
-
-  /* agora sim a folga, sem deixar um trecho invadir o outro */
+  /*
+   * Agora sim a folga, sem deixar um trecho invadir o outro. Quando o
+   * silêncio é menor que a folga de entrada + saída, o começo com folga
+   * encosta (ou passa) no fim do trecho anterior — nesse caso não sobra
+   * silêncio nenhum para cortar ali, então em vez de registrar um "corte"
+   * que não corta nada, o trecho gruda no anterior.
+   */
   const trechos = [];
   for (const bloco of blocos) {
     const anterior = trechos[trechos.length - 1];
-    const start = Math.max(0, bloco.start - folgaInicio, anterior ? anterior.end : 0);
+    const inicioComFolga = Math.max(0, bloco.start - folgaInicio);
     const end = Math.min(duracao, bloco.end + folgaFim);
-    if (end > start) trechos.push({ start, end });
+    if (anterior && inicioComFolga <= anterior.end) {
+      anterior.end = Math.max(anterior.end, end);
+    } else if (end > inicioComFolga) {
+      trechos.push({ start: inicioComFolga, end });
+    }
   }
 
   return trechos.map((t) => ({ start: +t.start.toFixed(3), end: +t.end.toFixed(3) }));

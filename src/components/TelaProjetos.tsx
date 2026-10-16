@@ -1,6 +1,12 @@
 import { useMemo, useState } from 'react';
-import type { ProjetoNoDisco } from '../transcrever';
-import { SERVIDOR } from '../transcrever';
+import {
+  SERVIDOR,
+  enderecoDoRender,
+  enfileirarRenders,
+  removerDaFilaRender,
+  type ItemFilaRender,
+  type ProjetoNoDisco,
+} from '../transcrever';
 
 type Props = {
   projetos: ProjetoNoDisco[];
@@ -10,6 +16,9 @@ type Props = {
   onDuplicar: (arquivo: string) => void;
   onFechar: (() => void) | null;
   onMontar: () => void;
+  onAbrirDark: () => void;
+  filaRender: ItemFilaRender[];
+  onAtualizarFila: () => void;
   carregando: boolean;
 };
 
@@ -41,6 +50,7 @@ export function TelaProjetos(p: Props) {
   const [busca, setBusca] = useState('');
   const [ordem, setOrdem] = useState<Ordem>('recentes');
   const [confirmar, setConfirmar] = useState<string | null>(null);
+  const [selecionados, setSelecionados] = useState<string[]>([]);
 
   const lista = useMemo(() => {
     const termo = busca.trim().toLowerCase();
@@ -58,6 +68,12 @@ export function TelaProjetos(p: Props) {
     return copia;
   }, [p.projetos, busca, ordem]);
 
+  function alternarSelecao(arquivo: string) {
+    setSelecionados((atuais) =>
+      atuais.includes(arquivo) ? atuais.filter((x) => x !== arquivo) : [...atuais, arquivo],
+    );
+  }
+
   return (
     <div className="tela-projetos">
       <header className="tp-topo">
@@ -68,11 +84,14 @@ export function TelaProjetos(p: Props) {
           <p>
             {p.projetos.length
               ? `${p.projetos.length} ${p.projetos.length === 1 ? 'projeto' : 'projetos'} nesta máquina`
-              : 'Nenhum projeto ainda — comece enviando um vídeo.'}
+              : 'Nenhum projeto ainda — comece enviando um vídeo ou abrindo a Fábrica de Canal Dark.'}
           </p>
         </div>
 
         <div className="tp-acoes">
+          <button type="button" className="chip chip-topo chip-dark" onClick={p.onAbrirDark}>
+            🔥 Canal Dark (Criador em Lote)
+          </button>
           <button type="button" className="chip chip-topo" onClick={p.onMontar}>
             Montar a partir de takes
           </button>
@@ -96,6 +115,62 @@ export function TelaProjetos(p: Props) {
           )}
         </div>
       </header>
+
+      {/* Fila de Exportação em Lote */}
+      {p.filaRender.length > 0 && (
+        <section className="dark-fila-box">
+          <div className="dark-fila-topo">
+            <strong>
+              🎞️ Fila de Exportação em Lote ({p.filaRender.filter((x) => x.status === 'pronto').length}/
+              {p.filaRender.length} concluídos)
+            </strong>
+            <div className="chips">
+              <button
+                type="button"
+                className="chip"
+                onClick={() => void removerDaFilaRender(undefined, true).then(() => p.onAtualizarFila())}
+              >
+                Limpar concluídos
+              </button>
+              <button
+                type="button"
+                className="chip chip-perigo"
+                onClick={() => void removerDaFilaRender().then(() => p.onAtualizarFila())}
+              >
+                Cancelar pendentes
+              </button>
+            </div>
+          </div>
+          <ul className="dark-fila-lista">
+            {p.filaRender.map((item) => (
+              <li key={item.id} className={`is-${item.status}`}>
+                <span className="dark-fila-nome">{item.nome}</span>
+                <span className="dark-fila-status">
+                  {item.status === 'aguardando' && '⏳ Na fila'}
+                  {item.status === 'renderizando' && `⚙️ Renderizando ${Math.round(item.progresso * 100)}%`}
+                  {item.status === 'pronto' && '✅ MP4 Pronto'}
+                  {item.status === 'erro' && `❌ ${item.erro ?? 'Erro'}`}
+                  {item.status === 'cancelado' && 'Cancelado'}
+                </span>
+                {item.status === 'pronto' && item.saida && (
+                  <a className="chip chip-forte" href={enderecoDoRender(item.saida)} download>
+                    Baixar MP4
+                  </a>
+                )}
+                {item.status === 'aguardando' && (
+                  <button
+                    type="button"
+                    className="chip"
+                    onClick={() => void removerDaFilaRender(item.id).then(() => p.onAtualizarFila())}
+                  >
+                    Remover
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {p.projetos.length > 0 && (
         <div className="tp-filtros">
@@ -123,6 +198,39 @@ export function TelaProjetos(p: Props) {
               </button>
             ))}
           </div>
+
+          <div className="tp-lote-acoes">
+            {selecionados.length > 0 ? (
+              <>
+                <button
+                  type="button"
+                  className="primario"
+                  onClick={() => {
+                    void enfileirarRenders(selecionados).then(() => {
+                      setSelecionados([]);
+                      p.onAtualizarFila();
+                    });
+                  }}
+                >
+                  🎞️ Exportar selecionados na Fila ({selecionados.length})
+                </button>
+                <button type="button" className="chip" onClick={() => setSelecionados([])}>
+                  Desmarcar ({selecionados.length})
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="chip"
+                onClick={() =>
+                  setSelecionados(lista.filter((x) => x.temVideo && !x.exportado).map((x) => x.arquivo))
+                }
+                title="Seleciona todos os projetos com vídeo que ainda não têm MP4 exportado"
+              >
+                ☑️ Selecionar não exportados
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -133,71 +241,95 @@ export function TelaProjetos(p: Props) {
           <p>
             Envie um vídeo vertical: a transcrição começa sozinha e o projeto passa a viver nesta
             lista, com o nome que você quiser. Gravou por takes? Use <strong>Montar a partir de
-            takes</strong>: a claquete e os silêncios saem, e os pedaços viram um vídeo só.
+            takes</strong>. Quer criar vários vídeos sem aparecer? Abra a aba{' '}
+            <strong>🔥 Canal Dark (Criador em Lote)</strong>.
           </p>
         </div>
       ) : !lista.length ? (
         <p className="tp-vazio">Nenhum projeto com “{busca}”.</p>
       ) : (
         <ul className="tp-grade">
-          {lista.map((x) => (
-            <li key={x.arquivo} className={`tp-cartao ${x.temVideo ? '' : 'is-orfao'}`}>
-              <button className="tp-abrir" type="button" onClick={() => p.onAbrir(x.arquivo)}>
-                <span className="tp-imagem">
-                  {x.temVideo ? (
-                    <img
-                      src={`${SERVIDOR}/miniatura/${encodeURIComponent(x.arquivo)}`}
-                      alt=""
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
-                  ) : null}
-                  <em>{iniciais(x.nome)}</em>
-                </span>
-                <span className="tp-nome">{x.nome}</span>
-                <span className="tp-meta">
-                  {duracaoCurta(x.duracao)} · {x.palavras} {x.palavras === 1 ? 'palavra' : 'palavras'} ·{' '}
-                  {quando(x.atualizado)}
-                </span>
-                <span className="tp-selos">
-                  {x.exportado && <b className="ok">MP4 pronto</b>}
-                  {!x.temVideo && <b className="alerta">vídeo não encontrado</b>}
-                </span>
-              </button>
+          {lista.map((x) => {
+            const marcado = selecionados.includes(x.arquivo);
+            return (
+              <li
+                key={x.arquivo}
+                className={`tp-cartao ${x.temVideo ? '' : 'is-orfao'} ${marcado ? 'is-selecionado' : ''}`}
+              >
+                <label className="tp-selecionar" title="Marcar para exportar em lote">
+                  <input
+                    type="checkbox"
+                    checked={marcado}
+                    onChange={() => alternarSelecao(x.arquivo)}
+                  />
+                </label>
 
-              <div className="tp-menu">
-                <button type="button" onClick={() => p.onDuplicar(x.arquivo)} title="Duplicar">
-                  Duplicar
+                <button className="tp-abrir" type="button" onClick={() => p.onAbrir(x.arquivo)}>
+                  <span className="tp-imagem">
+                    {x.temVideo ? (
+                      <img
+                        src={`${SERVIDOR}/miniatura/${encodeURIComponent(x.arquivo)}`}
+                        alt=""
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    ) : null}
+                    <em>{iniciais(x.nome)}</em>
+                  </span>
+                  <span className="tp-nome">{x.nome}</span>
+                  <span className="tp-meta">
+                    {duracaoCurta(x.duracao)} · {x.palavras} {x.palavras === 1 ? 'palavra' : 'palavras'} ·{' '}
+                    {quando(x.atualizado)}
+                  </span>
+                  <span className="tp-selos">
+                    {x.exportado && <b className="ok">MP4 pronto</b>}
+                    {!x.temVideo && <b className="alerta">vídeo não encontrado</b>}
+                  </span>
                 </button>
-                <button type="button" onClick={() => setConfirmar(x.arquivo)} title="Apagar">
-                  Apagar
-                </button>
-              </div>
 
-              {confirmar === x.arquivo && (
-                <div className="tp-confirma">
-                  <p>Apagar “{x.nome}”? Ele vai para a lixeira da pasta de projetos.</p>
-                  <div>
-                    <button type="button" className="chip" onClick={() => setConfirmar(null)}>
-                      Cancelar
-                    </button>
+                <div className="tp-menu">
+                  {x.temVideo && (
                     <button
                       type="button"
-                      className="chip chip-perigo"
-                      onClick={() => {
-                        p.onApagar(x.arquivo);
-                        setConfirmar(null);
-                      }}
+                      onClick={() => void enfileirarRenders([x.arquivo]).then(() => p.onAtualizarFila())}
+                      title="Adicionar à fila de exportação MP4"
                     >
-                      Apagar
+                      + Fila MP4
                     </button>
-                  </div>
+                  )}
+                  <button type="button" onClick={() => p.onDuplicar(x.arquivo)} title="Duplicar">
+                    Duplicar
+                  </button>
+                  <button type="button" onClick={() => setConfirmar(x.arquivo)} title="Apagar">
+                    Apagar
+                  </button>
                 </div>
-              )}
-            </li>
-          ))}
+
+                {confirmar === x.arquivo && (
+                  <div className="tp-confirma">
+                    <p>Apagar “{x.nome}”? Ele vai para a lixeira da pasta de projetos.</p>
+                    <div>
+                      <button type="button" className="chip" onClick={() => setConfirmar(null)}>
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        className="chip chip-perigo"
+                        onClick={() => {
+                          p.onApagar(x.arquivo);
+                          setConfirmar(null);
+                        }}
+                      >
+                        Apagar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

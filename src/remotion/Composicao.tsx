@@ -1,5 +1,8 @@
+import { useMemo } from 'react';
 import {
   AbsoluteFill,
+  Audio,
+  interpolate,
   OffthreadVideo,
   Sequence,
   staticFile,
@@ -9,19 +12,23 @@ import {
 import type {
   CaptionStyle,
   Cartao as CartaoSpec,
+  CenaRemotion,
   CoresTransicao,
   Corte,
   Divisao as DivisaoSpec,
   Foto as FotoSpec,
+  Som as SomSpec,
   Movimento,
   TipoTransicao,
   Word,
+  Zoom,
 } from '../types';
 import { agrupar, blocoAtivo, palavraAtiva, ultimaIniciada } from '../blocks';
 import { estadoZoom, gerarZooms } from '../zoom';
 import { defaultTemplateId, resolverEstilo } from '../data/templates';
 import { Foto } from './Foto';
 import { Cartao } from './Cartao';
+import { CenaAnimada } from './CenaAnimada';
 import {
   Divisao,
   fatorTamanho,
@@ -60,8 +67,14 @@ export type PropsComposicao = {
   estiloOverride: Partial<CaptionStyle>;
   movimento: Movimento;
   forcaZoom: number;
+  /** zooms marcados à mão: valem antes dos automáticos */
+  zoomsManuais?: Zoom[];
   fotos: FotoSpec[];
+  /** música de fundo e efeitos sonoros */
+  sons: SomSpec[];
   cartoes: CartaoSpec[];
+  /** cenas dinâmicas nativas do Remotion (ChatGPT, Contexto IA, Checklist, etc.) */
+  cenasRemotion?: CenaRemotion[];
   divisoes: DivisaoSpec[];
   /** cortes já existentes no vídeo, e como cobri-los */
   cortes: Corte[];
@@ -83,7 +96,9 @@ export const propsPadrao: PropsComposicao = {
   movimento: 'off',
   forcaZoom: 1,
   fotos: [],
+  sons: [],
   cartoes: [],
+  cenasRemotion: [],
   divisoes: [],
   cortes: [],
   transicao: 'off',
@@ -108,8 +123,11 @@ export function Composicao(props: PropsComposicao) {
     estiloOverride,
     movimento,
     forcaZoom,
+    zoomsManuais,
     fotos,
+    sons,
     cartoes,
+    cenasRemotion,
     divisoes,
     cortes,
     transicao,
@@ -122,20 +140,31 @@ export function Composicao(props: PropsComposicao) {
   const { fps, durationInFrames, width: largura } = useVideoConfig();
   const t = frame / fps;
 
-  // o mesmo cálculo de câmera de antes: função pura de tempo, agora alimentada pelo frame
-  const blocos = agrupar(palavras, estilo.wordsPerBlock);
+  /*
+   * Agrupar as palavras em blocos e gerar os trechos de zoom envolve
+   * varrer a transcrição inteira (pontuar, afinar momentos...). Isso é
+   * caro, e antes rodava de novo a CADA frame — 30x por segundo durante
+   * a prévia — porque a função é chamada direto no corpo do componente,
+   * que o Player re-executa a cada frame. Numa máquina sem sobra de CPU
+   * isso é o que faz o zoom "tremer" e a prévia engasgar bem na hora dos
+   * cortes/transições. Nada disso depende do frame atual — só de
+   * memoizar, calculado de novo apenas quando o projeto muda de verdade.
+   */
+  const blocos = useMemo(
+    () => agrupar(palavras, estilo.wordsPerBlock),
+    [palavras, estilo.wordsPerBlock],
+  );
+  const duracaoTotal = durationInFrames / fps;
+  const zooms = useMemo(
+    () => [
+      ...(zoomsManuais ?? []),
+      ...gerarZooms(movimento, blocos, [], duracaoTotal, forcaZoom, estilo.autoEnfase, palavras),
+    ],
+    [zoomsManuais, movimento, blocos, duracaoTotal, forcaZoom, estilo.autoEnfase, palavras],
+  );
   const bloco = blocoAtivo(blocos, t);
   // no navegador o vídeo é um blob:, no render é um arquivo dentro de public/
   const fonteVideo = videoSrc && /^(blob:|https?:|data:)/.test(videoSrc) ? videoSrc : videoSrc ? staticFile(videoSrc) : null;
-  const zooms = gerarZooms(
-    movimento,
-    blocos,
-    [],
-    durationInFrames / fps,
-    forcaZoom,
-    estilo.autoEnfase,
-    palavras,
-  );
   const camera = estadoZoom(zooms, t);
   const divisao = divisoes.find((d) => t >= d.start && t <= d.start + d.duracao);
   const progresso = divisao ? progressoDivisao(divisao, t, fps) : 0;
@@ -173,6 +202,10 @@ export function Composicao(props: PropsComposicao) {
               transform: `scale(${camera.escala}) ${efeitoCorte.transform}`,
               transformOrigin: camera.origem,
               filter: efeitoCorte.filter,
+              // camada própria na GPU: sem isto o navegador arredonda a
+              // escala para pixel inteiro a cada quadro e a imagem treme
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
             }}
           >
             <OffthreadVideo
@@ -211,6 +244,30 @@ export function Composicao(props: PropsComposicao) {
         imagem={agora?.corte.imagem}
       />
 
+      {/* b-roll marcado como fundo fica embaixo das cenas animadas */}
+      {fotos
+        .filter((f) => f.camada === 'fundo')
+        .map((f) => (
+          <Sequence
+            key={f.id}
+            from={Math.round(f.start * fps)}
+            durationInFrames={Math.max(1, Math.round(f.duracao * fps))}
+            premountFor={Math.round(fps * 1.5)}
+          >
+            <Foto foto={f} />
+          </Sequence>
+        ))}
+
+      {(cenasRemotion ?? []).map((cr) => (
+        <Sequence
+          key={cr.id}
+          from={Math.round(cr.start * fps)}
+          durationInFrames={Math.max(1, Math.round(cr.duracao * fps))}
+        >
+          <CenaAnimada cena={cr} largura={largura} />
+        </Sequence>
+      ))}
+
       {cartoes.map((c) => (
         <Sequence
           key={c.id}
@@ -221,11 +278,52 @@ export function Composicao(props: PropsComposicao) {
         </Sequence>
       ))}
 
-      {fotos.map((f) => (
+      {/*
+       * Sons: cada um numa Sequence própria, então o frame de dentro começa em
+       * 0 quando o som entra — é isso que faz o fade valer igual no Player e
+       * no render. `duracao` 0 = até o fim do vídeo.
+       */}
+      {(sons ?? []).map((s) => {
+        /* duracao 0 só vale para a música (até o fim). Um efeito sem duração ficava
+           montado até o fim do vídeo e, somando vários, estourava o limite de
+           áudios do Player (5) — a prévia quebrava no 6º. Efeito dura o que o
+           áudio dura; se não souber, 6 s (sobra, o arquivo acaba antes). */
+        const resto = Math.max(0.1, durationInFrames / fps - s.start);
+        const dur = s.duracao > 0 ? s.duracao : s.tipo === 'efeito' ? Math.min(6, resto) : resto;
+        const quadros = Math.max(1, Math.round(dur * fps));
+        return (
+          <Sequence key={s.id} from={Math.round(s.start * fps)} durationInFrames={quadros}>
+            <Audio
+              src={/^(blob:|https?:|data:)/.test(s.src) ? s.src : staticFile(s.src)}
+              loop={s.repetir}
+              volume={(f) => {
+                const entra = s.fadeIn > 0 ? interpolate(f, [0, s.fadeIn * fps], [0, 1], { extrapolateRight: 'clamp' }) : 1;
+                const sai = s.fadeOut > 0 ? interpolate(f, [quadros - s.fadeOut * fps, quadros], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }) : 1;
+                // a música abaixa em momentos marcados (rampa curta para não estalar)
+                const agora = s.start + f / fps;
+                let queda = 1;
+                for (const q of s.quedas ?? []) {
+                  const rampa = 0.12;
+                  const dentro = Math.min(
+                    1,
+                    Math.max(0, Math.min((agora - q.start) / rampa, (q.start + q.duracao - agora) / rampa)),
+                  );
+                  queda *= 1 - (1 - q.volume) * dentro;
+                }
+                return Math.max(0, Math.min(1, s.volume * entra * sai * queda));
+              }}
+            />
+          </Sequence>
+        );
+      })}
+
+      {fotos.filter((f) => f.camada !== 'fundo').map((f) => (
         <Sequence
           key={f.id}
           from={Math.round(f.start * fps)}
           durationInFrames={Math.max(1, Math.round(f.duracao * fps))}
+          // b-roll em vídeo começa a carregar 1,5 s antes: sem isto a prévia engasga em cada corte
+          premountFor={/\.(mp4|mov|webm)$/i.test(f.src) ? Math.round(fps * 1.5) : 0}
         >
           <Foto foto={f} />
         </Sequence>

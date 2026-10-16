@@ -4,14 +4,17 @@ import type {
   Block,
   CaptionStyle,
   Cartao,
+  CenaRemotion,
   CoresTransicao,
   Corte,
   Divisao,
   Foto,
   Movimento,
+  Som,
   Scene,
   TipoTransicao,
   Word,
+  Zoom,
 } from '../types';
 import { Composicao } from '../remotion/Composicao';
 import { CaptionOverlay } from './CaptionOverlay';
@@ -38,8 +41,11 @@ type Props = {
   palavras: Word[];
   movimento: Movimento;
   forcaZoom: number;
+  zoomsManuais?: Zoom[];
   fotos: Foto[];
+  sons: Som[];
   cartoes: Cartao[];
+  cenasRemotion?: CenaRemotion[];
   divisoes: Divisao[];
   cortes: Corte[];
   transicao: TipoTransicao;
@@ -84,8 +90,11 @@ export function Preview(p: Props) {
       estiloOverride: p.override,
       movimento: p.movimento,
       forcaZoom: p.forcaZoom,
+      zoomsManuais: p.zoomsManuais,
       fotos: p.fotos,
+      sons: p.sons,
       cartoes: p.cartoes,
+      cenasRemotion: p.cenasRemotion ?? [],
       divisoes: p.divisoes,
       cortes: p.cortes,
       transicao: p.transicao,
@@ -93,7 +102,7 @@ export function Preview(p: Props) {
       duracaoTransicao: p.duracaoTransicao,
       coresTransicao: p.coresTransicao,
     }),
-    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.fotos, p.cartoes, p.divisoes, p.cortes, p.transicao, p.forcaTransicao, p.duracaoTransicao, p.coresTransicao],
+    [p.src, p.palavras, p.templateId, p.override, p.movimento, p.forcaZoom, p.zoomsManuais, p.fotos, p.sons, p.cartoes, p.cenasRemotion, p.divisoes, p.cortes, p.transicao, p.forcaTransicao, p.duracaoTransicao, p.coresTransicao],
   );
   const estiloDoPlayer = useMemo(() => ({ width: '100%', height: '100%' }), []);
 
@@ -109,7 +118,15 @@ export function Preview(p: Props) {
         </label>
       </div>
 
-      <div className="quadro" ref={ref}>
+      <div
+        className="quadro"
+        ref={ref}
+        style={{
+          aspectRatio: `${p.largura} / ${p.altura}`,
+          width: p.largura > p.altura ? '100%' : 'auto',
+          height: p.largura > p.altura ? 'auto' : '100%',
+        }}
+      >
         {p.transcrevendo && (
           <div className="quadro-carregando" role="status" aria-live="polite">
             <span className="girando" aria-hidden="true" />
@@ -124,6 +141,7 @@ export function Preview(p: Props) {
         {p.src ? (
           /* A MESMA composição que o Renderer usa para gerar o MP4. */
           <Player
+            numberOfSharedAudioTags={12}
             ref={p.playerRef}
             component={Composicao}
             inputProps={propsDaComposicao}

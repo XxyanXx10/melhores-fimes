@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react';
-import type { Foto } from '../types';
-import { enviarMidia, SERVIDOR } from '../transcrever';
+import type { Foto, Word } from '../types';
+import { buscarCenasReaisDaFala, enviarMidia, SERVIDOR } from '../transcrever';
 import { formatarTempo } from '../blocks';
 
 type Props = {
   fotos: Foto[];
+  palavras?: Word[];
+  formato?: '9:16' | '16:9' | '1:1';
   /** instante atual da prévia — é onde a foto nova entra */
   tempo: number;
   duracao: number;
   onAdicionar: (f: Foto) => void;
+  onAdicionarVarias?: (novas: Foto[]) => void;
   onMudar: (id: string, patch: Partial<Foto>) => void;
   onRemover: (id: string) => void;
   onIr: (t: number) => void;
@@ -22,6 +25,7 @@ const ENTRADAS: Array<[Foto['entrada'], string]> = [
 
 export function FotosPanel(p: Props) {
   const [enviando, setEnviando] = useState(false);
+  const [buscandoReais, setBuscandoReais] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [aberta, setAberta] = useState<string | null>(null);
   const entrada = useRef<HTMLInputElement>(null);
@@ -48,11 +52,46 @@ export function FotosPanel(p: Props) {
     }
   }
 
+  async function buscarDoTexto() {
+    if (!p.palavras?.length) {
+      setErro('Transcreva o vídeo primeiro para o sistema saber o que está sendo falado.');
+      return;
+    }
+    setBuscandoReais(true);
+    setErro(null);
+    try {
+      const geradas = await buscarCenasReaisDaFala(p.palavras, p.duracao, p.formato ?? '9:16');
+      if (!geradas.length) {
+        setErro('Não encontrei imagens para os termos falados.');
+        return;
+      }
+      const novas: Foto[] = geradas.map((g) => ({
+        id: g.id,
+        src: g.src,
+        start: g.start,
+        duracao: g.duracao,
+        entrada: g.entrada === 'corte' ? 'escala' : g.entrada,
+        largura: g.largura,
+        x: g.x,
+        y: g.y,
+      }));
+      if (p.onAdicionarVarias) {
+        p.onAdicionarVarias(novas);
+      } else {
+        novas.forEach((n) => p.onAdicionar(n));
+      }
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Falha ao buscar imagens reais.');
+    } finally {
+      setBuscandoReais(false);
+    }
+  }
+
   return (
     <section className="bloco">
       <h2>Fotos e b-roll</h2>
 
-      <div className="fontes">
+      <div className="fontes" style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         <label className="chip chip-forte">
           {enviando ? 'Enviando…' : 'Adicionar foto'}
           <input
@@ -60,7 +99,7 @@ export function FotosPanel(p: Props) {
             type="file"
             accept="image/*"
             hidden
-            disabled={enviando}
+            disabled={enviando || buscandoReais}
             onChange={(e) => {
               const f = e.target.files?.[0];
               if (f) void adicionar(f);
@@ -68,6 +107,15 @@ export function FotosPanel(p: Props) {
             }}
           />
         </label>
+        <button
+          type="button"
+          className="chip chip-dark"
+          disabled={buscandoReais || !p.palavras?.length}
+          onClick={() => void buscarDoTexto()}
+          title="Lê cada frase da legenda e baixa imagens reais da internet sincronizadas com a fala"
+        >
+          {buscandoReais ? '🌐 Buscando na Web…' : '🌐 Buscar Cenas Reais da Fala'}
+        </button>
       </div>
 
       {erro && <p className="erro">{erro}</p>}

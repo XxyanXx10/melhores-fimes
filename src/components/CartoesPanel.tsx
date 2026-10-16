@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import type { Cartao } from '../types';
+import type { Cartao, CenaRemotion, TipoCenaRemotion } from '../types';
 import { formatarTempo } from '../blocks';
 
 type Props = {
   cartoes: Cartao[];
+  cenasRemotion?: CenaRemotion[];
   /** instante atual da prévia — é onde o cartão novo entra */
   tempo: number;
   duracao: number;
@@ -13,6 +14,11 @@ type Props = {
   onIr: (t: number) => void;
   /** cores com que o cartão novo nasce, vindas do estilo de marca */
   padrao: { cor: string; destaque: string };
+  onGerarAutomatico?: () => void;
+  onGerarCenasRemotion?: (modo?: 'misto' | 'tudo-chatgpt') => void;
+  onMudarCenaRemotion?: (id: string, patch: Partial<CenaRemotion>) => void;
+  onRemoverCenaRemotion?: (id: string) => void;
+  onLimparCenasRemotion?: () => void;
 };
 
 /** um ponto de partida decente, para o cartão já nascer legível */
@@ -39,14 +45,194 @@ function deTexto(texto: string): string[] {
   return texto.split('\n').map((l) => l.trim()).filter(Boolean);
 }
 
+const ROTULOS_CENA: Record<TipoCenaRemotion, string> = {
+  chatgpt: '💬 ChatGPT',
+  'contexto-ia': '🧠 Contexto IA',
+  checklist: '✅ Checklist',
+  privacidade: '🛡️ Privacidade',
+  codigo: '💻 Código / Terminal',
+  versus: '⚡ Comparativo',
+  numero: '🔢 Número em destaque',
+  grafico: '📊 Gráfico',
+  icones: '🧩 Ícones',
+  rede: '📍 Rede / nomes',
+  celular: '📱 Celular',
+  frase: '💥 Frase de impacto',
+  logos: '🏷️ Logos das empresas',
+};
+
 export function CartoesPanel(p: Props) {
   const [aberto, setAberto] = useState<string | null>(null);
+  const [cenaAberta, setCenaAberta] = useState<string | null>(null);
+  const cenasRemotion = p.cenasRemotion ?? [];
 
   return (
     <section className="bloco">
-      <h2>Cartões animados</h2>
+      <h2>Cenas Remotion & Cartões</h2>
 
-      <div className="fontes">
+      {/* Bloco especial para Cenas Dinâmicas Nativas do Remotion (ChatGPT, Contexto IA, etc.) */}
+      {p.onGerarCenasRemotion && (
+        <div
+          style={{
+            background: 'rgba(16, 163, 127, 0.1)',
+            border: '1px solid rgba(16, 163, 127, 0.35)',
+            borderRadius: 10,
+            padding: 10,
+            marginBottom: 12,
+          }}
+        >
+          <div style={{ fontSize: 12, fontWeight: 700, color: '#34d399', marginBottom: 6 }}>
+            🤖 Cenas Dinâmicas no Remotion (Baseadas no Roteiro)
+          </div>
+          <p className="dica" style={{ margin: '0 0 8px 0' }}>
+            Lê a fala e cria cenas animadas nativas no Remotion: conversa digitando ao vivo no ChatGPT,
+            painel de contexto, checklist passo a passo e escudo de privacidade.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            <button
+              type="button"
+              className="chip chip-forte"
+              style={{ background: '#10a37f', color: '#fff', borderColor: '#10a37f' }}
+              onClick={() => p.onGerarCenasRemotion?.('misto')}
+              title="Analisa o roteiro e cria ChatGPT + Checklist + Escudo de Privacidade sincronizados"
+            >
+              🤖 Gerar Cenas Dinâmicas do Roteiro
+            </button>
+            <button
+              type="button"
+              className="chip"
+              onClick={() => p.onGerarCenasRemotion?.('tudo-chatgpt')}
+              title="Cria uma conversa contínua no ChatGPT ao longo de todo o vídeo"
+            >
+              💬 Tudo no Chat do GPT
+            </button>
+            {cenasRemotion.length > 0 && p.onLimparCenasRemotion && (
+              <button
+                type="button"
+                className="chip chip-perigo"
+                onClick={p.onLimparCenasRemotion}
+              >
+                Limpar ({cenasRemotion.length})
+              </button>
+            )}
+          </div>
+
+          {cenasRemotion.length > 0 && (
+            <ul className="fotos" style={{ marginTop: 10 }}>
+              {cenasRemotion.map((cr) => {
+                const aberta = cenaAberta === cr.id;
+                return (
+                  <li key={cr.id} className={aberta ? 'is-aberta' : ''}>
+                    <div className="foto-topo">
+                      <span
+                        className="selo-cartao"
+                        style={{ borderLeftColor: cr.destaque ?? '#10a37f' }}
+                        aria-hidden
+                      >
+                        🤖
+                      </span>
+                      <button type="button" className="tempo" onClick={() => p.onIr(cr.start)}>
+                        {formatarTempo(cr.start)}
+                      </button>
+                      <span className="dica" style={{ flex: 1 }}>
+                        {ROTULOS_CENA[cr.tipo]} · {cr.duracao.toFixed(1)}s
+                      </span>
+                      <button
+                        type="button"
+                        className="chip"
+                        onClick={() => setCenaAberta(aberta ? null : cr.id)}
+                      >
+                        {aberta ? 'Fechar' : 'Editar'}
+                      </button>
+                      {p.onRemoverCenaRemotion && (
+                        <button
+                          type="button"
+                          className="chip chip-perigo"
+                          onClick={() => p.onRemoverCenaRemotion?.(cr.id)}
+                          title="Remover esta cena"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+
+                    {aberta && p.onMudarCenaRemotion && (
+                      <div className="foto-ajustes">
+                        <label className="campo">
+                          <span>Estilo da Cena Remotion</span>
+                          <select
+                            value={cr.tipo}
+                            onChange={(e) =>
+                              p.onMudarCenaRemotion?.(cr.id, {
+                                tipo: e.target.value as TipoCenaRemotion,
+                              })
+                            }
+                          >
+                            {Object.entries(ROTULOS_CENA).map(([k, label]) => (
+                              <option key={k} value={k}>
+                                {label}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+
+                        <label className="campo">
+                          <span>Título</span>
+                          <input
+                            type="text"
+                            value={cr.titulo}
+                            onChange={(e) =>
+                              p.onMudarCenaRemotion?.(cr.id, { titulo: e.target.value })
+                            }
+                          />
+                        </label>
+
+                        {cr.tipo === 'chatgpt' && (
+                          <>
+                            <label className="campo">
+                              <span>Pergunta do Usuário (balão superior)</span>
+                              <input
+                                type="text"
+                                value={cr.promptUsuario ?? ''}
+                                onChange={(e) =>
+                                  p.onMudarCenaRemotion?.(cr.id, { promptUsuario: e.target.value })
+                                }
+                              />
+                            </label>
+                            <label className="campo">
+                              <span>Resposta da IA (digitada ao vivo)</span>
+                              <textarea
+                                rows={3}
+                                value={cr.respostaIa ?? ''}
+                                onChange={(e) =>
+                                  p.onMudarCenaRemotion?.(cr.id, { respostaIa: e.target.value })
+                                }
+                              />
+                            </label>
+                          </>
+                        )}
+
+                        <label className="campo">
+                          <span>Itens / Pílulas (um por linha)</span>
+                          <textarea
+                            rows={3}
+                            value={paraTexto(cr.itens ?? [])}
+                            onChange={(e) =>
+                              p.onMudarCenaRemotion?.(cr.id, { itens: deTexto(e.target.value) })
+                            }
+                          />
+                        </label>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      )}
+
+      <div className="fontes" style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
         <button
           type="button"
           className="chip chip-forte"
@@ -56,8 +242,18 @@ export function CartoesPanel(p: Props) {
             setAberto(c.id);
           }}
         >
-          Adicionar cartão
+          + Adicionar cartão
         </button>
+        {p.onGerarAutomatico && (
+          <button
+            type="button"
+            className="chip chip-forte"
+            onClick={p.onGerarAutomatico}
+            title="Analisa a fala e cria cartões nos momentos de maior impacto"
+          >
+            ⚡ Cartões nos momentos-chave
+          </button>
+        )}
       </div>
 
       {!p.cartoes.length ? (

@@ -46,44 +46,76 @@ function foco(i: number): { origemX: number; origemY: number } {
  */
 function zoomNatural(words: Word[], duracao: number, forca: number): Zoom[] {
   // um momento a cada ~3,5s no máximo: mais que isso vira videoclipe
-  const momentos = afinar(pontuarPalavras(words), 3.5);
+  let momentos = afinar(pontuarPalavras(words), 3.5);
+  // transcrição sem pontuação e sem pausa (comum no whisper) não dá sinal
+  // nenhum: sem isto a câmera ficava parada o vídeo inteiro
+  if (momentos.length < duracao / 8) momentos = afinar([...momentos, ...ritmoFixo(words)], 3.5);
   if (!momentos.length) return [];
 
   const trechos: Zoom[] = [];
   let escala = 1;
   let cursor = 0;
+  // o foco só pode trocar junto com uma transição de zoom — trocar
+  // durante uma espera (escala parada) faz a imagem pular sem motivo
+  let focoAtual = foco(0);
 
   momentos.forEach((m, i) => {
     const alvo = decidirEscala(escala, m.peso, forca);
-    // pontos mais fortes movem a câmera mais rápido
-    const transicao = m.peso >= 5 ? 0.5 : 0.85;
+    // movimento longo e macio: abaixo de ~1s o olho lê como tranco
+    const transicao = m.peso >= 5 ? 1.1 : 1.5;
     const inicio = Math.max(cursor, m.t - 0.1);
     const fim = Math.min(duracao, inicio + transicao);
     if (fim <= inicio) return;
 
     if (inicio > cursor) {
-      trechos.push(segurar(`zh${i}`, cursor, inicio, escala, i));
+      // parada de verdade: escala andando o tempo todo faz a imagem tremer
+      trechos.push(segurar(`zh${i}`, cursor, inicio, escala, focoAtual));
     }
+    // trocar o ponto de foco com a imagem ampliada faz ela pular de lado
+    const novoFoco = focoAtual;
     trechos.push({
       id: `zn${i}`,
       start: inicio,
       end: fim,
       de: escala,
       para: alvo,
-      ...foco(i),
-      curva: m.peso >= 5 ? 'saida' : 'entradaSaida',
+      ...novoFoco,
+      curva: 'entradaSaida',
     });
     escala = alvo;
     cursor = fim;
+    focoAtual = novoFoco;
   });
 
-  if (cursor < duracao) trechos.push(segurar('zhf', cursor, duracao, escala, momentos.length));
+  if (cursor < duracao) trechos.push(segurar('zhf', cursor, duracao, escala, focoAtual));
   return trechos;
 }
 
+/** um momento leve a cada ~4s, na palavra mais longa da janela */
+function ritmoFixo(words: Word[]): { t: number; peso: number; indice: number }[] {
+  const out: { t: number; peso: number; indice: number }[] = [];
+  let janela = 0;
+  let melhor = -1;
+  words.forEach((w, i) => {
+    if (w.start >= janela + 4 && melhor >= 0) {
+      out.push({ t: words[melhor].start, peso: 3, indice: melhor });
+      janela = w.start;
+      melhor = -1;
+    }
+    if (melhor < 0 || w.text.length > words[melhor].text.length) melhor = i;
+  });
+  return out;
+}
+
 /** trecho parado: a câmera fica onde chegou até o próximo momento */
-function segurar(id: string, start: number, end: number, escala: number, i: number): Zoom {
-  return { id, start, end, de: escala, para: escala, ...foco(i), curva: 'linear' };
+function segurar(
+  id: string,
+  start: number,
+  end: number,
+  escala: number,
+  f: { origemX: number; origemY: number },
+): Zoom {
+  return { id, start, end, de: escala, para: escala, ...f, curva: 'linear' };
 }
 
 /**

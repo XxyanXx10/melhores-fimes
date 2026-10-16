@@ -20,8 +20,16 @@ export function Cartao({ cartao, largura }: { cartao: CartaoSpec; largura: numbe
 
   // o tamanho da fonte acompanha o quadro, para o cartão valer em qualquer resolução
   const px = (v: number) => (v / 100) * largura;
-  const fonteItem = px(cartao.largura * 0.088);
-  const fonteTitulo = px(cartao.largura * 0.042);
+  /*
+   * A fonte dos itens (Anton, estreita) cabe uns 22 caracteres por linha na
+   * largura do cartão. Frase mais comprida quebrava em várias linhas, o cartão
+   * crescia e estourava pra fora da tela. Agora a letra encolhe sozinha pelo
+   * item mais longo (até 60%), então o cartão cresce pouco em vez de estourar.
+   */
+  const maisLongo = Math.max(0, ...cartao.itens.map((t) => t.length));
+  const encaixe = Math.min(1, Math.max(0.6, 22 / Math.max(1, maisLongo)));
+  const fonteItem = px(cartao.largura * 0.088) * encaixe;
+  const fonteTitulo = px(cartao.largura * 0.042) * Math.min(1, Math.max(0.7, 26 / Math.max(1, (cartao.titulo ?? '').length)));
 
   return (
     <div

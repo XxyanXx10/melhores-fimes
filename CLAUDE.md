@@ -41,8 +41,10 @@ node agente/montar.mjs "E:/Video/Cortes/Reajuste" --nome "Reajuste ANS"
 É como o vídeo nasce de verdade: uma frase por take, cada um começando com a
 claquete falada ("um, dois, três, gravando"). O script transcreve cada take,
 joga fora tudo até o "gravando", tira os silêncios, cola os pedaços na ordem
-dos nomes dos arquivos e grava `projeto/<nome>.json` com a legenda já no tempo
-do vídeo montado. Na plataforma é o botão **Montar a partir de takes**.
+em que foram **gravados** (data de criação do arquivo — `--ordem nome` usa o
+nome do arquivo em vez disso) e grava `projeto/<nome>.json` com a legenda já
+no tempo do vídeo montado. Na plataforma é o botão **Montar a partir de takes**,
+que também aceita apontar direto para a pasta dos takes.
 
 A ordem importa: **cortes primeiro, legenda depois**. Legendar antes de cortar
 é legendar pausa que não vai existir.

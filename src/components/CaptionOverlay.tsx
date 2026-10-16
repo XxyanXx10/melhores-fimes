@@ -53,6 +53,8 @@ function enfase(slot: 1 | 2 | undefined, style: CaptionStyle): React.CSSProperti
     fontFamily: e.fontFamily,
     fontStyle: e.italic ? 'italic' : 'normal',
     textTransform: e.uppercase ? 'uppercase' : 'none',
+    // mesma compensação do render (remotion/Legenda.tsx)
+    ...(/cursive/.test(e.fontFamily) ? { fontSize: '1.6em' } : {}),
   };
 }
 

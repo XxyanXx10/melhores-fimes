@@ -15,7 +15,7 @@ import { spawn } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { lerConfig, sondarVideo } from './nucleo.mjs';
+import { detectarSilencios, lerConfig, sondarVideo } from './nucleo.mjs';
 import { remapear, resumoDoCorte } from './cortes.mjs';
 
 function argumento(nome, padrao) {
@@ -82,7 +82,10 @@ export async function cortarSilencios(arquivoProjeto, opcoes = {}) {
 
   const info = await sondarVideo(cfg, origem).catch(() => null);
   const duracao = info?.duracao ?? projeto.duracao;
-  const resumo = resumoDoCorte(projeto.palavras, duracao, opcoes);
+  /* o silêncio vem do áudio de verdade — o buraco entre palavras do whisper
+     nunca existe (ver o porquê no topo de cortes.mjs) */
+  const silencios = await detectarSilencios(cfg, origem);
+  const resumo = resumoDoCorte(projeto.palavras, duracao, { ...opcoes, silencios });
 
   if (!resumo.cortes) {
     return { ...resumo, saida: null, semCortes: true };

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { PlayerRef } from '@remotion/player';
 import { LeftPanel } from './components/LeftPanel';
 import { TelaProjetos } from './components/TelaProjetos';
+import { CanalDark } from './components/CanalDark';
 import { Montagem } from './components/Montagem';
 import { CorrecoesPanel } from './components/CorrecoesPanel';
 import { CortesPanel } from './components/CortesPanel';
@@ -9,6 +10,7 @@ import { Versoes } from './components/Versoes';
 import { TextoCorrido } from './components/TextoCorrido';
 import { Preview } from './components/Preview';
 import { CaptionPanel } from './components/CaptionPanel';
+import { SonsPanel } from './components/SonsPanel';
 import { FotosPanel } from './components/FotosPanel';
 import { CartoesPanel } from './components/CartoesPanel';
 import { DivisaoPanel } from './components/DivisaoPanel';
@@ -22,6 +24,7 @@ import {
   abrirDoDisco,
   abrirVersao,
   detectarCortes,
+  detectarSilenciosDoVideo,
   enderecoDoRender,
   enviarVideoFonte,
   cancelarRender,
@@ -36,13 +39,16 @@ import {
   listarCorrecoes,
   gravarProjeto,
   listarProjetos,
+  listarFilaRender,
   salvarPreset,
   pedirRender,
   transcreverArquivo,
   verificarServidor,
   type Correcao,
   type EstadoRender,
+  type ItemFilaRender,
   type ProjetoNoDisco,
+  type Silencio,
 } from './transcrever';
 import { baixar, lerArquivo, validar, type Projeto } from './projeto';
 import {
@@ -59,17 +65,22 @@ import type {
   Block,
   CaptionStyle,
   Cartao,
+  CenaRemotion,
   CoresTransicao,
   Corte,
   Divisao,
   Foto,
+  Som,
   Movimento,
   Preset,
   Scene,
   TipoTransicao,
   Word,
+  Zoom,
 } from './types';
 import { estadoZoom, gerarZooms } from './zoom';
+import { afinar, pontuarPalavras } from './momentos';
+import { gerarCenasRemotionDoRoteiro } from './cenasRoteiro';
 
 /** Cenas placeholder, proporcionais à duração (a detecção real vem depois). */
 function cenasDe(duracao: number): Scene[] {
@@ -106,12 +117,15 @@ export default function App() {
   const [volume, setVolume] = useState(1);
   const [movimento, setMovimento] = useState<Movimento>('off');
   const [forcaZoom, setForcaZoom] = useState(1);
+  const [zoomsManuais, setZoomsManuais] = useState<Zoom[]>([]);
 
   const playerRef = useRef<PlayerRef | null>(null);
   const [fps, setFps] = useState(30);
   const [tamanho, setTamanho] = useState({ largura: 1080, altura: 1920 });
   const [fotos, setFotos] = useState<Foto[]>([]);
+  const [sons, setSons] = useState<Som[]>([]);
   const [cartoes, setCartoes] = useState<Cartao[]>([]);
+  const [cenasRemotion, setCenasRemotion] = useState<CenaRemotion[]>([]);
   const [divisoes, setDivisoes] = useState<Divisao[]>([]);
   const [cortes, setCortes] = useState<Corte[]>([]);
   const [transicao, setTransicao] = useState<TipoTransicao>('off');
@@ -129,9 +143,16 @@ export default function App() {
   const [ultimoSalvo, setUltimoSalvo] = useState<string | null>(null);
   /** a lista de projetos ocupa a tela inteira até você escolher um */
   const [naListaDeProjetos, setNaListaDeProjetos] = useState(true);
+  const [naAbaDark, setNaAbaDark] = useState(false);
+  const [filaRender, setFilaRender] = useState<ItemFilaRender[]>([]);
   const [carregandoLista, setCarregandoLista] = useState(true);
   /** caminho do vídeo no disco — o render precisa dele, o navegador não */
   const [caminhoDoVideo, setCaminhoDoVideo] = useState<string | null>(null);
+  /** silêncios reais do áudio, para o corte automático — ver detectarSilenciosDoVideo */
+  const [silencios, setSilencios] = useState<Silencio[]>([]);
+  const [medindoSilencios, setMedindoSilencios] = useState(false);
+  /** para qual caminho os silêncios acima já foram medidos — evita medir de novo à toa */
+  const medidoParaCaminho = useRef<string | null>(null);
   const [presets, setPresets] = useState<Preset[]>([]);
   const [correcoes, setCorrecoes] = useState<Correcao[]>([]);
   const [corrigindo, setCorrigindo] = useState(false);
@@ -315,6 +336,10 @@ export default function App() {
     setArquivo(f);
     setErro(null);
     setSrc(url);
+    /* vídeo novo: os silêncios de qualquer vídeo anterior não valem nada aqui */
+    setCaminhoDoVideo(null);
+    setSilencios([]);
+    medidoParaCaminho.current = null;
     setNomeArquivo(f.name);
     setTempo(0);
     setTocando(false);
@@ -381,8 +406,11 @@ export default function App() {
       setOverride(p.estilo);
       setMovimento(p.movimento ?? 'off');
       setForcaZoom(p.forcaZoom ?? 1);
+      setZoomsManuais(p.zoomsManuais ?? []);
       setFotos(p.fotos ?? []);
+      setSons(p.sons ?? []);
       setCartoes(p.cartoes ?? []);
+      setCenasRemotion(p.cenasRemotion ?? []);
       setDivisoes(p.divisoes ?? []);
       setCortes(p.cortes ?? []);
       setTransicao(p.transicao ?? 'off');
@@ -422,6 +450,9 @@ export default function App() {
       setVideoOriginal((projeto as { videoOriginal?: string }).videoOriginal ?? null);
       setSrc(videoUrl);
       setArquivo(null);
+      /* vídeo novo: os silêncios do projeto anterior não valem nada aqui */
+      setSilencios([]);
+      medidoParaCaminho.current = null;
       setDuracao(p.duracao);
       setNomeArquivo(p.nome ?? arquivo);
       setNomeProjeto(p.nomeProjeto ?? p.nome ?? arquivo.replace(/\.json$/i, ''));
@@ -453,8 +484,11 @@ export default function App() {
       estilo: override,
       movimento,
       forcaZoom,
+      zoomsManuais,
       fotos,
+      sons,
       cartoes,
+      cenasRemotion,
       divisoes,
       cortes,
       transicao,
@@ -473,7 +507,7 @@ export default function App() {
   useEffect(() => {
     if (!servidorOk) return;
     let vivo = true;
-    const checar = () =>
+    const checar = () => {
       void estadoRender().then((e) => {
         if (!vivo || !e) return;
         if (e.rodando) setPediuRender(true);
@@ -486,6 +520,8 @@ export default function App() {
             : { rodando: e.rodando, progresso: e.progresso, saida: e.saida, erro: e.erro, inicio: e.inicio },
         );
       });
+      void listarFilaRender().then((f) => vivo && setFilaRender(f));
+    };
     checar();
     const id = setInterval(checar, 1500);
     return () => {
@@ -578,8 +614,15 @@ export default function App() {
     }
     setSalvando(true);
     try {
-      const projeto = { ...projetoAtual(), nomeProjeto: nome };
-      const arquivo = await gravarProjeto(projeto, arquivoProjeto ?? nome, versionar);
+      /*
+       * Sem isto, salvar só gravava o vídeo se algo já tivesse mandado ele
+       * para o disco antes (cortar silêncio, exportar). Arrastar o vídeo e
+       * apertar Salvar direto guardava a legenda toda, mas o campo `video`
+       * ficava vazio — ao reabrir o projeto, o vídeo tinha sumido.
+       */
+      const caminhoVideo = await garantirCaminhoDoVideo();
+      const projeto = { ...projetoAtual(), video: caminhoVideo ?? undefined, nomeProjeto: nome };
+      const arquivo = await gravarProjeto(projeto, arquivoProjeto ?? undefined, versionar);
       setNomeProjeto(nome);
       setArquivoProjeto(arquivo);
       setSalvoEm(Date.now());
@@ -614,8 +657,11 @@ export default function App() {
     setOverride(p.estilo);
     setMovimento(p.movimento ?? 'off');
     setForcaZoom(p.forcaZoom ?? 1);
+    setZoomsManuais(p.zoomsManuais ?? []);
     setFotos(p.fotos ?? []);
+    setSons(p.sons ?? []);
     setCartoes(p.cartoes ?? []);
+    setCenasRemotion(p.cenasRemotion ?? []);
     setDivisoes(p.divisoes ?? []);
     setCortes(p.cortes ?? []);
     setTransicao(p.transicao ?? 'off');
@@ -701,6 +747,38 @@ export default function App() {
   }, [projetoSerializado, servidorOk, src]);
 
   /**
+   * Mede os silêncios reais do áudio assim que há um vídeo disponível.
+   *
+   * A prévia de "Cortar silêncios" (e o botão que ela libera) depende disso.
+   * Sem os silêncios medidos de verdade, ela sempre achava zero — o buraco
+   * entre uma palavra e outra que a transcrição promete nunca existe de
+   * fato nos dados do whisper (ver o porquê em agente/cortes.mjs). O
+   * serviço cacheia por caminho de vídeo, então trocar o limiar na tela não
+   * dispara isto de novo — só a troca de vídeo.
+   */
+  useEffect(() => {
+    if (!servidorOk || (!caminhoDoVideo && !arquivo)) return;
+    let cancelado = false;
+    void (async () => {
+      const caminho = await garantirCaminhoDoVideo();
+      if (!caminho || cancelado || medidoParaCaminho.current === caminho) return;
+      medidoParaCaminho.current = caminho;
+      setMedindoSilencios(true);
+      try {
+        setSilencios(await detectarSilenciosDoVideo(caminho));
+      } catch {
+        /* sem silêncios medidos, a prévia cai no cálculo antigo por palavra */
+      } finally {
+        if (!cancelado) setMedindoSilencios(false);
+      }
+    })();
+    return () => {
+      cancelado = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [servidorOk, caminhoDoVideo, arquivo]);
+
+  /**
    * Corte manual dos blocos.
    *
    * O tamanho do modelo serve para quase tudo, mas às vezes a frase pede
@@ -779,7 +857,7 @@ export default function App() {
       const nome = (nomeProjeto ?? nomeArquivo ?? 'projeto').trim();
       const alvo = await gravarProjeto(
         { ...projetoAtual(), video: caminho, nomeProjeto: nome },
-        arquivoProjeto ?? nome,
+        arquivoProjeto ?? undefined,
       );
       setArquivoProjeto(alvo);
       setNomeProjeto(nome);
@@ -868,6 +946,122 @@ export default function App() {
     }
   }
 
+  /** Gera cartões animados automaticamente nos momentos-chave da fala */
+  function gerarCartoesMomentosChave() {
+    if (!words.length) {
+      setErro('Transcreva o vídeo primeiro para identificar os momentos-chave da fala.');
+      return;
+    }
+    const momentos = afinar(pontuarPalavras(words), 7.5).slice(0, 5);
+    if (!momentos.length) {
+      setErro('Não encontrei momentos de forte ênfase suficientes para gerar cartões automáticos.');
+      return;
+    }
+    const novos: Cartao[] = momentos.map((m, idx) => {
+      const janela = words.slice(m.indice, Math.min(words.length, m.indice + 4));
+      const frase = janela.map((w) => w.text).join(' ').replace(/[.,;:]+$/, '');
+      return {
+        id: `k_auto_${Date.now()}_${idx}`,
+        start: +m.t.toFixed(2),
+        duracao: 2.5,
+        titulo: idx === 0 ? '⚡ DESTAQUE' : `PONTO #${idx + 1}`,
+        itens: [frase.toUpperCase()],
+        cor: cartaoPadrao.cor,
+        destaque: cartaoPadrao.destaque,
+        x: 50,
+        y: tamanho.largura > tamanho.altura ? 28 : 25,
+        largura: tamanho.largura > tamanho.altura ? 54 : 76,
+      };
+    });
+    setCartoes((atuais) => [...atuais, ...novos].sort((a, b) => a.start - b.start));
+    setPasso(3);
+  }
+
+  /** Insere efeitos sonoros (pop, sino, whoosh) automaticamente nos cartões, fotos e cortes */
+  function sonorizarMomentosChave() {
+    const novos: Som[] = [];
+    const ocupados = new Set(sons.filter((s) => s.tipo === 'efeito').map((s) => Math.round(s.start * 2) / 2));
+
+    for (const c of cartoes) {
+      const chave = Math.round(c.start * 2) / 2;
+      if (ocupados.has(chave)) continue;
+      ocupados.add(chave);
+      novos.push({
+        id: `sfx_c_${Date.now()}_${c.id}`,
+        src: 'midia/sfx_pop.mp3',
+        nome: 'sfx_pop.mp3',
+        tipo: 'efeito',
+        start: c.start,
+        duracao: 1.2,
+        volume: 0.6,
+        fadeIn: 0,
+        fadeOut: 0,
+        repetir: false,
+      });
+    }
+
+    for (const f of fotos) {
+      const chave = Math.round(f.start * 2) / 2;
+      if (ocupados.has(chave)) continue;
+      ocupados.add(chave);
+      novos.push({
+        id: `sfx_f_${Date.now()}_${f.id}`,
+        src: 'midia/sfx_sino.mp3',
+        nome: 'sfx_sino.mp3',
+        tipo: 'efeito',
+        start: f.start,
+        duracao: 1.5,
+        volume: 0.5,
+        fadeIn: 0,
+        fadeOut: 0,
+        repetir: false,
+      });
+    }
+
+    for (const [idx, ct] of cortes.filter((c) => c.ativo).slice(0, 6).entries()) {
+      const chave = Math.round(ct.t * 2) / 2;
+      if (ocupados.has(chave)) continue;
+      ocupados.add(chave);
+      novos.push({
+        id: `sfx_w_${Date.now()}_${idx}`,
+        src: 'midia/sfx_whoosh.mp3',
+        nome: 'sfx_whoosh.mp3',
+        tipo: 'efeito',
+        start: Math.max(0, +(ct.t - 0.1).toFixed(2)),
+        duracao: 1.2,
+        volume: 0.55,
+        fadeIn: 0,
+        fadeOut: 0,
+        repetir: false,
+      });
+    }
+
+    if (!novos.length && words.length > 0) {
+      // Se não há cartões/fotos/cortes ainda, sonoriza os momentos mais fortes da fala
+      const momentos = afinar(pontuarPalavras(words), 8).slice(0, 4);
+      momentos.forEach((m, idx) => {
+        novos.push({
+          id: `sfx_m_${Date.now()}_${idx}`,
+          src: idx % 2 === 0 ? 'midia/sfx_pop.mp3' : 'midia/sfx_whoosh.mp3',
+          nome: idx % 2 === 0 ? 'sfx_pop.mp3' : 'sfx_whoosh.mp3',
+          tipo: 'efeito',
+          start: +m.t.toFixed(2),
+          duracao: 1.2,
+          volume: 0.55,
+          fadeIn: 0,
+          fadeOut: 0,
+          repetir: false,
+        });
+      });
+    }
+
+    if (!novos.length) {
+      setErro('Nenhum momento novo para sonorizar (adicione cartões, fotos, cortes ou transcreva o vídeo).');
+      return;
+    }
+    setSons((atuais) => [...atuais, ...novos].sort((a, b) => a.start - b.start));
+  }
+
   const concluidos = [
     !!src,
     transcrito,
@@ -887,6 +1081,30 @@ export default function App() {
       }}
     />
   ) : null;
+
+  if (naAbaDark && servidorOk) {
+    return (
+      <CanalDark
+        templates={templates}
+        presets={presets}
+        filaRender={filaRender}
+        onAtualizarFila={() => {
+          void listarFilaRender().then(setFilaRender);
+          void listarProjetos().then(setNoDisco);
+        }}
+        onVoltarProjetos={() => {
+          void listarProjetos().then(setNoDisco);
+          setNaAbaDark(false);
+          setNaListaDeProjetos(true);
+        }}
+        onAbrirProjeto={(arq) => {
+          setNaAbaDark(false);
+          void abrirDaPasta(arq);
+        }}
+        onVoltarEditor={transcrito ? () => setNaAbaDark(false) : null}
+      />
+    );
+  }
 
   if (naListaDeProjetos && servidorOk) {
     return (
@@ -908,6 +1126,15 @@ export default function App() {
         }
         onFechar={transcrito ? () => setNaListaDeProjetos(false) : null}
         onMontar={() => setMontando(true)}
+        onAbrirDark={() => {
+          setNaListaDeProjetos(false);
+          setNaAbaDark(true);
+        }}
+        filaRender={filaRender}
+        onAtualizarFila={() => {
+          void listarFilaRender().then(setFilaRender);
+          void listarProjetos().then(setNoDisco);
+        }}
       />
       {janelaMontagem}
       </>
@@ -961,17 +1188,27 @@ export default function App() {
           onApagar={(id) => void removerPreset(id)}
         />
         {servidorOk && (
-          <button
-            type="button"
-            className="chip chip-topo"
-            onClick={() => {
-              void listarProjetos().then(setNoDisco);
-              setNaListaDeProjetos(true);
-            }}
-            title="Ver todos os projetos"
-          >
-            Projetos
-          </button>
+          <>
+            <button
+              type="button"
+              className="chip chip-topo chip-dark"
+              onClick={() => setNaAbaDark(true)}
+              title="Abrir a Fábrica de Vídeos em Lote para Canal Dark"
+            >
+              🔥 Canal Dark
+            </button>
+            <button
+              type="button"
+              className="chip chip-topo"
+              onClick={() => {
+                void listarProjetos().then(setNoDisco);
+                setNaListaDeProjetos(true);
+              }}
+              title="Ver todos os projetos"
+            >
+              Projetos
+            </button>
+          </>
         )}
         <span className="historico">
           <button
@@ -1021,7 +1258,7 @@ export default function App() {
         <button
           type="button"
           className="chip chip-topo"
-          disabled={!transcrito || salvando}
+          disabled={salvando}
           onClick={() => void salvarProjeto()}
           title={servidorOk ? 'Grava na pasta de projetos da máquina' : 'Serviço desligado: baixa uma cópia'}
         >
@@ -1154,6 +1391,8 @@ export default function App() {
           onTodosCortes={(ativo) => setCortes((atuais) => atuais.map((c) => ({ ...c, ativo })))}
           onIrPara={irPara}
           onDetectar={() => void procurarCortes()}
+          tamanho={tamanho}
+          onTamanho={setTamanho}
         />
 
         <Preview
@@ -1162,8 +1401,11 @@ export default function App() {
           palavras={words}
           movimento={movimento}
           forcaZoom={forcaZoom}
+          zoomsManuais={zoomsManuais}
           fotos={fotos}
+          sons={sons}
           cartoes={cartoes}
+          cenasRemotion={cenasRemotion}
           divisoes={divisoes}
           cortes={cortes}
           transicao={transicao}
@@ -1233,6 +1475,8 @@ export default function App() {
           <CortesPanel
             palavras={words}
             duracao={duracao}
+            silencios={silencios}
+            medindoSilencios={medindoSilencios}
             impedimento={
               !transcrito
                 ? 'Gere a legenda primeiro: é ela que diz onde está a fala.'
@@ -1265,10 +1509,16 @@ export default function App() {
           />
           <FotosPanel
             fotos={fotos}
+            palavras={words}
+            formato={tamanho.largura > tamanho.altura ? '16:9' : tamanho.largura === tamanho.altura ? '1:1' : '9:16'}
             tempo={tempo}
             duracao={duracao}
             onAdicionar={(f) => {
               setFotos((atuais) => [...atuais, f].sort((a, b) => a.start - b.start));
+              setPasso(3);
+            }}
+            onAdicionarVarias={(novas) => {
+              setFotos((atuais) => [...atuais, ...novas].sort((a, b) => a.start - b.start));
               setPasso(3);
             }}
             onMudar={(id, patch) =>
@@ -1281,9 +1531,22 @@ export default function App() {
             onRemover={(id) => setFotos((atuais) => atuais.filter((f) => f.id !== id))}
             onIr={irPara}
           />
+          <SonsPanel
+            sons={sons}
+            tempo={tempo}
+            duracao={duracao}
+            onAdicionar={(som) => setSons((atuais) => [...atuais, som].sort((a, b) => a.start - b.start))}
+            onMudar={(id, patch) =>
+              setSons((atuais) => atuais.map((x) => (x.id === id ? { ...x, ...patch } : x)))
+            }
+            onRemover={(id) => setSons((atuais) => atuais.filter((x) => x.id !== id))}
+            onIr={irPara}
+            onSonorizarAutomatico={sonorizarMomentosChave}
+          />
           <CartoesPanel
             padrao={cartaoPadrao}
             cartoes={cartoes}
+            cenasRemotion={cenasRemotion}
             tempo={tempo}
             duracao={duracao}
             onAdicionar={(c) => {
@@ -1299,6 +1562,33 @@ export default function App() {
             }
             onRemover={(id) => setCartoes((atuais) => atuais.filter((c) => c.id !== id))}
             onIr={irPara}
+            onGerarAutomatico={gerarCartoesMomentosChave}
+            onGerarCenasRemotion={(modo = 'misto') => {
+              if (!words.length) {
+                setErro('Transcreva o vídeo primeiro para gerar cenas dinâmicas no Remotion.');
+                return;
+              }
+              const geradas = gerarCenasRemotionDoRoteiro(
+                words,
+                duracao,
+                modo === 'tudo-chatgpt' ? 'chatgpt' : undefined,
+              );
+              if (!geradas.length) {
+                setErro('Não encontrei trechos suficientes na transcrição para criar as cenas.');
+                return;
+              }
+              setCenasRemotion(geradas);
+              setPasso(3);
+            }}
+            onMudarCenaRemotion={(id, patch) =>
+              setCenasRemotion((atuais) =>
+                atuais.map((cr) => (cr.id === id ? { ...cr, ...patch } : cr)),
+              )
+            }
+            onRemoverCenaRemotion={(id) =>
+              setCenasRemotion((atuais) => atuais.filter((cr) => cr.id !== id))
+            }
+            onLimparCenasRemotion={() => setCenasRemotion([])}
           />
           <DivisaoPanel
             divisoes={divisoes}

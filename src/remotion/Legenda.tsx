@@ -71,6 +71,9 @@ function enfase(slot: 1 | 2 | undefined, style: CaptionStyle): React.CSSProperti
     fontFamily: e.fontFamily,
     fontStyle: e.italic ? 'italic' : 'normal',
     textTransform: e.uppercase ? 'uppercase' : 'none',
+    // letra cursiva tem o desenho bem menor que a sans no mesmo tamanho:
+    // sem compensar, a palavra destacada some no celular
+    ...(/cursive/.test(e.fontFamily) ? { fontSize: '1.6em' } : {}),
   };
 }
 

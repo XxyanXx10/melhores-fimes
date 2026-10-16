@@ -22,7 +22,15 @@ export const VIDEOS = ['.mp4', '.mov', '.mkv', '.avi', '.webm', '.m4v'];
 export async function lerConfig() {
   const proprio = path.join(raiz, 'server', 'config.json');
   const arquivo = existsSync(proprio) ? proprio : path.join(raiz, 'server', 'config.example.json');
-  return { arquivo, ...JSON.parse(await readFile(arquivo, 'utf8')) };
+  const cfg = { arquivo, ...JSON.parse(await readFile(arquivo, 'utf8')) };
+  /*
+   * O config.json é de cada máquina, mas já foi parar na outra com o caminho
+   * do FFmpeg do outro computador — e tudo (transcrição, corte, render)
+   * quebrava com "spawn ENOENT". Se o caminho escrito não existe aqui, usa
+   * o ffmpeg que estiver no PATH; o ffprobe sai do mesmo lugar.
+   */
+  if (cfg.ffmpeg && !existsSync(cfg.ffmpeg)) cfg.ffmpeg = 'ffmpeg';
+  return cfg;
 }
 
 export function conferirFerramentas(cfg) {
@@ -35,6 +43,17 @@ export function conferirFerramentas(cfg) {
 /** quebra a saída do ffprobe em linhas, sem depender do fim de linha do SO */
 function linhasDe(texto) {
   return texto.split(/\r?\n/).filter(Boolean);
+}
+
+/** roda um comando e devolve o stderr — usado pelo silencedetect, que loga lá, não no stdout */
+function capturarErro(cmd, args) {
+  return new Promise((resolve, reject) => {
+    const p = spawn(cmd, args, { windowsHide: true });
+    let saida = '';
+    p.stderr.on('data', (d) => (saida += d));
+    p.on('error', reject);
+    p.on('close', () => resolve(saida)); // com -f null o ffmpeg sai 0 mesmo sem silêncio nenhum
+  });
 }
 
 /** roda um comando e devolve o stdout — usado pelo ffprobe */
@@ -96,7 +115,7 @@ export async function sondarVideo(cfg, video) {
     const saida = await capturar(ffprobe, [
       '-v', 'error',
       '-select_streams', 'v:0',
-      '-show_entries', 'stream=width,height,avg_frame_rate',
+      '-show_entries', 'stream=width,height,avg_frame_rate:format=duration',
       '-of', 'default=noprint_wrappers=1:nokey=0',
       video,
     ]);
@@ -110,10 +129,13 @@ export async function sondarVideo(cfg, video) {
     const taxa = ler('avg_frame_rate') ?? '';
     const [num, den] = taxa.split('/').map(Number);
     const fps = den ? Math.round((num / den) * 1000) / 1000 : 0;
+    const duracao = Number(ler('duration'));
     return {
       fps: fps > 0 ? Math.round(fps) : 30,
       largura: Number(ler('width')) || 1080,
       altura: Number(ler('height')) || 1920,
+      // ausente (não Number.isFinite) quando o ffprobe não sabe dizer — quem chama decide o fallback
+      duracao: Number.isFinite(duracao) ? duracao : undefined,
     };
   } catch {
     return { fps: 30, largura: 1080, altura: 1920 };
@@ -147,6 +169,60 @@ export async function detectarCortes(cfg, video, limiar = 0.1) {
   } catch {
     return [];
   }
+}
+
+/**
+ * Silêncios reais do vídeo, medidos no volume do áudio — não na transcrição.
+ *
+ * O whisper.cpp, no modo de timestamp por palavra, devolve as palavras
+ * coladas (o fim de uma bate com o começo da próxima mesmo depois de uma
+ * pausa de verdade), então tentar achar silêncio pelo buraco entre palavras
+ * nunca funciona. Aqui a medida é a de verdade: o `silencedetect` do FFmpeg
+ * olha o volume do áudio e aponta onde ele cai abaixo do limiar por tempo
+ * suficiente.
+ *
+ * O limiar de duração usado aqui é baixo de propósito (bem menor que o que
+ * a interface deixa escolher): mede tudo que possa ser silêncio, e quem
+ * decide o que conta como "silêncio grande o bastante" é o filtro que já
+ * existe em `trechosDeFala` — assim o resultado fica em cache e o controle
+ * de limiar na tela não precisa chamar o FFmpeg de novo a cada arrasto.
+ */
+export async function detectarSilencios(cfg, video, opcoes = {}) {
+  /* -26 dB: um ruído de sala de -25 dB quebrava cada pausa em pedacinhos curtos e o corte não achava nada */
+  const limiarDb = opcoes.limiarDb ?? -26;
+  const duracaoMinima = opcoes.duracaoMinima ?? 0.1;
+  let saida;
+  try {
+    saida = await capturarErro(cfg.ffmpeg, [
+      '-i', video,
+      '-af', `silencedetect=noise=${limiarDb}dB:d=${duracaoMinima}`,
+      '-f', 'null', '-',
+    ]);
+  } catch {
+    return [];
+  }
+  const silencios = [];
+  let inicio = null;
+  for (const linha of linhasDe(saida)) {
+    const ini = /silence_start:\s*(-?[0-9.]+)/.exec(linha);
+    if (ini) {
+      inicio = Math.max(0, Number(ini[1]));
+      continue;
+    }
+    const fim = /silence_end:\s*([0-9.]+)/.exec(linha);
+    if (fim && inicio !== null) {
+      silencios.push({ start: +inicio.toFixed(3), end: +Number(fim[1]).toFixed(3) });
+      inicio = null;
+    }
+  }
+  /* emenda pedaços colados: o mesmo silêncio, interrompido por um estalo de ruído */
+  const emendados = [];
+  for (const sl of silencios) {
+    const ant = emendados[emendados.length - 1];
+    if (ant && sl.start - ant.end < 0.12) ant.end = sl.end;
+    else emendados.push({ ...sl });
+  }
+  return emendados;
 }
 
 export function montarProjeto(video, palavras, template = 'port1-autoridade', meta = {}) {

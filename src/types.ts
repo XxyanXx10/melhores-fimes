@@ -96,13 +96,49 @@ export type Zoom = {
 export type Movimento = 'off' | 'suave' | 'ritmo' | 'natural';
 
 /** uma foto/b-roll entrando por cima do vídeo */
+/**
+ * Som por cima do vídeo: música de fundo ou efeito sonoro.
+ *
+ * `src` é um arquivo de áudio dentro de public/ (ex.: "midia/trilha.mp3").
+ * Música costuma durar o vídeo inteiro e ficar baixa para não brigar com a
+ * fala; efeito é um estalo curto num instante exato (transição, destaque).
+ */
+export type Som = {
+  id: string;
+  src: string;
+  /** nome do arquivo, para mostrar na lista */
+  nome: string;
+  tipo: 'musica' | 'efeito';
+  /** instante do vídeo em que o som começa, em segundos */
+  start: number;
+  /** quanto tempo toca; 0 = até o fim do vídeo (ou até o áudio acabar) */
+  duracao: number;
+  /** 0 a 1 */
+  volume: number;
+  /** segundos de entrada e saída gradual */
+  fadeIn: number;
+  fadeOut: number;
+  /** repete o áudio enquanto durar (música curta num vídeo longo) */
+  repetir: boolean;
+  /** momentos em que a música abaixa (instante do vídeo; volume 0 a 1 do que está tocando) */
+  quedas?: { start: number; duracao: number; volume: number }[];
+};
+
 export type Foto = {
   id: string;
   /** caminho dentro de public/ (ex.: "midia/grafico.png") — vale no Player e no render */
   src: string;
   start: number;
   duracao: number;
-  entrada: 'fade' | 'escala' | 'sobe';
+  entrada: 'fade' | 'escala' | 'sobe' | 'pop' | 'varre';
+  /** caminho opcional: pontos (t em segundos desde a entrada) por onde a imagem passa */
+  trajeto?: { t: number; x?: number; y?: number; escala?: number; opacidade?: number }[];
+  /** 'fundo': fica embaixo das cenas animadas (b-roll que continua passando atrás delas) */
+  camada?: 'fundo';
+  /** preenche a tela inteira (corta as sobras) — para b-roll e imagens de fundo */
+  cobrir?: boolean;
+  /** sem a saída gradual de 0,4 s (para uma imagem trocar por outra no mesmo lugar) */
+  saidaRapida?: boolean;
   /** largura ocupada, em % da largura do quadro */
   largura: number;
   /** centro da foto, em % do quadro */
@@ -221,3 +257,60 @@ export type Scene = {
   start: number;
   end: number;
 };
+
+/**
+ * Cenas nativas animadas direto no Remotion baseadas no roteiro/fala:
+ *   - 'chatgpt': Simula uma conversa real no ChatGPT (pergunta do usuário + resposta digitando)
+ *   - 'contexto-ia': Painel visual mostrando o que a IA sabe (✅) vs. não sabe (❌)
+ *   - 'checklist': Passo a passo animado com checkmarks entrando no ritmo da fala
+ *   - 'privacidade': Escudo de proteção de dados pessoais e alerta de privacidade
+ *   - 'codigo': Editor de código / terminal IA analisando e programando ao vivo
+ *   - 'versus': Comparativo / barras de desempenho entre modelos ou ideias
+ */
+export type TipoCenaRemotion =
+  | 'chatgpt'
+  | 'contexto-ia'
+  | 'checklist'
+  | 'privacidade'
+  | 'codigo'
+  | 'versus'
+  | 'numero'
+  | 'grafico'
+  | 'icones'
+  | 'rede'
+  | 'celular'
+  | 'frase'
+  | 'logos';
+
+export type CenaRemotion = {
+  id: string;
+  tipo: TipoCenaRemotion;
+  start: number;
+  duracao: number;
+  titulo: string;
+  subtitulo?: string;
+  /** Pergunta exibida no balão do usuário (para tipo 'chatgpt') */
+  promptUsuario?: string;
+  /** Resposta digitada pela IA (para tipo 'chatgpt') */
+  respostaIa?: string;
+  /** Lista de pontos/passos/linhas animados em sequência */
+  itens: string[];
+  /** Cor de destaque opcional */
+  destaque?: string;
+  /** 'numero': valor grande que conta até ele (ex.: "11%") */
+  valor?: string;
+  /** 'grafico': altura de cada barra (mesma ordem de `itens`) */
+  valores?: number[];
+  /** 'grafico': texto em cima de cada barra */
+  rotulosValor?: string[];
+  /** 'icones' e 'rede': um emoji por item */
+  icones?: string[];
+  /** 'celular': nome do app no topo da tela e quem fala em cada mensagem ('eu' = direita) */
+  app?: string;
+  autores?: ('eu' | 'app')[];
+  /** 'frase': palavras que ganham a cor de destaque */
+  destaques?: string[];
+  /** tema da cena no banco (ia, plano-saude...) */
+  tema?: string;
+};
+
