@@ -96,7 +96,7 @@ export function CenaAnimada({ cena, largura }: Props) {
             fps={fps}
             escala={escalaBase}
             iconeTopo="💡"
-            corTema="#10b981"
+            corTema={cena.destaque || '#10b981'}
             modoContexto={false}
           />
         )}

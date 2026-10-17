@@ -269,7 +269,7 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   projeto.nomeProjeto = path.basename(saida, '.json');
   projeto.planoAplicado = path.basename(arqPlano);
   await writeFile(saida, JSON.stringify(projeto, null, 2), 'utf8');
-  avisos.push(...(await registrar(projeto)));
+  avisos.push(...(await registrar(projeto, path.basename(arqProjeto))));
   // registra que este projeto de origem já foi montado (o comando "pendentes" usa isto)
   const arqFeitos = path.join(RAIZ, 'banco-cenas', 'feitos.json');
   const feitos = existsSync(arqFeitos) ? JSON.parse(await readFile(arqFeitos, 'utf8')) : {};

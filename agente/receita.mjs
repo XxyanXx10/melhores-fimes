@@ -91,11 +91,11 @@ export function aplicarReceita(projeto, receita) {
 }
 
 /** guarda no histórico o que este vídeo usou (receita + sequência de cenas) */
-export async function registrar(projeto) {
-  const historico = await lerHistorico();
+export async function registrar(projeto, origem) {
+  const historico = (await lerHistorico()).filter((h) => h.projeto !== origem);
   const sequencia = (projeto.cenasRemotion ?? []).map((c) => c.tipo);
   // compara com o vídeo anterior de verdade, não com uma aplicação antiga deste mesmo
-  const anterior = historico.filter((h) => h.projeto !== projeto.arquivo).at(-1);
+  const anterior = historico.filter((h) => h.projeto !== projeto.arquivo && h.sequencia?.length).at(-1);
   const avisos = [];
   if (anterior && anterior.sequencia?.join() === sequencia.join()) avisos.push('mesma sequência de cenas do vídeo anterior');
   if (anterior && anterior.sequencia?.[0] === sequencia[0]) avisos.push(`abre com "${sequencia[0]}" igual ao vídeo anterior`);
@@ -111,6 +111,10 @@ if (process.argv[1]?.endsWith('receita.mjs')) {
     const projeto = JSON.parse(await readFile(arq, 'utf8'));
     projeto.receita = await sortearReceita();
     await writeFile(arq, JSON.stringify(projeto, null, 2), 'utf8');
+    // reserva no histórico: o próximo sorteio (de outro pendente do lote) já foge desta receita
+    const historico = (await lerHistorico()).filter((h) => h.projeto !== path.basename(arq));
+    historico.push({ projeto: path.basename(arq), quando: new Date().toISOString(), provisoria: true, receita: projeto.receita, sequencia: [] });
+    await writeFile(ARQ, JSON.stringify(historico, null, 2), 'utf8');
     console.log(JSON.stringify(projeto.receita, null, 2));
   } else if (cmd === 'historico') {
     for (const h of await lerHistorico())

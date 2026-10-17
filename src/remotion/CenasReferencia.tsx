@@ -12,12 +12,24 @@ type P = { cena: CenaRemotion; frame: number; fps: number; escala: number; progr
 const fonteDe = (src: string) => (/^(blob:|https?:|data:)/.test(src) ? src : staticFile(src));
 const normal = (w: string) => w.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w%]/g, '');
 
-/** junta palavras vizinhas marcadas num pedaço só, para o marca-texto passar contínuo */
+/**
+ * Marca a frase inteira de cada destaque onde ela aparece em sequência (não cada
+ * palavra solta: "de" ou "artificial" em outro ponto do título não acendem) e
+ * junta as vizinhas num pedaço só, para o marca-texto passar contínuo.
+ */
 function pedacos(texto: string, destaques: string[] = []) {
-  const quentes = new Set(destaques.flatMap((d) => d.split(/\s+/)).map(normal).filter(Boolean));
+  const palavras = texto.split(/\s+/).filter(Boolean);
+  const chaves = palavras.map(normal);
+  const marcada = palavras.map(() => false);
+  for (const d of destaques) {
+    const alvo = d.split(/\s+/).map(normal).filter(Boolean);
+    if (!alvo.length) continue;
+    for (let i = 0; i + alvo.length <= chaves.length; i++)
+      if (alvo.every((a, k) => chaves[i + k] === a)) for (let k = 0; k < alvo.length; k++) marcada[i + k] = true;
+  }
   const saida: { texto: string; quente: boolean }[] = [];
-  for (const w of texto.split(/\s+/).filter(Boolean)) {
-    const quente = quentes.has(normal(w));
+  for (const [i, w] of palavras.entries()) {
+    const quente = marcada[i];
     const ult = saida[saida.length - 1];
     if (ult && ult.quente === quente) ult.texto += ` ${w}`;
     else saida.push({ texto: w, quente });

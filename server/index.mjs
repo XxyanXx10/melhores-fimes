@@ -383,6 +383,25 @@ async function lerCorpo(req) {
  */
 const cacheSilencios = new Map();
 
+/**
+ * De onde sai a capa do cartão do projeto. No Canal Dark o vídeo base é um
+ * fundo escuro (as cenas são desenhadas por cima no render), então o quadro
+ * dele sai preto: antes vem a imagem real da notícia, depois a primeira
+ * imagem/print das cenas, o primeiro b-roll e, por último, o próprio vídeo.
+ */
+function capaDoProjeto(j) {
+  const publico = (src) => (src && !/^(blob:|https?:|data:)/.test(src) ? path.join(aqui, '..', 'public', src) : null);
+  const existe = (arq) => arq && existsSync(arq);
+  const candidatos = [
+    j.capa && { arquivo: publico(j.capa) },
+    j.referencias?.capa?.midia && { arquivo: publico(j.referencias.capa.midia) },
+    ...(j.cenasRemotion ?? []).filter((c) => c.imagem).map((c) => ({ arquivo: publico(c.imagem) })),
+    ...[...(j.fotos ?? [])].sort((a, b) => a.start - b.start).map((f) => ({ arquivo: publico(f.src), em: /.(mp4|mov|webm)$/i.test(f.src) ? '1' : undefined })),
+    j.video && { arquivo: j.video, em: Math.min(1, (j.duracao ?? 2) / 3).toFixed(2) },
+  ];
+  return candidatos.find((c) => c && existe(c.arquivo)) ?? null;
+}
+
 const servidor = createServer((req, res) => {
   /*
    * Qualquer erro solto aqui dentro derrubava o processo: o usuário perdia o
@@ -970,16 +989,20 @@ async function atender(req, res) {
     try {
       const cache = path.join(aqui, '..', 'projeto', '.miniaturas');
       await mkdir(cache, { recursive: true });
-      const jpg = path.join(cache, `${path.basename(nome, '.json')}.jpg`);
+      // "capa-": as capas antigas (quadro preto do vídeo base) ficam para trás
+      const jpg = path.join(cache, `capa-${path.basename(nome, '.json')}.jpg`);
 
-      if (!existsSync(jpg)) {
-        const j = JSON.parse(await readFile(path.join(aqui, '..', 'projeto', nome), 'utf8'));
-        if (!j.video || !existsSync(j.video)) return json(res, 404, { erro: 'sem vídeo' });
-        const em = Math.min(1, (j.duracao ?? 2) / 3).toFixed(2);
+      const arqProjeto = path.join(aqui, '..', 'projeto', nome);
+      // refaz quando o projeto muda (montou as cenas, trocou a imagem…)
+      const velha = existsSync(jpg) && (await stat(jpg)).mtimeMs < (await stat(arqProjeto)).mtimeMs;
+      if (!existsSync(jpg) || velha) {
+        const j = JSON.parse(await readFile(arqProjeto, 'utf8'));
+        const fonte = capaDoProjeto(j);
+        if (!fonte) return json(res, 404, { erro: 'sem vídeo' });
         await new Promise((resolve, reject) => {
           const f = spawn(
             cfg.ffmpeg,
-            ['-y', '-ss', em, '-i', j.video, '-frames:v', '1', '-vf', 'scale=-2:320', jpg],
+            ['-y', ...(fonte.em ? ['-ss', fonte.em] : []), '-i', fonte.arquivo, '-frames:v', '1', '-vf', 'scale=-2:320', jpg],
             { windowsHide: true },
           );
           f.on('error', reject);

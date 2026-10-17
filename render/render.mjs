@@ -27,7 +27,15 @@ const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
  * Chrome morre com "Page crashed". Apontamos o temporário para o mesmo
  * disco do projeto, que tem espaço.
  */
-const TEMPORARIO = path.join(raiz, 'render', '.tmp');
+// "pastaTemporaria" no config.json manda para outro disco (no PC de mesa o D: vive cheio e o C: sobra)
+const pastaDoConfig = (() => {
+  try {
+    return JSON.parse(fsSync.readFileSync(path.join(raiz, 'server', 'config.json'), 'utf8').replace(/^﻿/, '')).pastaTemporaria;
+  } catch {
+    return undefined;
+  }
+})();
+const TEMPORARIO = pastaDoConfig || path.join(raiz, 'render', '.tmp');
 fsSync.mkdirSync(TEMPORARIO, { recursive: true });
 process.env.TMPDIR = TEMPORARIO;
 process.env.TEMP = TEMPORARIO;
@@ -160,7 +168,8 @@ const servedUrl = await bundle({
   entryPoint: path.join(raiz, 'src', 'remotion', 'raiz.tsx'),
   publicDir: path.join(raiz, 'public'),
   // pasta fixa: sem isto cada render deixa um bundle novo no temporário
-  outDir: path.join(raiz, 'render', '.bundle'),
+  // o pacote leva uma cópia de public/ inteira (quase 1 GB): vai junto com o temporário
+  outDir: pastaDoConfig ? path.join(TEMPORARIO, 'bundle') : path.join(raiz, 'render', '.bundle'),
 });
 
 const composition = await selectComposition({ serveUrl: servedUrl, id: 'video', inputProps });

@@ -268,7 +268,8 @@ export function TelaProjetos(p: Props) {
                   <span className="tp-imagem">
                     {x.temVideo ? (
                       <img
-                        src={`${SERVIDOR}/miniatura/${encodeURIComponent(x.arquivo)}`}
+                        // ?v= muda quando o projeto muda: o navegador não fica com a capa antiga
+                        src={`${SERVIDOR}/miniatura/${encodeURIComponent(x.arquivo)}?v=${Math.round(x.atualizado)}`}
                         alt=""
                         loading="lazy"
                         onError={(e) => {

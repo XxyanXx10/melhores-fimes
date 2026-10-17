@@ -142,12 +142,40 @@ function dataLegivel(iso) {
 }
 
 /**
+ * Link do Google Notícias ("news.google.com/rss/articles/CBMi…") → link da matéria.
+ * O Google esconde o endereço atrás de um redirecionamento em JavaScript; a
+ * própria página dele traz a assinatura para pedir o endereço real.
+ */
+export async function linkReal(url) {
+  if (!/news\.google\.com/.test(url)) return url;
+  const id = new URL(url).pathname.split('/').pop();
+  const html = await (await fetch(`https://news.google.com/articles/${id}`, { headers: { 'User-Agent': NAVEGADOR }, signal: AbortSignal.timeout(20000) })).text();
+  const sg = html.match(/data-n-a-sg="([^"]+)"/)?.[1];
+  const ts = html.match(/data-n-a-ts="([^"]+)"/)?.[1];
+  if (!sg || !ts) return url;
+  const pedido = [[[
+    'Fbv4je',
+    JSON.stringify(['garturlreq', [['X', 'X', ['X', 'X'], null, null, 1, 1, 'US:en', null, 1, null, null, null, null, null, 0, 1], 'X', 'X', 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0], id, +ts, sg]),
+    null,
+    'generic',
+  ]]];
+  const r = await fetch('https://news.google.com/_/DotsSplashUi/data/batchexecute', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'User-Agent': NAVEGADOR },
+    body: `f.req=${encodeURIComponent(JSON.stringify(pedido))}`,
+    signal: AbortSignal.timeout(20000),
+  });
+  return (await r.text()).match(/garturlres\\",\\"([^\\"]+)/)?.[1] ?? url;
+}
+
+/**
  * @param url    link da notícia
  * @param pasta  nome da pasta em public/midia/referencias/
  * @param texto  roteiro/título, para achar os logos das empresas citadas
  */
 export async function buscarReferencias(url, pasta, texto = '') {
   const c = await cfg();
+  url = await linkReal(url).catch(() => url);
   const dir = path.join(RAIZ, 'public', 'midia', 'referencias', pasta);
   const rel = (arq) => `midia/referencias/${pasta}/${arq}`;
   await mkdir(dir, { recursive: true });
