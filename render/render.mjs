@@ -238,6 +238,8 @@ if (still !== undefined) {
     ...(process.argv.includes('--gpu') || cfg.gpu === true
       ? { hardwareAcceleration: 'if-possible', chromiumOptions: { gl: 'angle' } }
       : { hardwareAcceleration: 'disable', x264Preset: 'veryfast' }),
+    // imagem grande (foto da matéria) demora pra carregar com 10 abas ao mesmo tempo: 2 min em vez de 30 s
+    timeoutInMilliseconds: 120000,
     imageFormat: 'jpeg',
     jpegQuality: 80,
     /* decodificar o vídeo de origem é metade do custo de cada quadro */

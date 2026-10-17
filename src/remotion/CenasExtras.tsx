@@ -196,8 +196,10 @@ export function CenaFrase({ cena, frame, fps, escala }: P) {
         {palavras.map((w, i) => {
           const e = spring({ frame: frame - 4 - i * 5, fps, config: { damping: 10, stiffness: 160 } });
           const quente = marcar.has(w.toLowerCase().replace(/[.,!?:]/g, ''));
+          // palavra comprida ("desligamento") encolhe para caber na largura (~0,72 em por letra em caixa alta)
+          const cabe = 960 / (0.72 * Math.max(1, w.length));
           return (
-            <span key={i} style={{ fontSize: (quente ? 150 : 110) * escala, fontWeight: 900, lineHeight: 1.02, color: quente ? cor : BRANCO, opacity: Math.min(1, e), transform: `scale(${interpolate(e, [0, 1], [1.8, 1])})`, display: 'inline-block', textTransform: 'uppercase', textShadow: quente ? `0 0 ${40 * escala}px ${cor}88` : '0 6px 24px rgba(0,0,0,.8)' }}>
+            <span key={i} style={{ fontSize: Math.min(quente ? 150 : 110, cabe) * escala, fontWeight: 900, lineHeight: 1.02, color: quente ? cor : BRANCO, opacity: Math.min(1, e), transform: `scale(${interpolate(e, [0, 1], [1.8, 1])})`, display: 'inline-block', textTransform: 'uppercase', textShadow: quente ? `0 0 ${40 * escala}px ${cor}88` : '0 6px 24px rgba(0,0,0,.8)' }}>
               {w}
             </span>
           );

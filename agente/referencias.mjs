@@ -124,7 +124,8 @@ async function baixarComoPng(c, url, destino) {
   const bruto = `${destino}.bruto`;
   await writeFile(bruto, Buffer.from(await r.arrayBuffer()));
   try {
-    execFileSync(c.ffmpeg, ['-v', 'error', '-y', '-i', bruto, '-frames:v', '1', destino], { timeout: 60000 });
+    // até 1600 px: foto de 6000 px pesa 10 MB e estoura o tempo do render
+    execFileSync(c.ffmpeg, ['-v', 'error', '-y', '-i', bruto, '-frames:v', '1', '-vf', "scale='min(1600,iw)':-2", destino], { timeout: 60000 });
     const ffprobe = c.ffmpeg.replace(/ffmpeg(\.exe)?$/i, (m) => m.replace('ffmpeg', 'ffprobe'));
     const saida = execFileSync(ffprobe, ['-v', 'error', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', destino]).toString().trim();
     const [w, h] = saida.split(',').map(Number);
@@ -228,6 +229,8 @@ export async function buscarReferencias(url, pasta, texto = '') {
     if (ico) ref.logoFonte = rel('fonte.png');
   }
 
+  // "Título | G1", "Título | TechCrunch": o nome do site já aparece no cabeçalho da manchete
+  ref.titulo = ref.titulo.replace(/\s+\|\s+[^|]{1,40}$/, '').trim();
   const alvo = `${ref.titulo} ${texto}`.toLowerCase();
   const disponiveis = new Set(await readdir(path.join(RAIZ, 'public', 'midia', 'banco', 'logos')).catch(() => []));
   for (const [re, arq] of LOGOS) if (re.test(alvo) && disponiveis.has(arq) && !ref.logos.includes(arq)) ref.logos.push(arq);
