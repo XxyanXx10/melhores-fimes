@@ -12,6 +12,8 @@ export function juntarPalavras(pedacos) {
     if (!texto) continue;
     const comecaPalavra = /^\s/.test(bruto) || palavras.length === 0;
     const soPontuacao = /^[.,!?;:…)\]"»]+$/.test(texto);
+    // pontuação solta antes da primeira palavra (o whisper às vezes abre com "..."): não tem onde colar
+    if (soPontuacao && !palavras.length) continue;
 
     if (comecaPalavra && !soPontuacao) {
       palavras.push({ text: texto, start: p.start, end: p.end });

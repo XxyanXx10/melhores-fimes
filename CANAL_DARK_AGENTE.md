@@ -60,7 +60,10 @@ pergunta no fim. Imagens geradas ficam em `public/midia/formatos/`.
 - `"pausas": [{ "em": 6.4, "duracao": 0.8 }]` cala a música num ponto sem efeito.
 - Efeito vai DEPOIS da frase da piada (no respiro), nunca por cima da fala importante.
 
-## Respiros (o tempo pra pessoa entender e rir)
+## Respiros (desligado por padrão)
+O dono do canal testou e achou o vão "um respiro pra nada": o padrão é SEM respiros — a fala
+segue contínua, o efeito toca na piada e a música só dá uma pausinha (`"pausa"` do `sfx`).
+O recurso continua existindo, mas só use se ele pedir.
 `"respiros": [{ "depoisDe": "pizza.", "duracao": 1.7, "sfx": "faahhhhh" }]` — silêncio de verdade
 inserido na narração (sem voz e sem música) logo depois da palavra; o efeito toca sozinho no vão.
 Os tempos do plano continuam os da transcrição original: cenas, efeitos e legenda depois do
