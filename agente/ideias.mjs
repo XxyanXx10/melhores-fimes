@@ -17,7 +17,7 @@ import { RAIZ } from './banco-cenas.mjs';
 import { gerarNarracao } from './voz.mjs';
 import { gerarLoteDark } from './dark.mjs';
 import { alinharComRoteiro } from './alinhar.mjs';
-import { buscarReferencias, pastaDe } from './referencias.mjs';
+import { buscarReferencias, pastaDe, textoDaMateria } from './referencias.mjs';
 
 const ARQ = path.join(RAIZ, 'ideias', 'ideias.json');
 const ARQ_ESTILO = path.join(RAIZ, 'ideias', 'estilo-roteiro.md');
@@ -129,29 +129,80 @@ ${lista}`,
   return { novas: novas.length, total: estado.ideias.length };
 }
 
-/** Roteiro no padrão do canal (Gancho → Desenvolvimento → CTA, ~30 s) */
-export async function gerarRoteiro(ideia) {
-  const estilo = existsSync(ARQ_ESTILO) ? await readFile(ARQ_ESTILO, 'utf8') : '';
-  return gemini(
-    `${estilo}
+/* fórmulas de gancho (detalhadas em ideias/estilo-roteiro.md); cada vídeo sorteia uma */
+export const GANCHOS = ['revelacao', 'contraste', 'numero', 'consequencia', 'cena', 'pergunta', 'citacao'];
 
-Escreva UM roteiro novo nesse mesmo padrão sobre esta notícia:
-Fonte: ${ideia.fonte}
+/* frases de virada do guia; as que os últimos roteiros usaram vão no pedido para variar */
+const VIRADAS = ['Mas o mais curioso', 'E aqui tá o problema', 'Só que tem um detalhe', 'E não para por aí', 'Agora vem a parte estranha', 'Mas olha o que aconteceu', 'E sabe o que é pior', 'Só que ninguém esperava'];
+
+/* frases que deixavam todo vídeo igual: se aparecerem, o roteiro é refeito uma vez */
+const CLICHES = [
+  /o segredo n[ãa]o [ée]/i,
+  /^\s*(voc[êe] sabia|aten[çc][ãa]o:|cuidado:|imagina s[óo])/i,
+  /chegou ao fim|dias contados|revolucionando|no mundo da tecnologia|insights/i,
+  /deix[ea] (a )?sua opini[ãa]o nos coment[áa]rios e sig/i,
+];
+
+/** sorteia a fórmula do gancho fugindo das três últimas usadas */
+function sortearGancho(estado) {
+  const ultimas = estado.ideias
+    .filter((i) => i.roteiro?.tipoGancho)
+    .sort((a, b) => String(b.roteiro.quando ?? '').localeCompare(String(a.roteiro.quando ?? '')))
+    .slice(0, 3)
+    .map((i) => i.roteiro.tipoGancho);
+  const livres = GANCHOS.filter((g) => !ultimas.includes(g));
+  return livres[Math.floor(Math.random() * livres.length)];
+}
+
+/**
+ * Roteiro no padrão do canal (Gancho → Desenvolvimento → Fechamento, ~30 s).
+ * Recebe a matéria inteira (não só o resumo do RSS), a fórmula de gancho
+ * sorteada e os últimos ganchos, para não repetir estrutura nem palavras.
+ */
+export async function gerarRoteiro(ideia, { tipoGancho = 'revelacao', recentes = [], viradas = [] } = {}) {
+  const arqEstilo = ideia.comChamada ? path.join(RAIZ, 'ideias', 'estilo-roteiro-vendas.md') : ARQ_ESTILO;
+  const estilo = existsSync(arqEstilo) ? await readFile(arqEstilo, 'utf8') : '';
+  const materia = await textoDaMateria(ideia.link);
+  const c = await cfg();
+  const hoje = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+  const pedido = (aviso = '') => `${estilo}
+
+---
+Hoje é ${hoje}. Escreva UM roteiro novo sobre a notícia abaixo.
+FÓRMULA DE GANCHO: ${tipoGancho}
+${recentes.length ? `Ganchos dos últimos vídeos (não repita a estrutura nem as palavras):
+${recentes.map((g) => `- ${g}`).join('\n')}
+` : ''}
+${viradas.length ? `Viradas já usadas nos últimos vídeos (escolha outra): ${viradas.join(' · ')}
+` : ''}Fonte: ${ideia.fonte}
 Título: ${ideia.titulo}
 Resumo: ${ideia.resumo}
 Ângulo sugerido: ${ideia.angulo ?? ''}
-Link: ${ideia.link}
-
-Regras: português do Brasil falado, 70 a 95 palavras no total (≈30 s), frases curtas, nada de emojis,
-não invente números, datas ou recursos que não estejam na notícia; se não tiver certeza, fale de forma geral.
+${materia ? `Texto da matéria (use os fatos daqui; ignore menus e propaganda que vierem junto):
+${materia}` : '(o site não deixou ler a matéria: fique só no título e no resumo, sem detalhes inventados)'}
 ${
   ideia.comChamada
     ? 'FINAL COM CHAMADA: o campo "cta" oferece o material do canal e manda para o link na bio, como nos exemplos.'
-    : 'FINAL SEM CHAMADA DE PRODUTO (conteúdo puro): NÃO ofereça material, guia, templates nem link na bio. O campo "cta" é um fechamento de conteúdo: uma reflexão curta, uma pergunta para o público comentar ou um convite para seguir o canal para mais novidades de IA.'
+    : 'FINAL SEM CHAMADA DE PRODUTO: NÃO ofereça material, guia, templates nem link na bio. O campo "cta" é o fechamento descrito no guia.'
 }
-Responda JSON: {"titulo":"título curto do vídeo","gancho":"...","desenvolvimento":"...","cta":"..."}`,
-    { json: true },
-  );
+${aviso}
+Responda JSON: {"titulo":"título curto do vídeo","gancho":"...","desenvolvimento":"...","cta":"..."}`;
+  const opcoes = { json: true, modelo: c.geminiModeloRoteiro ?? 'gemini-2.5-flash' };
+  const texto = (x) => `${x.gancho} ${x.desenvolvimento} ${x.cta}`;
+  // o que faz o roteiro ser refeito uma vez: clichê do canal ou longo demais pra ~30 s
+  const problema = (x) => {
+    const cliche = CLICHES.find((re) => re.test(texto(x)) || re.test(x.gancho ?? ''));
+    if (cliche) return `a versão anterior usou um clichê proibido (${cliche.source}). Reescreva sem ele.`;
+    const n = texto(x).split(/\s+/).filter(Boolean).length;
+    if (n > 98) return `a versão anterior tinha ${n} palavras. Reescreva com no máximo 95, cortando o menos importante.`;
+    return null;
+  };
+  let r = await gemini(pedido(), opcoes);
+  const aviso = problema(r);
+  if (aviso) r = await gemini(pedido(`ATENÇÃO: ${aviso}`), opcoes);
+  // asterisco e marcação: a voz leria e a legenda mostraria
+  for (const k of ['titulo', 'gancho', 'desenvolvimento', 'cta']) if (typeof r[k] === 'string') r[k] = r[k].replace(/[*_#]+/g, '').replace(/\s+/g, ' ').trim();
+  return { ...r, tipoGancho, quando: new Date().toISOString(), comMateria: Boolean(materia) };
 }
 
 /** liga/desliga a chamada de produto no final do roteiro (padrão: sem chamada) */
@@ -181,7 +232,20 @@ export async function escreverRoteiros(ids, aoAndar = () => {}) {
   const alvo = estado.ideias.filter((i) => ids.includes(i.id));
   for (const [k, i] of alvo.entries()) {
     aoAndar({ atual: k + 1, total: alvo.length, detalhe: `Escrevendo roteiro: ${i.titulo}` });
-    i.roteiro = await gerarRoteiro(i);
+    // um de cada vez: o próximo já foge da fórmula e do gancho deste
+    const recentes = estado.ideias
+      .filter((x) => x.roteiro?.gancho && x.id !== i.id)
+      .sort((a, b) => String(b.roteiro.quando ?? '').localeCompare(String(a.roteiro.quando ?? '')))
+      .slice(0, 6)
+      .map((x) => x.roteiro.gancho);
+    // viradas ("Mas o mais curioso é…") que os últimos roteiros usaram
+    const textosRecentes = estado.ideias
+      .filter((x) => x.roteiro?.desenvolvimento && x.id !== i.id)
+      .sort((a, b) => String(b.roteiro.quando ?? '').localeCompare(String(a.roteiro.quando ?? '')))
+      .slice(0, 4)
+      .map((x) => x.roteiro.desenvolvimento.toLowerCase());
+    const viradas = VIRADAS.filter((v) => textosRecentes.some((txt) => txt.includes(v.toLowerCase())));
+    i.roteiro = await gerarRoteiro(i, { tipoGancho: sortearGancho(estado), recentes, viradas });
     i.status = 'roteiro';
     await salvar(estado);
   }

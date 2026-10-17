@@ -1,102 +1,101 @@
-# Padrão de roteiro do canal (IA e Automação)
+# Padrão de roteiro do canal — notícias de IA e tecnologia (Reels/Shorts, ~30 s)
 
-Estrutura de todo vídeo (~30 s):
-1. **Gancho** (1 frase, até 3 s): provoca, contraria ou expõe uma dor ("Você ainda...", "X já era", "Pare de...").
-2. **Desenvolvimento** (2 a 4 frases): o que mudou, o que a IA faz agora, benefício concreto. Fechar com uma frase de efeito ("O segredo não é X, é Y").
-3. **Chamada para ação** (1 a 2 frases): oferece o material (templates, prompts, guia, cofre) "por um valor simbólico / menos que um lanche" e manda para o link na bio/perfil.
+O canal conta notícia como quem conta uma fofoca boa pra um amigo: rápido, com o
+detalhe que ninguém viu, e explicando por que aquilo mexe com a vida de quem assiste.
+Não é aula, não é propaganda, não é jornal lido em voz alta.
 
-Tom: direto, coloquial ("tá", "pra"), confiante, sem enrolação.
+## Estrutura (70 a 95 palavras no total)
+
+1. **Gancho** (1 a 2 frases curtas, até 3 s, no máximo 15 palavras)
+   Segue a FÓRMULA DE GANCHO pedida. Tem que trazer o fato mais surpreendente da
+   matéria — com nome, número ou consequência concreta. Quem ouvir só o gancho já
+   precisa querer saber o resto.
+2. **Desenvolvimento** (3 a 5 frases), nesta ordem:
+   - **O que aconteceu**: quem (empresa, produto, pessoa) fez o quê. Um dado concreto da matéria.
+   - **A virada**: o fato mais curioso, polêmico ou inesperado da matéria. Entra com uma
+     frase falada de virada, escolhida desta lista (e diferente das usadas nos últimos vídeos):
+     "Mas o mais curioso é…", "E aqui tá o problema…", "Só que tem um detalhe…",
+     "E não para por aí…", "Agora vem a parte estranha…", "Mas olha o que aconteceu…",
+     "E sabe o que é pior?", "Só que ninguém esperava isso…".
+   - Os nomes das partes (gancho, virada, fechamento) NUNCA aparecem no texto falado.
+   - **Por que importa pra você**: a consequência prática pra um brasileiro comum
+     (no bolso, no celular, no trabalho, na segurança).
+3. **Fechamento** (1 a 2 frases)
+   Uma pergunta ESPECÍFICA sobre essa notícia, que divide opiniões (dá pra responder
+   "sim" ou "não" nos comentários). No máximo um convite curto depois, e variando:
+   "Comenta aí.", "Fala nos comentários.", "Segue pra não perder a próxima.",
+   "Manda pra quem precisa ver isso." — ou nenhum.
+
+## Fórmulas de gancho
+
+- **revelacao** — abre pelo fato mais chocante, numa afirmação seca.
+  "A IA da Meta recusou fazer um cartaz do Lula. Mas fez o do adversário."
+- **contraste** — o que todo mundo acha × o que aconteceu de verdade.
+  "Todo mundo tem medo do carro sem motorista. Só que quem bate é o humano."
+- **numero** — abre com o número mais forte da matéria (só se a matéria tiver um).
+  "Só cinco por cento dos chefes de tecnologia conseguem explicar o que a IA decide."
+- **consequencia** — abre pelo efeito direto na vida de quem assiste.
+  "O app do seu banco agora quer escolher onde você investe."
+- **cena** — uma mini-história em uma ou duas frases, como começo de filme.
+  "Ele viajou dois mil quilômetros pra conhecer a namorada. Ela nunca existiu."
+- **pergunta** — uma pergunta provocativa e específica (nunca "você sabia").
+  "Você deixaria uma IA escolher onde colocar o seu dinheiro?"
+- **citacao** — abre com uma frase dita por alguém da notícia (só se estiver na matéria).
+  "'O futuro é a empresa que anda sozinha.' Quem disse foi o chefe da Replit."
+
+Se a fórmula pedida precisa de número ou citação e a matéria não tem, use **revelacao**.
+
+## Voz (o texto vai direto pra voz do Yan — a pontuação é a interpretação)
+
+- Misture frases bem curtas com frases médias. Frase curta = impacto.
+- Reticências pra criar suspense antes da revelação: "E o resultado foi… uma batida."
+- Exclamação só no momento de surpresa, uma ou duas vezes no roteiro inteiro.
+- Pergunta retórica no meio ajuda o ritmo: "E sabe o que aconteceu?"
+- Fale como gente: "tá", "pra", "a gente", "olha só". Sem gíria forçada.
+- Nada de emoji, parênteses, asterisco, negrito, aspas decorativas, abreviação, hashtag ou
+  instrução de leitura — a voz lê em voz alta tudo o que estiver escrito. A ênfase vem da
+  frase curta e da pontuação, não de marcação.
+- Números: use algarismos quando forem curtos ("5%", "2 mil km", "R$ 1.000").
+
+## Proibido (deixa todo vídeo igual)
+
+- "O segredo não é X, é Y" e variações.
+- Começar com "Você sabia", "Atenção:", "Cuidado:", "Imagina só", "A inteligência artificial…".
+- "chegou ao fim", "tá com os dias contados", "revolucionando", "no mundo da tecnologia",
+  "insights", "fique ligado", "Deixe sua opinião nos comentários e siga para mais novidades".
+- Frase genérica que serviria pra qualquer notícia. Toda frase tem que ser desta notícia.
+
+## Fatos (o canal vive de credibilidade)
+
+- Use só o que está na matéria. Não invente número, data, recurso, cargo nem citação.
+- Cargos e títulos exatamente como a matéria escreve (quem é presidente, ex-presidente,
+  ministro, CEO…). Na dúvida, use só o nome.
+- Não transforme ameaça, possibilidade ou plano em fato consumado: "sob multa de R$ 500 mil"
+  quer dizer multa SE descumprir (não "multou"); "pode chegar" não é "chegou"; "vai lançar"
+  não é "lançou". Decisão de tribunal: diga exatamente o que foi decidido (proibiu, mandou, multou).
+- Diga de onde veio quando der força: "segundo a TechCrunch", "dados do governo americano".
+- Se a matéria é em inglês, conte em português natural, sem traduzir palavra por palavra.
 
 ## Exemplos aprovados
 
-Roteiro 1
-Gancho
-"Se você ainda perde horas recortando imagens e vetorizando logo, pare agora."
+Os exemplos mostram o ESTILO. Os fatos de cada vídeo vêm só da matéria pedida.
 
-Desenvolvimento
-"A inteligência artificial transformou o design gráfico. Hoje, com um único comando, você expande cenários, remove objetos complexos e cria campanhas inteiras para marcas de turismo, planos de saúde ou eventos. A IA deixou a parte chata automática pra você focar só na estratégia de conversão."
+Exemplo 1 — fórmula: revelacao
+Gancho: "A IA da Meta se recusou a fazer um cartaz do Lula. Mas o do adversário… ela fez."
+Desenvolvimento: "Um usuário pediu os dois panfletos pro Meta AI e o print rodou a internet. Agora o TSE entrou no caso e mandou a Meta explicar por que tratou candidatos de um jeito diferente. E isso é sério: em ano de eleição, a mesma IA que você usa pra tirar dúvida pode estar decidindo o que aparece e o que some."
+Fechamento: "Você confia numa IA de big tech no meio de uma eleição? Comenta aí."
 
-Chamada para Ação
-"Quer os templates de automação que aceleram tudo isso? Liberei meu arquivo pessoal por um valor ridículo. Link no meu perfil."
-Roteiro 2
-Gancho
-"Você tá perdendo dias editando vídeos que a inteligência artificial agora monta em segundos."
+Exemplo 2 — fórmula: cena
+Gancho: "Ele viajou dois mil quilômetros pra conhecer a namorada. Ela nunca existiu."
+Desenvolvimento: "Um brasileiro conversava com uma pretendente pela internet e pegou a estrada pra encontrar ela. Só lá descobriu: a mulher das fotos era inteligência artificial. E o pior… a conversa parecia tão real que ele nem desconfiou. Se enganou ele, pode enganar qualquer um."
+Fechamento: "Você conseguiria perceber que tava falando com uma IA? Manda pra quem precisa ver isso."
 
-Desenvolvimento
-"As novas ferramentas de IA cortam pausas, adicionam legendas dinâmicas e geram efeitos visuais de agência sem você precisar abrir dezenas de abas. O que levava uma tarde inteira no Premiere agora é resolvido com um clique."
+Exemplo 3 — fórmula: contraste
+Gancho: "Todo mundo tem medo do robô-táxi da Tesla. Só que quem bate… é o humano."
+Desenvolvimento: "Dados do governo americano, revelados pelo Electrek, mostram que os Robotaxis da Tesla batem quando um operador remoto assume o volante. Isso mesmo: a pessoa que deveria evitar o acidente. E aí fica a pergunta que ninguém quer responder: será que a gente tá atrapalhando a máquina?"
+Fechamento: "Você entraria num carro sem ninguém dirigindo? Fala nos comentários."
 
-Chamada para Ação
-"Eu empacotei o passo a passo e os atalhos que eu uso num material que custa menos que um lanche. O link tá na minha bio."
-Roteiro 3
-Gancho
-"O ChatGPT já ficou para trás. A nova onda agora são os agentes autônomos trabalhando sozinhos."
-
-Desenvolvimento
-"Enquanto você digita perguntas manuais, sistemas como n8n conectados à IA estão respondendo clientes, extraindo dados e organizando planilhas 24 horas por dia. É literalmente um funcionário que não dorme."
-
-Chamada para Ação
-"Quer o mapa visual exato desses fluxos de automação? Clica no link do perfil e pega o meu cofre de templates."
-Roteiro 4
-Gancho
-"Você tem certeza de que sou eu gravando esse vídeo? A clonagem de voz chegou num nível bizarro."
-
-Desenvolvimento
-"Hoje você só precisa de um roteiro bem escrito. A IA gera um avatar com a sua cara, a sua voz e sincronia labial perfeita. Dá pra produzir o conteúdo de um mês inteiro em uma hora, sem nem ligar a câmera."
-
-Chamada para Ação
-"Pra IA falar bonito, você precisa dos comandos certos. Liberei meus melhores prompts de roteirização viral. Link no perfil."
-Roteiro 5
-Gancho
-"Sua agência tá cobrando caro por pesquisas de mercado que a IA faz de graça em três minutos."
-
-Desenvolvimento
-"Sistemas de análise de dados agora leem relatórios inteiros, encontram o seu público-alvo e já cospem a estratégia de marketing pronta para a sua campanha. O jogo deixou de ser suor e passou a ser inteligência."
-
-Chamada para Ação
-"Eu juntei os comandos exatos pra transformar a IA no seu estrategista chefe por menos de vinte reais. Corre no link da bio."
-Roteiro 6
-Gancho
-"Parar de implorar por clientes é uma escolha. A inteligência artificial já automatizou a prospecção."
-
-Desenvolvimento
-"Você pode plugar a IA no seu sistema para raspar contatos qualificados, analisar o perfil da empresa e mandar e-mails super personalizados como se fossem escritos à mão. Você só entra na hora de fechar o contrato."
-
-Chamada para Ação
-"Quer o fluxo pronto pra colocar essa máquina pra rodar hoje? O template completo tá liberado no link da bio."
-Roteiro 7
-Gancho
-"Pagar fortunas por bancos de imagem saturados é o maior erro de quem produz conteúdo hoje."
-
-Desenvolvimento
-"Com a inteligência artificial, você digita uma frase e cria imagens cinematográficas exclusivas para as suas campanhas. Ninguém mais na internet vai ter o mesmo visual que o seu."
-
-Chamada para Ação
-"Eu soltei um cofre com os meus prompts secretos de geração visual por um valor ridículo. Clica no link da minha bio e pega o seu."
-Roteiro 8
-Gancho
-"Trabalhar 12 horas por dia não te faz produtivo, só te faz ficar exausto. A IA muda isso."
-
-Desenvolvimento
-"Criadores e profissionais inteligentes estão delegando toda a organização, resumo de reuniões e planejamento de rotina para assistentes virtuais automatizados. Metade do seu trabalho atual não deveria ser feito por um humano."
-
-Chamada para Ação
-"Baixe o meu guia de produtividade automatizada com IA por menos que uma pizza. O link tá na bio."
-Roteiro 9
-Gancho
-"Você ainda encara a tela em branco na hora de escrever textos de vendas? A IA resolve isso."
-
-Desenvolvimento
-"Modelos de linguagem treinados com os melhores textos do mundo agora escrevem a sua página de vendas, os roteiros dos seus vídeos e os posts do Instagram. O segredo não é a escrita, é o comando."
-
-Chamada para Ação
-"Pegue meus templates de prompts focados em conversão. O pacote completo tá no link do perfil."
-Roteiro 10
-Gancho
-"A inteligência artificial não vai roubar o seu emprego. Alguém usando inteligência artificial vai."
-
-Desenvolvimento
-"Quem domina ferramentas de automação e geração de conteúdo hoje tá produzindo dez vezes mais, cobrando mais caro e trabalhando menos. É uma janela de oportunidade que vai fechar rápido."
-
-Chamada para Ação
-"Não fica pra trás. Pega o meu pack de automação inicial por um preço simbólico. O link tá na bio."
-
+Exemplo 4 — fórmula: consequencia
+Gancho: "O app do Nubank agora quer escolher onde você investe."
+Desenvolvimento: "Chama Nu Smart Invest. A IA olha a sua carteira, entende quanto risco você topa e sugere onde colocar o dinheiro. E não para por aí… ela ainda mostra recomendações pra melhorar a sua carteira. Pra quem nunca entendeu investimento, é praticamente um assessor no bolso."
+Fechamento: "Você deixaria uma IA mexer no seu dinheiro? Segue pra não perder a próxima."

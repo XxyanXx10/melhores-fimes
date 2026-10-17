@@ -236,6 +236,31 @@ export async function buscarReferencias(url, pasta, texto = '') {
   return ref;
 }
 
+/**
+ * Texto corrido da matéria (os parágrafos), para o roteiro contar a notícia com
+ * os detalhes de verdade — o resumo do RSS tem 400 letras e deixava o texto vago.
+ * Devolve '' se o site bloquear (o roteiro segue só com o resumo).
+ */
+export async function textoDaMateria(url, limite = 6000) {
+  try {
+    const real = await linkReal(url).catch(() => url);
+    const html = await (await fetch(real, { headers: { 'User-Agent': NAVEGADOR }, signal: AbortSignal.timeout(30000) })).text();
+    const paragrafosDe = (trecho) =>
+      (trecho.replace(/<(script|style|nav|footer|aside|figure|form)[\s\S]*?<\/\1>/gi, ' ').match(/<p[^>]*>[\s\S]*?<\/p>/gi) ?? [])
+        .map((p) => decodificar(p.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim())
+        // descarta "leia também", créditos e legendas curtas
+        .filter((p) => p.length > 60 && !/^(leia|veja|assine|publicidade|foto:|imagem:)/i.test(p))
+        .join('\n');
+    // a página pode ter vários <article> (relacionadas, rodapé): fica o que tem mais texto;
+    // sem <article> que preste, a página inteira
+    const candidatos = [...(html.match(/<article[\s\S]*?<\/article>/gi) ?? []), html].map(paragrafosDe);
+    const melhorArtigo = candidatos.slice(0, -1).sort((a, b) => b.length - a.length)[0] ?? '';
+    return (melhorArtigo.length > 400 ? melhorArtigo : candidatos.at(-1)).slice(0, limite);
+  } catch {
+    return '';
+  }
+}
+
 /** nome de pasta seguro a partir do título */
 export function pastaDe(titulo) {
   return titulo
