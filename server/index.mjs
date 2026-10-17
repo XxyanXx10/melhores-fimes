@@ -885,6 +885,16 @@ async function atender(req, res) {
       const caminho = path.join(pasta, arquivo);
       /* voltar para uma versão antiga guarda o estado atual antes, sempre */
       await guardarVersao(arquivo, caminho, url.searchParams.get('versionar') === '1');
+      /*
+       * Campos que só o agente usa (receita sorteada, referências da notícia,
+       * plano aplicado): a tela não os conhece e o salvamento automático os
+       * apagava. Se a tela não mandou, fica o que já estava no arquivo.
+       */
+      if (existsSync(caminho)) {
+        const anterior = JSON.parse((await readFile(caminho, 'utf8')).replace(/^﻿/, ''));
+        for (const k of ['receita', 'referencias', 'planoAplicado', 'avisoReferencias'])
+          if (projeto[k] === undefined && anterior[k] !== undefined) projeto[k] = anterior[k];
+      }
       await writeFile(caminho, JSON.stringify(projeto, null, 2), 'utf8');
       return json(res, 200, { ok: true, arquivo });
     } catch (e) {

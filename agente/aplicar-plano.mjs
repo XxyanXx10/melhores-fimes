@@ -12,12 +12,16 @@
  *
  * Formato do plano: veja CANAL_DARK_AGENTE.md
  */
+import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { adicionarAoBanco, lerBanco, marcarUso, RAIZ } from './banco-cenas.mjs';
 import { videoDoPexels } from './pexels.mjs';
 import { printDoSite } from './print.mjs';
+import { aplicarReceita, registrar, sortearReceita } from './receita.mjs';
+import { resumoReferencias } from './referencias.mjs';
+import { lerConfig } from './nucleo.mjs';
 
 function frases(palavras) {
   const out = [];
@@ -51,11 +55,28 @@ function somDeEntrada(id, start, tipo) {
   };
 }
 
+function tamanhoDaImagem(cfg, midia) {
+  const ffprobe = cfg.ffmpeg.replace(/ffmpeg(.exe)?$/i, (m) => m.replace('ffmpeg', 'ffprobe'));
+  const saida = execFileSync(ffprobe, ['-v', 'error', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', path.join(RAIZ, 'public', midia)]);
+  return saida.toString().trim().split(',').map(Number);
+}
+
 async function aplicar(arqProjeto, arqPlano, arqSaida) {
   const projeto = JSON.parse(await readFile(arqProjeto, 'utf8'));
   const plano = JSON.parse(await readFile(arqPlano, 'utf8'));
   const banco = await lerBanco();
   const tema = plano.tema ?? 'geral';
+  const cfg = await lerConfig();
+  // "referencias": pasta de public/midia/referencias (o produzir já grava isto no projeto)
+  if (plano.referencias) {
+    const arqRef = path.join(RAIZ, 'public', 'midia', 'referencias', plano.referencias, 'referencias.json');
+    if (existsSync(arqRef)) projeto.referencias = JSON.parse(await readFile(arqRef, 'utf8'));
+  }
+  const ref = projeto.referencias;
+  // reaplicar o plano mantém a receita que o vídeo já tinha (não sorteia de novo)
+  const saidaPrevista = arqSaida ?? arqProjeto.replace(/.json$/, ' (plano).json');
+  const receitaAnterior = existsSync(saidaPrevista) ? JSON.parse(await readFile(saidaPrevista, 'utf8')).receita : undefined;
+  const receita = projeto.receita ?? receitaAnterior ?? (await sortearReceita());
 
   let cenas = projeto.cenasRemotion ?? [];
   let fotos = projeto.fotos ?? [];
@@ -138,7 +159,24 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
 
     if (de === 'remotion') {
       const { de: _d, start: _s, fim: _f, duracao: _du, banco: _b, id: _i, sobrescrever: _o, fundo, ...campos } = corpo;
-      cenas.push({ id: `pl-${i}`, start, duracao, itens: [], titulo: '', ...campos, tema });
+      const cena = { id: `pl-${i}`, start, duracao, itens: [], titulo: '', ...campos, tema };
+      // manchete sem dados: vem da notícia (site, ícone, data, título e capa)
+      if (cena.tipo === 'manchete' && ref) {
+        cena.fonte ??= ref.fonte;
+        cena.logo ??= ref.logoFonte ?? undefined;
+        cena.data ??= ref.data;
+        if (!cena.titulo) cena.titulo = ref.titulo;
+        if (cena.imagem === undefined && ref.capa) cena.imagem = ref.capa.midia;
+        if (cena.imagem === false) delete cena.imagem;
+      }
+      if (cena.imagem && !cena.tamanho) {
+        if (!existsSync(path.join(RAIZ, 'public', cena.imagem))) {
+          avisos.push(`cena ${i}: imagem ${cena.imagem} não existe em public/ — pulei`);
+          continue;
+        }
+        cena.tamanho = tamanhoDaImagem(cfg, cena.imagem);
+      }
+      cenas.push(cena);
       // "fundo": vídeo que continua passando atrás da cena (busca no Pexels, id do banco ou mídia)
       if (fundo) {
         let midiaFundo = fundo.midia;
@@ -168,7 +206,7 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
         src: midia,
         start,
         duracao,
-        entrada: 'fade',
+        entrada: c.entrada ?? receita.entrada ?? 'fade',
         largura: corpo.largura ?? 101,
         cobrir: corpo.largura === undefined,
         x: corpo.x ?? 50,
@@ -208,9 +246,10 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   projeto.cenasRemotion = cenas.sort((a, b) => a.start - b.start);
   projeto.fotos = fotos.sort((a, b) => a.start - b.start);
   projeto.sons = sons.sort((a, b) => a.start - b.start);
-  if (plano.template) projeto.template = plano.template;
-  // a legenda vai para a parte de baixo: o meio da tela fica para as cenas
-  projeto.estilo = { ...(projeto.estilo ?? {}), positionY: plano.legendaY ?? 74 };
+  // o plano pode fixar legenda e posição; o resto vem da receita sorteada
+  if (plano.template) receita.template = plano.template;
+  if (plano.legendaY) receita.legendaY = plano.legendaY;
+  aplicarReceita(projeto, receita);
   // "corrigir": { "pergonto.": "perguntas." } troca palavras erradas da transcrição
   // "corrigirIndice": { "7": "a", "78": null } troca (ou apaga, com null) a palavra pela posição
   if (plano.corrigirIndice && projeto.palavras) {
@@ -230,11 +269,13 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   projeto.nomeProjeto = path.basename(saida, '.json');
   projeto.planoAplicado = path.basename(arqPlano);
   await writeFile(saida, JSON.stringify(projeto, null, 2), 'utf8');
+  avisos.push(...(await registrar(projeto)));
   // registra que este projeto de origem já foi montado (o comando "pendentes" usa isto)
   const arqFeitos = path.join(RAIZ, 'banco-cenas', 'feitos.json');
   const feitos = existsSync(arqFeitos) ? JSON.parse(await readFile(arqFeitos, 'utf8')) : {};
   feitos[path.basename(arqProjeto)] = { saida: path.basename(saida), plano: path.basename(arqPlano), quando: new Date().toISOString() };
   await writeFile(arqFeitos, JSON.stringify(feitos, null, 2), 'utf8');
+  console.log(`receita: ${receita.template} · legenda ${receita.legendaY} · ${path.basename(receita.musica)} · zoom ${receita.movimento} ${receita.forcaZoom} · ${receita.paleta} · entrada ${receita.entrada}`);
   console.log(`✓ ${projeto.cenasRemotion.length} cena(s) Remotion, ${projeto.fotos.length} imagem(ns), ${projeto.sons.length} som(ns) → ${saida}`);
   for (const a of avisos) console.log('  aviso:', a);
 }
@@ -244,6 +285,10 @@ if (cmd === 'transcricao') {
   const p = JSON.parse(await readFile(a, 'utf8'));
   console.log(`duração ${p.duracao}s · ${p.largura}x${p.altura}`);
   for (const f of frases(p.palavras ?? [])) console.log(`${f.start.toFixed(2)}–${f.end.toFixed(2)}  ${f.texto}`);
+  if (p.referencias) console.log(`
+${resumoReferencias(p.referencias)}`);
+  if (p.receita) console.log(`
+receita: abrir com "${p.receita.abertura}" · paleta ${p.receita.paleta} (${p.receita.cores.join(', ')})`);
 } else if (cmd === 'aplicar') {
   await aplicar(a, b, c);
 } else {

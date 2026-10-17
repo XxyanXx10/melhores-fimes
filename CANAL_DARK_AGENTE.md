@@ -12,15 +12,36 @@ A plataforma executa; o agente decide. Para cada narração:
    `node agente/aplicar-plano.mjs aplicar "projeto/<nome>.json" banco-cenas/planos/<nome>.json "projeto/<saida>.json"`
 6. Conferir na plataforma (Projetos → abrir) e exportar.
 
-## Ordem de preferência para cada trecho
-1. Cena do **banco** (`"de": "banco", "id": "..."`) — grátis, padrão visual.
-2. Vídeo do **Pexels** (`"de": "pexels", "busca": "termos em inglês"`) — grátis, vai pro banco sozinho.
-3. Cena **Remotion** (`"de": "remotion"`) — para lista, número, dado, conversa.
-4. **Imagem IA** (Magnific, ~75 créditos) com zoom lento (`"de": "imagem"`) — só se nada acima servir.
-5. Vídeo IA (Magnific, ~140 créditos / 5 s) — último caso.
+## Referências reais e receita (antes de escrever o plano)
+- O `produzir` já baixa as **referências da notícia** para `public/midia/referencias/<pasta>/`
+  (manchete, site, data, capa, imagens da matéria, logos citados). Para um projeto antigo:
+  `node agente/referencias.mjs --ideia <id>` e `"referencias": "<pasta>"` no plano.
+- **Receita**: `node agente/receita.mjs sortear "projeto/<nome>.json"` sorteia legenda,
+  posição, música, zoom, paleta, entrada do b-roll e a cena de **abertura**, sem repetir
+  os dois últimos vídeos. O `aplicar` usa a receita e grava em `banco-cenas/receitas.json`
+  (`node agente/receita.mjs historico` mostra o que cada vídeo usou — é isso que se cruza
+  com visualizações e retenção). Siga a `abertura` e deixe as cores para a receita.
+- `transcricao` já mostra as referências e a receita junto das frases.
 
-Regras: alternar vídeo real e cena animada; trechos de 3–8 s; nunca inventar números
-(nada de porcentagem que a narração não disse); textos de cena com 2–5 palavras.
+## Ordem de preferência para cada trecho
+1. **Referência real** — a coisa de verdade de que a narração fala:
+   - `"tipo": "manchete"` — card da notícia (site, ícone, data e título vêm sozinhos das
+     referências; `destaques` passa o marca-texto; `"imagem": false` tira a capa).
+   - `"tipo": "print"` — imagem da matéria/produto com `recorte` (só o celular do print),
+     `foco` (para onde a câmera aproxima — use x baixo para não cortar o começo das linhas)
+     e `marca` (caixa em volta do que importa, em % da área mostrada). Confira com
+     `node render/render.mjs <projeto> --still <frame>` antes do render.
+   - `"tipo": "logos"` com os logos citados.
+2. Cena do **banco** (`"de": "banco", "id": "..."`) — grátis, padrão visual.
+3. Vídeo do **Pexels** (`"de": "pexels", "busca": "termos em inglês"`) — de preferência
+   como `fundo` das cenas, não como cena principal.
+4. Cena **Remotion** de texto (`frase`, `numero`, `celular`) — para dado, frase de efeito.
+5. **Imagem IA** (Magnific, ~75 créditos) com zoom lento (`"de": "imagem"`) — só se nada acima servir.
+6. Vídeo IA (Magnific, ~140 créditos / 5 s) — último caso.
+
+Regras: pelo menos metade das cenas com referência real quando a notícia tiver imagens;
+não repetir a sequência de cenas do vídeo anterior (o `aplicar` avisa); evitar `icones`
+(fraco) e `versus`; trechos de 3–8 s; nunca inventar números; textos de cena com 2–5 palavras.
 
 ## Formato do plano
 ```json

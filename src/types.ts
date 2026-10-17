@@ -280,7 +280,12 @@ export type TipoCenaRemotion =
   | 'rede'
   | 'celular'
   | 'frase'
-  | 'logos';
+  | 'logos'
+  | 'manchete'
+  | 'print';
+
+/** retângulo em % (0–100) de uma imagem ou da área mostrada */
+export type Retangulo = { x: number; y: number; w: number; h: number };
 
 export type CenaRemotion = {
   id: string;
@@ -312,5 +317,22 @@ export type CenaRemotion = {
   destaques?: string[];
   /** tema da cena no banco (ia, plano-saude...) */
   tema?: string;
+  /** 'manchete' e 'print': imagem real (dentro de public/) — capa da notícia, print do produto */
+  imagem?: string;
+  /** 'print': largura e altura da imagem em pixels (o aplicar-plano preenche) */
+  tamanho?: [number, number];
+  /** 'print': pedaço da imagem que aparece (ex.: só o celular no meio do print) */
+  recorte?: Retangulo;
+  /** 'print': ponto para onde a câmera aproxima, em % da área mostrada, e quanto aproxima */
+  foco?: { x: number; y: number; zoom?: number };
+  /** 'print': caixa desenhada em volta do que importa, em % da área mostrada */
+  marca?: Retangulo;
+  /** 'print': 'janela' põe a barra de navegador com `url`; 'nenhuma' deixa a imagem solta */
+  moldura?: 'cartao' | 'janela' | 'nenhuma';
+  url?: string;
+  /** 'manchete': nome do site, ícone do site (em public/) e data da notícia */
+  fonte?: string;
+  logo?: string;
+  data?: string;
 };
 

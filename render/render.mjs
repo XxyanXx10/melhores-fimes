@@ -223,8 +223,10 @@ if (still !== undefined) {
      * `x264Preset` com o NVENC. Desligada até alguém investigar o driver.
      * `x264Preset` só faz efeito no x264 (CPU) mesmo, então segue com ele.
      */
-    // "--gpu" liga a placa de vídeo (desenho e codificação) para tentar de novo
-    ...(process.argv.includes('--gpu')
+    // "--gpu" liga a placa de vídeo (desenho e codificação) para tentar de novo;
+    // "gpu": true no server/config.json liga sempre, inclusive no Exportar da
+    // plataforma — no PC com RTX 4060 funcionou, no notebook não
+    ...(process.argv.includes('--gpu') || cfg.gpu === true
       ? { hardwareAcceleration: 'if-possible', chromiumOptions: { gl: 'angle' } }
       : { hardwareAcceleration: 'disable', x264Preset: 'veryfast' }),
     imageFormat: 'jpeg',

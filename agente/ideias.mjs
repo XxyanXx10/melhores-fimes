@@ -17,6 +17,7 @@ import { RAIZ } from './banco-cenas.mjs';
 import { gerarNarracao } from './voz.mjs';
 import { gerarLoteDark } from './dark.mjs';
 import { alinharComRoteiro } from './alinhar.mjs';
+import { buscarReferencias, pastaDe } from './referencias.mjs';
 
 const ARQ = path.join(RAIZ, 'ideias', 'ideias.json');
 const ARQ_ESTILO = path.join(RAIZ, 'ideias', 'estilo-roteiro.md');
@@ -233,6 +234,12 @@ export async function produzir(ids, aoAndar = () => {}) {
         const proj = JSON.parse(await readFile(arqP, 'utf8'));
         const r = i.roteiro;
         proj.palavras = alinharComRoteiro(proj.palavras ?? [], `${r.gancho} ${r.desenvolvimento} ${r.cta}`);
+        // manchete, imagens da matéria e logos: o plano de cenas mostra a coisa de verdade
+        try {
+          proj.referencias = await buscarReferencias(i.link, pastaDe(r.titulo), `${r.gancho} ${r.desenvolvimento} ${r.cta}`);
+        } catch (e) {
+          proj.avisoReferencias = e.message;
+        }
         await writeFile(arqP, JSON.stringify(proj, null, 2), 'utf8');
         i.projeto = criado.arquivoProjeto;
         i.status = 'pendente-cenas';

@@ -5,7 +5,7 @@
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { RAIZ } from './banco-cenas.mjs';
 
@@ -31,8 +31,8 @@ export async function printDoSite(url, nome, { recorte = 0.62, novo = false } = 
     `--screenshot=${bruto}`, url,
   ], { stdio: 'ignore', timeout: 60000 });
   // recorta o topo com o ffmpeg (já instalado para a plataforma)
-  const altura = Math.round(960 * 2.5 * recorte);
-  execFileSync('python', ['-c', `from PIL import Image\nim=Image.open(r'${bruto}');im.crop((0,0,im.width,${altura})).save(r'${final}')`]);
+  const cfg = JSON.parse((await readFile(path.join(RAIZ, 'server', 'config.json'), 'utf8')).replace(/^﻿/, ''));
+  execFileSync(cfg.ffmpeg || 'ffmpeg', ['-v', 'error', '-y', '-i', bruto, '-vf', `crop=iw:ih*${recorte}:0:0`, final]);
   return `midia/banco/prints/${nome}.png`;
 }
 

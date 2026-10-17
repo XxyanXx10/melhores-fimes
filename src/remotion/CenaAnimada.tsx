@@ -1,6 +1,7 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import type { CenaRemotion } from '../types';
 import { CenaCelular, CenaFrase, CenaLogos, CenaGrafico, CenaIcones, CenaNumero, CenaRede } from './CenasExtras';
+import { CenaManchete, CenaPrint } from './CenasReferencia';
 
 type Props = {
   cena: CenaRemotion;
@@ -127,6 +128,8 @@ export function CenaAnimada({ cena, largura }: Props) {
         {cena.tipo === 'grafico' && <CenaGrafico cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'icones' && <CenaIcones cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'rede' && <CenaRede cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
+        {cena.tipo === 'manchete' && <CenaManchete cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
+        {cena.tipo === 'print' && <CenaPrint cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'versus' && (
           <CenaVersus
             cena={cena}
