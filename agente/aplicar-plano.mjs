@@ -360,7 +360,10 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
     pausasMusica.push({ start: Math.max(0, +(v.inicio - 0.05).toFixed(2)), duracao: +(v.duracao + 0.15).toFixed(2), volume: 0 });
   }
   if (plano.fundoAnimado) {
-    cenas.unshift({ id: 'pl-fundo', tipo: 'fundo', start: 0, duracao: projeto.duracao, titulo: '', itens: [], destaque: receita.cores?.[0], subtitulo: receita.cores?.[1] ?? '#0ea5e9', tema });
+    // "fundoAnimado": true (manchas) ou o nome do desenho: synthwave, listras, bokeh, pontos, codigo
+    const estiloFundo = typeof plano.fundoAnimado === 'string' ? plano.fundoAnimado : 'manchas';
+    receita.fundo = estiloFundo;
+    cenas.unshift({ id: 'pl-fundo', tipo: 'fundo', estilo: estiloFundo, start: 0, duracao: projeto.duracao, titulo: '', itens: [], destaque: receita.cores?.[0], subtitulo: receita.cores?.[1] ?? '#0ea5e9', tema });
   }
 
   projeto.cenasRemotion = cenas.sort((a, b) => (a.tipo === 'fundo' ? -1 : b.tipo === 'fundo' ? 1 : a.start - b.start));

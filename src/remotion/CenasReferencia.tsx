@@ -255,14 +255,16 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
   const [esq, dir] = cena.imagens ?? [];
   const revelaEm = Math.round((cena.revelar ?? 3) * fps);
   const revelado = frame >= revelaEm;
+  // uma foto só: a resposta é 'ia' ou 'real' e a foto ocupa o lugar das duas
+  const unica = (cena.imagens ?? []).length === 1;
   const ehIA = (lado: 'esquerda' | 'direita') =>
-    cena.resposta === 'ambas' || cena.resposta === lado;
+    unica ? cena.resposta === 'ia' : cena.resposta === 'ambas' || cena.resposta === lado;
   const restante = Math.max(0, revelaEm - frame) / fps;
   // a voz conta "três… dois… um" no último segundo e meio: o número acompanha a fala, não o tempo todo
   const numero = restante > 1.55 ? 3 : restante > 0.75 ? 2 : 1;
   const anel = revelado ? 0 : restante / (cena.revelar ?? 3);
   const pulso = spring({ frame: frame - revelaEm, fps, config: { damping: 9, stiffness: 180 } });
-  const largura = 452 * escala;
+  const largura = (unica ? 680 : 452) * escala;
   const foto = (src: string | undefined, lado: 'esquerda' | 'direita', i: number) => {
     const entra = spring({ frame: frame - i * 5, fps, config: { damping: 13, stiffness: 140 } });
     const ia = ehIA(lado);
@@ -284,7 +286,7 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
       >
         {src && <Img src={fonteDe(src)} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: revelado && !ia ? 'saturate(1.1)' : undefined }} />}
         <div style={{ position: 'absolute', left: 14 * escala, top: 12 * escala, fontSize: 40 * escala, fontWeight: 900, color: '#fff', textShadow: '0 3px 12px rgba(0,0,0,.9)' }}>
-          {lado === 'esquerda' ? 'A' : 'B'}
+          {unica ? '' : lado === 'esquerda' ? 'A' : 'B'}
         </div>
         {revelado && (
           <div
@@ -321,7 +323,7 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
       )}
       <div style={{ display: 'flex', gap: 22 * escala }}>
         {foto(esq, 'esquerda', 0)}
-        {foto(dir, 'direita', 1)}
+        {!unica && foto(dir, 'direita', 1)}
       </div>
       <div style={{ marginTop: 34 * escala, height: 170 * escala, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {!revelado ? (
@@ -331,7 +333,7 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
               <circle cx="80" cy="80" r={raio} fill="none" stroke={cena.destaque || '#ffd60a'} strokeWidth="10" strokeLinecap="round" strokeDasharray={volta} strokeDashoffset={volta * (1 - anel)} />
             </svg>
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 92 * escala, fontWeight: 900, color: '#fff' }}>
-              {numero}
+              {unica ? '?' : numero}
             </div>
           </div>
         ) : (
@@ -349,7 +351,7 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
  * (imagem aleatória atrás de tudo cansa). Manchas de luz grandes que andam devagar,
  * uma grade sutil e vinheta. Só gradiente: leve para o render.
  */
-export function FundoAnimado({ cena, frame, fps }: { cena: CenaRemotion; frame: number; fps: number }) {
+function FundoManchas({ cena, frame, fps }: { cena: CenaRemotion; frame: number; fps: number }) {
   const [a, b] = [cena.destaque || '#7c3aed', cena.subtitulo || '#0ea5e9'];
   const t = frame / fps;
   const mancha = (cor: string, x: number, y: number, tam: number) =>
@@ -382,4 +384,107 @@ export function FundoAnimado({ cena, frame, fps }: { cena: CenaRemotion; frame: 
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.75) 100%)' }} />
     </div>
   );
+}
+
+type PF = { cena: CenaRemotion; frame: number; fps: number };
+const BASE_ESCURA = 'linear-gradient(180deg, #05060b 0%, #0a0c15 55%, #040509 100%)';
+const vinheta = <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.78) 100%)' }} />;
+
+/** "synthwave": céu roxo, sol listrado no horizonte e grade em perspectiva vindo na direção de quem assiste */
+function FundoSynthwave({ cena, frame, fps }: PF) {
+  const a = cena.destaque || '#ec4899';
+  const b = cena.subtitulo || '#8b5cf6';
+  const anda = ((frame / fps) * 60) % 80;
+  return (
+    <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, #07031a 0%, #1a0b3d 40%, ${b}55 56%, #05020f 57%)` }}>
+      <div style={{ position: 'absolute', left: '50%', top: '40%', width: 520, height: 520, transform: 'translate(-50%,-50%)', borderRadius: '50%', background: `linear-gradient(180deg, #ffd166 0%, ${a} 70%)`, opacity: 0.55,
+        maskImage: 'repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 36px)', WebkitMaskImage: 'repeating-linear-gradient(180deg, #000 0 26px, transparent 26px 36px)' }} />
+      <div style={{ position: 'absolute', left: '-50%', right: '-50%', top: '57%', height: '60%', transformOrigin: 'top', transform: 'perspective(500px) rotateX(62deg)',
+        backgroundImage: `linear-gradient(${a}cc 2px, transparent 2px), linear-gradient(90deg, ${a}cc 2px, transparent 2px)`, backgroundSize: '80px 80px', backgroundPosition: `0 ${anda}px`, opacity: 0.55 }} />
+      <div style={{ position: 'absolute', left: 0, right: 0, top: '56.4%', height: 4, background: a, boxShadow: `0 0 30px 8px ${a}` , opacity: 0.8 }} />
+      {vinheta}
+    </div>
+  );
+}
+
+/** "listras": faixas diagonais nas cores da receita andando devagar (pop, cômico) */
+function FundoListras({ cena, frame, fps }: PF) {
+  const a = cena.destaque || '#f5b301';
+  const b = cena.subtitulo || '#ec4899';
+  const anda = ((frame / fps) * 40) % 226;
+  return (
+    <div style={{ position: 'absolute', inset: 0, background: BASE_ESCURA }}>
+      <div style={{ position: 'absolute', inset: '-20%', opacity: 0.22,
+        backgroundImage: `repeating-linear-gradient(45deg, ${a} 0 80px, transparent 80px 160px, ${b} 160px 240px, transparent 240px 320px)`, backgroundPosition: `${anda}px 0`, backgroundSize: '452px 452px' }} />
+      {vinheta}
+    </div>
+  );
+}
+
+/** "bokeh": bolhas de luz desfocadas subindo devagar */
+function FundoBokeh({ cena, frame, fps }: PF) {
+  const a = cena.destaque || '#22c55e';
+  const b = cena.subtitulo || '#38bdf8';
+  const t = frame / fps;
+  const bolhas = Array.from({ length: 16 }, (_, i) => {
+    const semente = (i * 9301 + 49297) % 233280 / 233280;
+    const x = (i * 37 + 11) % 100;
+    const tam = 120 + ((i * 53) % 220);
+    const y = 110 - (((t * (6 + (i % 5) * 2) + i * 23) % 140));
+    const cor = i % 2 ? a : b;
+    return <div key={i} style={{ position: 'absolute', left: `${x}%`, top: `${y}%`, width: tam, height: tam, transform: 'translate(-50%,-50%)', borderRadius: '50%',
+      background: `radial-gradient(circle, ${cor}${semente > 0.5 ? '55' : '33'} 0%, ${cor}11 55%, transparent 70%)` }} />;
+  });
+  return (
+    <div style={{ position: 'absolute', inset: 0, background: BASE_ESCURA, overflow: 'hidden' }}>
+      {bolhas}
+      {vinheta}
+    </div>
+  );
+}
+
+/** "pontos": retícula de meio-tom (cara de jornal/gibi) sobre manchas de luz */
+function FundoPontos({ cena, frame, fps }: PF) {
+  const a = cena.destaque || '#f5b301';
+  const t = frame / fps;
+  return (
+    <div style={{ position: 'absolute', inset: 0 }}>
+      <FundoManchas cena={cena} frame={frame} fps={fps} />
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.18,
+        backgroundImage: `radial-gradient(circle, ${a} 2.5px, transparent 3px)`, backgroundSize: '26px 26px', backgroundPosition: `${(t * 6) % 26}px ${(t * 3) % 26}px` }} />
+      {vinheta}
+    </div>
+  );
+}
+
+/** "codigo": colunas de caracteres caindo (o mundo visto de dentro da IA) */
+function FundoCodigo({ cena, frame, fps }: PF) {
+  const a = cena.destaque || '#22c55e';
+  const t = frame / fps;
+  const simbolos = '01アイウエオカキクケコ{}<>/=+*#$%&ABCDEF';
+  const colunas = Array.from({ length: 22 }, (_, c) => {
+    const vel = 60 + ((c * 37) % 90);
+    const texto = Array.from({ length: 28 }, (_, k) => simbolos[(c * 7 + k * 13) % simbolos.length]).join('\n');
+    const y = ((t * vel + c * 140) % 2600) - 1300;
+    return <div key={c} style={{ position: 'absolute', left: `${(c / 22) * 100 + 1}%`, top: y, whiteSpace: 'pre', fontFamily: 'monospace', fontSize: 34, lineHeight: 1.25,
+      color: a, opacity: 0.18 + ((c * 17) % 10) / 40, textShadow: `0 0 8px ${a}` }}>{texto}</div>;
+  });
+  return (
+    <div style={{ position: 'absolute', inset: 0, background: BASE_ESCURA, overflow: 'hidden' }}>
+      {colunas}
+      {vinheta}
+    </div>
+  );
+}
+
+/** Fundo animado do vídeo inteiro; `cena.estilo` escolhe o desenho (padrão: manchas de luz). */
+export function FundoAnimado(p: PF) {
+  switch (p.cena.estilo) {
+    case 'synthwave': return <FundoSynthwave {...p} />;
+    case 'listras': return <FundoListras {...p} />;
+    case 'bokeh': return <FundoBokeh {...p} />;
+    case 'pontos': return <FundoPontos {...p} />;
+    case 'codigo': return <FundoCodigo {...p} />;
+    default: return <FundoManchas {...p} />;
+  }
 }

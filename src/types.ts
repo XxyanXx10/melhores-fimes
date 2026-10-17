@@ -335,8 +335,11 @@ export type CenaRemotion = {
   url?: string;
   /** 'quiz' ("Real ou IA?"): as duas fotos (esquerda, direita), qual é IA e quando revela (s desde o início da cena) */
   imagens?: string[];
-  resposta?: 'esquerda' | 'direita' | 'ambas' | 'nenhuma';
+  /** 'ia' / 'real': quiz de uma foto só */
+  resposta?: 'esquerda' | 'direita' | 'ambas' | 'nenhuma' | 'ia' | 'real';
   revelar?: number;
+  /** 'fundo': desenho do fundo animado */
+  estilo?: 'manchas' | 'synthwave' | 'listras' | 'bokeh' | 'pontos' | 'codigo';
   /** 'manchete': nome do site, ícone do site (em public/) e data da notícia */
   fonte?: string;
   logo?: string;

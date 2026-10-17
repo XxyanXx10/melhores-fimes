@@ -94,7 +94,8 @@ export function aplicarReceita(projeto, receita) {
 /** guarda no histórico o que este vídeo usou (receita + sequência de cenas) */
 export async function registrar(projeto, origem) {
   const historico = (await lerHistorico()).filter((h) => h.projeto !== origem);
-  const sequencia = (projeto.cenasRemotion ?? []).map((c) => c.tipo);
+  // o fundo animado não é cena: fica fora da comparação de sequência
+  const sequencia = (projeto.cenasRemotion ?? []).filter((c) => c.tipo !== 'fundo').map((c) => c.tipo);
   // compara com o vídeo anterior de verdade, não com uma aplicação antiga deste mesmo
   const anterior = historico.filter((h) => h.projeto !== projeto.arquivo && h.sequencia?.length).at(-1);
   const avisos = [];
