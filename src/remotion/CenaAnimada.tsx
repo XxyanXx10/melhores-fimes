@@ -1,7 +1,7 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import type { CenaRemotion } from '../types';
 import { CenaCelular, CenaFrase, CenaLogos, CenaGrafico, CenaIcones, CenaNumero, CenaRede } from './CenasExtras';
-import { CenaManchete, CenaPrint } from './CenasReferencia';
+import { CenaManchete, CenaPrint, CenaQuiz, FundoAnimado } from './CenasReferencia';
 
 type Props = {
   cena: CenaRemotion;
@@ -31,6 +31,9 @@ export function CenaAnimada({ cena, largura }: Props) {
   const deslizeY = interpolate(entrada, [0, 1], [36 * escalaBase, 0]);
 
   const corDestaque = cena.destaque || '#10a37f';
+
+  // o fundo animado ocupa a tela toda, sem a moldura e a entrada das cenas
+  if (cena.tipo === 'fundo') return <AbsoluteFill><FundoAnimado cena={cena} frame={frame} fps={fps} /></AbsoluteFill>;
 
   // Progresso normalizado de 0 a 1 durante a cena (para digitação e barras)
   const progressoCena = interpolate(
@@ -130,6 +133,7 @@ export function CenaAnimada({ cena, largura }: Props) {
         {cena.tipo === 'rede' && <CenaRede cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'manchete' && <CenaManchete cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'print' && <CenaPrint cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
+        {cena.tipo === 'quiz' && <CenaQuiz cena={cena} frame={frame} fps={fps} escala={escalaBase} progresso={progressoCena} />}
         {cena.tipo === 'versus' && (
           <CenaVersus
             cena={cena}

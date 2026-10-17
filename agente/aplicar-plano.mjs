@@ -39,6 +39,29 @@ function frases(palavras) {
   return out;
 }
 
+/* efeitos de meme: "faahhhhh", "bruh-sound-effect"… (public/midia/sfx-meme/catalogo.json) */
+const ARQ_SFX = path.join(RAIZ, 'public', 'midia', 'sfx-meme', 'catalogo.json');
+const CATALOGO_SFX = existsSync(ARQ_SFX) ? JSON.parse(await readFile(ARQ_SFX, 'utf8')) : {};
+
+/**
+ * "sfx" de uma cena: "faahhhhh" ou { "nome": "faahhhhh", "em": 1.2, "volume": 0.8, "pausa": 1 }.
+ * "em" é quando toca (segundos depois do início da cena); "pausa" cala a música por
+ * esse tempo — a piada respira e o efeito aparece sozinho.
+ */
+function efeitoDeMeme(id, start, sfx, avisos) {
+  const cfgSfx = typeof sfx === 'string' ? { nome: sfx } : sfx;
+  const item = CATALOGO_SFX[cfgSfx.nome];
+  if (!item) {
+    avisos.push(`efeito "${cfgSfx.nome}" não está no catálogo — pulei`);
+    return null;
+  }
+  const t = +(start + (cfgSfx.em ?? 0)).toFixed(2);
+  return {
+    som: { id, src: item.src, nome: cfgSfx.nome, tipo: 'efeito', start: t, duracao: Math.min(item.duracao, cfgSfx.max ?? 4), volume: cfgSfx.volume ?? 0.75, fadeIn: 0, fadeOut: 0.2, repetir: false },
+    pausa: cfgSfx.pausa ? { start: Math.max(0, +(t - 0.08).toFixed(2)), duracao: cfgSfx.pausa, volume: 0.04 } : null,
+  };
+}
+
 function somDeEntrada(id, start, tipo) {
   const whoosh = tipo !== 'numero' && tipo !== 'icones';
   return {
@@ -61,11 +84,71 @@ function tamanhoDaImagem(cfg, midia) {
   return saida.toString().trim().split(',').map(Number);
 }
 
+/**
+ * "respiros": [{ "depoisDe": 26.2, "duracao": 1.5, "sfx": "faahhhhh" }]
+ * Silêncio de verdade na narração depois da piada (sem voz e sem música), para a
+ * pessoa entender e rir; o efeito toca sozinho nesse vão. Os tempos do plano são
+ * os da transcrição original: tudo que vem depois de cada respiro anda junto.
+ * Gera um vídeo base novo (fundo escuro + narração com os vãos).
+ */
+async function inserirRespiros(cfg, projeto, respiros, avisos) {
+  // "depoisDe": "pizza." = logo depois dessa palavra (o fim dela na transcrição), sem cortar a fala
+  const norm = (w) => String(w).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+  for (const r of respiros) {
+    if (typeof r.depoisDe !== 'string') continue;
+    const w = (projeto.palavras ?? []).find((x) => norm(x.text) === norm(r.depoisDe));
+    if (!w) avisos.push(`respiro: não achei a palavra "${r.depoisDe}"`);
+    r.depoisDe = w ? +(w.end + 0.05).toFixed(2) : Infinity;
+  }
+  const lista = respiros.filter((r) => Number.isFinite(r.depoisDe)).sort((a, b) => a.depoisDe - b.depoisDe);
+  const mapear = (t) => t + lista.filter((r) => t >= r.depoisDe).reduce((acc, r) => acc + r.duracao, 0);
+  const partes = [];
+  const fontes = [];
+  let cursor = 0;
+  lista.forEach((r, k) => {
+    fontes.push(`[0:a]atrim=start=${cursor}:end=${r.depoisDe},asetpts=PTS-STARTPTS[p${k}]`);
+    fontes.push(`aevalsrc=0|0:d=${r.duracao}:s=48000:c=stereo[s${k}]`);
+    partes.push(`[p${k}]`, `[s${k}]`);
+    cursor = r.depoisDe;
+  });
+  fontes.push(`[0:a]atrim=start=${cursor},asetpts=PTS-STARTPTS[fim]`);
+  partes.push('[fim]');
+  const n = partes.length;
+  const largura = projeto.largura ?? 1080;
+  const altura = projeto.altura ?? 1920;
+  const duracao = +(projeto.duracao + lista.reduce((a, r) => a + r.duracao, 0)).toFixed(2);
+  const saida = path.join(RAIZ, 'render', '.fontes', 'dark', `${path.basename(projeto.video, '.mp4').slice(0, 50)}-respiros-${Date.now()}.mp4`);
+  // pré-formata cada pedaço igual (48 kHz estéreo) para o concat aceitar
+  const filtro = [
+    ...fontes.map((x) => (x.startsWith('[0:a]') ? x.replace(/\[(\w+)\]$/, ',aformat=sample_rates=48000:channel_layouts=stereo[$1]') : x)),
+    `${partes.join('')}concat=n=${n}:v=0:a=1[aout]`,
+  ].join(';');
+  execFileSync(cfg.ffmpeg, [
+    '-v', 'error', '-y', '-i', projeto.video,
+    '-f', 'lavfi', '-i', `color=c=#080b12:s=${largura}x${altura}:r=${projeto.fps ?? 30}:d=${duracao}`,
+    '-filter_complex', filtro, '-map', '1:v:0', '-map', '[aout]',
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-c:a', 'aac', '-b:a', '192k', '-t', String(duracao), '-movflags', '+faststart', saida,
+  ]);
+  projeto.video = saida;
+  projeto.nome = path.basename(saida);
+  projeto.duracao = duracao;
+  projeto.palavras = (projeto.palavras ?? []).map((w) => ({ ...w, start: +mapear(w.start).toFixed(3), end: +mapear(w.start).toFixed(3) + (w.end - w.start) }));
+  // a frase depois do respiro começa bloco novo: a legenda não mostra o que vem antes da hora
+  for (const r of lista) {
+    const prox = projeto.palavras.find((w) => w.start >= mapear(r.depoisDe) - 0.01);
+    if (prox) prox.quebra = 'aqui';
+  }
+  // onde começa cada vão, já no tempo novo
+  const vaos = lista.map((r, k) => ({ ...r, inicio: +(r.depoisDe + lista.slice(0, k).reduce((a, x) => a + x.duracao, 0)).toFixed(2) }));
+  return { mapear, vaos };
+}
+
 async function aplicar(arqProjeto, arqPlano, arqSaida) {
   const projeto = JSON.parse(await readFile(arqProjeto, 'utf8'));
   const plano = JSON.parse(await readFile(arqPlano, 'utf8'));
   const banco = await lerBanco();
   const tema = plano.tema ?? 'geral';
+  const avisos = [];
   const cfg = await lerConfig();
   // "referencias": pasta de public/midia/referencias (o produzir já grava isto no projeto)
   if (plano.referencias) {
@@ -77,6 +160,23 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   const saidaPrevista = arqSaida ?? arqProjeto.replace(/.json$/, ' (plano).json');
   const receitaAnterior = existsSync(saidaPrevista) ? JSON.parse(await readFile(saidaPrevista, 'utf8')).receita : undefined;
   const receita = projeto.receita ?? receitaAnterior ?? (await sortearReceita());
+  let vaos = [];
+  if (plano.respiros?.length) {
+    const r = await inserirRespiros(cfg, projeto, plano.respiros, avisos);
+    vaos = r.vaos;
+    for (const c of plano.cenas ?? []) {
+      const ini = +c.start;
+      const fimOrig = c.fim !== undefined ? +c.fim : ini + +(c.duracao ?? 4);
+      // efeito dentro da cena: o instante absoluto anda com o resto
+      const remapearSfx = (x) => (typeof x === 'string' || x.em === undefined ? x : { ...x, em: +(r.mapear(ini + x.em) - r.mapear(ini)).toFixed(2) });
+      if (c.sfx) c.sfx = Array.isArray(c.sfx) ? c.sfx.map(remapearSfx) : remapearSfx(c.sfx);
+      c.start = +r.mapear(ini).toFixed(2);
+      // a cena que termina no respiro (ou o atravessa) fica na tela durante o vão
+      c.fim = +(fimOrig + (plano.respiros ?? []).filter((x) => fimOrig >= x.depoisDe).reduce((a, x) => a + x.duracao, 0)).toFixed(2);
+      delete c.duracao;
+    }
+    for (const p of plano.pausas ?? []) p.em = +r.mapear(p.em).toFixed(2);
+  }
 
   let cenas = projeto.cenasRemotion ?? [];
   let fotos = projeto.fotos ?? [];
@@ -89,8 +189,8 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   }
 
   const usados = [];
+  const pausasMusica = [];
   const pexelsUsados = new Set();
-  const avisos = [];
   for (const [i, c] of (plano.cenas ?? []).entries()) {
     const start = +c.start;
     const fim = c.fim !== undefined ? +c.fim : start + +(c.duracao ?? 4);
@@ -178,7 +278,8 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
       }
       cenas.push(cena);
       // "fundo": vídeo que continua passando atrás da cena (busca no Pexels, id do banco ou mídia)
-      if (fundo) {
+      // com "fundoAnimado" no plano, só entra o fundo marcado com "manter": o resto é o fundo animado
+      if (fundo && (!plano.fundoAnimado || fundo.manter)) {
         let midiaFundo = fundo.midia;
         if (fundo.id) midiaFundo = banco.cenas.find((x) => x.id === fundo.id)?.midia;
         if (!midiaFundo && fundo.busca) {
@@ -225,7 +326,15 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
       continue;
     }
 
-    if (plano.sons !== false && c.som !== false) sons.push(somDeEntrada(`pl-s${i}`, start, corpo.tipo));
+    // efeito de meme no lugar do whoosh/pop padrão
+    const listaSfx = c.sfx ? (Array.isArray(c.sfx) ? c.sfx : [c.sfx]) : [];
+    for (const [k, sfx] of listaSfx.entries()) {
+      const e = efeitoDeMeme(`pl-m${i}-${k}`, start, sfx, avisos);
+      if (!e) continue;
+      sons.push(e.som);
+      if (e.pausa) pausasMusica.push(e.pausa);
+    }
+    if (!listaSfx.length && plano.sons !== false && c.som !== false) sons.push(somDeEntrada(`pl-s${i}`, start, corpo.tipo));
 
     if (c.banco && c.de !== 'banco' && c.de !== 'pexels' && c.de !== 'print') {
       const novo = await adicionarAoBanco({
@@ -242,14 +351,34 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
     }
   }
   if (usados.length) await marcarUso(usados);
+  for (const [k, v] of vaos.entries()) {
+    if (v.sfx) {
+      const e = efeitoDeMeme(`pl-r${k}`, v.inicio, typeof v.sfx === 'string' ? { nome: v.sfx } : v.sfx, avisos);
+      if (e) sons.push(e.som);
+    }
+    // vão sem música nenhuma (um respiro de 0,15 s a mais para a música voltar macia)
+    pausasMusica.push({ start: Math.max(0, +(v.inicio - 0.05).toFixed(2)), duracao: +(v.duracao + 0.15).toFixed(2), volume: 0 });
+  }
+  if (plano.fundoAnimado) {
+    cenas.unshift({ id: 'pl-fundo', tipo: 'fundo', start: 0, duracao: projeto.duracao, titulo: '', itens: [], destaque: receita.cores?.[0], subtitulo: receita.cores?.[1] ?? '#0ea5e9', tema });
+  }
 
-  projeto.cenasRemotion = cenas.sort((a, b) => a.start - b.start);
+  projeto.cenasRemotion = cenas.sort((a, b) => (a.tipo === 'fundo' ? -1 : b.tipo === 'fundo' ? 1 : a.start - b.start));
   projeto.fotos = fotos.sort((a, b) => a.start - b.start);
   projeto.sons = sons.sort((a, b) => a.start - b.start);
   // o plano pode fixar legenda e posição; o resto vem da receita sorteada
   if (plano.template) receita.template = plano.template;
   if (plano.legendaY) receita.legendaY = plano.legendaY;
+  // "musica": { "src": "midia/musicas/x.mp3", "volume": 0.12 } troca a trilha; false tira a música
+  if (plano.musica === false) receita.musica = null;
+  else if (plano.musica?.src) receita.musica = plano.musica.src;
   aplicarReceita(projeto, receita);
+  if (plano.musica === false) projeto.sons = projeto.sons.filter((x) => x.tipo !== 'musica');
+  for (const m of projeto.sons.filter((x) => x.tipo === 'musica')) {
+    m.volume = plano.musica?.volume ?? Math.min(m.volume ?? 0.07, 0.07);
+    // "pausas": [{ "em": 6.4, "duracao": 0.8 }] + as pausas dos efeitos: a música cala e volta
+    m.quedas = [...pausasMusica, ...(plano.pausas ?? []).map((p) => ({ start: p.em, duracao: p.duracao ?? 0.8, volume: p.volume ?? 0.04 }))];
+  }
   // "corrigir": { "pergonto.": "perguntas." } troca palavras erradas da transcrição
   // "corrigirIndice": { "7": "a", "78": null } troca (ou apaga, com null) a palavra pela posição
   if (plano.corrigirIndice && projeto.palavras) {

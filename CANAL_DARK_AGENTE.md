@@ -43,6 +43,35 @@ Regras: pelo menos metade das cenas com referência real quando a notícia tiver
 não repetir a sequência de cenas do vídeo anterior (o `aplicar` avisa); evitar `icones`
 (fraco) e `versus`; trechos de 3–8 s; nunca inventar números; textos de cena com 2–5 palavras.
 
+## Formatos além de notícia (roteiro livre)
+`node agente/roteiro-livre.mjs ideias/roteiros-livres/<x>.json` — `{ "titulo", "formato", "texto" }`
+→ voz, vídeo base e legenda com o texto exato; depois aparece em `pendentes`.
+Formatos testados: `real-ou-ia` (cena `quiz`), `pedi-pra-ia` (imagens geradas em tela cheia),
+`vexame`, `lista-util`, `noticia-opiniao`, `pov`. Roteiro engraçado, falado, 60–90 palavras,
+pergunta no fim. Imagens geradas ficam em `public/midia/formatos/`.
+
+## Som: trilha, efeitos de meme e pausas
+- Trilhas em `public/midia/musicas/` (geradas, sem direito autoral). No plano:
+  `"musica": { "src": "midia/musicas/comedia-travessa.mp3", "volume": 0.14 }` ou `"musica": false`.
+- Efeitos em `public/midia/sfx-meme/` (catálogo em `catalogo.json`: faahhhhh, bruh-sound-effect,
+  awww, illuminati-confirmed, cash-register-3, lie-detector-meme-template…). Na cena:
+  `"sfx": "pop"` ou `{ "nome": "faahhhhh", "em": 2.6, "max": 1.6, "volume": 0.8, "pausa": 1.2 }`
+  (`em` = segundos depois do início da cena, `pausa` = a música cala durante a piada). Lista = vários.
+- `"pausas": [{ "em": 6.4, "duracao": 0.8 }]` cala a música num ponto sem efeito.
+- Efeito vai DEPOIS da frase da piada (no respiro), nunca por cima da fala importante.
+
+## Respiros (o tempo pra pessoa entender e rir)
+`"respiros": [{ "depoisDe": "pizza.", "duracao": 1.7, "sfx": "faahhhhh" }]` — silêncio de verdade
+inserido na narração (sem voz e sem música) logo depois da palavra; o efeito toca sozinho no vão.
+Os tempos do plano continuam os da transcrição original: cenas, efeitos e legenda depois do
+respiro andam juntos, a cena da piada fica na tela durante o vão e a frase seguinte começa
+bloco novo na legenda. Use depois de cada piada e entre os itens de uma lista (0,7–1,7 s).
+
+## Fundo
+`"fundoAnimado": true` — fundo animado nas cores da receita atrás das cenas, no lugar do b-roll
+genérico (imagem aleatória atrás de tudo cansa). Com ele, o `fundo` de uma cena só entra se tiver
+`"manter": true` (quando o vídeo de fundo é do assunto mesmo). Música padrão: volume 0,07.
+
 ## Formato do plano
 ```json
 {
@@ -59,7 +88,8 @@ não repetir a sequência de cenas do vídeo anterior (o `aplicar` avisa); evita
   ]
 }
 ```
-Tipos Remotion: `chatgpt` (promptUsuario, respostaIa), `checklist`, `icones` (icones[]), `rede` (icones[]),
+Tipos Remotion: `quiz` (imagens [esq, dir], resposta esquerda|direita|ambas, revelar em s),
+`chatgpt` (promptUsuario, respostaIa), `checklist`, `icones` (icones[]), `rede` (icones[]),
 `numero` (valor: "11%"), `grafico` (valores[], rotulosValor[]), `contexto-ia`, `privacidade`, `codigo`.
 Evitar `versus` (mostra porcentagens fictícias).
 

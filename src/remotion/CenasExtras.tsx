@@ -34,7 +34,9 @@ export function CenaNumero({ cena, frame, fps, escala }: P) {
   if (m) {
     const n = parseFloat(m[2].replace(/\./g, '').replace(',', '.'));
     const casas = (m[2].split(',')[1] ?? '').length;
-    const atual = (n * p).toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas });
+    // "2027" escrito sem ponto (ano) continua sem ponto; "2.400" ganha o ponto de milhar
+    const comMilhar = /\./.test(m[2]) || n >= 10000;
+    const atual = (n * p).toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas, useGrouping: comMilhar });
     texto = `${m[1]}${atual}${m[3]}`;
   }
   const pulso = 1 + 0.04 * Math.sin(frame / 6) * p;
@@ -189,13 +191,15 @@ export function CenaCelular({ cena, frame, fps, escala, progresso }: P) {
 export function CenaFrase({ cena, frame, fps, escala }: P) {
   const cor = cena.destaque || '#f5b301';
   const palavras = cena.titulo.split(/\s+/).filter(Boolean);
-  const marcar = new Set((cena.destaques ?? []).map((x) => x.toLowerCase()));
+  // "IA?" e "IA" valem igual: a pontuação sai dos dois lados
+  const limpa = (x: string) => x.toLowerCase().replace(/[.,!?:;…]/g, '');
+  const marcar = new Set((cena.destaques ?? []).map(limpa));
   return (
     <div style={{ textAlign: 'center', padding: `0 ${20 * escala}px` }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: `${10 * escala}px ${26 * escala}px` }}>
         {palavras.map((w, i) => {
           const e = spring({ frame: frame - 4 - i * 5, fps, config: { damping: 10, stiffness: 160 } });
-          const quente = marcar.has(w.toLowerCase().replace(/[.,!?:]/g, ''));
+          const quente = marcar.has(limpa(w));
           // palavra comprida ("desligamento") encolhe para caber na largura (~0,72 em por letra em caixa alta)
           const cabe = 960 / (0.72 * Math.max(1, w.length));
           return (

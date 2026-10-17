@@ -246,3 +246,139 @@ export function CenaPrint({ cena, frame, fps, escala, progresso }: P) {
     </div>
   );
 }
+
+/**
+ * "Real ou IA?": duas fotos lado a lado, contagem 3-2-1 com um anel que
+ * esvazia e, no `revelar`, o carimbo em cada foto (IA em vermelho, REAL em verde).
+ */
+export function CenaQuiz({ cena, frame, fps, escala }: P) {
+  const [esq, dir] = cena.imagens ?? [];
+  const revelaEm = Math.round((cena.revelar ?? 3) * fps);
+  const revelado = frame >= revelaEm;
+  const ehIA = (lado: 'esquerda' | 'direita') =>
+    cena.resposta === 'ambas' || cena.resposta === lado;
+  const restante = Math.max(0, revelaEm - frame) / fps;
+  const numero = Math.min(3, Math.ceil((restante / ((cena.revelar ?? 3) || 1)) * 3));
+  const anel = revelado ? 0 : restante / (cena.revelar ?? 3);
+  const pulso = spring({ frame: frame - revelaEm, fps, config: { damping: 9, stiffness: 180 } });
+  const largura = 452 * escala;
+  const foto = (src: string | undefined, lado: 'esquerda' | 'direita', i: number) => {
+    const entra = spring({ frame: frame - i * 5, fps, config: { damping: 13, stiffness: 140 } });
+    const ia = ehIA(lado);
+    const cor = ia ? '#ff3b4d' : '#22c55e';
+    return (
+      <div
+        key={lado}
+        style={{
+          position: 'relative',
+          width: largura,
+          height: largura * (4 / 3),
+          borderRadius: 26 * escala,
+          overflow: 'hidden',
+          border: `${6 * escala}px solid ${revelado ? cor : 'rgba(255,255,255,.9)'}`,
+          boxShadow: revelado ? `0 0 ${50 * escala}px ${cor}aa` : `0 ${24 * escala}px ${60 * escala}px rgba(0,0,0,.6)`,
+          transform: `translateY(${interpolate(entra, [0, 1], [80 * escala, 0])}px) rotate(${(lado === 'esquerda' ? -2 : 2) * (1 - entra)}deg)`,
+          opacity: Math.min(1, entra * 1.3),
+        }}
+      >
+        {src && <Img src={fonteDe(src)} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: revelado && !ia ? 'saturate(1.1)' : undefined }} />}
+        <div style={{ position: 'absolute', left: 14 * escala, top: 12 * escala, fontSize: 40 * escala, fontWeight: 900, color: '#fff', textShadow: '0 3px 12px rgba(0,0,0,.9)' }}>
+          {lado === 'esquerda' ? 'A' : 'B'}
+        </div>
+        {revelado && (
+          <div
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: `translate(-50%,-50%) rotate(-12deg) scale(${interpolate(pulso, [0, 1], [2.2, 1])})`,
+              opacity: Math.min(1, pulso * 2),
+              padding: `${8 * escala}px ${26 * escala}px`,
+              border: `${7 * escala}px solid ${cor}`,
+              borderRadius: 14 * escala,
+              color: cor,
+              background: 'rgba(0,0,0,.55)',
+              fontSize: 76 * escala,
+              fontWeight: 900,
+              letterSpacing: 2 * escala,
+            }}
+          >
+            {ia ? 'IA' : 'REAL'}
+          </div>
+        )}
+      </div>
+    );
+  };
+  const raio = 70;
+  const volta = 2 * Math.PI * raio;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {cena.titulo && (
+        <div style={{ fontSize: 64 * escala, fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 30 * escala, textShadow: '0 6px 24px rgba(0,0,0,.85)', textTransform: 'uppercase' }}>
+          {cena.titulo}
+        </div>
+      )}
+      <div style={{ display: 'flex', gap: 22 * escala }}>
+        {foto(esq, 'esquerda', 0)}
+        {foto(dir, 'direita', 1)}
+      </div>
+      <div style={{ marginTop: 34 * escala, height: 170 * escala, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {!revelado ? (
+          <div style={{ position: 'relative', width: 170 * escala, height: 170 * escala }}>
+            <svg viewBox="0 0 160 160" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+              <circle cx="80" cy="80" r={raio} fill="rgba(0,0,0,.55)" stroke="rgba(255,255,255,.18)" strokeWidth="10" />
+              <circle cx="80" cy="80" r={raio} fill="none" stroke={cena.destaque || '#ffd60a'} strokeWidth="10" strokeLinecap="round" strokeDasharray={volta} strokeDashoffset={volta * (1 - anel)} />
+            </svg>
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 92 * escala, fontWeight: 900, color: '#fff' }}>
+              {numero}
+            </div>
+          </div>
+        ) : (
+          <div style={{ fontSize: 54 * escala, fontWeight: 900, color: '#fff', textShadow: '0 4px 18px rgba(0,0,0,.9)', transform: `scale(${interpolate(pulso, [0, 1], [0.6, 1])})` }}>
+            {cena.subtitulo ?? 'Acertou?'}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Fundo animado nas cores da receita, no lugar do b-roll genérico do Pexels
+ * (imagem aleatória atrás de tudo cansa). Manchas de luz grandes que andam devagar,
+ * uma grade sutil e vinheta. Só gradiente: leve para o render.
+ */
+export function FundoAnimado({ cena, frame, fps }: { cena: CenaRemotion; frame: number; fps: number }) {
+  const [a, b] = [cena.destaque || '#7c3aed', cena.subtitulo || '#0ea5e9'];
+  const t = frame / fps;
+  const mancha = (cor: string, x: number, y: number, tam: number) =>
+    `radial-gradient(${tam}% ${tam * 0.75}% at ${x}% ${y}%, ${cor}99 0%, ${cor}38 38%, transparent 72%)`;
+  const x1 = 30 + 18 * Math.sin(t * 0.23);
+  const y1 = 28 + 12 * Math.cos(t * 0.19);
+  const x2 = 70 + 16 * Math.cos(t * 0.17);
+  const y2 = 70 + 14 * Math.sin(t * 0.21);
+  const x3 = 50 + 30 * Math.sin(t * 0.11 + 1);
+  const deslize = (t * 18) % 120;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background: [mancha(a, x1, y1, 80), mancha(b, x2, y2, 75), mancha(a, x3, 92, 60), 'linear-gradient(180deg, #06070c 0%, #0b0d16 50%, #05060a 100%)'].join(','),
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: 0.07,
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.9) 1px, transparent 1px)',
+          backgroundSize: '90px 90px',
+          backgroundPosition: `0 ${deslize}px`,
+        }}
+      />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.75) 100%)' }} />
+    </div>
+  );
+}

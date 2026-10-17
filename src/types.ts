@@ -282,7 +282,10 @@ export type TipoCenaRemotion =
   | 'frase'
   | 'logos'
   | 'manchete'
-  | 'print';
+  | 'print'
+  | 'quiz'
+  /** fundo animado nas cores da receita, o vídeo inteiro, atrás das outras cenas */
+  | 'fundo';
 
 /** retângulo em % (0–100) de uma imagem ou da área mostrada */
 export type Retangulo = { x: number; y: number; w: number; h: number };
@@ -330,6 +333,10 @@ export type CenaRemotion = {
   /** 'print': 'janela' põe a barra de navegador com `url`; 'nenhuma' deixa a imagem solta */
   moldura?: 'cartao' | 'janela' | 'nenhuma';
   url?: string;
+  /** 'quiz' ("Real ou IA?"): as duas fotos (esquerda, direita), qual é IA e quando revela (s desde o início da cena) */
+  imagens?: string[];
+  resposta?: 'esquerda' | 'direita' | 'ambas' | 'nenhuma';
+  revelar?: number;
   /** 'manchete': nome do site, ícone do site (em public/) e data da notícia */
   fonte?: string;
   logo?: string;

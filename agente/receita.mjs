@@ -79,7 +79,8 @@ export function aplicarReceita(projeto, receita) {
   projeto.movimento = receita.movimento;
   projeto.forcaZoom = receita.forcaZoom;
   for (const s of projeto.sons ?? []) {
-    if (s.tipo !== 'musica') continue;
+    // receita sem música (o plano pediu "musica": false): quem tira a faixa é o aplicar-plano
+    if (s.tipo !== 'musica' || !receita.musica) continue;
     s.src = receita.musica;
     s.nome = path.basename(receita.musica);
   }
@@ -100,7 +101,7 @@ export async function registrar(projeto, origem) {
   if (anterior && anterior.sequencia?.join() === sequencia.join()) avisos.push('mesma sequência de cenas do vídeo anterior');
   if (anterior && anterior.sequencia?.[0] === sequencia[0]) avisos.push(`abre com "${sequencia[0]}" igual ao vídeo anterior`);
   const semAnterior = historico.filter((h) => h.projeto !== projeto.arquivo);
-  semAnterior.push({ projeto: projeto.arquivo, quando: new Date().toISOString(), receita: projeto.receita, sequencia });
+  semAnterior.push({ projeto: projeto.arquivo, formato: projeto.formato ?? 'noticia', quando: new Date().toISOString(), receita: projeto.receita, sequencia });
   await writeFile(ARQ, JSON.stringify(semAnterior, null, 2), 'utf8');
   return avisos;
 }

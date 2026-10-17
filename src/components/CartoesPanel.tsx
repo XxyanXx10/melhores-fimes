@@ -61,6 +61,8 @@ const ROTULOS_CENA: Record<TipoCenaRemotion, string> = {
   logos: '🏷️ Logos das empresas',
   manchete: '📰 Manchete da notícia',
   print: '🖼️ Print real com destaque',
+  quiz: '🤔 Real ou IA? (quiz)',
+  fundo: '🌌 Fundo animado',
 };
 
 export function CartoesPanel(p: Props) {
