@@ -43,7 +43,7 @@ export function CenaNumero({ cena, frame, fps, escala }: P) {
   return (
     <div style={{ textAlign: 'center' }}>
       <Titulo cena={cena} escala={escala} cor={cor} />
-      <div style={{ fontSize: 210 * escala, fontWeight: 900, color: cor, lineHeight: 1, transform: `scale(${pulso})`, textShadow: `0 0 ${40 * escala}px ${cor}66` }}>
+      <div style={{ fontSize: Math.min(210, 900 / (0.72 * Math.max(1, String(texto).length))) * escala, whiteSpace: 'nowrap', fontWeight: 900, color: cor, lineHeight: 1, transform: `scale(${pulso})`, textShadow: `0 0 ${40 * escala}px ${cor}66` }}>
         {texto}
       </div>
       {cena.itens.slice(cena.valor ? 0 : 1).map((it, i) => {
@@ -136,8 +136,10 @@ export function CenaCelular({ cena, frame, fps, escala, progresso }: P) {
   const e = spring({ frame, fps, config: { damping: 15, stiffness: 120 } });
   const flutua = Math.sin(frame / 18) * 8 * escala;
   const n = Math.max(1, cena.itens.length);
-  const W = 560 * escala;
-  const H = 1000 * escala;
+  // largo o bastante para a mensagem ser lida no celular de quem assiste
+  const W = 720 * escala;
+  // altura acompanha o número de mensagens: celular alto com 2 balões deixava a tela vazia em cima
+  const H = Math.min(1000, 560 + n * 150) * escala;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {cena.titulo && (
@@ -161,7 +163,7 @@ export function CenaCelular({ cena, frame, fps, escala, progresso }: P) {
               {cena.icones?.[0] ?? '🤖'}
             </div>
             <div>
-              <div style={{ fontSize: 32 * escala, fontWeight: 800, color: BRANCO }}>{cena.app ?? 'Assistente'}</div>
+              <div style={{ fontSize: 38 * escala, fontWeight: 800, color: BRANCO }}>{cena.app ?? 'Assistente'}</div>
               <div style={{ fontSize: 22 * escala, color: cor }}>online</div>
             </div>
           </div>
@@ -174,7 +176,7 @@ export function CenaCelular({ cena, frame, fps, escala, progresso }: P) {
               const ent = Math.min(1, (progresso - ini) / 0.04);
               return (
                 <div key={i} style={{ alignSelf: eu ? 'flex-end' : 'flex-start', maxWidth: '82%', opacity: ent, transform: `translateY(${(1 - ent) * 20 * escala}px)` }}>
-                  <div style={{ background: eu ? cor : '#232a38', color: eu ? '#04130a' : BRANCO, borderRadius: 28 * escala, borderBottomRightRadius: eu ? 6 * escala : 28 * escala, borderBottomLeftRadius: eu ? 28 * escala : 6 * escala, padding: `${16 * escala}px ${22 * escala}px`, fontSize: 30 * escala, fontWeight: 600, lineHeight: 1.3 }}>
+                  <div style={{ background: eu ? cor : '#232a38', color: eu ? '#04130a' : BRANCO, borderRadius: 28 * escala, borderBottomRightRadius: eu ? 6 * escala : 28 * escala, borderBottomLeftRadius: eu ? 28 * escala : 6 * escala, padding: `${18 * escala}px ${26 * escala}px`, fontSize: 44 * escala, fontWeight: 600, lineHeight: 1.28 }}>
                     {digitando ? '• • •' : msg}
                   </div>
                 </div>

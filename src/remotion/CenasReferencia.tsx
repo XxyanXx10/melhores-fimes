@@ -258,7 +258,8 @@ export function CenaQuiz({ cena, frame, fps, escala }: P) {
   const ehIA = (lado: 'esquerda' | 'direita') =>
     cena.resposta === 'ambas' || cena.resposta === lado;
   const restante = Math.max(0, revelaEm - frame) / fps;
-  const numero = Math.min(3, Math.ceil((restante / ((cena.revelar ?? 3) || 1)) * 3));
+  // a voz conta "três… dois… um" no último segundo e meio: o número acompanha a fala, não o tempo todo
+  const numero = restante > 1.55 ? 3 : restante > 0.75 ? 2 : 1;
   const anel = revelado ? 0 : restante / (cena.revelar ?? 3);
   const pulso = spring({ frame: frame - revelaEm, fps, config: { damping: 9, stiffness: 180 } });
   const largura = 452 * escala;

@@ -326,6 +326,10 @@ export function Composicao(props: PropsComposicao) {
           premountFor={/\.(mp4|mov|webm)$/i.test(f.src) ? Math.round(fps * 1.5) : 0}
         >
           <Foto foto={f} />
+          {/* imagem em tela cheia: sombra embaixo para a legenda não sumir em cima de foto clara */}
+          {f.cobrir && (
+            <AbsoluteFill style={{ background: 'linear-gradient(180deg, transparent 45%, rgba(0,0,0,.62) 64%, rgba(0,0,0,.78) 100%)', pointerEvents: 'none' }} />
+          )}
         </Sequence>
       ))}
 
