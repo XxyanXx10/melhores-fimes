@@ -739,7 +739,8 @@ function CenaCodigo({
                 transform: `translateX(${interpolate(p, [0, 1], [20 * escala, 0])}px)`,
                 display: 'flex',
                 gap: `${Math.round(16 * escala)}px`,
-                fontSize: `${Math.round(24 * escala)}px`,
+                // letra maior: no POV a piada está no texto do log, tem que dar pra ler no celular
+                fontSize: `${Math.round(36 * escala)}px`,
                 color: idx % 2 === 0 ? '#79c0ff' : '#a5d6ff',
                 background: 'rgba(56, 139, 253, 0.08)',
                 padding: `${Math.round(12 * escala)}px ${Math.round(16 * escala)}px`,
