@@ -24,6 +24,16 @@ const NAVEGADOR = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
 /* palavra no texto → arquivo em public/midia/banco/logos */
 const LOGOS = [
   [/\bgemini\b/, 'googlegemini.svg'],
+  [/\b(playstation|ps5|ps4)\b/, 'playstation.svg'],
+  [/\bsony\b/, 'sony.svg'],
+  [/\bnintendo\b/, 'nintendo.svg'],
+  [/\bsteam\b/, 'steam.svg'],
+  [/\bunity\b/, 'unity.svg'],
+  [/\broblox\b/, 'roblox.svg'],
+  [/\bspotify\b/, 'spotify.svg'],
+  [/\bphotoshop\b/, 'adobephotoshop.svg'],
+  [/\badobe\b/, 'adobe.svg'],
+  [/\b(rockstar|gta)\b/, 'rockstargames.svg'],
   [/\bgoogle\b/, 'google.svg'],
   [/\b(chatgpt|openai|sora)\b/, 'openai.svg'],
   [/\banthropic\b/, 'anthropic.svg'],

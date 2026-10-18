@@ -367,6 +367,7 @@ quanto tempo levou e o que foi reaproveitado da biblioteca.
 | Sintoma | Causa e solução |
 |---|---|
 | Render morre logo após "Empacotando…" | Veja `render/.estado.json`. `EPERM symlink`/`EEXIST`: a junção dos vídeos; o `render.mjs` já trata isso. Se voltar, confira se `banco/videos` é junção (`mklink /J`). |
+| Quadro (`--still`) sai faltando ou o render falha do nada | Dois renders ao mesmo tempo usam o mesmo pacote em `pastaTemporaria/bundle` e se atropelam. Um de cada vez: a fila nova espera a anterior (`until grep -q "^fim" <log anterior>; do sleep 5; done`). |
 | "Page crashed" ou disco cheio | `pastaTemporaria` apontando para um disco com espaço. |
 | Render trava em 2% com GPU | `"gpu": false` (no notebook a NVENC não funciona). |
 | Caminho vira `/c/...` e o arquivo vai parar em `D:\c\` | No Git Bash, passe sempre caminhos `C:/...` para o node, principalmente com apóstrofo no nome. |

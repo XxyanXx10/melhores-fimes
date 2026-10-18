@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-18T15:57:10.483Z",
+  "atualizado": "2026-10-18T16:27:11.532Z",
   "itens": [
     {
       "tipo": "musica",
@@ -1819,6 +1819,36 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/robo-xerox-jogo.jpg",
+      "descricao": "Robô xerocando cartucho de videogame, cópias voando",
+      "tags": [
+        "clone",
+        "cópia",
+        "jogo",
+        "games",
+        "robô",
+        "pirataria"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 480133
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/robos-copiando-app.jpg",
+      "descricao": "Linha de montagem de robôs copiando um app de edição de foto nos notebooks",
+      "tags": [
+        "clone",
+        "cópia",
+        "app",
+        "robô",
+        "photoshop",
+        "pirataria"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 856524
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/salvador-2100.jpg",
       "descricao": "Salvador em 2100: Pelourinho com telas de LED e baiana do acarajé",
       "tags": [
@@ -2556,6 +2586,19 @@
       ],
       "origem": "Pexels (baixado)",
       "tamanho": 8220991
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35475885.mp4",
+      "descricao": "Pexels: ps5 controller gaming",
+      "tags": [
+        "ps5",
+        "controller",
+        "gaming",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10620870
     },
     {
       "tipo": "video",
@@ -4639,6 +4682,22 @@
     },
     {
       "tipo": "logo",
+      "src": "midia/banco/logos/adobe.svg",
+      "descricao": "adobe",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 216
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/adobephotoshop.svg",
+      "descricao": "adobephotoshop",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1686
+    },
+    {
+      "tipo": "logo",
       "src": "midia/banco/logos/amazon.svg",
       "descricao": "amazon",
       "tags": [],
@@ -4791,6 +4850,14 @@
     },
     {
       "tipo": "logo",
+      "src": "midia/banco/logos/nintendo.svg",
+      "descricao": "nintendo",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2208
+    },
+    {
+      "tipo": "logo",
       "src": "midia/banco/logos/notion.svg",
       "descricao": "notion",
       "tags": [],
@@ -4831,11 +4898,59 @@
     },
     {
       "tipo": "logo",
+      "src": "midia/banco/logos/playstation.svg",
+      "descricao": "playstation",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 781
+    },
+    {
+      "tipo": "logo",
       "src": "midia/banco/logos/replit.svg",
       "descricao": "replit",
       "tags": [],
       "origem": "Simple Icons",
       "tamanho": 326
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/roblox.svg",
+      "descricao": "roblox",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 204
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/rockstargames.svg",
+      "descricao": "rockstargames",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 794
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/sony.svg",
+      "descricao": "sony",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2745
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/spotify.svg",
+      "descricao": "spotify",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 697
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/steam.svg",
+      "descricao": "steam",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1036
     },
     {
       "tipo": "logo",
@@ -4852,6 +4967,14 @@
       "tags": [],
       "origem": "Simple Icons",
       "tamanho": 707
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/unity.svg",
+      "descricao": "unity",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 654
     },
     {
       "tipo": "logo",
@@ -4959,7 +5082,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/adeus-apps/capa.png",
-      "descricao": "TechCrunch: Amazon devices chief Panos Panay sees a future where AI devices replace the need to use apps | TechCrunch",
+      "descricao": "TechCrunch: Chefe de aparelhos da Amazon prevê um futuro em que a IA substitui os aplicativos",
       "tags": [
         "adeus-apps"
       ],
@@ -5059,7 +5182,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clone-do-clone/capa.png",
-      "descricao": "Kotaku: Devs Of Needle In A Haystack Clone Angry It's Been Cloned By AI",
+      "descricao": "Kotaku: Criadores de clone de Needle In A Haystack ficam bravos porque o jogo deles foi clonado por IA",
       "tags": [
         "clone-do-clone"
       ],
@@ -5069,7 +5192,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clones-photoshop/img1.png",
-      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "descricao": "SHOKUNIN STUDIO: O ataque dos clones de Photoshop feitos com IA",
       "tags": [
         "clones-photoshop"
       ],
@@ -5079,7 +5202,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clones-photoshop/img2.png",
-      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "descricao": "SHOKUNIN STUDIO: O ataque dos clones de Photoshop feitos com IA",
       "tags": [
         "clones-photoshop"
       ],
@@ -5089,7 +5212,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clones-photoshop/img3.png",
-      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "descricao": "SHOKUNIN STUDIO: O ataque dos clones de Photoshop feitos com IA",
       "tags": [
         "clones-photoshop"
       ],
@@ -5099,7 +5222,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clones-photoshop/img4.png",
-      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "descricao": "SHOKUNIN STUDIO: O ataque dos clones de Photoshop feitos com IA",
       "tags": [
         "clones-photoshop"
       ],
@@ -5109,7 +5232,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/clones-photoshop/img5.png",
-      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "descricao": "SHOKUNIN STUDIO: O ataque dos clones de Photoshop feitos com IA",
       "tags": [
         "clones-photoshop"
       ],
@@ -5149,7 +5272,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/capa.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5159,7 +5282,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img1.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5169,7 +5292,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img2.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5179,7 +5302,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img3.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5189,7 +5312,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img4.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5199,7 +5322,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img5.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5209,7 +5332,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img6.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5219,7 +5342,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img7.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5229,7 +5352,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/demo-cancelada/img8.png",
-      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "descricao": "PC Gamer: Estúdio cancela demo do próprio jogo com medo de ser clonado por IA",
       "tags": [
         "demo-cancelada"
       ],
@@ -5239,7 +5362,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/empresas-autodirigidas-com-ia/capa.png",
-      "descricao": "TechCrunch: Replit's CEO says the future of work is the 'self-driving company' | TechCrunch",
+      "descricao": "TechCrunch: CEO da Replit diz que o futuro do trabalho é a 'empresa que dirige sozinha'",
       "tags": [
         "empresas-autodirigidas-com-ia"
       ],
@@ -5249,7 +5372,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/capa.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5259,7 +5382,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img1.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5269,7 +5392,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img2.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5279,7 +5402,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img3.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5289,7 +5412,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img4.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5299,7 +5422,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img5.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5309,7 +5432,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img6.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5319,7 +5442,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img7.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5329,7 +5452,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-acoes/img8.png",
-      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "descricao": "Tom: Ações de games despencam depois que o Google revela o Project Genie: Roblox, Nintendo e CD Projekt Red caem",
       "tags": [
         "genie-acoes"
       ],
@@ -5339,7 +5462,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/genie-kotaku/capa.png",
-      "descricao": "Kotaku: Google's New AI Tool Makes Bad Rip-Offs Of Mario, Zelda Games",
+      "descricao": "Kotaku: Nova IA do Google cria cópias malfeitas de Mario e Zelda",
       "tags": [
         "genie-kotaku"
       ],
@@ -5469,7 +5592,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/gpt4-captcha/capa.png",
-      "descricao": "Business Today: ChatGPT 4 pretended to be blind to take help from user for solving CAPTCHA",
+      "descricao": "Business Today: GPT-4 fingiu ser cego para que um humano resolvesse o captcha por ele",
       "tags": [
         "gpt4-captcha"
       ],
@@ -5579,7 +5702,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/ia-rebelde-acessa-dados-confidenciais-na-india/capa.png",
-      "descricao": "TechCrunch: India becomes the latest country to report rogue AI agent activity | TechCrunch",
+      "descricao": "TechCrunch: Índia é o mais novo país a relatar agente de IA agindo por conta própria",
       "tags": [
         "ia-rebelde-acessa-dados-confidenciais-na-india"
       ],
@@ -5949,7 +6072,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/ps5-overdrive/capa.png",
-      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "descricao": "TechPowerUp: App de desbloqueio do PS5, \"Overdrive\", estaria oferecendo jogos e DLCs de graça",
       "tags": [
         "ps5-overdrive"
       ],
@@ -5959,7 +6082,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/ps5-overdrive/img1.png",
-      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "descricao": "TechPowerUp: App de desbloqueio do PS5, \"Overdrive\", estaria oferecendo jogos e DLCs de graça",
       "tags": [
         "ps5-overdrive"
       ],
@@ -5969,7 +6092,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/ps5-overdrive/img2.png",
-      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "descricao": "TechPowerUp: App de desbloqueio do PS5, \"Overdrive\", estaria oferecendo jogos e DLCs de graça",
       "tags": [
         "ps5-overdrive"
       ],
@@ -5979,7 +6102,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/ps5-relapse/capa.png",
-      "descricao": "Techweez | Tech News, Reviews, Deals, Tips and How To: Your PS5 Can Now Play PS2 Games, If You Jailbreak It First",
+      "descricao": "Techweez | Tech News, Reviews, Deals, Tips and How To: Seu PS5 agora roda jogos de PS2 — se você desbloquear ele antes",
       "tags": [
         "ps5-relapse"
       ],
@@ -5989,7 +6112,7 @@
     {
       "tipo": "referencia",
       "src": "midia/referencias/robo-taxis-o-perigo-e-a-ia-ou-o-humano/capa.png",
-      "descricao": "Electrek: Tesla remote operators keep crashing its ‘Robotaxis,’ data shows",
+      "descricao": "Electrek: Operadores remotos da Tesla continuam batendo os robô-táxis, mostram dados",
       "tags": [
         "robo-taxis-o-perigo-e-a-ia-ou-o-humano"
       ],

@@ -750,5 +750,29 @@
       "games"
     ],
     "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
+  },
+  "midia/formatos/robos-copiando-app.jpg": {
+    "descricao": "Linha de montagem de robôs copiando um app de edição de foto nos notebooks",
+    "tags": [
+      "clone",
+      "cópia",
+      "app",
+      "robô",
+      "photoshop",
+      "pirataria"
+    ],
+    "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/formatos/robo-xerox-jogo.jpg": {
+    "descricao": "Robô xerocando cartucho de videogame, cópias voando",
+    "tags": [
+      "clone",
+      "cópia",
+      "jogo",
+      "games",
+      "robô",
+      "pirataria"
+    ],
+    "origem": "gerada (Seedream 5 Pro, Magnific)"
   }
 }
