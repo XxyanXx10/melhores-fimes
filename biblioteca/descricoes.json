@@ -690,5 +690,65 @@
       "shopping"
     ],
     "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/banco/videos/genie3-cover-3.mp4": {
+    "descricao": "Genie 3: surfando numa onda em primeira pessoa",
+    "tags": [
+      "genie",
+      "google",
+      "ia",
+      "jogo",
+      "mundo gerado",
+      "games"
+    ],
+    "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
+  },
+  "midia/banco/videos/genie3-amazon_aviator.mp4": {
+    "descricao": "Genie 3: arara voando sobre rio na floresta",
+    "tags": [
+      "genie",
+      "google",
+      "ia",
+      "jogo",
+      "mundo gerado",
+      "games"
+    ],
+    "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
+  },
+  "midia/banco/videos/genie3-backyard_racetrack.mp4": {
+    "descricao": "Genie 3: carrinho correndo numa pista de quintal",
+    "tags": [
+      "genie",
+      "google",
+      "ia",
+      "jogo",
+      "mundo gerado",
+      "games"
+    ],
+    "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
+  },
+  "midia/banco/videos/genie3-crater_cruiser.mp4": {
+    "descricao": "Genie 3: carro vermelho em planeta com Júpiter no céu",
+    "tags": [
+      "genie",
+      "google",
+      "ia",
+      "jogo",
+      "mundo gerado",
+      "games"
+    ],
+    "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
+  },
+  "midia/banco/videos/genie3-ice_palace.mp4": {
+    "descricao": "Genie 3: moto numa cidade de gelo neon",
+    "tags": [
+      "genie",
+      "google",
+      "ia",
+      "jogo",
+      "mundo gerado",
+      "games"
+    ],
+    "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia"
   }
 }

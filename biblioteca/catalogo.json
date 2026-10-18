@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-18T00:38:52.682Z",
+  "atualizado": "2026-10-18T15:57:10.483Z",
   "itens": [
     {
       "tipo": "musica",
@@ -1889,6 +1889,81 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 638444
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/genie3-amazon_aviator.mp4",
+      "descricao": "Genie 3: arara voando sobre rio na floresta",
+      "tags": [
+        "genie",
+        "google",
+        "ia",
+        "jogo",
+        "mundo gerado",
+        "games"
+      ],
+      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
+      "tamanho": 7136262
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/genie3-backyard_racetrack.mp4",
+      "descricao": "Genie 3: carrinho correndo numa pista de quintal",
+      "tags": [
+        "genie",
+        "google",
+        "ia",
+        "jogo",
+        "mundo gerado",
+        "games"
+      ],
+      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
+      "tamanho": 5717319
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/genie3-cover-3.mp4",
+      "descricao": "Genie 3: surfando numa onda em primeira pessoa",
+      "tags": [
+        "genie",
+        "google",
+        "ia",
+        "jogo",
+        "mundo gerado",
+        "games"
+      ],
+      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
+      "tamanho": 3552194
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/genie3-crater_cruiser.mp4",
+      "descricao": "Genie 3: carro vermelho em planeta com Júpiter no céu",
+      "tags": [
+        "genie",
+        "google",
+        "ia",
+        "jogo",
+        "mundo gerado",
+        "games"
+      ],
+      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
+      "tamanho": 5707959
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/genie3-ice_palace.mp4",
+      "descricao": "Genie 3: moto numa cidade de gelo neon",
+      "tags": [
+        "genie",
+        "google",
+        "ia",
+        "jogo",
+        "mundo gerado",
+        "games"
+      ],
+      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
+      "tamanho": 6329336
     },
     {
       "tipo": "video",
@@ -4983,6 +5058,66 @@
     },
     {
       "tipo": "referencia",
+      "src": "midia/referencias/clone-do-clone/capa.png",
+      "descricao": "Kotaku: Devs Of Needle In A Haystack Clone Angry It's Been Cloned By AI",
+      "tags": [
+        "clone-do-clone"
+      ],
+      "origem": "https://kotaku.com/devs-behind-needle-in-a-haystack-clone-complain-their-clone-has-been-cloned-by-vibe-coder-2000747284",
+      "tamanho": 741850
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/clones-photoshop/img1.png",
+      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "tags": [
+        "clones-photoshop"
+      ],
+      "origem": "https://www.shokunin.studio/blog/2026/10/9/attack-of-the-vibe-coded-photoshop-clones",
+      "tamanho": 34277
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/clones-photoshop/img2.png",
+      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "tags": [
+        "clones-photoshop"
+      ],
+      "origem": "https://www.shokunin.studio/blog/2026/10/9/attack-of-the-vibe-coded-photoshop-clones",
+      "tamanho": 110220
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/clones-photoshop/img3.png",
+      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "tags": [
+        "clones-photoshop"
+      ],
+      "origem": "https://www.shokunin.studio/blog/2026/10/9/attack-of-the-vibe-coded-photoshop-clones",
+      "tamanho": 754042
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/clones-photoshop/img4.png",
+      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "tags": [
+        "clones-photoshop"
+      ],
+      "origem": "https://www.shokunin.studio/blog/2026/10/9/attack-of-the-vibe-coded-photoshop-clones",
+      "tamanho": 149788
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/clones-photoshop/img5.png",
+      "descricao": "SHOKUNIN STUDIO: Attack of the Vibe Coded Photoshop Clones &mdash; SHOKUNIN STUDIO",
+      "tags": [
+        "clones-photoshop"
+      ],
+      "origem": "https://www.shokunin.studio/blog/2026/10/9/attack-of-the-vibe-coded-photoshop-clones",
+      "tamanho": 114122
+    },
+    {
+      "tipo": "referencia",
       "src": "midia/referencias/deepfakes-proteja-se-da-ia-maliciosa/capa.png",
       "descricao": "CNN Brasil: Como identificar vídeos feitos com IA e evitar golpes? | CNN Brasil",
       "tags": [
@@ -5013,6 +5148,96 @@
     },
     {
       "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/capa.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 1333705
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img1.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 1072450
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img2.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 1268102
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img3.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 907550
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img4.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 1512326
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img5.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 938373
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img6.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 1673742
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img7.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 393189
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/demo-cancelada/img8.png",
+      "descricao": "PC Gamer: Developer cancels public demo of its upcoming horror drinking game, fearing it will be instantly cloned by AI vibe coders:",
+      "tags": [
+        "demo-cancelada"
+      ],
+      "origem": "https://www.pcgamer.com/gaming-industry/game-development/developer-cancels-public-demo-of-its-upcoming-horror-drinking-game-fearing-it-will-be-instantly-cloned-by-ai-vibe-coders-we-sincerely-apologise-for-the-short-notice/",
+      "tamanho": 428382
+    },
+    {
+      "tipo": "referencia",
       "src": "midia/referencias/empresas-autodirigidas-com-ia/capa.png",
       "descricao": "TechCrunch: Replit's CEO says the future of work is the 'self-driving company' | TechCrunch",
       "tags": [
@@ -5020,6 +5245,106 @@
       ],
       "origem": "https://techcrunch.com/2026/10/16/replits-ceo-says-the-future-of-work-is-the-self-driving-company/",
       "tamanho": 575097
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/capa.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 474018
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img1.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 555746
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img2.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 474018
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img3.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 1841872
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img4.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 1388951
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img5.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 1852845
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img6.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 474805
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img7.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 542746
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-acoes/img8.png",
+      "descricao": "Tom: Gaming market melts down after Google reveals new AI game design tool &mdash; Project Genie crashes stocks for Roblox, Nintendo, CD Projekt Red, and more",
+      "tags": [
+        "genie-acoes"
+      ],
+      "origem": "https://www.tomshardware.com/video-games/gaming-market-melts-down-after-google-reveals-new-ai-game-design-tool-project-genie-crashes-stocks-for-roblox-nintendo-cd-projekt-red-and-more",
+      "tamanho": 561385
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/genie-kotaku/capa.png",
+      "descricao": "Kotaku: Google's New AI Tool Makes Bad Rip-Offs Of Mario, Zelda Games",
+      "tags": [
+        "genie-kotaku"
+      ],
+      "origem": "https://kotaku.com/google-ai-genai-nintendo-zelda-breath-wild-mario-64-project-genie-2000664227",
+      "tamanho": 472308
     },
     {
       "tipo": "referencia",
@@ -5143,6 +5468,16 @@
     },
     {
       "tipo": "referencia",
+      "src": "midia/referencias/gpt4-captcha/capa.png",
+      "descricao": "Business Today: ChatGPT 4 pretended to be blind to take help from user for solving CAPTCHA",
+      "tags": [
+        "gpt4-captcha"
+      ],
+      "origem": "https://www.businesstoday.in/technology/story/chatgpt-4-pretended-to-be-blind-to-take-help-from-user-for-solving-captcha-373837-2023-03-17",
+      "tamanho": 314065
+    },
+    {
+      "tipo": "referencia",
       "src": "midia/referencias/ia-apagou-reality/capa.png",
       "descricao": "Canaltech: Agente de IA apaga temporada inteira de reality show dias antes da estreia",
       "tags": [
@@ -5160,6 +5495,36 @@
       ],
       "origem": "https://canaltech.com.br/inteligencia-artificial/agente-de-ia-apaga-temporada-inteira-de-reality-show-dias-antes-da-estreia/",
       "tamanho": 942001
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-copia-apps/capa.png",
+      "descricao": "Daniel Lafraia: A IA pode copiar qualquer app. E agora?",
+      "tags": [
+        "ia-copia-apps"
+      ],
+      "origem": "https://lafraia.com.br/posts/ia-recria-programas/",
+      "tamanho": 994712
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-copia-apps/img1.png",
+      "descricao": "Daniel Lafraia: A IA pode copiar qualquer app. E agora?",
+      "tags": [
+        "ia-copia-apps"
+      ],
+      "origem": "https://lafraia.com.br/posts/ia-recria-programas/",
+      "tamanho": 499669
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-copia-apps/img2.png",
+      "descricao": "Daniel Lafraia: A IA pode copiar qualquer app. E agora?",
+      "tags": [
+        "ia-copia-apps"
+      ],
+      "origem": "https://lafraia.com.br/posts/ia-recria-programas/",
+      "tamanho": 1504399
     },
     {
       "tipo": "referencia",
@@ -5583,6 +5948,46 @@
     },
     {
       "tipo": "referencia",
+      "src": "midia/referencias/ps5-overdrive/capa.png",
+      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "tags": [
+        "ps5-overdrive"
+      ],
+      "origem": "https://www.techpowerup.com/353648/ps5-jailbreak-app-overdrive-allegedly-offers-free-games-and-dlc",
+      "tamanho": 1152143
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ps5-overdrive/img1.png",
+      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "tags": [
+        "ps5-overdrive"
+      ],
+      "origem": "https://www.techpowerup.com/353648/ps5-jailbreak-app-overdrive-allegedly-offers-free-games-and-dlc",
+      "tamanho": 348635
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ps5-overdrive/img2.png",
+      "descricao": "TechPowerUp: PS5 Jailbreak App \"Overdrive\" Allegedly Offers Free Games and DLC",
+      "tags": [
+        "ps5-overdrive"
+      ],
+      "origem": "https://www.techpowerup.com/353648/ps5-jailbreak-app-overdrive-allegedly-offers-free-games-and-dlc",
+      "tamanho": 1036912
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ps5-relapse/capa.png",
+      "descricao": "Techweez | Tech News, Reviews, Deals, Tips and How To: Your PS5 Can Now Play PS2 Games, If You Jailbreak It First",
+      "tags": [
+        "ps5-relapse"
+      ],
+      "origem": "https://techweez.com/2026/10/12/ps5-jailbreak-relapse-exploit/",
+      "tamanho": 758338
+    },
+    {
+      "tipo": "referencia",
       "src": "midia/referencias/robo-taxis-o-perigo-e-a-ia-ou-o-humano/capa.png",
       "descricao": "Electrek: Tesla remote operators keep crashing its ‘Robotaxis,’ data shows",
       "tags": [
@@ -5590,6 +5995,16 @@
       ],
       "origem": "https://electrek.co/2026/10/15/tesla-remote-operators-crashing-robotaxis/",
       "tamanho": 523217
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/samsung-proibe-chatgpt/capa.png",
+      "descricao": "Olhar Digital: ChatGPT espião? Samsung barra IA para funcionários",
+      "tags": [
+        "samsung-proibe-chatgpt"
+      ],
+      "origem": "https://olhardigital.com.br/2023/05/02/pro/samsung-barra-uso-de-chatgpt-para-funcionarios/",
+      "tamanho": 415555
     },
     {
       "tipo": "referencia",

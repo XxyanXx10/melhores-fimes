@@ -12,6 +12,15 @@ A plataforma executa; o agente decide. Para cada narração:
    `node agente/aplicar-plano.mjs aplicar "projeto/<nome>.json" banco-cenas/planos/<nome>.json "projeto/<saida>.json"`
 6. Conferir na plataforma (Projetos → abrir) e exportar.
 
+> Guia completo, com instalação em outro PC e o gosto do dono: `GUIA_CRIACAO_VIDEOS.md`.
+
+## Nada em inglês na tela
+O público não lê inglês. Manchete de site gringo é traduzida sozinha pelo `referencias.mjs`
+(o original fica em `tituloOriginal`). Se o Gemini não responder, traduza à mão o `titulo`
+do `referencias.json`. `destaques` têm que ser trechos do título **traduzido**. O `aplicar`
+avisa "TEXTO EM INGLÊS" em qualquer título, destaque ou mensagem de cena. Evite também
+imagens cheias de texto em inglês.
+
 ## Biblioteca de mídia (antes de gerar qualquer coisa)
 Música, imagem gerada, fundo, efeito, vídeo baixado, logo e print ficam catalogados em
 `biblioteca/catalogo.json` — e numa página para o usuário bater o olho:

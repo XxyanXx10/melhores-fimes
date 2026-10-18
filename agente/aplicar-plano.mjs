@@ -21,6 +21,7 @@ import { videoDoPexels } from './pexels.mjs';
 import { printDoSite } from './print.mjs';
 import { aplicarReceita, registrar, sortearReceita } from './receita.mjs';
 import { resumoReferencias } from './referencias.mjs';
+import { pareceIngles } from './idioma.mjs';
 import { lerConfig } from './nucleo.mjs';
 
 function frases(palavras) {
@@ -268,6 +269,10 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
         if (!cena.titulo) cena.titulo = ref.titulo;
         if (cena.imagem === undefined && ref.capa) cena.imagem = ref.capa.midia;
         if (cena.imagem === false) delete cena.imagem;
+      }
+      // nada em inglês na tela: o público não lê
+      for (const t of [cena.titulo, cena.subtitulo, ...(cena.destaques ?? []), ...(cena.itens ?? [])]) {
+        if (pareceIngles(t)) avisos.push(`cena ${i}: TEXTO EM INGLÊS na tela — traduza: "${String(t).slice(0, 80)}"`);
       }
       if (cena.imagem && !cena.tamanho) {
         if (!existsSync(path.join(RAIZ, 'public', cena.imagem))) {

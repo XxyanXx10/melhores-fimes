@@ -1,5 +1,8 @@
 # Instruções para o assistente
 
+> **Vídeos do Canal Dark:** o passo a passo completo (instalação em outro PC, roteiro,
+> voz, referências, plano de cenas, render, gosto do dono) está em `GUIA_CRIACAO_VIDEOS.md`.
+
 Este projeto é a **tela**; o assistente é o **motor**. O usuário não roda comandos —
 ele pede em linguagem natural ("transcreve esse vídeo", "deixa a legenda maior"),
 e o assistente executa. Vale para qualquer assistente com acesso ao terminal da

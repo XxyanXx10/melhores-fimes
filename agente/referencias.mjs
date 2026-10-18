@@ -17,6 +17,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { RAIZ } from './banco-cenas.mjs';
+import { pareceIngles, traduzirTitulo } from './idioma.mjs';
 
 const NAVEGADOR = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36';
 
@@ -230,7 +231,17 @@ export async function buscarReferencias(url, pasta, texto = '') {
   }
 
   // "Título | G1", "Título | TechCrunch": o nome do site já aparece no cabeçalho da manchete
-  ref.titulo = ref.titulo.replace(/\s+\|\s+[^|]{1,40}$/, '').trim();
+  ref.titulo = ref.titulo.replace(/\s+\|\s+[^|]{1,40}$/, '').replace(/\s+-\s+[A-Za-z]{3,30}$/, '').trim();
+  // notícia de fora: a manchete aparece traduzida na tela, nunca em inglês
+  if (pareceIngles(ref.titulo)) {
+    ref.tituloOriginal = ref.titulo;
+    const traduzido = await traduzirTitulo(ref.titulo);
+    if (traduzido) ref.titulo = traduzido;
+    else {
+      ref.tituloPendente = true;
+      console.log(`  ⚠ título em inglês e o Gemini não traduziu: troque "titulo" em ${rel('referencias.json')}`);
+    }
+  }
   const alvo = `${ref.titulo} ${texto}`.toLowerCase();
   const disponiveis = new Set(await readdir(path.join(RAIZ, 'public', 'midia', 'banco', 'logos')).catch(() => []));
   for (const [re, arq] of LOGOS) if (re.test(alvo) && disponiveis.has(arq) && !ref.logos.includes(arq)) ref.logos.push(arq);
