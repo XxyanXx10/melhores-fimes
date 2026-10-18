@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-18T00:29:28.228Z",
+  "atualizado": "2026-10-18T00:38:52.682Z",
   "itens": [
     {
       "tipo": "musica",
@@ -1069,6 +1069,20 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/belem-2100.jpg",
+      "descricao": "Belém em 2100: Ver-o-Peso flutuante com fonte de açaí",
+      "tags": [
+        "2100",
+        "futuro",
+        "belém",
+        "capitais",
+        "açaí"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 1438275
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/bh-2100.jpg",
       "descricao": "Belo Horizonte em 2100: prédios nos morros com boteco no topo",
       "tags": [
@@ -1128,6 +1142,18 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/caramelo-bombeiro.jpg",
+      "descricao": "Caramelo bombeiro cheirando o poste com o caminhão esperando",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "bombeiro"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 786783
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/caramelo-ceo.jpg",
       "descricao": "Vira-lata caramelo de terno como CEO numa sala de reunião",
       "tags": [
@@ -1139,6 +1165,32 @@
       "prompt": "Brazilian caramel-colored mutt dog (vira-lata caramelo) as a serious CEO in a navy suit and tie, sitting at the head of a glass boardroom table in a skyscraper, funny, photo",
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 153305
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-churrasco.jpg",
+      "descricao": "Caramelo de avental na churrasqueira, de olho no espeto",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "churrasco",
+        "comida"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 540740
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-medico.jpg",
+      "descricao": "Caramelo médico de jaleco e estetoscópio, com petisco na boca",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "médico",
+        "saúde"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 412872
     },
     {
       "tipo": "imagem",
@@ -1154,6 +1206,32 @@
       "prompt": "Brazilian caramel-colored mutt dog as a motorcycle delivery courier with a delivery box, helmet, busy São Paulo street, funny, photo",
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 190113
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-professor.jpg",
+      "descricao": "Caramelo professor de óculos na lousa segurando caderno mordido",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "professor",
+        "escola"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 482848
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-seguranca.jpg",
+      "descricao": "Caramelo segurança de shopping ganhando carinho na entrada",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "segurança",
+        "shopping"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 557975
     },
     {
       "tipo": "imagem",
@@ -1196,6 +1274,20 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 173509
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/cuiaba-2100.jpg",
+      "descricao": "Cuiabá em 2100: cidade dentro de cúpula com ar-condicionado gigante",
+      "tags": [
+        "2100",
+        "futuro",
+        "cuiabá",
+        "capitais",
+        "calor"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 847344
     },
     {
       "tipo": "imagem",
@@ -1265,6 +1357,20 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 206851
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/goiania-2100.jpg",
+      "descricao": "Goiânia em 2100: palco sertanejo gigante e drones com pamonha",
+      "tags": [
+        "2100",
+        "futuro",
+        "goiânia",
+        "capitais",
+        "sertanejo"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 762558
     },
     {
       "tipo": "imagem",
@@ -1386,6 +1492,21 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 299267
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/natal-2100.jpg",
+      "descricao": "Natal em 2100: buggies voadores nas dunas",
+      "tags": [
+        "2100",
+        "futuro",
+        "natal",
+        "capitais",
+        "praia",
+        "dunas"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 502988
     },
     {
       "tipo": "imagem",
@@ -1713,6 +1834,20 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/saoluis-2100.jpg",
+      "descricao": "São Luís em 2100: casarões de azulejo com hologramas e semáforo de reggae",
+      "tags": [
+        "2100",
+        "futuro",
+        "são luís",
+        "capitais",
+        "reggae"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 1399908
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/sp-2100.jpg",
       "descricao": "São Paulo em 2100: arranha-céus e carros voadores engarrafados",
       "tags": [
@@ -1739,6 +1874,21 @@
       "prompt": "big shiny SUV at a car dealership with a huge price tag on the windshield reading \"$1\", funny, photo",
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 203165
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/vitoria-2100.jpg",
+      "descricao": "Vitória em 2100: panela de moqueca capixaba em museu espacial",
+      "tags": [
+        "2100",
+        "futuro",
+        "vitória",
+        "capitais",
+        "moqueca",
+        "comida"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 638444
     },
     {
       "tipo": "video",

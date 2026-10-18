@@ -45,7 +45,17 @@ const TEMPORARIO = pastaDoConfig || path.join(raiz, 'render', '.tmp');
  */
 if (process.platform === 'win32') {
   const symlinkOriginal = fsSync.promises.symlink.bind(fsSync.promises);
-  fsSync.promises.symlink = (alvo, caminho, tipo) => symlinkOriginal(alvo, caminho, tipo ?? 'junction');
+  fsSync.promises.symlink = async (alvo, caminho, tipo) => {
+    try {
+      return await symlinkOriginal(alvo, caminho, tipo ?? 'junction');
+    } catch (e) {
+      // o pacote reaproveita a pasta: a junção do render anterior continua lá.
+      // Só troca se for mesmo um link — unlink apaga o link, nunca os vídeos.
+      if (e.code !== 'EEXIST' || !fsSync.lstatSync(caminho).isSymbolicLink()) throw e;
+      fsSync.unlinkSync(caminho);
+      return symlinkOriginal(alvo, caminho, tipo ?? 'junction');
+    }
+  };
 }
 fsSync.mkdirSync(TEMPORARIO, { recursive: true });
 process.env.TMPDIR = TEMPORARIO;
