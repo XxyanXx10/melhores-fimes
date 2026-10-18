@@ -36,6 +36,17 @@ const pastaDoConfig = (() => {
   }
 })();
 const TEMPORARIO = pastaDoConfig || path.join(raiz, 'render', '.tmp');
+
+/*
+ * public/midia/banco/videos é uma junção para o C: (os vídeos baixados moram lá).
+ * Ao empacotar, o Remotion recria links como "symlink", e no Windows isso exige
+ * administrador — o render morria calado. Junção não exige: troca o tipo aqui.
+ * De quebra o pacote deixa de copiar 1 GB de vídeo a cada render.
+ */
+if (process.platform === 'win32') {
+  const symlinkOriginal = fsSync.promises.symlink.bind(fsSync.promises);
+  fsSync.promises.symlink = (alvo, caminho, tipo) => symlinkOriginal(alvo, caminho, tipo ?? 'junction');
+}
 fsSync.mkdirSync(TEMPORARIO, { recursive: true });
 process.env.TMPDIR = TEMPORARIO;
 process.env.TEMP = TEMPORARIO;

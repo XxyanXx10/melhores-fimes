@@ -1,0 +1,7237 @@
+{
+  "atualizado": "2026-10-18T00:29:28.228Z",
+  "itens": [
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/chiptune-escritorio.mp3",
+      "descricao": "Chiptune 8-bit animado, videogame retrô de escritório",
+      "tags": [
+        "8-bit",
+        "videogame",
+        "ia",
+        "pov",
+        "retrô"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/comedia-travessa.mp3",
+      "descricao": "Trilha cômica travessa: pizzicato, fagote e tuba, cara de desenho animado",
+      "tags": [
+        "engraçado",
+        "meme",
+        "comédia",
+        "caramelo",
+        "vexame"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/cozinha-jazz.mp3",
+      "descricao": "Jazz de cozinha brincalhão: contrabaixo swing, vassourinha, trompete com surdina",
+      "tags": [
+        "comida",
+        "cozinha",
+        "jazz",
+        "receita",
+        "transformação"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 684810
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/escritorio-ironico.mp3",
+      "descricao": "Comédia de escritório: ukulele, palmas, assobio, corporativo irônico",
+      "tags": [
+        "escritório",
+        "trabalho",
+        "chefe",
+        "pov",
+        "corporativo"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/funk-leve.mp3",
+      "descricao": "Funk carioca leve e família, tamborzão, sem letra",
+      "tags": [
+        "funk",
+        "brasil",
+        "pov",
+        "família",
+        "engraçado"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 670391
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/futuro-synthwave.mp3",
+      "descricao": "Synthwave futurista otimista com arpejos, cidade do futuro",
+      "tags": [
+        "futuro",
+        "2100",
+        "synthwave",
+        "cidade",
+        "transformação"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/historia-curiosa.mp3",
+      "descricao": "Narrativa de história real engraçada: piano leve, pizzicato e glockenspiel",
+      "tags": [
+        "história",
+        "narrativa",
+        "caso real",
+        "curiosidade"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/lofi-meme.mp3",
+      "descricao": "Lo-fi hip hop com melodia brilhante, clima de internet e tecnologia",
+      "tags": [
+        "lofi",
+        "tecnologia",
+        "lista",
+        "dicas",
+        "calmo"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/natureza-curiosa.mp3",
+      "descricao": "Documentário de natureza curioso: marimba, cordas e madeiras",
+      "tags": [
+        "animais",
+        "natureza",
+        "bichos",
+        "curiosidade",
+        "documentário"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/quiz-suspense.mp3",
+      "descricao": "Suspense de programa de TV/quiz: relógio, sintetizador tenso, contagem",
+      "tags": [
+        "quiz",
+        "real ou ia",
+        "suspense",
+        "contagem"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 725562
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musicas/trap-ironico.mp3",
+      "descricao": "Trap dramático e irônico com sinos e orquestra, tensão de desastre engraçado",
+      "tags": [
+        "trap",
+        "drama",
+        "notícia",
+        "desastre",
+        "ironia"
+      ],
+      "origem": "gerada (Google Lyria, Magnific)",
+      "tamanho": 746250
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/camera-shutter.mp3",
+      "descricao": "camera-shutter (0.63s)",
+      "tags": [
+        "camera-shutter"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 11327
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/among-us-sound-effect.mp3",
+      "descricao": "among-us-sound-effect (4.56s)",
+      "tags": [
+        "among-us-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 75454
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/angel-sound-effect.mp3",
+      "descricao": "angel-sound-effect (18.54s)",
+      "tags": [
+        "angel-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 299818
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/augghh-ahhhhh-sound-effect.mp3",
+      "descricao": "augghh-ahhhhh-sound-effect (5.96s)",
+      "tags": [
+        "augghh-ahhhhh-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 96812
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/awkward-pause-02.mp3",
+      "descricao": "awkward-pause-02 (3.97s)",
+      "tags": [
+        "awkward-pause-02"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 64476
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/awkward-pause.mp3",
+      "descricao": "awkward-pause (4.94s)",
+      "tags": [
+        "awkward-pause"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 79941
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/awww.mp3",
+      "descricao": "awww (1.75s)",
+      "tags": [
+        "awww"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 36865
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bamboo-hit-sound-effect-for-editing.mp3",
+      "descricao": "bamboo-hit-sound-effect-for-editing (0.96s)",
+      "tags": [
+        "bamboo-hit-sound-effect-for-editing"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 16605
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bamboo-hit.mp3",
+      "descricao": "bamboo-hit (1.64s)",
+      "tags": [
+        "bamboo-hit"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 27365
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bottle-cork.mp3",
+      "descricao": "bottle-cork (0.95s)",
+      "tags": [
+        "bottle-cork"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 16431
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bruh-sound-effect.mp3",
+      "descricao": "bruh-sound-effect (1.28s)",
+      "tags": [
+        "bruh-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 21627
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cartoon-eating-sound-effect-non-copyrigh.mp3",
+      "descricao": "cartoon-eating-sound-effect-non-copyrigh (2.82s)",
+      "tags": [
+        "cartoon-eating-sound-effect-non-copyrigh"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 47404
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cartoon-transition.mp3",
+      "descricao": "cartoon-transition (1.49s)",
+      "tags": [
+        "cartoon-transition"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 24719
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cartoon-toy-whistle.mp3",
+      "descricao": "cartoon-toy-whistle (1.21s)",
+      "tags": [
+        "cartoon-toy-whistle"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 20523
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/clock-ticking-sound-effect.mp3",
+      "descricao": "clock-ticking-sound-effect (3.74s)",
+      "tags": [
+        "clock-ticking-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 62981
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/core.mp3",
+      "descricao": "core (1.64s)",
+      "tags": [
+        "core"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 27533
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/disappointed.mp3",
+      "descricao": "disappointed (4.46s)",
+      "tags": [
+        "disappointed"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 72443
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/doraemon-notification-sound.mp3",
+      "descricao": "doraemon-notification-sound (5.89s)",
+      "tags": [
+        "doraemon-notification-sound"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 95561
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/faahhhhh.mp3",
+      "descricao": "faahhhhh (2.28s)",
+      "tags": [
+        "faahhhhh"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 37748
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/fart-sound-effect.mp3",
+      "descricao": "fart-sound-effect (3.1s)",
+      "tags": [
+        "fart-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 59622
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/flashback.mp3",
+      "descricao": "flashback (2.91s)",
+      "tags": [
+        "flashback"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 47722
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/glitch.mp3",
+      "descricao": "glitch (1s)",
+      "tags": [
+        "glitch"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 17244
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/illuminati-confirmed.mp3",
+      "descricao": "illuminati-confirmed (14.77s)",
+      "tags": [
+        "illuminati-confirmed"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 239200
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/nope-sound-effect.mp3",
+      "descricao": "nope-sound-effect (1.01s)",
+      "tags": [
+        "nope-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 17393
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/omg-meme.mp3",
+      "descricao": "omg-meme (4.71s)",
+      "tags": [
+        "omg-meme"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 76975
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/pop.mp3",
+      "descricao": "pop (0.7s)",
+      "tags": [
+        "pop"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 12258
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/punch.mp3",
+      "descricao": "punch (0.82s)",
+      "tags": [
+        "punch"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 23055
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/reveal-sound-effect.mp3",
+      "descricao": "reveal-sound-effect (15.06s)",
+      "tags": [
+        "reveal-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 242390
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/rizz-sound-effect.mp3",
+      "descricao": "rizz-sound-effect (3.38s)",
+      "tags": [
+        "rizz-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 55909
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/spider-man-3-meme-sound.mp3",
+      "descricao": "spider-man-3-meme-sound (4.05s)",
+      "tags": [
+        "spider-man-3-meme-sound"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 66403
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/toy-duck.mp3",
+      "descricao": "toy-duck (4.73s)",
+      "tags": [
+        "toy-duck"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 77310
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/whoosh-sound-effect.mp3",
+      "descricao": "whoosh-sound-effect (1.02s)",
+      "tags": [
+        "whoosh-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 17690
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/yeet-sound-effect-hd.mp3",
+      "descricao": "yeet-sound-effect-hd (4.35s)",
+      "tags": [
+        "yeet-sound-effect-hd"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 72559
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/999-credit-score-siren.mp3",
+      "descricao": "999-credit-score-siren (6.01s)",
+      "tags": [
+        "999-credit-score-siren"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 97522
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/707db471-c834-494e-a3d9-ada985203ef6.mp3",
+      "descricao": "707db471-c834-494e-a3d9-ada985203ef6 (4.5s)",
+      "tags": [
+        "707db471-c834-494e-a3d9-ada985203ef6"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 73278
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/awkward-moment.mp3",
+      "descricao": "awkward-moment (1.46s)",
+      "tags": [
+        "awkward-moment"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 24352
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bilnking.mp3",
+      "descricao": "bilnking (1.78s)",
+      "tags": [
+        "bilnking"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 29395
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bone-crack-sound-effect.mp3",
+      "descricao": "bone-crack-sound-effect (1.07s)",
+      "tags": [
+        "bone-crack-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 18110
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/breast-twitch.mp3",
+      "descricao": "breast-twitch (0.82s)",
+      "tags": [
+        "breast-twitch"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 14327
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/bua-wa-wa-wa-wa-sound-effect.mp3",
+      "descricao": "bua-wa-wa-wa-wa-sound-effect (3.69s)",
+      "tags": [
+        "bua-wa-wa-wa-wa-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 60324
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/build-up.mp3",
+      "descricao": "build-up (3.66s)",
+      "tags": [
+        "build-up"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 81417
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/camera-flash.mp3",
+      "descricao": "camera-flash (1.63s)",
+      "tags": [
+        "camera-flash"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 27368
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cash-register-03.mp3",
+      "descricao": "cash-register-03 (4.72s)",
+      "tags": [
+        "cash-register-03"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 76877
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cash-register-04.mp3",
+      "descricao": "cash-register-04 (3.08s)",
+      "tags": [
+        "cash-register-04"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 50546
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cash-register-3.mp3",
+      "descricao": "cash-register-3 (1.5s)",
+      "tags": [
+        "cash-register-3"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 25507
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cash-register-sound-effect.mp3",
+      "descricao": "cash-register-sound-effect (3.18s)",
+      "tags": [
+        "cash-register-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 51963
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/chinese-gong-meme-sound-effect.mp3",
+      "descricao": "chinese-gong-meme-sound-effect (8.52s)",
+      "tags": [
+        "chinese-gong-meme-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 137646
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/cinematic-boom-2-sound-effect.mp3",
+      "descricao": "cinematic-boom-2-sound-effect (5.85s)",
+      "tags": [
+        "cinematic-boom-2-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 94782
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/collect-gold.mp3",
+      "descricao": "collect-gold (2.93s)",
+      "tags": [
+        "collect-gold"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 47707
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/da-bells-1.mp3",
+      "descricao": "da-bells-1 (1.34s)",
+      "tags": [
+        "da-bells-1"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 26598
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/da-bells-2.mp3",
+      "descricao": "da-bells-2 (1.25s)",
+      "tags": [
+        "da-bells-2"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 24927
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/da-bells-3.mp3",
+      "descricao": "da-bells-3 (1.46s)",
+      "tags": [
+        "da-bells-3"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 28688
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/daft-punk-robot-rock-meme-sound.mp3",
+      "descricao": "daft-punk-robot-rock-meme-sound (4.2s)",
+      "tags": [
+        "daft-punk-robot-rock-meme-sound"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 68170
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/discord-calll.mp3",
+      "descricao": "discord-calll (5.62s)",
+      "tags": [
+        "discord-calll"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 90833
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/discord-notification.mp3",
+      "descricao": "discord-notification (0.48s)",
+      "tags": [
+        "discord-notification"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 8820
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/discord-join.mp3",
+      "descricao": "discord-join (2.91s)",
+      "tags": [
+        "discord-join"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 47757
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/discord-leave.mp3",
+      "descricao": "discord-leave (2.33s)",
+      "tags": [
+        "discord-leave"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 38562
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/flashbang-sound-effect.mp3",
+      "descricao": "flashbang-sound-effect (6.03s)",
+      "tags": [
+        "flashbang-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 97522
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/french-meme-song.mp3",
+      "descricao": "french-meme-song (14.56s)",
+      "tags": [
+        "french-meme-song"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 234195
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/gay-echo-voice-tiktok-sound-effect.mp3",
+      "descricao": "gay-echo-voice-tiktok-sound-effect (7.42s)",
+      "tags": [
+        "gay-echo-voice-tiktok-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 119674
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/glass-breaking-sound-effects.mp3",
+      "descricao": "glass-breaking-sound-effects (2.11s)",
+      "tags": [
+        "glass-breaking-sound-effects"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 34828
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/god-damn-meme-sound-effect.mp3",
+      "descricao": "god-damn-meme-sound-effect (1.3s)",
+      "tags": [
+        "god-damn-meme-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 21869
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/goku-prowler-meme-sound-effect-soundboar.mp3",
+      "descricao": "goku-prowler-meme-sound-effect-soundboar (5.31s)",
+      "tags": [
+        "goku-prowler-meme-sound-effect-soundboar"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 86237
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/goofy-ahh-car-honk-sound-effect.mp3",
+      "descricao": "goofy-ahh-car-honk-sound-effect (4.97s)",
+      "tags": [
+        "goofy-ahh-car-honk-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 80804
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/hells-kitchen-suspense.mp3",
+      "descricao": "hells-kitchen-suspense (3.53s)",
+      "tags": [
+        "hells-kitchen-suspense"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 57816
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/iphone-receive.mp3",
+      "descricao": "iphone-receive (0.79s)",
+      "tags": [
+        "iphone-receive"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 14132
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/iphone-send.mp3",
+      "descricao": "iphone-send (0.66s)",
+      "tags": [
+        "iphone-send"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 12042
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/lego-breaking.mp3",
+      "descricao": "lego-breaking (1.65s)",
+      "tags": [
+        "lego-breaking"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 27721
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/lie-detector-meme-template.mp3",
+      "descricao": "lie-detector-meme-template (1.18s)",
+      "tags": [
+        "lie-detector-meme-template"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 20200
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/magic-spells-delight-ding-bubbly-level-u.mp3",
+      "descricao": "magic-spells-delight-ding-bubbly-level-u (2.47s)",
+      "tags": [
+        "magic-spells-delight-ding-bubbly-level-u"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 40585
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/man-falls-down-stairs-meme.mp3",
+      "descricao": "man-falls-down-stairs-meme (2.09s)",
+      "tags": [
+        "man-falls-down-stairs-meme"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 34410
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/mentality-sound-effect.mp3",
+      "descricao": "mentality-sound-effect (1.2s)",
+      "tags": [
+        "mentality-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 20200
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/metal-pipe-falling-sound-effect.mp3",
+      "descricao": "metal-pipe-falling-sound-effect (2.91s)",
+      "tags": [
+        "metal-pipe-falling-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 47785
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/munch-bite.mp3",
+      "descricao": "munch-bite (0.95s)",
+      "tags": [
+        "munch-bite"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 16438
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/please-stand-by-meme.mp3",
+      "descricao": "please-stand-by-meme (14.06s)",
+      "tags": [
+        "please-stand-by-meme"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 226253
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/police-radio-beep.mp3",
+      "descricao": "police-radio-beep (4.07s)",
+      "tags": [
+        "police-radio-beep"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 66175
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/punch-anime.mp3",
+      "descricao": "punch-anime (2.25s)",
+      "tags": [
+        "punch-anime"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 37336
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/rude-eternal-youth.mp3",
+      "descricao": "rude-eternal-youth (205.82s)",
+      "tags": [
+        "rude-eternal-youth"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 3294500
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/sakhteman-pezeshkan.mp3",
+      "descricao": "sakhteman-pezeshkan (136.3s)",
+      "tags": [
+        "sakhteman-pezeshkan"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 2181885
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/skibidi-bop-mm-dada-boom.mp3",
+      "descricao": "skibidi-bop-mm-dada-boom (3.81s)",
+      "tags": [
+        "skibidi-bop-mm-dada-boom"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 67276
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/sound-effect-metal-slug.mp3",
+      "descricao": "sound-effect-metal-slug (2.14s)",
+      "tags": [
+        "sound-effect-metal-slug"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 35246
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/taco-bell.mp3",
+      "descricao": "taco-bell (1.81s)",
+      "tags": [
+        "taco-bell"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 30231
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/tf2-heavy-om-nom-nom-sound-effect.mp3",
+      "descricao": "tf2-heavy-om-nom-nom-sound-effect (3.09s)",
+      "tags": [
+        "tf2-heavy-om-nom-nom-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 50711
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/the-good-ending-song-meme.mp3",
+      "descricao": "the-good-ending-song-meme (9.73s)",
+      "tags": [
+        "the-good-ending-song-meme"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 156872
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/tik-tik.mp3",
+      "descricao": "tik-tik (0.83s)",
+      "tags": [
+        "tik-tik"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 14348
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/topac-sound-engle.mp3",
+      "descricao": "topac-sound-engle (12.56s)",
+      "tags": [
+        "topac-sound-engle"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 202012
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/travis-scott-meme-sound-effect.mp3",
+      "descricao": "travis-scott-meme-sound-effect (3.44s)",
+      "tags": [
+        "travis-scott-meme-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 56144
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/twitch-alert-sound-effect.mp3",
+      "descricao": "twitch-alert-sound-effect (4.86s)",
+      "tags": [
+        "twitch-alert-sound-effect"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 79132
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/ultra-instinct-opening-theme-sound-effec.mp3",
+      "descricao": "ultra-instinct-opening-theme-sound-effec (12.56s)",
+      "tags": [
+        "ultra-instinct-opening-theme-sound-effec"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 202012
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx-meme/undertakers-bell-2uwfcie.mp3",
+      "descricao": "undertakers-bell-2uwfcie (4.21s)",
+      "tags": [
+        "undertakers-bell-2uwfcie"
+      ],
+      "origem": "pasta de efeitos do usuário",
+      "tamanho": 68263
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/advogado.jpg",
+      "descricao": "Advogado nervoso com papéis diante de juiz bravo em Nova York",
+      "tags": [
+        "advogado",
+        "tribunal",
+        "juiz",
+        "chatgpt",
+        "vexame"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 142996
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/bh-2100.jpg",
+      "descricao": "Belo Horizonte em 2100: prédios nos morros com boteco no topo",
+      "tags": [
+        "2100",
+        "futuro",
+        "belo horizonte",
+        "minas",
+        "capitais",
+        "boteco"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 291681
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/bom-dia.jpg",
+      "descricao": "Cartão brega de bom dia de WhatsApp: rosas, brilho, café",
+      "tags": [
+        "bom dia",
+        "whatsapp",
+        "família",
+        "mãe",
+        "brega"
+      ],
+      "prompt": "cheesy Brazilian WhatsApp good morning greeting card: glittery pink and gold text \"Bom dia!\", roses, sparkles, sunrise, butterflies, coffee",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 382511
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/brasilia-2100.jpg",
+      "descricao": "Brasília em 2100: Congresso virou nave espacial",
+      "tags": [
+        "2100",
+        "futuro",
+        "brasília",
+        "capitais",
+        "nave"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 215851
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-astronauta.jpg",
+      "descricao": "Caramelo astronauta na Lua com bandeira do Brasil",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "astronauta",
+        "lua",
+        "brasil"
+      ],
+      "prompt": "Brazilian caramel-colored mutt dog as an astronaut in a white space suit standing on the Moon next to a small Brazilian flag, Earth in the sky, funny, photo",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 173300
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-ceo.jpg",
+      "descricao": "Vira-lata caramelo de terno como CEO numa sala de reunião",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "ceo",
+        "escritório"
+      ],
+      "prompt": "Brazilian caramel-colored mutt dog (vira-lata caramelo) as a serious CEO in a navy suit and tie, sitting at the head of a glass boardroom table in a skyscraper, funny, photo",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 153305
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-motoboy.jpg",
+      "descricao": "Caramelo motoboy de entrega numa rua de São Paulo",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "motoboy",
+        "entrega",
+        "são paulo"
+      ],
+      "prompt": "Brazilian caramel-colored mutt dog as a motorcycle delivery courier with a delivery box, helmet, busy São Paulo street, funny, photo",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 190113
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/caramelo-selecao.jpg",
+      "descricao": "Caramelo jogador com camisa amarela erguendo taça no estádio",
+      "tags": [
+        "caramelo",
+        "cachorro",
+        "futebol",
+        "seleção",
+        "hexa"
+      ],
+      "prompt": "Brazilian caramel-colored mutt dog as a soccer player wearing a plain yellow jersey with green details, holding a golden trophy in a packed stadium, no logos",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 224576
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/chefe.jpg",
+      "descricao": "Chefe empolgado apontando o notebook com chatbot, equipe exausta atrás",
+      "tags": [
+        "chefe",
+        "escritório",
+        "trabalho",
+        "chatgpt",
+        "pov"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 135829
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/cubos-tungstenio.jpg",
+      "descricao": "Cubos de tungstênio numa prateleira de lanches com etiqueta SALE",
+      "tags": [
+        "tungstênio",
+        "metal",
+        "loja",
+        "prejuízo"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 173509
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/curitiba-2100.jpg",
+      "descricao": "Curitiba em 2100: Ópera de Arame futurista e estações-tubo",
+      "tags": [
+        "2100",
+        "futuro",
+        "curitiba",
+        "capitais"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 247891
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/estacao-pastel.jpg",
+      "descricao": "Estação de trem em forma de pastel de feira",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "pastel",
+        "trem"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 215517
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/estadio-feijoada.jpg",
+      "descricao": "Estádio em forma de feijoada: arquibancada de couve, gramado de farofa",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "feijoada",
+        "estádio",
+        "futebol"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 291268
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/floripa-2100.jpg",
+      "descricao": "Florianópolis em 2100: cidade flutuante e ponte que se monta sozinha",
+      "tags": [
+        "2100",
+        "futuro",
+        "florianópolis",
+        "capitais",
+        "ponte"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 256217
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/fortaleza-2100.jpg",
+      "descricao": "Fortaleza em 2100: drone vendendo queijo coalho na praia",
+      "tags": [
+        "2100",
+        "futuro",
+        "fortaleza",
+        "capitais",
+        "praia",
+        "drone"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 206851
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-blazer.jpg",
+      "descricao": "Holograma de chatbot de blazer azul e gravata vermelha entregando lanches",
+      "tags": [
+        "chatbot",
+        "blazer",
+        "gravata",
+        "anthropic",
+        "entrega"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 134207
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-cao-praia.jpg",
+      "descricao": "[IA] Golden retriever correndo na praia (para o quiz Real ou IA)",
+      "tags": [
+        "quiz",
+        "ia",
+        "cachorro",
+        "praia"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 108608
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-feijoada.jpg",
+      "descricao": "[IA] Feijoada na panela de barro vista de cima",
+      "tags": [
+        "quiz",
+        "ia",
+        "feijoada",
+        "comida"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 186109
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-gato-asas.jpg",
+      "descricao": "[IA] Gato rajado com asas de borboleta num muro",
+      "tags": [
+        "quiz",
+        "ia",
+        "gato",
+        "animal"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 183531
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-homem.jpg",
+      "descricao": "[IA] Selfie de homem de boné numa feira, segurando o celular ao contrário (pista de IA)",
+      "tags": [
+        "quiz",
+        "ia",
+        "pessoa",
+        "selfie",
+        "feira"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 154822
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-mulher.jpg",
+      "descricao": "[IA] Selfie de mulher brasileira de cabelo cacheado num café (pessoa que não existe)",
+      "tags": [
+        "quiz",
+        "ia",
+        "pessoa",
+        "selfie"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 121785
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-rio.jpg",
+      "descricao": "[IA] Rio de Janeiro com Pão de Açúcar ao pôr do sol",
+      "tags": [
+        "quiz",
+        "ia",
+        "rio de janeiro",
+        "paisagem"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 193322
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/lojinha-ia.jpg",
+      "descricao": "Lojinha self-service de escritório com geladeira e tablet ('AI-run shop')",
+      "tags": [
+        "loja",
+        "escritório",
+        "anthropic",
+        "claude",
+        "geladeira"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 167485
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/manaus-2100.jpg",
+      "descricao": "Manaus em 2100: cidade verde dentro da floresta",
+      "tags": [
+        "2100",
+        "futuro",
+        "manaus",
+        "amazônia",
+        "capitais"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 299267
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/nuggets-260.jpg",
+      "descricao": "Tela de drive-thru com pedido de 260 nuggets e motorista chocado",
+      "tags": [
+        "drive-thru",
+        "nuggets",
+        "fast food",
+        "vexame",
+        "ia"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 168279
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/parque-acai.jpg",
+      "descricao": "Parque aquático roxo em forma de tigela de açaí com tobogã de granola",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "açaí",
+        "parque aquático"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 279244
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/pizza-cola.jpg",
+      "descricao": "Pizza de pepperoni com cola escolar sendo espremida em cima",
+      "tags": [
+        "pizza",
+        "cola",
+        "vexame",
+        "google",
+        "comida"
+      ],
+      "prompt": "pepperoni pizza with a bottle of white school glue being squeezed onto the cheese, kitchen counter, absurd and funny, photo",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 206894
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/poa-2100.jpg",
+      "descricao": "Porto Alegre em 2100: robô servindo chimarrão no Guaíba",
+      "tags": [
+        "2100",
+        "futuro",
+        "porto alegre",
+        "capitais",
+        "chimarrão",
+        "robô"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 183300
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/predio-brigadeiro.jpg",
+      "descricao": "Condomínio de luxo em forma de brigadeiro com granulado",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "brigadeiro",
+        "doce"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 231216
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/predio-coxinha.jpg",
+      "descricao": "Arranha-céu em forma de coxinha com elevador de catupiry",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "coxinha",
+        "prédio"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 213645
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/predio-pao-de-queijo.jpg",
+      "descricao": "Planetário em forma de pão de queijo",
+      "tags": [
+        "comida",
+        "arquitetura",
+        "pão de queijo",
+        "minas"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 245002
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-axolote.jpg",
+      "descricao": "[REAL] Axolote rosa sorrindo (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "axolote",
+        "animal"
+      ],
+      "origem": "Pexels",
+      "tamanho": 40213
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-cao-1.jpg",
+      "descricao": "real cao 1",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 306041
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-cao-2.jpg",
+      "descricao": "real cao 2",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 115148
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-cao-3.jpg",
+      "descricao": "[REAL] Golden retriever correndo na praia (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "cachorro",
+        "praia"
+      ],
+      "origem": "Pexels",
+      "tamanho": 145812
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-feijoada-1.jpg",
+      "descricao": "real feijoada 1",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 128139
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-feijoada-2.jpg",
+      "descricao": "[REAL] Feijoada com arroz, couve e farofa vista de cima (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "feijoada",
+        "comida"
+      ],
+      "origem": "Pexels",
+      "tamanho": 189892
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-gato-1.jpg",
+      "descricao": "real gato 1",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 147041
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-gato-2.jpg",
+      "descricao": "[REAL] Gato branco (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "gato"
+      ],
+      "origem": "Pexels",
+      "tamanho": 127223
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-gato-3.jpg",
+      "descricao": "[REAL] Gato laranja (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "gato"
+      ],
+      "origem": "Pexels",
+      "tamanho": 79492
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-geladeira-1.jpg",
+      "descricao": "[REAL] Geladeira aberta com comida (Pexels)",
+      "tags": [
+        "geladeira",
+        "comida",
+        "receita",
+        "real"
+      ],
+      "origem": "Pexels",
+      "tamanho": 82331
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-geladeira-2.jpg",
+      "descricao": "real geladeira 2",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 81711
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-peixe-bolha-rosto.jpg",
+      "descricao": "[REAL] Peixe-bolha, cara triste (domínio público, Wikimedia)",
+      "tags": [
+        "quiz",
+        "real",
+        "peixe-bolha",
+        "animal"
+      ],
+      "origem": "Wikimedia Commons (domínio público)",
+      "tamanho": 34231
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-peixe-bolha.jpg",
+      "descricao": "real peixe bolha",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 67080
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-rio-1.jpg",
+      "descricao": "[REAL] Lagoa Rodrigo de Freitas ao entardecer (Pexels)",
+      "tags": [
+        "quiz",
+        "real",
+        "rio de janeiro",
+        "paisagem"
+      ],
+      "origem": "Pexels",
+      "tamanho": 63262
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-rio-2.jpg",
+      "descricao": "real rio 2",
+      "tags": [],
+      "origem": "foto real",
+      "tamanho": 95644
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-saiga.jpg",
+      "descricao": "[REAL] Antílope saiga com narigão (Andrey Giljov, CC BY-SA 4.0 — creditar)",
+      "tags": [
+        "quiz",
+        "real",
+        "saiga",
+        "animal"
+      ],
+      "origem": "Wikimedia Commons, CC BY-SA 4.0 (Andrey Giljov) — exige crédito",
+      "tamanho": 77173
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/recife-2100.jpg",
+      "descricao": "Recife em 2100: porto de naves no Recife Antigo e frevo voando",
+      "tags": [
+        "2100",
+        "futuro",
+        "recife",
+        "capitais",
+        "frevo"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 255911
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/rio-2100.jpg",
+      "descricao": "Rio em 2100: Cristo Redentor holograma e praia futurista",
+      "tags": [
+        "2100",
+        "futuro",
+        "rio de janeiro",
+        "capitais",
+        "cristo"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 217028
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/robo-segunda.jpg",
+      "descricao": "Robozinho na segunda-feira soterrado de notificações e mensagens",
+      "tags": [
+        "robô",
+        "segunda-feira",
+        "notificações",
+        "ia",
+        "pov"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 185802
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/salvador-2100.jpg",
+      "descricao": "Salvador em 2100: Pelourinho com telas de LED e baiana do acarajé",
+      "tags": [
+        "2100",
+        "futuro",
+        "salvador",
+        "bahia",
+        "capitais",
+        "acarajé"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 286888
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/sp-2100.jpg",
+      "descricao": "São Paulo em 2100: arranha-céus e carros voadores engarrafados",
+      "tags": [
+        "2100",
+        "futuro",
+        "são paulo",
+        "capitais",
+        "trânsito"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 250036
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/suv-1-dolar.jpg",
+      "descricao": "SUV em concessionária com etiqueta de preço US$ 1",
+      "tags": [
+        "carro",
+        "concessionária",
+        "1 dólar",
+        "vexame",
+        "chatbot"
+      ],
+      "prompt": "big shiny SUV at a car dealership with a huge price tag on the windshield reading \"$1\", funny, photo",
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 203165
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_10476419.mp4",
+      "descricao": "Pexels: police car lights night",
+      "tags": [
+        "police",
+        "car",
+        "lights",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4810374
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_10816903.mp4",
+      "descricao": "Pexels: night road driving pov",
+      "tags": [
+        "night",
+        "road",
+        "driving",
+        "pov",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3485419
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_11131968.mp4",
+      "descricao": "Pexels: pizza cheese pull",
+      "tags": [
+        "pizza",
+        "cheese",
+        "pull",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5357706
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_11245736.mp4",
+      "descricao": "Pexels: magnifying glass search concept",
+      "tags": [
+        "magnifying",
+        "glass",
+        "search",
+        "concept",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5602048
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_11371604.mp4",
+      "descricao": "Pexels: cinematic desert sunset",
+      "tags": [
+        "cinematic",
+        "desert",
+        "sunset",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2161475
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_11889623.mp4",
+      "descricao": "Pexels: power button off dark",
+      "tags": [
+        "power",
+        "button",
+        "off",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 464476
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_11933153.mp4",
+      "descricao": "Pexels: city night timelapse",
+      "tags": [
+        "city",
+        "night",
+        "timelapse",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11269522
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_12293711.mp4",
+      "descricao": "Pexels: car dealership lot",
+      "tags": [
+        "car",
+        "dealership",
+        "lot",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4641908
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_12595892.mp4",
+      "descricao": "Pexels: flowers roses",
+      "tags": [
+        "flowers",
+        "roses",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 20522688
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_12893568.mp4",
+      "descricao": "Pexels: woman typing laptop night search",
+      "tags": [
+        "woman",
+        "typing",
+        "laptop",
+        "night",
+        "search",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4002749
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_12893608.mp4",
+      "descricao": "Pexels: business professional office",
+      "tags": [
+        "business",
+        "professional",
+        "office",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3655228
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_12896410.mp4",
+      "descricao": "Pexels: office computer automation",
+      "tags": [
+        "office",
+        "computer",
+        "automation",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3639863
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_15283169.mp4",
+      "descricao": "Pexels: dark abstract cube technology",
+      "tags": [
+        "dark",
+        "abstract",
+        "cube",
+        "technology",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3884036
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_16762623.mp4",
+      "descricao": "Pexels: highway night traffic timelapse",
+      "tags": [
+        "highway",
+        "night",
+        "traffic",
+        "timelapse",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11042120
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_17356514.mp4",
+      "descricao": "Pexels: camera lens close up dark",
+      "tags": [
+        "camera",
+        "lens",
+        "close",
+        "up",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12055737
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_17512949.mp4",
+      "descricao": "Pexels: smartphone hand scrolling",
+      "tags": [
+        "smartphone",
+        "hand",
+        "scrolling",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4162391
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_18031170.mp4",
+      "descricao": "Pexels: red alarm light dark",
+      "tags": [
+        "red",
+        "alarm",
+        "light",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 869504
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_18327364.mp4",
+      "descricao": "Pexels: brazil flag waving sky",
+      "tags": [
+        "brazil",
+        "flag",
+        "waving",
+        "sky",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10301342
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_18503891.mp4",
+      "descricao": "Pexels: facepalm embarrassed",
+      "tags": [
+        "facepalm",
+        "embarrassed",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2779378
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_18962668.mp4",
+      "descricao": "Pexels: airport terminal people",
+      "tags": [
+        "airport",
+        "terminal",
+        "people",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2091007
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_19317978.mp4",
+      "descricao": "Pexels: pickup truck showroom",
+      "tags": [
+        "pickup",
+        "truck",
+        "showroom",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5196417
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_19532053.mp4",
+      "descricao": "Pexels: person typing laptop dark room",
+      "tags": [
+        "person",
+        "typing",
+        "laptop",
+        "dark",
+        "room",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3285910
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_26082726.mp4",
+      "descricao": "Pexels: brazil city aerial",
+      "tags": [
+        "brazil",
+        "city",
+        "aerial",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 38610372
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_26569985.mp4",
+      "descricao": "B-roll: pessoa com óculos inteligentes",
+      "tags": [
+        "oculos",
+        "inteligente",
+        "gravando",
+        "privacidade",
+        "person",
+        "wearing",
+        "smart",
+        "glasses",
+        "roll",
+        "pessoa",
+        "inteligentes"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4105910
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_27844045.mp4",
+      "descricao": "Pexels: content moderation computer screens",
+      "tags": [
+        "content",
+        "moderation",
+        "computer",
+        "screens",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3209374
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_27875229.mp4",
+      "descricao": "Pexels: stray dog street brazil",
+      "tags": [
+        "stray",
+        "dog",
+        "street",
+        "brazil",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5558193
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_28709421.mp4",
+      "descricao": "Pexels: server room data center",
+      "tags": [
+        "server",
+        "room",
+        "data",
+        "center",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 19441801
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_29631359.mp4",
+      "descricao": "Pexels: night city traffic street",
+      "tags": [
+        "night",
+        "city",
+        "traffic",
+        "street",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 15870699
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_30342849.mp4",
+      "descricao": "Pexels: sao paulo city financial district",
+      "tags": [
+        "sao",
+        "paulo",
+        "city",
+        "financial",
+        "district",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 16150177
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_30641139.mp4",
+      "descricao": "Pexels: airplane airport window",
+      "tags": [
+        "airplane",
+        "airport",
+        "window",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6589240
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_30718267.mp4",
+      "descricao": "Pexels: chatgpt smartphone",
+      "tags": [
+        "chatgpt",
+        "smartphone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1669592
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_30730779.mp4",
+      "descricao": "Pexels: smartphone battery charging",
+      "tags": [
+        "smartphone",
+        "battery",
+        "charging",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 14767039
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_33315117.mp4",
+      "descricao": "B-roll: programador codando",
+      "tags": [
+        "codigo",
+        "programar",
+        "desenvolver",
+        "computador",
+        "programmer",
+        "coding",
+        "computer",
+        "roll",
+        "programador",
+        "codando"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1652427
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_34289018.mp4",
+      "descricao": "B-roll: servidores com alerta vermelho",
+      "tags": [
+        "dados",
+        "invasao",
+        "servidor",
+        "alerta",
+        "server",
+        "room",
+        "red",
+        "light",
+        "alarm",
+        "roll",
+        "servidores",
+        "vermelho"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1451746
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_34459460.mp4",
+      "descricao": "Pexels: code screen dark",
+      "tags": [
+        "code",
+        "screen",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3682734
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_34600574.mp4",
+      "descricao": "Pexels: electric car driving city street",
+      "tags": [
+        "electric",
+        "car",
+        "driving",
+        "city",
+        "street",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 26179152
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_34779296.mp4",
+      "descricao": "Pexels: india city night traffic",
+      "tags": [
+        "india",
+        "city",
+        "night",
+        "traffic",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9234232
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35003022.mp4",
+      "descricao": "B-roll: rede neural / cérebro",
+      "tags": [
+        "raciocinio",
+        "cerebro",
+        "pensar",
+        "neural",
+        "brain",
+        "network",
+        "roll",
+        "rede"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7336106
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35015128.mp4",
+      "descricao": "Pexels: happy dog running",
+      "tags": [
+        "happy",
+        "dog",
+        "running",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 26526308
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35163081.mp4",
+      "descricao": "Pexels: artificial intelligence abstract",
+      "tags": [
+        "artificial",
+        "intelligence",
+        "abstract",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10864573
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35332817.mp4",
+      "descricao": "Pexels: calendar pages flipping",
+      "tags": [
+        "calendar",
+        "pages",
+        "flipping",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3073615
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35417493.mp4",
+      "descricao": "Pexels: investment portfolio charts screen",
+      "tags": [
+        "investment",
+        "portfolio",
+        "charts",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8220991
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35656150.mp4",
+      "descricao": "Pexels: bus station travel night",
+      "tags": [
+        "bus",
+        "station",
+        "travel",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8295712
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35814571.mp4",
+      "descricao": "Pexels: silicon valley office building",
+      "tags": [
+        "silicon",
+        "valley",
+        "office",
+        "building",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 16704023
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_35972076.mp4",
+      "descricao": "Pexels: crowd people street walking",
+      "tags": [
+        "crowd",
+        "people",
+        "street",
+        "walking",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11996198
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_36064039.mp4",
+      "descricao": "Pexels: corporate office glass building",
+      "tags": [
+        "corporate",
+        "office",
+        "glass",
+        "building",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 14535650
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_36178907.mp4",
+      "descricao": "Pexels: laptop typing dark room",
+      "tags": [
+        "laptop",
+        "typing",
+        "dark",
+        "room",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6421409
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_36425300.mp4",
+      "descricao": "Pexels: office meeting serious",
+      "tags": [
+        "office",
+        "meeting",
+        "serious",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2898837
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_36629601.mp4",
+      "descricao": "Pexels: self driving car sensors technology",
+      "tags": [
+        "self",
+        "driving",
+        "car",
+        "sensors",
+        "technology",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10319739
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_36939899.mp4",
+      "descricao": "Pexels: beach waves sunny",
+      "tags": [
+        "beach",
+        "waves",
+        "sunny",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 21518054
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_37191856.mp4",
+      "descricao": "Pexels: happy dog running",
+      "tags": [
+        "happy",
+        "dog",
+        "running",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8476973
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_37676204.mp4",
+      "descricao": "Pexels: data charts screen dark",
+      "tags": [
+        "data",
+        "charts",
+        "screen",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6298944
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_38071228.mp4",
+      "descricao": "Pexels: printing press newspaper",
+      "tags": [
+        "printing",
+        "press",
+        "newspaper",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8759366
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_3827385.mp4",
+      "descricao": "Pexels: money cash falling",
+      "tags": [
+        "money",
+        "cash",
+        "falling",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6217641
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_3831743.mp4",
+      "descricao": "Pexels: magnifying glass documents inspection",
+      "tags": [
+        "magnifying",
+        "glass",
+        "documents",
+        "inspection",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1420799
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_38410501.mp4",
+      "descricao": "Pexels: smartphone social media apps",
+      "tags": [
+        "smartphone",
+        "social",
+        "media",
+        "apps",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8742138
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_38672314.mp4",
+      "descricao": "Pexels: tech conference stage",
+      "tags": [
+        "tech",
+        "conference",
+        "stage",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3356723
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_38868674.mp4",
+      "descricao": "Pexels: news studio screens",
+      "tags": [
+        "news",
+        "studio",
+        "screens",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2687634
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39210399.mp4",
+      "descricao": "Pexels: morning kitchen coffee smart home",
+      "tags": [
+        "morning",
+        "kitchen",
+        "coffee",
+        "smart",
+        "home",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2304631
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39286036.mp4",
+      "descricao": "Pexels: self driving car highway night",
+      "tags": [
+        "self",
+        "driving",
+        "car",
+        "highway",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7402604
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39402054.mp4",
+      "descricao": "Pexels: tv studio presenter",
+      "tags": [
+        "tv",
+        "studio",
+        "presenter",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3508920
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39425812.mp4",
+      "descricao": "B-roll: edição de vídeo no computador",
+      "tags": [
+        "editar",
+        "edicao",
+        "video",
+        "editando",
+        "tempo",
+        "editing",
+        "timeline",
+        "computer",
+        "roll",
+        "computador"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5665026
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_3943961.mp4",
+      "descricao": "Pexels: money growth coins stack",
+      "tags": [
+        "money",
+        "growth",
+        "coins",
+        "stack",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5972636
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_3945447.mp4",
+      "descricao": "Pexels: journalist newsroom writing",
+      "tags": [
+        "journalist",
+        "newsroom",
+        "writing",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10752472
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39468833.mp4",
+      "descricao": "Pexels: brasilia aerial city",
+      "tags": [
+        "brasilia",
+        "aerial",
+        "city",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12450837
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_39608091.mp4",
+      "descricao": "B-roll: universo e estrelas",
+      "tags": [
+        "vida",
+        "universo",
+        "limites",
+        "criacao",
+        "galaxy",
+        "stars",
+        "universe",
+        "cinematic",
+        "roll",
+        "estrelas"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12086946
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_40185025.mp4",
+      "descricao": "Pexels: face recognition scan",
+      "tags": [
+        "face",
+        "recognition",
+        "scan",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 23689882
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_4443274.mp4",
+      "descricao": "B-roll: estudando online",
+      "tags": [
+        "qualificar",
+        "estudar",
+        "curso",
+        "people",
+        "studying",
+        "online",
+        "course",
+        "roll",
+        "estudando"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1330451
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_4631131.mp4",
+      "descricao": "Pexels: android smartphone hand",
+      "tags": [
+        "android",
+        "smartphone",
+        "hand",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4947899
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_4883833.mp4",
+      "descricao": "Pexels: person phone surprised",
+      "tags": [
+        "person",
+        "phone",
+        "surprised",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12856025
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5083552.mp4",
+      "descricao": "Pexels: website design screen",
+      "tags": [
+        "website",
+        "design",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 17436119
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5377696.mp4",
+      "descricao": "Pexels: hacker dark computer",
+      "tags": [
+        "hacker",
+        "dark",
+        "computer",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7443212
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5377697.mp4",
+      "descricao": "pexels 5377697",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4112441
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5377775.mp4",
+      "descricao": "B-roll: cadeado digital",
+      "tags": [
+        "proteger",
+        "seguranca",
+        "ciberseguranca",
+        "cyber",
+        "security",
+        "lock",
+        "digital",
+        "roll",
+        "cadeado"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4583613
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5377987.mp4",
+      "descricao": "Pexels: hacker mask dark",
+      "tags": [
+        "hacker",
+        "mask",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4813271
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5453575.mp4",
+      "descricao": "Pexels: doctor technology hospital",
+      "tags": [
+        "doctor",
+        "technology",
+        "hospital",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7997780
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5473919.mp4",
+      "descricao": "Pexels: laptop chat night dark room",
+      "tags": [
+        "laptop",
+        "chat",
+        "night",
+        "dark",
+        "room",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7827268
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5473972.mp4",
+      "descricao": "Pexels: digital face glitch",
+      "tags": [
+        "digital",
+        "face",
+        "glitch",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9155698
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5483215.mp4",
+      "descricao": "Pexels: executive office window city",
+      "tags": [
+        "executive",
+        "office",
+        "window",
+        "city",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3766343
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5647324.mp4",
+      "descricao": "Pexels: typing keyboard close up",
+      "tags": [
+        "typing",
+        "keyboard",
+        "close",
+        "up",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11966440
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5657828.mp4",
+      "descricao": "B-roll: operador numa sala de controle",
+      "tags": [
+        "operador",
+        "remoto",
+        "controle",
+        "monitor",
+        "control",
+        "room",
+        "operator",
+        "monitors",
+        "roll",
+        "numa",
+        "sala"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3242909
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5725851.mp4",
+      "descricao": "B-roll: criando no notebook em casa",
+      "tags": [
+        "quarto",
+        "casa",
+        "notebook",
+        "trabalhando",
+        "criador",
+        "young",
+        "man",
+        "laptop",
+        "bedroom",
+        "night",
+        "roll",
+        "criando"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3468725
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5727553.mp4",
+      "descricao": "Pexels: family dinner table",
+      "tags": [
+        "family",
+        "dinner",
+        "table",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4802139
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5896048.mp4",
+      "descricao": "Pexels: folders files computer",
+      "tags": [
+        "folders",
+        "files",
+        "computer",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5341021
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5899600.mp4",
+      "descricao": "Pexels: young man phone thinking night",
+      "tags": [
+        "young",
+        "man",
+        "phone",
+        "thinking",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5961183
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5925174.mp4",
+      "descricao": "Pexels: voting booth election",
+      "tags": [
+        "voting",
+        "booth",
+        "election",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2962221
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5925283.mp4",
+      "descricao": "Pexels: code matrix screen",
+      "tags": [
+        "code",
+        "matrix",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4286507
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5965068.mp4",
+      "descricao": "Pexels: supreme court building columns",
+      "tags": [
+        "supreme",
+        "court",
+        "building",
+        "columns",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8611574
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5974773.mp4",
+      "descricao": "Pexels: people laughing phone",
+      "tags": [
+        "people",
+        "laughing",
+        "phone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 16973638
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_5998433.mp4",
+      "descricao": "Pexels: doctor patient smiling",
+      "tags": [
+        "doctor",
+        "patient",
+        "smiling",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9443848
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6101149.mp4",
+      "descricao": "B-roll: profissional de sucesso",
+      "tags": [
+        "profissionais",
+        "ganhando",
+        "sucesso",
+        "professional",
+        "working",
+        "laptop",
+        "success",
+        "roll",
+        "profissional"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6727309
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6101365.mp4",
+      "descricao": "Pexels: court justice gavel",
+      "tags": [
+        "court",
+        "justice",
+        "gavel",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2507498
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6134591.mp4",
+      "descricao": "Pexels: thinking man chess",
+      "tags": [
+        "thinking",
+        "man",
+        "chess",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2991999
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6153455.mp4",
+      "descricao": "Pexels: robot hand human hand touching",
+      "tags": [
+        "robot",
+        "hand",
+        "human",
+        "touching",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1188608
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6221680.mp4",
+      "descricao": "Pexels: pizza oven kitchen",
+      "tags": [
+        "pizza",
+        "oven",
+        "kitchen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3862866
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6297714.mp4",
+      "descricao": "Pexels: woman thinking window rain",
+      "tags": [
+        "woman",
+        "thinking",
+        "window",
+        "rain",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5084092
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6414089.mp4",
+      "descricao": "Pexels: man smartphone city night thinking",
+      "tags": [
+        "man",
+        "smartphone",
+        "city",
+        "night",
+        "thinking",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8439447
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6549266.mp4",
+      "descricao": "Pexels: student studying laptop night",
+      "tags": [
+        "student",
+        "studying",
+        "laptop",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9907102
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6557707.mp4",
+      "descricao": "Pexels: marketing team office meeting",
+      "tags": [
+        "marketing",
+        "team",
+        "office",
+        "meeting",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6190087
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6608213.mp4",
+      "descricao": "Pexels: content creator writing laptop",
+      "tags": [
+        "content",
+        "creator",
+        "writing",
+        "laptop",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4986390
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6611951.mp4",
+      "descricao": "Pexels: phone screen off dark table",
+      "tags": [
+        "phone",
+        "screen",
+        "off",
+        "dark",
+        "table",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1247798
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6755168.mp4",
+      "descricao": "Pexels: circuit board macro",
+      "tags": [
+        "circuit",
+        "board",
+        "macro",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6195911
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6855615.mp4",
+      "descricao": "B-roll: casa inteligente",
+      "tags": [
+        "casa",
+        "inteligente",
+        "assistente",
+        "ambiente",
+        "smart",
+        "home",
+        "voice",
+        "assistant",
+        "speaker",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8696848
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6892735.mp4",
+      "descricao": "Pexels: headphones podcast listening",
+      "tags": [
+        "headphones",
+        "podcast",
+        "listening",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 14245923
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6931573.mp4",
+      "descricao": "Pexels: scam phone call smartphone",
+      "tags": [
+        "scam",
+        "phone",
+        "call",
+        "smartphone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4661354
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_6962182.mp4",
+      "descricao": "Pexels: smartphone apps home screen",
+      "tags": [
+        "smartphone",
+        "apps",
+        "home",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 19287857
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7058610.mp4",
+      "descricao": "Pexels: woman talking voice message phone",
+      "tags": [
+        "woman",
+        "talking",
+        "voice",
+        "message",
+        "phone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6795390
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7100960.mp4",
+      "descricao": "B-roll: pessoa tranquila no celular",
+      "tags": [
+        "tranquilo",
+        "seguro",
+        "celular",
+        "woman",
+        "relaxed",
+        "using",
+        "phone",
+        "roll",
+        "pessoa",
+        "tranquila"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7022856
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7223989.mp4",
+      "descricao": "Pexels: dating app smartphone swipe",
+      "tags": [
+        "dating",
+        "app",
+        "smartphone",
+        "swipe",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 13622045
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7230866.mp4",
+      "descricao": "Pexels: chemistry lab flask dark",
+      "tags": [
+        "chemistry",
+        "lab",
+        "flask",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2976267
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7234088.mp4",
+      "descricao": "Pexels: phone selfie street",
+      "tags": [
+        "phone",
+        "selfie",
+        "street",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2832116
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7251794.mp4",
+      "descricao": "Pexels: glass of ice water",
+      "tags": [
+        "glass",
+        "of",
+        "ice",
+        "water",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10436973
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7252935.mp4",
+      "descricao": "Pexels: project management board sticky notes",
+      "tags": [
+        "project",
+        "management",
+        "board",
+        "sticky",
+        "notes",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3232617
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7279035.mp4",
+      "descricao": "Pexels: person reading news phone night",
+      "tags": [
+        "person",
+        "reading",
+        "news",
+        "phone",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4251791
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7279746.mp4",
+      "descricao": "Pexels: person holding phone worried",
+      "tags": [
+        "person",
+        "holding",
+        "phone",
+        "worried",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4667542
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7299417.mp4",
+      "descricao": "Pexels: close up eye blinking",
+      "tags": [
+        "close",
+        "up",
+        "eye",
+        "blinking",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11405869
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7299471.mp4",
+      "descricao": "Pexels: face close up eyes",
+      "tags": [
+        "face",
+        "close",
+        "up",
+        "eyes",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2688848
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7330834.mp4",
+      "descricao": "Pexels: grandmother smiling phone",
+      "tags": [
+        "grandmother",
+        "smiling",
+        "phone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9941861
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7350953.mp4",
+      "descricao": "Pexels: google search laptop screen",
+      "tags": [
+        "google",
+        "search",
+        "laptop",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11627395
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7351190.mp4",
+      "descricao": "Pexels: mother daughter laughing",
+      "tags": [
+        "mother",
+        "daughter",
+        "laughing",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5122689
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7362700.mp4",
+      "descricao": "Pexels: smartphone dark chat",
+      "tags": [
+        "smartphone",
+        "dark",
+        "chat",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7866470
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7439142.mp4",
+      "descricao": "B-roll: pessoa digitando no notebook",
+      "tags": [
+        "digita",
+        "perguntas",
+        "chat",
+        "notebook",
+        "person",
+        "typing",
+        "laptop",
+        "roll",
+        "pessoa",
+        "digitando"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 13542777
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7567650.mp4",
+      "descricao": "Pexels: person relaxed using banking app",
+      "tags": [
+        "person",
+        "relaxed",
+        "using",
+        "banking",
+        "app",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3059302
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7580287.mp4",
+      "descricao": "pexels 7580287",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5706400
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7581435.mp4",
+      "descricao": "Pexels: mammography doctor",
+      "tags": [
+        "mammography",
+        "doctor",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11431799
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7586628.mp4",
+      "descricao": "Pexels: music studio microphone singing",
+      "tags": [
+        "music",
+        "studio",
+        "microphone",
+        "singing",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6708060
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7586633.mp4",
+      "descricao": "Pexels: microphone recording dark",
+      "tags": [
+        "microphone",
+        "recording",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5057146
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7616839.mp4",
+      "descricao": "Pexels: social media ads dashboard",
+      "tags": [
+        "social",
+        "media",
+        "ads",
+        "dashboard",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4823556
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7643453.mp4",
+      "descricao": "Pexels: business leaders boardroom meeting",
+      "tags": [
+        "business",
+        "leaders",
+        "boardroom",
+        "meeting",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11739757
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7646797.mp4",
+      "descricao": "B-roll: segurança no celular",
+      "tags": [
+        "seguranca",
+        "celular",
+        "protecao",
+        "aparelho",
+        "smartphone",
+        "security",
+        "lock",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1764458
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7657523.mp4",
+      "descricao": "Pexels: reading news on phone",
+      "tags": [
+        "reading",
+        "news",
+        "on",
+        "phone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2092340
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7669659.mp4",
+      "descricao": "Pexels: wallet smartphone payment night",
+      "tags": [
+        "wallet",
+        "smartphone",
+        "payment",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2191377
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7680352.mp4",
+      "descricao": "Pexels: man thinking laptop night",
+      "tags": [
+        "man",
+        "thinking",
+        "laptop",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 14627229
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7681473.mp4",
+      "descricao": "Pexels: smartphone settings screen",
+      "tags": [
+        "smartphone",
+        "settings",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3696614
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7683268.mp4",
+      "descricao": "Pexels: customer service headset office",
+      "tags": [
+        "customer",
+        "service",
+        "headset",
+        "office",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8844447
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7683346.mp4",
+      "descricao": "Pexels: university campus",
+      "tags": [
+        "university",
+        "campus",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11528561
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7691600.mp4",
+      "descricao": "B-roll: reunião de estratégia",
+      "tags": [
+        "estrategia",
+        "decisao",
+        "inovacao",
+        "reuniao",
+        "business",
+        "strategy",
+        "meeting",
+        "whiteboard",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7004061
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7698901.mp4",
+      "descricao": "Pexels: person phone worried night",
+      "tags": [
+        "person",
+        "phone",
+        "worried",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1777122
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7706064.mp4",
+      "descricao": "B-roll: cofre",
+      "tags": [
+        "cofre",
+        "segredo",
+        "guardado",
+        "melhores",
+        "safe",
+        "vault",
+        "door",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11840821
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7822022.mp4",
+      "descricao": "Pexels: smartphone lock screen security",
+      "tags": [
+        "smartphone",
+        "lock",
+        "screen",
+        "security",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2535118
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7824433.mp4",
+      "descricao": "Pexels: people using smartphone",
+      "tags": [
+        "people",
+        "using",
+        "smartphone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3510557
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7859800.mp4",
+      "descricao": "B-roll: escaneamento de rosto",
+      "tags": [
+        "rosto",
+        "clone",
+        "deepfake",
+        "biometria",
+        "face",
+        "scan",
+        "biometric",
+        "technology",
+        "roll",
+        "escaneamento"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6272287
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7924953.mp4",
+      "descricao": "Pexels: wallet money",
+      "tags": [
+        "wallet",
+        "money",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4357737
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7934967.mp4",
+      "descricao": "Pexels: sunglasses street fashion",
+      "tags": [
+        "sunglasses",
+        "street",
+        "fashion",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 13008185
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7942762.mp4",
+      "descricao": "B-roll: trabalhando no notebook à noite",
+      "tags": [
+        "usar",
+        "ia",
+        "favor",
+        "notebook",
+        "person",
+        "working",
+        "laptop",
+        "night",
+        "roll",
+        "trabalhando",
+        "noite"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2769248
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7971669.mp4",
+      "descricao": "Pexels: older woman using smartphone",
+      "tags": [
+        "older",
+        "woman",
+        "using",
+        "smartphone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2733950
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7983124.mp4",
+      "descricao": "Pexels: student studying laptop night",
+      "tags": [
+        "student",
+        "studying",
+        "laptop",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9857325
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_7985874.mp4",
+      "descricao": "Pexels: tech conference stage big screen",
+      "tags": [
+        "tech",
+        "conference",
+        "stage",
+        "big",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7019738
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8052328.mp4",
+      "descricao": "Pexels: phone call scam worried",
+      "tags": [
+        "phone",
+        "call",
+        "scam",
+        "worried",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9469373
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8087011.mp4",
+      "descricao": "Pexels: robot face dark",
+      "tags": [
+        "robot",
+        "face",
+        "dark",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1645150
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8087012.mp4",
+      "descricao": "Pexels: humanoid robot face close up",
+      "tags": [
+        "humanoid",
+        "robot",
+        "face",
+        "close",
+        "up",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4809497
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8087025.mp4",
+      "descricao": "B-roll: robô humanoide",
+      "tags": [
+        "robo",
+        "teste",
+        "ia",
+        "futuro",
+        "robot",
+        "humanoid",
+        "roll",
+        "humanoide"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5593415
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8087071.mp4",
+      "descricao": "Pexels: robot walking alone",
+      "tags": [
+        "robot",
+        "walking",
+        "alone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2179328
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8087323.mp4",
+      "descricao": "Pexels: robot kitchen cooking",
+      "tags": [
+        "robot",
+        "kitchen",
+        "cooking",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6829629
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8120676.mp4",
+      "descricao": "Pexels: woman suspicious phone call",
+      "tags": [
+        "woman",
+        "suspicious",
+        "phone",
+        "call",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 19710240
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8195526.mp4",
+      "descricao": "Pexels: shopping store glasses display",
+      "tags": [
+        "shopping",
+        "store",
+        "glasses",
+        "display",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9590384
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8328143.mp4",
+      "descricao": "Pexels: robot arm working",
+      "tags": [
+        "robot",
+        "arm",
+        "working",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3960607
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8328148.mp4",
+      "descricao": "B-roll: tecnologia de IA",
+      "tags": [
+        "ia",
+        "inteligencia",
+        "artificial",
+        "tecnologia",
+        "lancamento",
+        "intelligence",
+        "technology",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6940695
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8347239.mp4",
+      "descricao": "Pexels: modern office timelapse empty",
+      "tags": [
+        "modern",
+        "office",
+        "timelapse",
+        "empty",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3345028
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8375483.mp4",
+      "descricao": "Pexels: hospital doctor computer",
+      "tags": [
+        "hospital",
+        "doctor",
+        "computer",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5154619
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8457701.mp4",
+      "descricao": "Pexels: person surprised laptop",
+      "tags": [
+        "person",
+        "surprised",
+        "laptop",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2317613
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8460286.mp4",
+      "descricao": "B-roll: tecnologia médica",
+      "tags": [
+        "medicina",
+        "saude",
+        "tecnologia",
+        "revolucionando",
+        "medical",
+        "technology",
+        "screen",
+        "roll",
+        "medica"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5016855
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8472307.mp4",
+      "descricao": "Pexels: office laptop typing",
+      "tags": [
+        "office",
+        "laptop",
+        "typing",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3884433
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8480678.mp4",
+      "descricao": "Pexels: confused person looking at stock chart",
+      "tags": [
+        "confused",
+        "person",
+        "looking",
+        "at",
+        "stock",
+        "chart",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12483549
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8522975.mp4",
+      "descricao": "Pexels: computer screen chat night",
+      "tags": [
+        "computer",
+        "screen",
+        "chat",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 7243992
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8522984.mp4",
+      "descricao": "Pexels: people talking cafe",
+      "tags": [
+        "people",
+        "talking",
+        "cafe",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10387639
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8523642.mp4",
+      "descricao": "Pexels: laptop browser tabs",
+      "tags": [
+        "laptop",
+        "browser",
+        "tabs",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 8449592
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8533380.mp4",
+      "descricao": "B-roll: laboratório de ciência",
+      "tags": [
+        "ciencia",
+        "laboratorio",
+        "pesquisa",
+        "science",
+        "laboratory",
+        "research",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2993424
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8571776.mp4",
+      "descricao": "Pexels: reading news tablet",
+      "tags": [
+        "reading",
+        "news",
+        "tablet",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 12790231
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8705291.mp4",
+      "descricao": "Pexels: data center corridor",
+      "tags": [
+        "data",
+        "center",
+        "corridor",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4111444
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8721926.mp4",
+      "descricao": "Pexels: hacker laptop dark neon",
+      "tags": [
+        "hacker",
+        "laptop",
+        "dark",
+        "neon",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9579737
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8731290.mp4",
+      "descricao": "B-roll: lendo guia no tablet",
+      "tags": [
+        "guia",
+        "ebook",
+        "fluxo",
+        "material",
+        "reading",
+        "tablet",
+        "roll",
+        "lendo"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5472174
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8788559.mp4",
+      "descricao": "Pexels: living room sofa home",
+      "tags": [
+        "living",
+        "room",
+        "sofa",
+        "home",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3606162
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8830764.mp4",
+      "descricao": "Pexels: magnifying glass detail",
+      "tags": [
+        "magnifying",
+        "glass",
+        "detail",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 3013732
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8847370.mp4",
+      "descricao": "Pexels: election campaign poster",
+      "tags": [
+        "election",
+        "campaign",
+        "poster",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10782001
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8847372.mp4",
+      "descricao": "B-roll: eleição e voto",
+      "tags": [
+        "eleicao",
+        "voto",
+        "urna",
+        "election",
+        "voting",
+        "brazil",
+        "roll"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6034706
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8847883.mp4",
+      "descricao": "Pexels: debate microphone stage politics",
+      "tags": [
+        "debate",
+        "microphone",
+        "stage",
+        "politics",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 15112114
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8852749.mp4",
+      "descricao": "B-roll: cientistas discutindo",
+      "tags": [
+        "especialistas",
+        "debate",
+        "cientistas",
+        "discutem",
+        "scientists",
+        "discussion",
+        "laboratory",
+        "roll",
+        "discutindo"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2601436
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8860241.mp4",
+      "descricao": "Pexels: lonely man phone window night",
+      "tags": [
+        "lonely",
+        "man",
+        "phone",
+        "window",
+        "night",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2752788
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8927997.mp4",
+      "descricao": "Pexels: person relaxed laptop",
+      "tags": [
+        "person",
+        "relaxed",
+        "laptop",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 10215670
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8937988.mp4",
+      "descricao": "Pexels: laptop google search screen",
+      "tags": [
+        "laptop",
+        "google",
+        "search",
+        "screen",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 5690825
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_8979451.mp4",
+      "descricao": "Pexels: robot office desk",
+      "tags": [
+        "robot",
+        "office",
+        "desk",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2534933
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9077861.mp4",
+      "descricao": "Pexels: bored office worker paperwork",
+      "tags": [
+        "bored",
+        "office",
+        "worker",
+        "paperwork",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 6659250
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9365198.mp4",
+      "descricao": "Pexels: team office technology",
+      "tags": [
+        "team",
+        "office",
+        "technology",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 11831218
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9484866.mp4",
+      "descricao": "Pexels: man waiting alone city",
+      "tags": [
+        "man",
+        "waiting",
+        "alone",
+        "city",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 2853934
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9571468.mp4",
+      "descricao": "Pexels: brazil flag waving",
+      "tags": [
+        "brazil",
+        "flag",
+        "waving",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 4312183
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9785305.mp4",
+      "descricao": "Pexels: person searching internet smartphone",
+      "tags": [
+        "person",
+        "searching",
+        "internet",
+        "smartphone",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 9417101
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/pexels_9943145.mp4",
+      "descricao": "Pexels: open door dark office",
+      "tags": [
+        "open",
+        "door",
+        "dark",
+        "office",
+        "pexels"
+      ],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1928282
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/amazon.svg",
+      "descricao": "amazon",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2129
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/anthropic.svg",
+      "descricao": "anthropic",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 281
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/apple.svg",
+      "descricao": "apple",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 650
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/canva.svg",
+      "descricao": "canva",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2756
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/claude.svg",
+      "descricao": "claude",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1921
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/deepseek.svg",
+      "descricao": "deepseek",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 7649
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/github.svg",
+      "descricao": "github",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 822
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/githubcopilot.svg",
+      "descricao": "githubcopilot",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1744
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/google.svg",
+      "descricao": "google",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 457
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/googlegemini.svg",
+      "descricao": "googlegemini",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 401
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/grok.svg",
+      "descricao": "grok",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2076
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/huggingface.svg",
+      "descricao": "huggingface",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 4747
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/instagram.svg",
+      "descricao": "instagram",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2101
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/make.svg",
+      "descricao": "make",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 598
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/meta.svg",
+      "descricao": "meta",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1324
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/microsoft.svg",
+      "descricao": "microsoft",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 206
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/midjourney.png",
+      "descricao": "midjourney",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 162483
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/mistralai.svg",
+      "descricao": "mistralai",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1434
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/n8n.svg",
+      "descricao": "n8n",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1573
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/notion.svg",
+      "descricao": "notion",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 978
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/nubank.svg",
+      "descricao": "nubank",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1043
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/nvidia.svg",
+      "descricao": "nvidia",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 881
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/openai.svg",
+      "descricao": "openai",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1570
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/perplexity.svg",
+      "descricao": "perplexity",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 618
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/replit.svg",
+      "descricao": "replit",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 326
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/tesla.svg",
+      "descricao": "tesla",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 541
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/tiktok.svg",
+      "descricao": "tiktok",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 707
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/whatsapp.svg",
+      "descricao": "whatsapp",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 1216
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/x.svg",
+      "descricao": "x",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 252
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/xai.svg",
+      "descricao": "xai",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 701
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/youtube.svg",
+      "descricao": "youtube",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 459
+    },
+    {
+      "tipo": "logo",
+      "src": "midia/banco/logos/zapier.svg",
+      "descricao": "zapier",
+      "tags": [],
+      "origem": "Simple Icons",
+      "tamanho": 2832
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/canaltech-google-busca.png",
+      "descricao": "print do site canaltech google busca",
+      "tags": [],
+      "tamanho": 690092
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/chatgpt.png",
+      "descricao": "print do site chatgpt",
+      "tags": [],
+      "tamanho": 46708
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/gemini.png",
+      "descricao": "print do site gemini",
+      "tags": [],
+      "tamanho": 97103
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/n8n.png",
+      "descricao": "print do site n8n",
+      "tags": [],
+      "tamanho": 503260
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/notebooklm.png",
+      "descricao": "print do site notebooklm",
+      "tags": [],
+      "tamanho": 103979
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/owasp.png",
+      "descricao": "print do site owasp",
+      "tags": [],
+      "tamanho": 106870
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/removebg.png",
+      "descricao": "print do site removebg",
+      "tags": [],
+      "tamanho": 439054
+    },
+    {
+      "tipo": "print",
+      "src": "midia/banco/prints/suno.png",
+      "descricao": "print do site suno",
+      "tags": [],
+      "tamanho": 602910
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/ia_nucleo_futurista.png",
+      "descricao": "Núcleo de IA futurista brilhando (gancho de lançamento de IA)",
+      "tags": [],
+      "tamanho": 1674232
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/adeus-apps/capa.png",
+      "descricao": "TechCrunch: Amazon devices chief Panos Panay sees a future where AI devices replace the need to use apps | TechCrunch",
+      "tags": [
+        "adeus-apps"
+      ],
+      "origem": "https://techcrunch.com/2026/10/15/amazon-devices-chief-panos-panay-sees-a-future-where-ai-devices-replace-the-need-to-use-apps/",
+      "tamanho": 475286
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/capa.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 436192
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img1.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 12851
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img2.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 20041
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img3.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 218242
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img4.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 258052
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img5.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 78577
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img6.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 33771
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img7.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 73188
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/amor-de-ia-um-alerta-real/img8.png",
+      "descricao": "Estadão: Brasileiro viaja 2 mil km para encontrar ‘pretendente’ e descobre que mulher era IA",
+      "tags": [
+        "amor-de-ia-um-alerta-real"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/inteligencia-artificial/brasileiro-viaja-2-mil-km-para-encontrar-pretendente-e-descobre-que-mulher-era-ia/",
+      "tamanho": 94262
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/deepfakes-proteja-se-da-ia-maliciosa/capa.png",
+      "descricao": "CNN Brasil: Como identificar vídeos feitos com IA e evitar golpes? | CNN Brasil",
+      "tags": [
+        "deepfakes-proteja-se-da-ia-maliciosa"
+      ],
+      "origem": "https://www.cnnbrasil.com.br/nacional/brasil/como-identificar-videos-feitos-com-ia-e-evitar-golpes/",
+      "tamanho": 881777
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/deepfakes-proteja-se-da-ia-maliciosa/img1.png",
+      "descricao": "CNN Brasil: Como identificar vídeos feitos com IA e evitar golpes? | CNN Brasil",
+      "tags": [
+        "deepfakes-proteja-se-da-ia-maliciosa"
+      ],
+      "origem": "https://www.cnnbrasil.com.br/nacional/brasil/como-identificar-videos-feitos-com-ia-e-evitar-golpes/",
+      "tamanho": 82614
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/deepfakes-proteja-se-da-ia-maliciosa/img2.png",
+      "descricao": "CNN Brasil: Como identificar vídeos feitos com IA e evitar golpes? | CNN Brasil",
+      "tags": [
+        "deepfakes-proteja-se-da-ia-maliciosa"
+      ],
+      "origem": "https://www.cnnbrasil.com.br/nacional/brasil/como-identificar-videos-feitos-com-ia-e-evitar-golpes/",
+      "tamanho": 234915
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/empresas-autodirigidas-com-ia/capa.png",
+      "descricao": "TechCrunch: Replit's CEO says the future of work is the 'self-driving company' | TechCrunch",
+      "tags": [
+        "empresas-autodirigidas-com-ia"
+      ],
+      "origem": "https://techcrunch.com/2026/10/16/replits-ceo-says-the-future-of-work-is-the-self-driving-company/",
+      "tamanho": 575097
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/capa.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 586569
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img1.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 637321
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img2.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 510066
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img3.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 610562
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img4.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 423425
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img5.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 555600
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img6.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 897436
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img7.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 357562
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-com-ia-em-sp/img8.png",
+      "descricao": "G1: Oito pessoas são presas em central de golpes com IA | G1",
+      "tags": [
+        "golpe-com-ia-em-sp"
+      ],
+      "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
+      "tamanho": 337839
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/google-ouve-e-melhora-a-busca-com-ia/capa.png",
+      "descricao": "Canaltech: Google ouve usuários e faz mudança importante na busca por IA",
+      "tags": [
+        "google-ouve-e-melhora-a-busca-com-ia"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/google-ouve-usuarios-e-faz-mudanca-importante-na-busca-por-ia/",
+      "tamanho": 697470
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/google-ouve-e-melhora-a-busca-com-ia/img1.png",
+      "descricao": "Canaltech: Google ouve usuários e faz mudança importante na busca por IA",
+      "tags": [
+        "google-ouve-e-melhora-a-busca-com-ia"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/google-ouve-usuarios-e-faz-mudanca-importante-na-busca-por-ia/",
+      "tamanho": 172697
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/google-ouve-e-melhora-a-busca-com-ia/img2.png",
+      "descricao": "Canaltech: Google ouve usuários e faz mudança importante na busca por IA",
+      "tags": [
+        "google-ouve-e-melhora-a-busca-com-ia"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/google-ouve-usuarios-e-faz-mudanca-importante-na-busca-por-ia/",
+      "tamanho": 247539
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-apagou-reality/capa.png",
+      "descricao": "Canaltech: Agente de IA apaga temporada inteira de reality show dias antes da estreia",
+      "tags": [
+        "ia-apagou-reality"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/agente-de-ia-apaga-temporada-inteira-de-reality-show-dias-antes-da-estreia/",
+      "tamanho": 488982
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-apagou-reality/img1.png",
+      "descricao": "Canaltech: Agente de IA apaga temporada inteira de reality show dias antes da estreia",
+      "tags": [
+        "ia-apagou-reality"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/agente-de-ia-apaga-temporada-inteira-de-reality-show-dias-antes-da-estreia/",
+      "tamanho": 942001
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-e-a-imparcialidade-nas-eleicoes/capa.png",
+      "descricao": "Agência Brasil: TSE determina isonomia após IA da Meta barrar imagens de Lula",
+      "tags": [
+        "ia-e-a-imparcialidade-nas-eleicoes"
+      ],
+      "origem": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/tse-determina-isonomia-apos-ia-da-meta-barrar-imagens-de-lula",
+      "tamanho": 2040267
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-e-a-imparcialidade-nas-eleicoes/img1.png",
+      "descricao": "Agência Brasil: TSE determina isonomia após IA da Meta barrar imagens de Lula",
+      "tags": [
+        "ia-e-a-imparcialidade-nas-eleicoes"
+      ],
+      "origem": "https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/tse-determina-isonomia-apos-ia-da-meta-barrar-imagens-de-lula",
+      "tamanho": 679275
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-e-eleicoes-a-polemica-do-bloqueio/capa.png",
+      "descricao": "CartaCapital: Meta se reúne com Nunes Marques após IA bloquear cartaz de Lula com número 13",
+      "tags": [
+        "ia-e-eleicoes-a-polemica-do-bloqueio"
+      ],
+      "origem": "https://www.cartacapital.com.br/justica/meta-se-reune-com-nunes-marques-apos-ia-bloquear-cartaz-de-lula-com-numero-13/",
+      "tamanho": 1295730
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-e-eleicoes-a-polemica-do-bloqueio/img1.png",
+      "descricao": "CartaCapital: Meta se reúne com Nunes Marques após IA bloquear cartaz de Lula com número 13",
+      "tags": [
+        "ia-e-eleicoes-a-polemica-do-bloqueio"
+      ],
+      "origem": "https://www.cartacapital.com.br/justica/meta-se-reune-com-nunes-marques-apos-ia-bloquear-cartaz-de-lula-com-numero-13/",
+      "tamanho": 10886
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-o-debate-da-consciencia/capa.png",
+      "descricao": "Campo Grande News: Da inteligência artificial para a consciência artificial",
+      "tags": [
+        "ia-o-debate-da-consciencia"
+      ],
+      "origem": "https://www.campograndenews.com.br/artigos/da-inteligencia-artificial-para-a-consciencia-artificial",
+      "tamanho": 184545
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-acessa-dados-confidenciais-na-india/capa.png",
+      "descricao": "TechCrunch: India becomes the latest country to report rogue AI agent activity | TechCrunch",
+      "tags": [
+        "ia-rebelde-acessa-dados-confidenciais-na-india"
+      ],
+      "origem": "https://techcrunch.com/2026/10/16/india-becomes-the-latest-country-to-report-rogue-ai-agent-activity/",
+      "tamanho": 431896
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/capa.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 967003
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img1.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 302284
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img2.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 921767
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img3.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 1256340
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img4.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 719114
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img5.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 330973
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/ia-rebelde-ela-burla-as-regras/img6.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "ia-rebelde-ela-burla-as-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 703745
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/capa.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 10877313
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img1.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 793214
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img2.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 505475
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img3.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 989707
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img4.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 930997
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img5.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 535642
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img6.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 814500
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img7.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 649375
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/lideres-de-tech-nao-confiam-na-propria-ia/img8.png",
+      "descricao": "Época NEGÓCIOS: Só 5% dos líderes de tecnologia conseguem explicar decisões de IA com total confiança, diz estudo",
+      "tags": [
+        "lideres-de-tech-nao-confiam-na-propria-ia"
+      ],
+      "origem": "https://epocanegocios.globo.com/inteligencia-artificial/noticia/2026/10/so-5percent-dos-lideres-de-tecnologia-conseguem-explicar-decisoes-de-ia-com-total-confianca-diz-estudo.ghtml",
+      "tamanho": 163001
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/capa.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 287552
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img1.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 213721
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img2.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 254347
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img3.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 59554
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img4.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 812624
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img5.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 674427
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img6.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 782470
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img7.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 2250465
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/meta-admite-ia-bloqueou-lula-e-liberou-flavio/img8.png",
+      "descricao": "UOL: Thais Bilenky: Meta admite que IA bloqueou material de Lula e liberou para Flávio",
+      "tags": [
+        "meta-admite-ia-bloqueou-lula-e-liberou-flavio"
+      ],
+      "origem": "https://noticias.uol.com.br/colunas/thais-bilenky/2026/10/16/meta-admite-que-ia-bloqueou-material-de-lula-e-liberou-para-flavio.htm",
+      "tamanho": 2081706
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/nubank-ia-para-seus-investimentos/capa.png",
+      "descricao": "Canaltech: App do Nubank ganha IA que avalia carteira e sugere investimentos",
+      "tags": [
+        "nubank-ia-para-seus-investimentos"
+      ],
+      "origem": "https://canaltech.com.br/apps/app-do-nubank-ganha-ia-que-avalia-carteira-e-sugere-investimentos/",
+      "tamanho": 1091135
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/nubank-ia-para-seus-investimentos/img1.png",
+      "descricao": "Canaltech: App do Nubank ganha IA que avalia carteira e sugere investimentos",
+      "tags": [
+        "nubank-ia-para-seus-investimentos"
+      ],
+      "origem": "https://canaltech.com.br/apps/app-do-nubank-ganha-ia-que-avalia-carteira-e-sugere-investimentos/",
+      "tamanho": 291179
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/capa.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 425940
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img1.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 599448
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img2.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 1214179
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img3.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 12851
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img4.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 20041
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img5.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 218242
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img6.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 258052
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img7.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 78577
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/oculos-da-meta-gravam-voce/img8.png",
+      "descricao": "Estadão: Meta corrige erro que ativa gravações de áudio em óculos Ray-Ban",
+      "tags": [
+        "oculos-da-meta-gravam-voce"
+      ],
+      "origem": "https://www.estadao.com.br/tecmundo/produto-e-review/meta-corrige-bug-que-fazia-oculos-ray-ban-iniciarem-gravacoes-automaticamente/",
+      "tamanho": 33771
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/robo-taxis-o-perigo-e-a-ia-ou-o-humano/capa.png",
+      "descricao": "Electrek: Tesla remote operators keep crashing its ‘Robotaxis,’ data shows",
+      "tags": [
+        "robo-taxis-o-perigo-e-a-ia-ou-o-humano"
+      ],
+      "origem": "https://electrek.co/2026/10/15/tesla-remote-operators-crashing-robotaxis/",
+      "tamanho": 523217
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/capa.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 967003
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img1.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 302284
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img2.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 921767
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img3.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 1256340
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img4.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 719114
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img5.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 330973
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/sua-ia-pode-ser-persuadida-a-burlar-regras/img6.png",
+      "descricao": "Canaltech: Como e por que a inteligência artificial consegue burlar regras?",
+      "tags": [
+        "sua-ia-pode-ser-persuadida-a-burlar-regras"
+      ],
+      "origem": "https://canaltech.com.br/inteligencia-artificial/como-e-por-que-a-inteligencia-artificial-consegue-burlar-regras/",
+      "tamanho": 703745
+    },
+    {
+      "tipo": "video",
+      "src": "midia/01_einstein_loop.mp4",
+      "descricao": "01 einstein loop",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 12633270
+    },
+    {
+      "tipo": "video",
+      "src": "midia/02_sirio_libanes.mp4",
+      "descricao": "02 sirio libanes",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4495926
+    },
+    {
+      "tipo": "video",
+      "src": "midia/03_alemao_corte.mp4",
+      "descricao": "03 alemao corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 1438369
+    },
+    {
+      "tipo": "video",
+      "src": "midia/04_moinhos_corte.mp4",
+      "descricao": "04 moinhos corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2471882
+    },
+    {
+      "tipo": "video",
+      "src": "midia/05_hcor_v2.mp4",
+      "descricao": "05 hcor v2",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3773571
+    },
+    {
+      "tipo": "video",
+      "src": "midia/06_santa_catarina_corte.mp4",
+      "descricao": "06 santa catarina corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2679370
+    },
+    {
+      "tipo": "video",
+      "src": "midia/07_hc_usp_corte.mp4",
+      "descricao": "07 hc usp corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 1269112
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_analise_de_dados_dashboard_g_b118c5fa4b.jpg",
+      "descricao": "cena analise de dados dashboard g b118c5fa4b",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 28606
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_ciencia_tecnologia_laborator_0f3216d6dc.jpg",
+      "descricao": "cena ciencia tecnologia laborator 0f3216d6dc",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 36345
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_comparacao_inteligencia_arti_68c2e464bb.jpg",
+      "descricao": "cena comparacao inteligencia arti 68c2e464bb",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 41912
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_equipe_tecnologia_projeto_pl_40f7476c89.jpg",
+      "descricao": "cena equipe tecnologia projeto pl 40f7476c89",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 68599
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_gemini_argon_teste_real_tecn_1d13894f40.jpg",
+      "descricao": "cena gemini argon teste real tecn 1d13894f40",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 36624
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_google_gemini_ai_artificial__416e7b1921.jpg",
+      "descricao": "cena google gemini ai artificial 416e7b1921",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 45858
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_google_problemas_construir_s_1cb3dbebd7.jpg",
+      "descricao": "cena google problemas construir s 1cb3dbebd7",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 50513
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_inteligencia_artificial_tecn_139e031f60.jpg",
+      "descricao": "cena inteligencia artificial tecn 139e031f60",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 58047
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_programador_desenvolvendo_co_2a0c89948e.jpg",
+      "descricao": "cena programador desenvolvendo co 2a0c89948e",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 132652
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_projeto_encontrar_problemas__a251c36120.jpg",
+      "descricao": "cena projeto encontrar problemas a251c36120",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 48999
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_seguranca_digital_cibersegur_6936edf0c6.jpg",
+      "descricao": "cena seguranca digital cibersegur 6936edf0c6",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 82745
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/auto/cena_seja_foco_trabalhos_exigem_t_a9f0ed1241.jpg",
+      "descricao": "cena seja foco trabalhos exigem t a9f0ed1241",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 57454
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/aviso_contratual.png",
+      "descricao": "aviso contratual",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 13101
+    },
+    {
+      "tipo": "video",
+      "src": "midia/A_medicina_e_o_cuidado._Por_toda_a_vida..mp4",
+      "descricao": "A medicina e o cuidado. Por toda a vida.",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 1879921
+    },
+    {
+      "tipo": "video",
+      "src": "midia/Barra_D_Or___Maior__mais_moderno_e_em_um_novo_endere_o.mp4",
+      "descricao": "Barra D Or Maior mais moderno e em um novo endere o",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 34130805
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/capa_livro.jpg",
+      "descricao": "capa livro",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 229676
+    },
+    {
+      "tipo": "video",
+      "src": "midia/cena01_homem_sombra.mp4",
+      "descricao": "cena01 homem sombra",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6423184
+    },
+    {
+      "tipo": "video",
+      "src": "midia/cena02_menina_invisivel.mp4",
+      "descricao": "cena02 menina invisivel",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5433102
+    },
+    {
+      "tipo": "video",
+      "src": "midia/cena03_a_mao.mp4",
+      "descricao": "cena03 a mao",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5866165
+    },
+    {
+      "tipo": "video",
+      "src": "midia/cena04_menina_bicicleta.mp4",
+      "descricao": "cena04 menina bicicleta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6442361
+    },
+    {
+      "tipo": "video",
+      "src": "midia/Conhe_a_o_novo_Centro_M_dico_do_Hospital_Quinta_D_Or.mp4",
+      "descricao": "Conhe a o novo Centro M dico do Hospital Quinta D Or",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4034943
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/coparticipacao/consequencias.png",
+      "descricao": "consequencias",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 57090
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/coparticipacao/onde-paga.png",
+      "descricao": "onde paga",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 38979
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/coparticipacao/paga2x.png",
+      "descricao": "paga2x",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 39122
+    },
+    {
+      "tipo": "video",
+      "src": "midia/Corte.mp4",
+      "descricao": "Corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 25812371
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_aviso.png",
+      "descricao": "e11 aviso",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 10802
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_cobertura.png",
+      "descricao": "e11 cobertura",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 30076
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_copart.png",
+      "descricao": "e11 copart",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 24314
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_cta.png",
+      "descricao": "e11 cta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 12937
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_custo.png",
+      "descricao": "e11 custo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 28394
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_pessoas.png",
+      "descricao": "e11 pessoas",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 21411
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_plus.png",
+      "descricao": "e11 plus",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 22553
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e11_rede.png",
+      "descricao": "e11 rede",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 27021
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_aviso.png",
+      "descricao": "e12 aviso",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 10802
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_chip_chn.png",
+      "descricao": "e12 chip chn",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3431
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_chip_gloria.png",
+      "descricao": "e12 chip gloria",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5481
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_chip_lucas.png",
+      "descricao": "e12 chip lucas",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5434
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_chip_lucia.png",
+      "descricao": "e12 chip lucia",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5174
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_chip_vitoria.png",
+      "descricao": "e12 chip vitoria",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4742
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_contrato.png",
+      "descricao": "e12 contrato",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6721
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_custo.png",
+      "descricao": "e12 custo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 12148
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_dv_copart.png",
+      "descricao": "e12 dv copart",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 18899
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_dv_quarto.png",
+      "descricao": "e12 dv quarto",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 15667
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_dv_reemb.png",
+      "descricao": "e12 dv reemb",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 15060
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_ic_celular.png",
+      "descricao": "e12 ic celular",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 10415
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_ic_hospital.png",
+      "descricao": "e12 ic hospital",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11281
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_ic_psico.png",
+      "descricao": "e12 ic psico",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11778
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_link.png",
+      "descricao": "e12 link",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7026
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_mapa_brasil.png",
+      "descricao": "e12 mapa brasil",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 22789
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_mapa_rio.png",
+      "descricao": "e12 mapa rio",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 17435
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_pergunta.png",
+      "descricao": "e12 pergunta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 14614
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_pessoas.png",
+      "descricao": "e12 pessoas",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 15162
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_selo.png",
+      "descricao": "e12 selo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 29062
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_so_acom.png",
+      "descricao": "e12 so acom",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 10192
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_so_copart.png",
+      "descricao": "e12 so copart",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 12066
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_so_rede.png",
+      "descricao": "e12 so rede",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 9024
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e12_titulo.png",
+      "descricao": "e12 titulo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11975
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_apolice.png",
+      "descricao": "e13 apolice",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 19277
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_artigo.png",
+      "descricao": "e13 artigo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6450
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_ck1.png",
+      "descricao": "e13 ck1",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 12880
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_ck2.png",
+      "descricao": "e13 ck2",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11965
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_ck3.png",
+      "descricao": "e13 ck3",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11441
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_gaveta.png",
+      "descricao": "e13 gaveta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 1496062
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_gaveta2_hd.png",
+      "descricao": "e13 gaveta2 hd",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2581283
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_gaveta_hd.png",
+      "descricao": "e13 gaveta hd",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2991737
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_heranca.png",
+      "descricao": "e13 heranca",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 16252
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_marca.png",
+      "descricao": "e13 marca",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2997
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_n1.png",
+      "descricao": "e13 n1",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 14882
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_n2.png",
+      "descricao": "e13 n2",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 18248
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_n3.png",
+      "descricao": "e13 n3",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 19032
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_pergunta.png",
+      "descricao": "e13 pergunta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 14281
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_salvar.png",
+      "descricao": "e13 salvar",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 8519
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_so_comp.png",
+      "descricao": "e13 so comp",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 9838
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_so_dep.png",
+      "descricao": "e13 so dep",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 11000
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/e13_titulo.png",
+      "descricao": "e13 titulo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 13829
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/grafico.png",
+      "descricao": "grafico",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 60560
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/logo_magenta.webp",
+      "descricao": "logo magenta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 26210
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/Logo_Port1_-_consultoria_corporatira_fundo_tranparente__1___1_.png",
+      "descricao": "Logo Port1 consultoria corporatira fundo tranparente 1 1",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 186723
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/Ludovico_Einaudi_-_Experience__Live_At_Fabric__London___2013__-_LudovicoEinaudiVEVO.mp3",
+      "descricao": "Ludovico Einaudi Experience Live At Fabric London 2013 LudovicoEinaudiVEVO",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 15295216
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/magnific-cachito.mp3",
+      "descricao": "magnific cachito",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6970558
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/magnific-million-dollar-babe.mp3",
+      "descricao": "magnific million dollar babe",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2887097
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/magnific-psycho-girls.mp3",
+      "descricao": "magnific psycho girls",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 9487717
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/magnific-stonecutters.mp3",
+      "descricao": "magnific stonecutters",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5602787
+    },
+    {
+      "tipo": "video",
+      "src": "midia/meu-corte.mp4",
+      "descricao": "meu corte",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2074265
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musica_daylight.mp3",
+      "descricao": "musica daylight",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 15001600
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/musica_daylight_95s.mp3",
+      "descricao": "musica daylight 95s",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 1520997
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/print_kpmg.png",
+      "descricao": "print kpmg",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 16031
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/print_kpmg_cortado.png",
+      "descricao": "print kpmg cortado",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 16031
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/print_redador.png",
+      "descricao": "print redador",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 28144
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/print_redador_cortado.png",
+      "descricao": "print redador cortado",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 28144
+    },
+    {
+      "tipo": "video",
+      "src": "midia/reacao.mp4",
+      "descricao": "reacao",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2074265
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx_pop.mp3",
+      "descricao": "sfx pop",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 10347
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx_sino.mp3",
+      "descricao": "sfx sino",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 59915
+    },
+    {
+      "tipo": "efeito",
+      "src": "midia/sfx_whoosh.mp3",
+      "descricao": "sfx whoosh",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 17691
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/teste.png",
+      "descricao": "teste",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 95121
+    },
+    {
+      "tipo": "video",
+      "src": "midia/v022_cenaA_irmas.mp4",
+      "descricao": "v022 cenaA irmas",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5161610
+    },
+    {
+      "tipo": "video",
+      "src": "midia/v022_cenaB_costas.mp4",
+      "descricao": "v022 cenaB costas",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4666531
+    },
+    {
+      "tipo": "video",
+      "src": "midia/v022_cenaC_silencio.mp4",
+      "descricao": "v022 cenaC silencio",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 6288949
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_s_condicao.png",
+      "descricao": "v10 s condicao",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 267594
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_s_especialista.png",
+      "descricao": "v10 s especialista",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 260618
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_s_reajuste.png",
+      "descricao": "v10 s reajuste",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 242294
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_s_rede.png",
+      "descricao": "v10 s rede",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 276608
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_t_ans.png",
+      "descricao": "v10 t ans",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 18400
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_t_cnpj.png",
+      "descricao": "v10 t cnpj",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 36291
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/v10_t_cta.png",
+      "descricao": "v10 t cta",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 14627
+    },
+    {
+      "tipo": "video",
+      "src": "midia/Video.mp4",
+      "descricao": "Video",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 70754544
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/WhatsApp_Image_2026-08-24_at_17.01.54.jpeg",
+      "descricao": "WhatsApp Image 2026 08 24 at 17.01.54",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 72766
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb24rfkuwv",
+      "descricao": "Responder vs tarefas complexas",
+      "tags": [
+        "tarefas",
+        "complexas",
+        "responder",
+        "perguntas"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvb24rfkuwv\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb24riayh7",
+      "descricao": "Checklist: código, análise, desafios",
+      "tags": [
+        "etapas",
+        "codigo",
+        "analisar",
+        "informacoes",
+        "desenvolver",
+        "checklist",
+        "analise",
+        "desafios"
+      ],
+      "origem": "cena checklist (usar com \"de\": \"banco\", \"id\": \"bmvb24riayh7\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb24rrdlu1",
+      "descricao": "Chat: IA analisando projeto e propondo solução",
+      "tags": [
+        "analisar",
+        "projeto",
+        "problemas",
+        "solucao",
+        "pedir",
+        "chat",
+        "analisando",
+        "propondo"
+      ],
+      "origem": "cena chatgpt (usar com \"de\": \"banco\", \"id\": \"bmvb24rrdlu1\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb24rsmwsp",
+      "descricao": "Áreas: ciência, finanças, segurança",
+      "tags": [
+        "ciencia",
+        "financas",
+        "seguranca",
+        "digital",
+        "aplicacoes",
+        "areas"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvb24rsmwsp\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb24rufgfy",
+      "descricao": "Quem vence? IA vs outras IAs",
+      "tags": [
+        "supera",
+        "outras",
+        "ias",
+        "prova",
+        "comparar",
+        "teste",
+        "quem",
+        "vence"
+      ],
+      "origem": "cena rede (usar com \"de\": \"banco\", \"id\": \"bmvb24rufgfy\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3n54803v",
+      "descricao": "Texto → cena de cinema com IA",
+      "tags": [
+        "texto",
+        "cena",
+        "cinema",
+        "escreve",
+        "video"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvb3n54803v\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3n54f2xt",
+      "descricao": "Sem banco de imagem: marketing e YouTube",
+      "tags": [
+        "banco",
+        "imagem",
+        "marketing",
+        "campanhas",
+        "youtube",
+        "sem"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvb3n54f2xt\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3nj4bwyl",
+      "descricao": "O segredo é o PROMPT",
+      "tags": [
+        "prompt",
+        "comando",
+        "segredo",
+        "ferramenta"
+      ],
+      "origem": "cena numero (usar com \"de\": \"banco\", \"id\": \"bmvb3nj4bwyl\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3ot6c03n",
+      "descricao": "CTA: link na bio",
+      "tags": [
+        "link",
+        "bio",
+        "cta"
+      ],
+      "origem": "cena rede (usar com \"de\": \"banco\", \"id\": \"bmvb3ot6c03n\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3wurii5d",
+      "descricao": "Celular: pedindo cena de cinema para IA",
+      "tags": [
+        "texto",
+        "cena",
+        "cinema",
+        "escreve",
+        "video",
+        "gerar",
+        "celular",
+        "pedindo"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvb3wurii5d\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3xdo5jdz",
+      "descricao": "Frase: chega de banco de imagem caro",
+      "tags": [
+        "banco",
+        "imagem",
+        "marketing",
+        "campanhas",
+        "youtube",
+        "caro",
+        "frase",
+        "chega"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb3xdo5jdz\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb3yr2w7cf",
+      "descricao": "Frase: não é a ferramenta, é o prompt",
+      "tags": [
+        "prompt",
+        "comando",
+        "segredo",
+        "ferramenta",
+        "frase",
+        "nao"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb3yr2w7cf\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb4a4hmbjp",
+      "descricao": "Frase: a onda são os agentes",
+      "tags": [
+        "agentes",
+        "autonomos",
+        "chatgpt",
+        "onda",
+        "nova",
+        "frase",
+        "sao"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb4a4hmbjp\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb4ckk0c84",
+      "descricao": "Rede: API do Gemini + N8N",
+      "tags": [
+        "api",
+        "gemini",
+        "n8n",
+        "conectando",
+        "ferramentas",
+        "automacao",
+        "rede"
+      ],
+      "origem": "cena rede (usar com \"de\": \"banco\", \"id\": \"bmvb4ckk0c84\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb4cz2n1c6",
+      "descricao": "Celular: agente executando tarefas",
+      "tags": [
+        "executa",
+        "tarefa",
+        "emails",
+        "banco",
+        "dados",
+        "organiza",
+        "agente",
+        "celular",
+        "executando",
+        "tarefas"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvb4cz2n1c6\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb4dhj839v",
+      "descricao": "Número: 24h por dia",
+      "tags": [
+        "24",
+        "horas",
+        "dia",
+        "sozinha",
+        "numero",
+        "24h"
+      ],
+      "origem": "cena numero (usar com \"de\": \"banco\", \"id\": \"bmvb4dhj839v\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb4dw413ab",
+      "descricao": "Frase: funcionário que não dorme",
+      "tags": [
+        "funcionario",
+        "dorme",
+        "trabalha",
+        "frase",
+        "nao"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb4dw413ab\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb5jc71cem",
+      "descricao": "Logos: Gemini + N8N",
+      "tags": [
+        "gemini",
+        "n8n",
+        "api",
+        "automacao",
+        "logos"
+      ],
+      "origem": "cena logos (usar com \"de\": \"banco\", \"id\": \"bmvb5jc71cem\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb70a9cxzc",
+      "descricao": "Frase: golpes no celular?",
+      "tags": [
+        "golpe",
+        "golpes",
+        "celular",
+        "fraude",
+        "frase"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb70a9cxzc\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb71xe7h7w",
+      "descricao": "Celular: IA bloqueando chamada de golpe",
+      "tags": [
+        "golpe",
+        "chamada",
+        "bloqueada",
+        "fraude",
+        "ia",
+        "celular",
+        "bloqueando"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvb71xe7h7w\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb74kmzjo4",
+      "descricao": "Celular: ChatGPT resumindo abas",
+      "tags": [
+        "chatgpt",
+        "abas",
+        "tarefas",
+        "automaticas",
+        "celular",
+        "resumindo"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvb74kmzjo4\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb75s5vgbi",
+      "descricao": "Número: 10 riscos da IA",
+      "tags": [
+        "riscos",
+        "seguranca",
+        "ia",
+        "10",
+        "numero"
+      ],
+      "origem": "cena numero (usar com \"de\": \"banco\", \"id\": \"bmvb75s5vgbi\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb78bu6774",
+      "descricao": "Número: +23% salário com IA",
+      "tags": [
+        "salario",
+        "salarios",
+        "23",
+        "habilidades",
+        "numero",
+        "23%"
+      ],
+      "origem": "cena numero (usar com \"de\": \"banco\", \"id\": \"bmvb78bu6774\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb8g366ja1",
+      "descricao": "Frase: IA 100% brasileira",
+      "tags": [
+        "brasileira",
+        "brasil",
+        "ia",
+        "medicina",
+        "frase",
+        "100%"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb8g366ja1\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb8j54vykz",
+      "descricao": "Ícones: IA premiada detecta câncer de mama",
+      "tags": [
+        "cancer",
+        "mama",
+        "premiada",
+        "detectar",
+        "precisao",
+        "icones",
+        "detecta"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvb8j54vykz\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb8jsbktfh",
+      "descricao": "Celular: IA analisando exame",
+      "tags": [
+        "diagnostico",
+        "exame",
+        "analisa",
+        "dados",
+        "medicina",
+        "celular",
+        "analisando"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvb8jsbktfh\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb8kkjsh1w",
+      "descricao": "Frase: IA salvando vidas",
+      "tags": [
+        "salvando",
+        "vidas",
+        "saude",
+        "frase"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb8kkjsh1w\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvb8kurqdho",
+      "descricao": "Fechamento: o que você acha? (sem produto)",
+      "tags": [
+        "comenta",
+        "acha",
+        "segue",
+        "fechamento",
+        "voce",
+        "sem",
+        "produto"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvb8kurqdho\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvbl81bqfyi",
+      "descricao": "Frase: fim da IA sem fonte (Google)",
+      "tags": [
+        "google",
+        "busca",
+        "fonte",
+        "fontes",
+        "fim",
+        "frase",
+        "sem"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvbl81bqfyi\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvbl87lki78",
+      "descricao": "Celular: resumo de IA do Google com link da fonte",
+      "tags": [
+        "google",
+        "busca",
+        "resumo",
+        "links",
+        "fontes",
+        "buscador",
+        "celular",
+        "link",
+        "fonte"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvbl87lki78\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvbl8ef9ai3",
+      "descricao": "Ícones: credibilidade e transparência",
+      "tags": [
+        "credibilidade",
+        "transparencia",
+        "confianca",
+        "icones"
+      ],
+      "origem": "cena icones (usar com \"de\": \"banco\", \"id\": \"bmvbl8ef9ai3\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvbl8efe4zp",
+      "descricao": "Frase: confiança, não só velocidade",
+      "tags": [
+        "confianca",
+        "velocidade",
+        "jogo",
+        "virou",
+        "frase",
+        "nao"
+      ],
+      "origem": "cena frase (usar com \"de\": \"banco\", \"id\": \"bmvbl8efe4zp\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvccr07m8cj",
+      "descricao": "Celular: agente de IA atendendo cliente",
+      "tags": [
+        "agente",
+        "atendimento",
+        "cliente",
+        "responder",
+        "celular",
+        "atendendo"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvccr07m8cj\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvcd2kmc08i",
+      "descricao": "Celular: assistente antecipando tarefas",
+      "tags": [
+        "alexa",
+        "assistente",
+        "antecipar",
+        "amazon",
+        "celular",
+        "antecipando",
+        "tarefas"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvcd2kmc08i\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvcd7oc2h1g",
+      "descricao": "Celular: conversa romântica com IA",
+      "tags": [
+        "amor",
+        "golpe",
+        "romance",
+        "conversa",
+        "relacionamento",
+        "celular",
+        "romantica"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvcd7oc2h1g\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvclhx27wux",
+      "descricao": "Celular: falso sorteio de programa de TV",
+      "tags": [
+        "golpe",
+        "sorteio",
+        "apresentador",
+        "falso",
+        "celular",
+        "programa"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvclhx27wux\")"
+    },
+    {
+      "tipo": "cena",
+      "src": "banco:bmvcljvxmod5",
+      "descricao": "Celular: conta de anúncios desativada",
+      "tags": [
+        "meta",
+        "anuncios",
+        "campanha",
+        "desativada",
+        "celular",
+        "conta"
+      ],
+      "origem": "cena celular (usar com \"de\": \"banco\", \"id\": \"bmvcljvxmod5\")"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:manchas",
+      "descricao": "Manchas de luz andando devagar nas cores da receita (padrão)",
+      "tags": [
+        "manchas"
+      ],
+      "origem": "\"fundoAnimado\": \"manchas\" no plano"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:synthwave",
+      "descricao": "Céu roxo, sol listrado e grade neon em perspectiva (futuro, 2100)",
+      "tags": [
+        "synthwave"
+      ],
+      "origem": "\"fundoAnimado\": \"synthwave\" no plano"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:listras",
+      "descricao": "Faixas diagonais coloridas andando (pop, cômico, comida)",
+      "tags": [
+        "listras"
+      ],
+      "origem": "\"fundoAnimado\": \"listras\" no plano"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:bokeh",
+      "descricao": "Bolhas de luz desfocadas subindo (natureza, bichos, delicado)",
+      "tags": [
+        "bokeh"
+      ],
+      "origem": "\"fundoAnimado\": \"bokeh\" no plano"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:pontos",
+      "descricao": "Retícula de meio-tom sobre manchas (jornal, gibi, história)",
+      "tags": [
+        "pontos"
+      ],
+      "origem": "\"fundoAnimado\": \"pontos\" no plano"
+    },
+    {
+      "tipo": "fundo",
+      "src": "fundoAnimado:codigo",
+      "descricao": "Colunas de caracteres caindo (visão de dentro da IA, hacker)",
+      "tags": [
+        "codigo"
+      ],
+      "origem": "\"fundoAnimado\": \"codigo\" no plano"
+    }
+  ]
+}

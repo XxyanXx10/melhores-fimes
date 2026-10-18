@@ -12,6 +12,17 @@ A plataforma executa; o agente decide. Para cada narração:
    `node agente/aplicar-plano.mjs aplicar "projeto/<nome>.json" banco-cenas/planos/<nome>.json "projeto/<saida>.json"`
 6. Conferir na plataforma (Projetos → abrir) e exportar.
 
+## Biblioteca de mídia (antes de gerar qualquer coisa)
+Música, imagem gerada, fundo, efeito, vídeo baixado, logo e print ficam catalogados em
+`biblioteca/catalogo.json` — e numa página para o usuário bater o olho:
+**`Biblioteca de mídia.html`** (raiz do projeto, abre no navegador, tem busca).
+- **Antes** de gerar música, imagem ou baixar vídeo: `node agente/biblioteca.mjs buscar <termos> [--tipo musica|imagem|video|efeito|fundo|logo|print]`.
+  Se já existe algo que serve, **reutilize** — gerar custa crédito e tempo.
+- **Depois** de criar algo novo: descreva em `biblioteca/descricoes.json` (descrição, tags,
+  prompt, origem) ou chame `registrarMidia(src, {...})`, e rode `node agente/biblioteca.mjs atualizar`.
+- Vídeos baixados moram em `C:\Users\yaned\Videos\Melhores Fimes\videos-baixados`
+  (`public/midia/banco/videos` é uma junção para lá).
+
 ## Referências reais e receita (antes de escrever o plano)
 - O `produzir` já baixa as **referências da notícia** para `public/midia/referencias/<pasta>/`
   (manchete, site, data, capa, imagens da matéria, logos citados). Para um projeto antigo:
