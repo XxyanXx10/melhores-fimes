@@ -852,5 +852,106 @@
       "games"
     ],
     "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/06-corrida-ia-3d.html)"
+  },
+  "midia/formatos/ia-pao-de-queijo.jpg": {
+    "descricao": "[IA] Pão de queijo numa cesta, um aberto com queijo esticando",
+    "tags": [
+      "quiz",
+      "ia",
+      "comida",
+      "pão de queijo"
+    ],
+    "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/formatos/ia-cachoeira-minas.jpg": {
+    "descricao": "[IA] Cachoeira gigante que não existe, em \"Minas Gerais\"",
+    "tags": [
+      "quiz",
+      "ia",
+      "lugar",
+      "cachoeira",
+      "minas"
+    ],
+    "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/formatos/ia-tucano.jpg": {
+    "descricao": "[IA] Tucano num galho na floresta",
+    "tags": [
+      "quiz",
+      "ia",
+      "bicho",
+      "tucano"
+    ],
+    "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/formatos/real-coxinha.jpg": {
+    "descricao": "[REAL] Coxinhas numa travessa vistas de cima",
+    "tags": [
+      "quiz",
+      "real",
+      "comida",
+      "coxinha"
+    ],
+    "origem": "foto real (Pexels, uso livre)"
+  },
+  "midia/formatos/real-lencois.jpg": {
+    "descricao": "[REAL] Lençóis Maranhenses ao pôr do sol",
+    "tags": [
+      "quiz",
+      "real",
+      "lugar",
+      "lençóis"
+    ],
+    "origem": "foto real (Pexels, uso livre)"
+  },
+  "midia/formatos/real-capivara.jpg": {
+    "descricao": "[REAL] Capivaras relaxando à beira da estrada",
+    "tags": [
+      "quiz",
+      "real",
+      "bicho",
+      "capivara"
+    ],
+    "origem": "foto real (Pexels, uso livre)"
+  },
+  "midia/formatos/real-boto.jpg": {
+    "descricao": "[REAL] Boto cor-de-rosa saindo da água",
+    "tags": [
+      "quiz",
+      "real",
+      "bicho",
+      "boto"
+    ],
+    "origem": "foto real (Pexels, uso livre)"
+  },
+  "3d/modelos/robo.glb": {
+    "descricao": "[3D] Robozinho flutuante branco (personagem do canal)",
+    "tags": [
+      "3d",
+      "blender",
+      "personagem",
+      "robo"
+    ],
+    "origem": "Magnific (imagem → Tripo 3D), arquivo em C:/Users/yaned/Videos/Melhores Fimes/3d/modelos"
+  },
+  "3d/modelos/robo-blazer.glb": {
+    "descricao": "[3D] Robozinho de blazer azul e gravata vermelha",
+    "tags": [
+      "3d",
+      "blender",
+      "personagem",
+      "robo-blazer"
+    ],
+    "origem": "Magnific (imagem → Tripo 3D), arquivo em C:/Users/yaned/Videos/Melhores Fimes/3d/modelos"
+  },
+  "3d/modelos/geladeira.glb": {
+    "descricao": "[3D] Geladeira de lanches de escritório (cartoon)",
+    "tags": [
+      "3d",
+      "blender",
+      "personagem",
+      "geladeira"
+    ],
+    "origem": "Magnific (imagem → Tripo 3D), arquivo em C:/Users/yaned/Videos/Melhores Fimes/3d/modelos"
   }
 }

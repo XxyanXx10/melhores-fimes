@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-19T00:51:05.428Z",
+  "atualizado": "2026-10-24T16:39:59.998Z",
   "itens": [
     {
       "tipo": "musica",
@@ -1388,6 +1388,20 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/ia-cachoeira-minas.jpg",
+      "descricao": "[IA] Cachoeira gigante que não existe, em \"Minas Gerais\"",
+      "tags": [
+        "quiz",
+        "ia",
+        "lugar",
+        "cachoeira",
+        "minas"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 1020238
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/ia-cao-praia.jpg",
       "descricao": "[IA] Golden retriever correndo na praia (para o quiz Real ou IA)",
       "tags": [
@@ -1454,6 +1468,19 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/ia-pao-de-queijo.jpg",
+      "descricao": "[IA] Pão de queijo numa cesta, um aberto com queijo esticando",
+      "tags": [
+        "quiz",
+        "ia",
+        "comida",
+        "pão de queijo"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 430443
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/ia-rio.jpg",
       "descricao": "[IA] Rio de Janeiro com Pão de Açúcar ao pôr do sol",
       "tags": [
@@ -1464,6 +1491,19 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 193322
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/ia-tucano.jpg",
+      "descricao": "[IA] Tucano num galho na floresta",
+      "tags": [
+        "quiz",
+        "ia",
+        "bicho",
+        "tucano"
+      ],
+      "origem": "gerada (Seedream 5 Pro, Magnific)",
+      "tamanho": 297831
     },
     {
       "tipo": "imagem",
@@ -1619,6 +1659,19 @@
     },
     {
       "tipo": "imagem",
+      "src": "midia/formatos/real-boto.jpg",
+      "descricao": "[REAL] Boto cor-de-rosa saindo da água",
+      "tags": [
+        "quiz",
+        "real",
+        "bicho",
+        "boto"
+      ],
+      "origem": "foto real (Pexels, uso livre)",
+      "tamanho": 261063
+    },
+    {
+      "tipo": "imagem",
       "src": "midia/formatos/real-cao-1.jpg",
       "descricao": "real cao 1",
       "tags": [],
@@ -1645,6 +1698,32 @@
       ],
       "origem": "Pexels",
       "tamanho": 145812
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-capivara.jpg",
+      "descricao": "[REAL] Capivaras relaxando à beira da estrada",
+      "tags": [
+        "quiz",
+        "real",
+        "bicho",
+        "capivara"
+      ],
+      "origem": "foto real (Pexels, uso livre)",
+      "tamanho": 1205736
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-coxinha.jpg",
+      "descricao": "[REAL] Coxinhas numa travessa vistas de cima",
+      "tags": [
+        "quiz",
+        "real",
+        "comida",
+        "coxinha"
+      ],
+      "origem": "foto real (Pexels, uso livre)",
+      "tamanho": 821659
     },
     {
       "tipo": "imagem",
@@ -1719,6 +1798,19 @@
       "tags": [],
       "origem": "foto real",
       "tamanho": 81711
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/formatos/real-lencois.jpg",
+      "descricao": "[REAL] Lençóis Maranhenses ao pôr do sol",
+      "tags": [
+        "quiz",
+        "real",
+        "lugar",
+        "lençóis"
+      ],
+      "origem": "foto real (Pexels, uso livre)",
+      "tamanho": 284095
     },
     {
       "tipo": "imagem",
@@ -1922,2899 +2014,67 @@
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-corrida-3d.mp4",
-      "descricao": "Jogo de corrida 3D Synthwave estilo OutRun gerado por IA rodando a 60 FPS no Chrome",
-      "tags": [
-        "chrome",
-        "ia",
-        "jogo",
-        "corrida",
-        "synthwave",
-        "3d",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/06-corrida-ia-3d.html)",
-      "tamanho": 1995535
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-doom-3d.mp4",
-      "descricao": "Motor 3D Raycasting estilo DOOM clássico escrito por IA em JavaScript puro rodando no Chrome",
-      "tags": [
-        "chrome",
-        "ia",
-        "jogo",
-        "doom",
-        "raycasting",
-        "3d",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/03-doom-ia-raycaster.html)",
-      "tamanho": 1722011
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-gta-cidade.mp4",
-      "descricao": "Jogo de ação visto de cima estilo GTA clássico criado por IA rodando no navegador Chrome",
-      "tags": [
-        "chrome",
-        "ia",
-        "jogo",
-        "gta",
-        "cidade",
-        "polícia",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/04-gta-ia-cidade.html)",
-      "tamanho": 1598114
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-mario-plataforma.mp4",
-      "descricao": "Jogo de plataforma estilo Super Mario (Super IA Bros) criado por IA em 1 arquivo HTML rodando no Google Chrome",
-      "tags": [
-        "chrome",
-        "ia",
-        "jogo",
-        "mario",
-        "plataforma",
-        "html5",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/01-super-ia-bros.html)",
-      "tamanho": 3563092
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-minecraft-voxel.mp4",
-      "descricao": "Clone 3D de mundo de blocos estilo Minecraft criado por IA rodando no navegador Chrome",
-      "tags": [
-        "chrome",
-        "ia",
-        "jogo",
-        "minecraft",
-        "voxel",
-        "3d",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/02-minecraft-ia-voxel.html)",
-      "tamanho": 5845887
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/chrome-ia-world-model-memoria.mp4",
-      "descricao": "Comparativo prático no Chrome: Jogo com código HTML5 (memória fixa) vs Modelo de Mundo sem código (IA esquece o cenário)",
-      "tags": [
-        "chrome",
-        "ia",
-        "genie",
-        "modelo de mundo",
-        "comparativo",
-        "alucinação",
-        "games"
-      ],
-      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/05-world-model-amnesia.html)",
-      "tamanho": 210085
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/comparativo-doom-original-vs-ia.mp4",
-      "descricao": "comparativo doom original vs ia",
+      "src": "midia/banco/videos/3d-captcha-abertura.mp4",
+      "descricao": "3d captcha abertura",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 896189
+      "tamanho": 1228555
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/comparativo-gta-original-vs-ia.mp4",
-      "descricao": "comparativo gta original vs ia",
+      "src": "midia/banco/videos/3d-lojinha-abertura.mp4",
+      "descricao": "3d lojinha abertura",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 954087
+      "tamanho": 2624941
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/comparativo-mario-original-vs-ia.mp4",
-      "descricao": "comparativo mario original vs ia",
+      "src": "midia/banco/videos/3d-lojinha-barato.mp4",
+      "descricao": "3d lojinha barato",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 1029780
+      "tamanho": 1184336
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/comparativo-minecraft-original-vs-ia.mp4",
-      "descricao": "comparativo minecraft original vs ia",
+      "src": "midia/banco/videos/3d-lojinha-blazer.mp4",
+      "descricao": "3d lojinha blazer",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 1547458
+      "tamanho": 2607533
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/comparativo-outrun-original-vs-ia.mp4",
-      "descricao": "comparativo outrun original vs ia",
+      "src": "midia/banco/videos/3d-lojinha-desconto.mp4",
+      "descricao": "3d lojinha desconto",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 1320193
+      "tamanho": 1083321
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/genie3-amazon_aviator.mp4",
-      "descricao": "Genie 3: arara voando sobre rio na floresta",
-      "tags": [
-        "genie",
-        "google",
-        "ia",
-        "jogo",
-        "mundo gerado",
-        "games"
-      ],
-      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
-      "tamanho": 7136262
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/genie3-backyard_racetrack.mp4",
-      "descricao": "Genie 3: carrinho correndo numa pista de quintal",
-      "tags": [
-        "genie",
-        "google",
-        "ia",
-        "jogo",
-        "mundo gerado",
-        "games"
-      ],
-      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
-      "tamanho": 5717319
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/genie3-cover-3.mp4",
-      "descricao": "Genie 3: surfando numa onda em primeira pessoa",
-      "tags": [
-        "genie",
-        "google",
-        "ia",
-        "jogo",
-        "mundo gerado",
-        "games"
-      ],
-      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
-      "tamanho": 3552194
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/genie3-crater_cruiser.mp4",
-      "descricao": "Genie 3: carro vermelho em planeta com Júpiter no céu",
-      "tags": [
-        "genie",
-        "google",
-        "ia",
-        "jogo",
-        "mundo gerado",
-        "games"
-      ],
-      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
-      "tamanho": 5707959
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/genie3-ice_palace.mp4",
-      "descricao": "Genie 3: moto numa cidade de gelo neon",
-      "tags": [
-        "genie",
-        "google",
-        "ia",
-        "jogo",
-        "mundo gerado",
-        "games"
-      ],
-      "origem": "vídeo oficial de demonstração do Genie 3 (Google DeepMind) — usar como referência em notícia",
-      "tamanho": 6329336
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_10476419.mp4",
-      "descricao": "Pexels: police car lights night",
-      "tags": [
-        "police",
-        "car",
-        "lights",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4810374
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_10816903.mp4",
-      "descricao": "Pexels: night road driving pov",
-      "tags": [
-        "night",
-        "road",
-        "driving",
-        "pov",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3485419
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_11131968.mp4",
-      "descricao": "Pexels: pizza cheese pull",
-      "tags": [
-        "pizza",
-        "cheese",
-        "pull",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5357706
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_11245736.mp4",
-      "descricao": "Pexels: magnifying glass search concept",
-      "tags": [
-        "magnifying",
-        "glass",
-        "search",
-        "concept",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5602048
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_11371604.mp4",
-      "descricao": "Pexels: cinematic desert sunset",
-      "tags": [
-        "cinematic",
-        "desert",
-        "sunset",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2161475
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_11889623.mp4",
-      "descricao": "Pexels: power button off dark",
-      "tags": [
-        "power",
-        "button",
-        "off",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 464476
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_11933153.mp4",
-      "descricao": "Pexels: city night timelapse",
-      "tags": [
-        "city",
-        "night",
-        "timelapse",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11269522
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_12293711.mp4",
-      "descricao": "Pexels: car dealership lot",
-      "tags": [
-        "car",
-        "dealership",
-        "lot",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4641908
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_12595892.mp4",
-      "descricao": "Pexels: flowers roses",
-      "tags": [
-        "flowers",
-        "roses",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 20522688
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_12893568.mp4",
-      "descricao": "Pexels: woman typing laptop night search",
-      "tags": [
-        "woman",
-        "typing",
-        "laptop",
-        "night",
-        "search",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4002749
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_12893608.mp4",
-      "descricao": "Pexels: business professional office",
-      "tags": [
-        "business",
-        "professional",
-        "office",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3655228
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_12896410.mp4",
-      "descricao": "Pexels: office computer automation",
-      "tags": [
-        "office",
-        "computer",
-        "automation",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3639863
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_15283169.mp4",
-      "descricao": "Pexels: dark abstract cube technology",
-      "tags": [
-        "dark",
-        "abstract",
-        "cube",
-        "technology",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3884036
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_16762623.mp4",
-      "descricao": "Pexels: highway night traffic timelapse",
-      "tags": [
-        "highway",
-        "night",
-        "traffic",
-        "timelapse",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11042120
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_17356514.mp4",
-      "descricao": "Pexels: camera lens close up dark",
-      "tags": [
-        "camera",
-        "lens",
-        "close",
-        "up",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12055737
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_17512949.mp4",
-      "descricao": "Pexels: smartphone hand scrolling",
-      "tags": [
-        "smartphone",
-        "hand",
-        "scrolling",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4162391
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_18031170.mp4",
-      "descricao": "Pexels: red alarm light dark",
-      "tags": [
-        "red",
-        "alarm",
-        "light",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 869504
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_18327364.mp4",
-      "descricao": "Pexels: brazil flag waving sky",
-      "tags": [
-        "brazil",
-        "flag",
-        "waving",
-        "sky",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10301342
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_18503891.mp4",
-      "descricao": "Pexels: facepalm embarrassed",
-      "tags": [
-        "facepalm",
-        "embarrassed",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2779378
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_18962668.mp4",
-      "descricao": "Pexels: airport terminal people",
-      "tags": [
-        "airport",
-        "terminal",
-        "people",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2091007
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_19317978.mp4",
-      "descricao": "Pexels: pickup truck showroom",
-      "tags": [
-        "pickup",
-        "truck",
-        "showroom",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5196417
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_19532053.mp4",
-      "descricao": "Pexels: person typing laptop dark room",
-      "tags": [
-        "person",
-        "typing",
-        "laptop",
-        "dark",
-        "room",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3285910
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_26082726.mp4",
-      "descricao": "Pexels: brazil city aerial",
-      "tags": [
-        "brazil",
-        "city",
-        "aerial",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 38610372
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_26569985.mp4",
-      "descricao": "B-roll: pessoa com óculos inteligentes",
-      "tags": [
-        "oculos",
-        "inteligente",
-        "gravando",
-        "privacidade",
-        "person",
-        "wearing",
-        "smart",
-        "glasses",
-        "roll",
-        "pessoa",
-        "inteligentes"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4105910
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_27844045.mp4",
-      "descricao": "Pexels: content moderation computer screens",
-      "tags": [
-        "content",
-        "moderation",
-        "computer",
-        "screens",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3209374
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_27875229.mp4",
-      "descricao": "Pexels: stray dog street brazil",
-      "tags": [
-        "stray",
-        "dog",
-        "street",
-        "brazil",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5558193
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_28709421.mp4",
-      "descricao": "Pexels: server room data center",
-      "tags": [
-        "server",
-        "room",
-        "data",
-        "center",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 19441801
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_29631359.mp4",
-      "descricao": "Pexels: night city traffic street",
-      "tags": [
-        "night",
-        "city",
-        "traffic",
-        "street",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 15870699
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_30342849.mp4",
-      "descricao": "Pexels: sao paulo city financial district",
-      "tags": [
-        "sao",
-        "paulo",
-        "city",
-        "financial",
-        "district",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 16150177
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_30641139.mp4",
-      "descricao": "Pexels: airplane airport window",
-      "tags": [
-        "airplane",
-        "airport",
-        "window",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6589240
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_30718267.mp4",
-      "descricao": "Pexels: chatgpt smartphone",
-      "tags": [
-        "chatgpt",
-        "smartphone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1669592
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_30730779.mp4",
-      "descricao": "Pexels: smartphone battery charging",
-      "tags": [
-        "smartphone",
-        "battery",
-        "charging",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 14767039
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_33315117.mp4",
-      "descricao": "B-roll: programador codando",
-      "tags": [
-        "codigo",
-        "programar",
-        "desenvolver",
-        "computador",
-        "programmer",
-        "coding",
-        "computer",
-        "roll",
-        "programador",
-        "codando"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1652427
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_34289018.mp4",
-      "descricao": "B-roll: servidores com alerta vermelho",
-      "tags": [
-        "dados",
-        "invasao",
-        "servidor",
-        "alerta",
-        "server",
-        "room",
-        "red",
-        "light",
-        "alarm",
-        "roll",
-        "servidores",
-        "vermelho"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1451746
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_34459460.mp4",
-      "descricao": "Pexels: code screen dark",
-      "tags": [
-        "code",
-        "screen",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3682734
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_34600574.mp4",
-      "descricao": "Pexels: electric car driving city street",
-      "tags": [
-        "electric",
-        "car",
-        "driving",
-        "city",
-        "street",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 26179152
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_34779296.mp4",
-      "descricao": "Pexels: india city night traffic",
-      "tags": [
-        "india",
-        "city",
-        "night",
-        "traffic",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9234232
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35003022.mp4",
-      "descricao": "B-roll: rede neural / cérebro",
-      "tags": [
-        "raciocinio",
-        "cerebro",
-        "pensar",
-        "neural",
-        "brain",
-        "network",
-        "roll",
-        "rede"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7336106
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35015128.mp4",
-      "descricao": "Pexels: happy dog running",
-      "tags": [
-        "happy",
-        "dog",
-        "running",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 26526308
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35163081.mp4",
-      "descricao": "Pexels: artificial intelligence abstract",
-      "tags": [
-        "artificial",
-        "intelligence",
-        "abstract",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10864573
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35332817.mp4",
-      "descricao": "Pexels: calendar pages flipping",
-      "tags": [
-        "calendar",
-        "pages",
-        "flipping",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3073615
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35417493.mp4",
-      "descricao": "Pexels: investment portfolio charts screen",
-      "tags": [
-        "investment",
-        "portfolio",
-        "charts",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8220991
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35475885.mp4",
-      "descricao": "Pexels: ps5 controller gaming",
-      "tags": [
-        "ps5",
-        "controller",
-        "gaming",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10620870
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35656150.mp4",
-      "descricao": "Pexels: bus station travel night",
-      "tags": [
-        "bus",
-        "station",
-        "travel",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8295712
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35814571.mp4",
-      "descricao": "Pexels: silicon valley office building",
-      "tags": [
-        "silicon",
-        "valley",
-        "office",
-        "building",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 16704023
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_35972076.mp4",
-      "descricao": "Pexels: crowd people street walking",
-      "tags": [
-        "crowd",
-        "people",
-        "street",
-        "walking",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11996198
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_36064039.mp4",
-      "descricao": "Pexels: corporate office glass building",
-      "tags": [
-        "corporate",
-        "office",
-        "glass",
-        "building",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 14535650
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_36178907.mp4",
-      "descricao": "Pexels: laptop typing dark room",
-      "tags": [
-        "laptop",
-        "typing",
-        "dark",
-        "room",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6421409
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_36425300.mp4",
-      "descricao": "Pexels: office meeting serious",
-      "tags": [
-        "office",
-        "meeting",
-        "serious",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2898837
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_36629601.mp4",
-      "descricao": "Pexels: self driving car sensors technology",
-      "tags": [
-        "self",
-        "driving",
-        "car",
-        "sensors",
-        "technology",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10319739
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_36939899.mp4",
-      "descricao": "Pexels: beach waves sunny",
-      "tags": [
-        "beach",
-        "waves",
-        "sunny",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 21518054
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_37191856.mp4",
-      "descricao": "Pexels: happy dog running",
-      "tags": [
-        "happy",
-        "dog",
-        "running",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8476973
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_37676204.mp4",
-      "descricao": "Pexels: data charts screen dark",
-      "tags": [
-        "data",
-        "charts",
-        "screen",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6298944
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_38071228.mp4",
-      "descricao": "Pexels: printing press newspaper",
-      "tags": [
-        "printing",
-        "press",
-        "newspaper",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8759366
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_3827385.mp4",
-      "descricao": "Pexels: money cash falling",
-      "tags": [
-        "money",
-        "cash",
-        "falling",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6217641
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_3831743.mp4",
-      "descricao": "Pexels: magnifying glass documents inspection",
-      "tags": [
-        "magnifying",
-        "glass",
-        "documents",
-        "inspection",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1420799
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_38410501.mp4",
-      "descricao": "Pexels: smartphone social media apps",
-      "tags": [
-        "smartphone",
-        "social",
-        "media",
-        "apps",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8742138
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_38672314.mp4",
-      "descricao": "Pexels: tech conference stage",
-      "tags": [
-        "tech",
-        "conference",
-        "stage",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3356723
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_38868674.mp4",
-      "descricao": "Pexels: news studio screens",
-      "tags": [
-        "news",
-        "studio",
-        "screens",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2687634
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39210399.mp4",
-      "descricao": "Pexels: morning kitchen coffee smart home",
-      "tags": [
-        "morning",
-        "kitchen",
-        "coffee",
-        "smart",
-        "home",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2304631
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39286036.mp4",
-      "descricao": "Pexels: self driving car highway night",
-      "tags": [
-        "self",
-        "driving",
-        "car",
-        "highway",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7402604
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39402054.mp4",
-      "descricao": "Pexels: tv studio presenter",
-      "tags": [
-        "tv",
-        "studio",
-        "presenter",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3508920
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39425812.mp4",
-      "descricao": "B-roll: edição de vídeo no computador",
-      "tags": [
-        "editar",
-        "edicao",
-        "video",
-        "editando",
-        "tempo",
-        "editing",
-        "timeline",
-        "computer",
-        "roll",
-        "computador"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5665026
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_3943961.mp4",
-      "descricao": "Pexels: money growth coins stack",
-      "tags": [
-        "money",
-        "growth",
-        "coins",
-        "stack",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5972636
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_3945447.mp4",
-      "descricao": "Pexels: journalist newsroom writing",
-      "tags": [
-        "journalist",
-        "newsroom",
-        "writing",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10752472
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39468833.mp4",
-      "descricao": "Pexels: brasilia aerial city",
-      "tags": [
-        "brasilia",
-        "aerial",
-        "city",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12450837
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_39608091.mp4",
-      "descricao": "B-roll: universo e estrelas",
-      "tags": [
-        "vida",
-        "universo",
-        "limites",
-        "criacao",
-        "galaxy",
-        "stars",
-        "universe",
-        "cinematic",
-        "roll",
-        "estrelas"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12086946
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_40185025.mp4",
-      "descricao": "Pexels: face recognition scan",
-      "tags": [
-        "face",
-        "recognition",
-        "scan",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 23689882
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_4443274.mp4",
-      "descricao": "B-roll: estudando online",
-      "tags": [
-        "qualificar",
-        "estudar",
-        "curso",
-        "people",
-        "studying",
-        "online",
-        "course",
-        "roll",
-        "estudando"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1330451
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_4631131.mp4",
-      "descricao": "Pexels: android smartphone hand",
-      "tags": [
-        "android",
-        "smartphone",
-        "hand",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4947899
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_4883833.mp4",
-      "descricao": "Pexels: person phone surprised",
-      "tags": [
-        "person",
-        "phone",
-        "surprised",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12856025
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5083552.mp4",
-      "descricao": "Pexels: website design screen",
-      "tags": [
-        "website",
-        "design",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 17436119
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5377696.mp4",
-      "descricao": "Pexels: hacker dark computer",
-      "tags": [
-        "hacker",
-        "dark",
-        "computer",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7443212
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5377697.mp4",
-      "descricao": "pexels 5377697",
+      "src": "midia/banco/videos/3d-lojinha-missao.mp4",
+      "descricao": "3d lojinha missao",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 4112441
+      "tamanho": 4778605
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/pexels_5377775.mp4",
-      "descricao": "B-roll: cadeado digital",
-      "tags": [
-        "proteger",
-        "seguranca",
-        "ciberseguranca",
-        "cyber",
-        "security",
-        "lock",
-        "digital",
-        "roll",
-        "cadeado"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4583613
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5377987.mp4",
-      "descricao": "Pexels: hacker mask dark",
-      "tags": [
-        "hacker",
-        "mask",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4813271
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5453575.mp4",
-      "descricao": "Pexels: doctor technology hospital",
-      "tags": [
-        "doctor",
-        "technology",
-        "hospital",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7997780
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5473919.mp4",
-      "descricao": "Pexels: laptop chat night dark room",
-      "tags": [
-        "laptop",
-        "chat",
-        "night",
-        "dark",
-        "room",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7827268
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5473972.mp4",
-      "descricao": "Pexels: digital face glitch",
-      "tags": [
-        "digital",
-        "face",
-        "glitch",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9155698
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5483215.mp4",
-      "descricao": "Pexels: executive office window city",
-      "tags": [
-        "executive",
-        "office",
-        "window",
-        "city",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3766343
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5647324.mp4",
-      "descricao": "Pexels: typing keyboard close up",
-      "tags": [
-        "typing",
-        "keyboard",
-        "close",
-        "up",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11966440
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5657828.mp4",
-      "descricao": "B-roll: operador numa sala de controle",
-      "tags": [
-        "operador",
-        "remoto",
-        "controle",
-        "monitor",
-        "control",
-        "room",
-        "operator",
-        "monitors",
-        "roll",
-        "numa",
-        "sala"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3242909
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5725851.mp4",
-      "descricao": "B-roll: criando no notebook em casa",
-      "tags": [
-        "quarto",
-        "casa",
-        "notebook",
-        "trabalhando",
-        "criador",
-        "young",
-        "man",
-        "laptop",
-        "bedroom",
-        "night",
-        "roll",
-        "criando"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3468725
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5727553.mp4",
-      "descricao": "Pexels: family dinner table",
-      "tags": [
-        "family",
-        "dinner",
-        "table",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4802139
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5896048.mp4",
-      "descricao": "Pexels: folders files computer",
-      "tags": [
-        "folders",
-        "files",
-        "computer",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5341021
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5899600.mp4",
-      "descricao": "Pexels: young man phone thinking night",
-      "tags": [
-        "young",
-        "man",
-        "phone",
-        "thinking",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5961183
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5925174.mp4",
-      "descricao": "Pexels: voting booth election",
-      "tags": [
-        "voting",
-        "booth",
-        "election",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2962221
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5925283.mp4",
-      "descricao": "Pexels: code matrix screen",
-      "tags": [
-        "code",
-        "matrix",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4286507
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5965068.mp4",
-      "descricao": "Pexels: supreme court building columns",
-      "tags": [
-        "supreme",
-        "court",
-        "building",
-        "columns",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8611574
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5974773.mp4",
-      "descricao": "Pexels: people laughing phone",
-      "tags": [
-        "people",
-        "laughing",
-        "phone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 16973638
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_5998433.mp4",
-      "descricao": "Pexels: doctor patient smiling",
-      "tags": [
-        "doctor",
-        "patient",
-        "smiling",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9443848
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6101149.mp4",
-      "descricao": "B-roll: profissional de sucesso",
-      "tags": [
-        "profissionais",
-        "ganhando",
-        "sucesso",
-        "professional",
-        "working",
-        "laptop",
-        "success",
-        "roll",
-        "profissional"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6727309
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6101365.mp4",
-      "descricao": "Pexels: court justice gavel",
-      "tags": [
-        "court",
-        "justice",
-        "gavel",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2507498
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6134591.mp4",
-      "descricao": "Pexels: thinking man chess",
-      "tags": [
-        "thinking",
-        "man",
-        "chess",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2991999
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6153455.mp4",
-      "descricao": "Pexels: robot hand human hand touching",
-      "tags": [
-        "robot",
-        "hand",
-        "human",
-        "touching",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1188608
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6221680.mp4",
-      "descricao": "Pexels: pizza oven kitchen",
-      "tags": [
-        "pizza",
-        "oven",
-        "kitchen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3862866
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6297714.mp4",
-      "descricao": "Pexels: woman thinking window rain",
-      "tags": [
-        "woman",
-        "thinking",
-        "window",
-        "rain",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5084092
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6414089.mp4",
-      "descricao": "Pexels: man smartphone city night thinking",
-      "tags": [
-        "man",
-        "smartphone",
-        "city",
-        "night",
-        "thinking",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8439447
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6549266.mp4",
-      "descricao": "Pexels: student studying laptop night",
-      "tags": [
-        "student",
-        "studying",
-        "laptop",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9907102
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6557707.mp4",
-      "descricao": "Pexels: marketing team office meeting",
-      "tags": [
-        "marketing",
-        "team",
-        "office",
-        "meeting",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6190087
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6608213.mp4",
-      "descricao": "Pexels: content creator writing laptop",
-      "tags": [
-        "content",
-        "creator",
-        "writing",
-        "laptop",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4986390
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6611951.mp4",
-      "descricao": "Pexels: phone screen off dark table",
-      "tags": [
-        "phone",
-        "screen",
-        "off",
-        "dark",
-        "table",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1247798
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6755168.mp4",
-      "descricao": "Pexels: circuit board macro",
-      "tags": [
-        "circuit",
-        "board",
-        "macro",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6195911
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6855615.mp4",
-      "descricao": "B-roll: casa inteligente",
-      "tags": [
-        "casa",
-        "inteligente",
-        "assistente",
-        "ambiente",
-        "smart",
-        "home",
-        "voice",
-        "assistant",
-        "speaker",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8696848
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6892735.mp4",
-      "descricao": "Pexels: headphones podcast listening",
-      "tags": [
-        "headphones",
-        "podcast",
-        "listening",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 14245923
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6931573.mp4",
-      "descricao": "Pexels: scam phone call smartphone",
-      "tags": [
-        "scam",
-        "phone",
-        "call",
-        "smartphone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4661354
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_6962182.mp4",
-      "descricao": "Pexels: smartphone apps home screen",
-      "tags": [
-        "smartphone",
-        "apps",
-        "home",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 19287857
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7058610.mp4",
-      "descricao": "Pexels: woman talking voice message phone",
-      "tags": [
-        "woman",
-        "talking",
-        "voice",
-        "message",
-        "phone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6795390
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7100960.mp4",
-      "descricao": "B-roll: pessoa tranquila no celular",
-      "tags": [
-        "tranquilo",
-        "seguro",
-        "celular",
-        "woman",
-        "relaxed",
-        "using",
-        "phone",
-        "roll",
-        "pessoa",
-        "tranquila"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7022856
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7223989.mp4",
-      "descricao": "Pexels: dating app smartphone swipe",
-      "tags": [
-        "dating",
-        "app",
-        "smartphone",
-        "swipe",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 13622045
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7230866.mp4",
-      "descricao": "Pexels: chemistry lab flask dark",
-      "tags": [
-        "chemistry",
-        "lab",
-        "flask",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2976267
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7234088.mp4",
-      "descricao": "Pexels: phone selfie street",
-      "tags": [
-        "phone",
-        "selfie",
-        "street",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2832116
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7251794.mp4",
-      "descricao": "Pexels: glass of ice water",
-      "tags": [
-        "glass",
-        "of",
-        "ice",
-        "water",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10436973
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7252935.mp4",
-      "descricao": "Pexels: project management board sticky notes",
-      "tags": [
-        "project",
-        "management",
-        "board",
-        "sticky",
-        "notes",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3232617
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7279035.mp4",
-      "descricao": "Pexels: person reading news phone night",
-      "tags": [
-        "person",
-        "reading",
-        "news",
-        "phone",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4251791
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7279746.mp4",
-      "descricao": "Pexels: person holding phone worried",
-      "tags": [
-        "person",
-        "holding",
-        "phone",
-        "worried",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4667542
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7299417.mp4",
-      "descricao": "Pexels: close up eye blinking",
-      "tags": [
-        "close",
-        "up",
-        "eye",
-        "blinking",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11405869
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7299471.mp4",
-      "descricao": "Pexels: face close up eyes",
-      "tags": [
-        "face",
-        "close",
-        "up",
-        "eyes",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2688848
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7330834.mp4",
-      "descricao": "Pexels: grandmother smiling phone",
-      "tags": [
-        "grandmother",
-        "smiling",
-        "phone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9941861
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7350953.mp4",
-      "descricao": "Pexels: google search laptop screen",
-      "tags": [
-        "google",
-        "search",
-        "laptop",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11627395
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7351190.mp4",
-      "descricao": "Pexels: mother daughter laughing",
-      "tags": [
-        "mother",
-        "daughter",
-        "laughing",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5122689
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7362700.mp4",
-      "descricao": "Pexels: smartphone dark chat",
-      "tags": [
-        "smartphone",
-        "dark",
-        "chat",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7866470
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7439142.mp4",
-      "descricao": "B-roll: pessoa digitando no notebook",
-      "tags": [
-        "digita",
-        "perguntas",
-        "chat",
-        "notebook",
-        "person",
-        "typing",
-        "laptop",
-        "roll",
-        "pessoa",
-        "digitando"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 13542777
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7567650.mp4",
-      "descricao": "Pexels: person relaxed using banking app",
-      "tags": [
-        "person",
-        "relaxed",
-        "using",
-        "banking",
-        "app",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3059302
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7580287.mp4",
-      "descricao": "pexels 7580287",
+      "src": "midia/banco/videos/3d-lojinha-prejuizo.mp4",
+      "descricao": "3d lojinha prejuizo",
       "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 5706400
+      "tamanho": 824035
     },
     {
       "tipo": "video",
-      "src": "midia/banco/videos/pexels_7581435.mp4",
-      "descricao": "Pexels: mammography doctor",
-      "tags": [
-        "mammography",
-        "doctor",
-        "pexels"
-      ],
+      "src": "midia/banco/videos/3d-lojinha-tungstenio.mp4",
+      "descricao": "3d lojinha tungstenio",
+      "tags": [],
       "origem": "Pexels (baixado)",
-      "tamanho": 11431799
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7586628.mp4",
-      "descricao": "Pexels: music studio microphone singing",
-      "tags": [
-        "music",
-        "studio",
-        "microphone",
-        "singing",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6708060
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7586633.mp4",
-      "descricao": "Pexels: microphone recording dark",
-      "tags": [
-        "microphone",
-        "recording",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5057146
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7616839.mp4",
-      "descricao": "Pexels: social media ads dashboard",
-      "tags": [
-        "social",
-        "media",
-        "ads",
-        "dashboard",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4823556
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7643453.mp4",
-      "descricao": "Pexels: business leaders boardroom meeting",
-      "tags": [
-        "business",
-        "leaders",
-        "boardroom",
-        "meeting",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11739757
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7646797.mp4",
-      "descricao": "B-roll: segurança no celular",
-      "tags": [
-        "seguranca",
-        "celular",
-        "protecao",
-        "aparelho",
-        "smartphone",
-        "security",
-        "lock",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1764458
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7657523.mp4",
-      "descricao": "Pexels: reading news on phone",
-      "tags": [
-        "reading",
-        "news",
-        "on",
-        "phone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2092340
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7669659.mp4",
-      "descricao": "Pexels: wallet smartphone payment night",
-      "tags": [
-        "wallet",
-        "smartphone",
-        "payment",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2191377
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7680352.mp4",
-      "descricao": "Pexels: man thinking laptop night",
-      "tags": [
-        "man",
-        "thinking",
-        "laptop",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 14627229
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7681473.mp4",
-      "descricao": "Pexels: smartphone settings screen",
-      "tags": [
-        "smartphone",
-        "settings",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3696614
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7683268.mp4",
-      "descricao": "Pexels: customer service headset office",
-      "tags": [
-        "customer",
-        "service",
-        "headset",
-        "office",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8844447
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7683346.mp4",
-      "descricao": "Pexels: university campus",
-      "tags": [
-        "university",
-        "campus",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11528561
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7691600.mp4",
-      "descricao": "B-roll: reunião de estratégia",
-      "tags": [
-        "estrategia",
-        "decisao",
-        "inovacao",
-        "reuniao",
-        "business",
-        "strategy",
-        "meeting",
-        "whiteboard",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7004061
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7698901.mp4",
-      "descricao": "Pexels: person phone worried night",
-      "tags": [
-        "person",
-        "phone",
-        "worried",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1777122
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7706064.mp4",
-      "descricao": "B-roll: cofre",
-      "tags": [
-        "cofre",
-        "segredo",
-        "guardado",
-        "melhores",
-        "safe",
-        "vault",
-        "door",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11840821
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7822022.mp4",
-      "descricao": "Pexels: smartphone lock screen security",
-      "tags": [
-        "smartphone",
-        "lock",
-        "screen",
-        "security",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2535118
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7824433.mp4",
-      "descricao": "Pexels: people using smartphone",
-      "tags": [
-        "people",
-        "using",
-        "smartphone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3510557
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7859800.mp4",
-      "descricao": "B-roll: escaneamento de rosto",
-      "tags": [
-        "rosto",
-        "clone",
-        "deepfake",
-        "biometria",
-        "face",
-        "scan",
-        "biometric",
-        "technology",
-        "roll",
-        "escaneamento"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6272287
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7924953.mp4",
-      "descricao": "Pexels: wallet money",
-      "tags": [
-        "wallet",
-        "money",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4357737
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7934967.mp4",
-      "descricao": "Pexels: sunglasses street fashion",
-      "tags": [
-        "sunglasses",
-        "street",
-        "fashion",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 13008185
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7942762.mp4",
-      "descricao": "B-roll: trabalhando no notebook à noite",
-      "tags": [
-        "usar",
-        "ia",
-        "favor",
-        "notebook",
-        "person",
-        "working",
-        "laptop",
-        "night",
-        "roll",
-        "trabalhando",
-        "noite"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2769248
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7971669.mp4",
-      "descricao": "Pexels: older woman using smartphone",
-      "tags": [
-        "older",
-        "woman",
-        "using",
-        "smartphone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2733950
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7983124.mp4",
-      "descricao": "Pexels: student studying laptop night",
-      "tags": [
-        "student",
-        "studying",
-        "laptop",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9857325
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_7985874.mp4",
-      "descricao": "Pexels: tech conference stage big screen",
-      "tags": [
-        "tech",
-        "conference",
-        "stage",
-        "big",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7019738
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8052328.mp4",
-      "descricao": "Pexels: phone call scam worried",
-      "tags": [
-        "phone",
-        "call",
-        "scam",
-        "worried",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9469373
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8087011.mp4",
-      "descricao": "Pexels: robot face dark",
-      "tags": [
-        "robot",
-        "face",
-        "dark",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1645150
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8087012.mp4",
-      "descricao": "Pexels: humanoid robot face close up",
-      "tags": [
-        "humanoid",
-        "robot",
-        "face",
-        "close",
-        "up",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4809497
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8087025.mp4",
-      "descricao": "B-roll: robô humanoide",
-      "tags": [
-        "robo",
-        "teste",
-        "ia",
-        "futuro",
-        "robot",
-        "humanoid",
-        "roll",
-        "humanoide"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5593415
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8087071.mp4",
-      "descricao": "Pexels: robot walking alone",
-      "tags": [
-        "robot",
-        "walking",
-        "alone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2179328
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8087323.mp4",
-      "descricao": "Pexels: robot kitchen cooking",
-      "tags": [
-        "robot",
-        "kitchen",
-        "cooking",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6829629
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8120676.mp4",
-      "descricao": "Pexels: woman suspicious phone call",
-      "tags": [
-        "woman",
-        "suspicious",
-        "phone",
-        "call",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 19710240
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8195526.mp4",
-      "descricao": "Pexels: shopping store glasses display",
-      "tags": [
-        "shopping",
-        "store",
-        "glasses",
-        "display",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9590384
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8328143.mp4",
-      "descricao": "Pexels: robot arm working",
-      "tags": [
-        "robot",
-        "arm",
-        "working",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3960607
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8328148.mp4",
-      "descricao": "B-roll: tecnologia de IA",
-      "tags": [
-        "ia",
-        "inteligencia",
-        "artificial",
-        "tecnologia",
-        "lancamento",
-        "intelligence",
-        "technology",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6940695
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8347239.mp4",
-      "descricao": "Pexels: modern office timelapse empty",
-      "tags": [
-        "modern",
-        "office",
-        "timelapse",
-        "empty",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3345028
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8375483.mp4",
-      "descricao": "Pexels: hospital doctor computer",
-      "tags": [
-        "hospital",
-        "doctor",
-        "computer",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5154619
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8457701.mp4",
-      "descricao": "Pexels: person surprised laptop",
-      "tags": [
-        "person",
-        "surprised",
-        "laptop",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2317613
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8460286.mp4",
-      "descricao": "B-roll: tecnologia médica",
-      "tags": [
-        "medicina",
-        "saude",
-        "tecnologia",
-        "revolucionando",
-        "medical",
-        "technology",
-        "screen",
-        "roll",
-        "medica"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5016855
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8472307.mp4",
-      "descricao": "Pexels: office laptop typing",
-      "tags": [
-        "office",
-        "laptop",
-        "typing",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3884433
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8480678.mp4",
-      "descricao": "Pexels: confused person looking at stock chart",
-      "tags": [
-        "confused",
-        "person",
-        "looking",
-        "at",
-        "stock",
-        "chart",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12483549
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8522975.mp4",
-      "descricao": "Pexels: computer screen chat night",
-      "tags": [
-        "computer",
-        "screen",
-        "chat",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 7243992
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8522984.mp4",
-      "descricao": "Pexels: people talking cafe",
-      "tags": [
-        "people",
-        "talking",
-        "cafe",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10387639
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8523642.mp4",
-      "descricao": "Pexels: laptop browser tabs",
-      "tags": [
-        "laptop",
-        "browser",
-        "tabs",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 8449592
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8533380.mp4",
-      "descricao": "B-roll: laboratório de ciência",
-      "tags": [
-        "ciencia",
-        "laboratorio",
-        "pesquisa",
-        "science",
-        "laboratory",
-        "research",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2993424
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8571776.mp4",
-      "descricao": "Pexels: reading news tablet",
-      "tags": [
-        "reading",
-        "news",
-        "tablet",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 12790231
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8705291.mp4",
-      "descricao": "Pexels: data center corridor",
-      "tags": [
-        "data",
-        "center",
-        "corridor",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4111444
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8721926.mp4",
-      "descricao": "Pexels: hacker laptop dark neon",
-      "tags": [
-        "hacker",
-        "laptop",
-        "dark",
-        "neon",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9579737
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8731290.mp4",
-      "descricao": "B-roll: lendo guia no tablet",
-      "tags": [
-        "guia",
-        "ebook",
-        "fluxo",
-        "material",
-        "reading",
-        "tablet",
-        "roll",
-        "lendo"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5472174
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8788559.mp4",
-      "descricao": "Pexels: living room sofa home",
-      "tags": [
-        "living",
-        "room",
-        "sofa",
-        "home",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3606162
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8830764.mp4",
-      "descricao": "Pexels: magnifying glass detail",
-      "tags": [
-        "magnifying",
-        "glass",
-        "detail",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 3013732
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8847370.mp4",
-      "descricao": "Pexels: election campaign poster",
-      "tags": [
-        "election",
-        "campaign",
-        "poster",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10782001
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8847372.mp4",
-      "descricao": "B-roll: eleição e voto",
-      "tags": [
-        "eleicao",
-        "voto",
-        "urna",
-        "election",
-        "voting",
-        "brazil",
-        "roll"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6034706
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8847883.mp4",
-      "descricao": "Pexels: debate microphone stage politics",
-      "tags": [
-        "debate",
-        "microphone",
-        "stage",
-        "politics",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 15112114
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8852749.mp4",
-      "descricao": "B-roll: cientistas discutindo",
-      "tags": [
-        "especialistas",
-        "debate",
-        "cientistas",
-        "discutem",
-        "scientists",
-        "discussion",
-        "laboratory",
-        "roll",
-        "discutindo"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2601436
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8860241.mp4",
-      "descricao": "Pexels: lonely man phone window night",
-      "tags": [
-        "lonely",
-        "man",
-        "phone",
-        "window",
-        "night",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2752788
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8927997.mp4",
-      "descricao": "Pexels: person relaxed laptop",
-      "tags": [
-        "person",
-        "relaxed",
-        "laptop",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 10215670
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8937988.mp4",
-      "descricao": "Pexels: laptop google search screen",
-      "tags": [
-        "laptop",
-        "google",
-        "search",
-        "screen",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 5690825
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_8979451.mp4",
-      "descricao": "Pexels: robot office desk",
-      "tags": [
-        "robot",
-        "office",
-        "desk",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2534933
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9077861.mp4",
-      "descricao": "Pexels: bored office worker paperwork",
-      "tags": [
-        "bored",
-        "office",
-        "worker",
-        "paperwork",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 6659250
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9365198.mp4",
-      "descricao": "Pexels: team office technology",
-      "tags": [
-        "team",
-        "office",
-        "technology",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 11831218
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9484866.mp4",
-      "descricao": "Pexels: man waiting alone city",
-      "tags": [
-        "man",
-        "waiting",
-        "alone",
-        "city",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 2853934
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9571468.mp4",
-      "descricao": "Pexels: brazil flag waving",
-      "tags": [
-        "brazil",
-        "flag",
-        "waving",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 4312183
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9785305.mp4",
-      "descricao": "Pexels: person searching internet smartphone",
-      "tags": [
-        "person",
-        "searching",
-        "internet",
-        "smartphone",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 9417101
-    },
-    {
-      "tipo": "video",
-      "src": "midia/banco/videos/pexels_9943145.mp4",
-      "descricao": "Pexels: open door dark office",
-      "tags": [
-        "open",
-        "door",
-        "dark",
-        "office",
-        "pexels"
-      ],
-      "origem": "Pexels (baixado)",
-      "tamanho": 1928282
+      "tamanho": 5004793
     },
     {
       "tipo": "logo",
@@ -5510,6 +2770,16 @@
     },
     {
       "tipo": "referencia",
+      "src": "midia/referencias/deepfake-2turno/capa.png",
+      "descricao": "RNews: Eleições 2026: Vídeos Falsos Com IA Podem Enganar Eleitores Na Reta Final Do Segundo Turno",
+      "tags": [
+        "deepfake-2turno"
+      ],
+      "origem": "https://rnews.com.br/eleicoes-2026-videos-falsos-podem-enganar-eleitores/",
+      "tamanho": 880080
+    },
+    {
+      "tipo": "referencia",
       "src": "midia/referencias/deepfakes-proteja-se-da-ia-maliciosa/capa.png",
       "descricao": "CNN Brasil: Como identificar vídeos feitos com IA e evitar golpes? | CNN Brasil",
       "tags": [
@@ -5827,6 +3097,16 @@
       ],
       "origem": "https://g1.globo.com/sp/santos-regiao/noticia/2026/10/17/oito-pessoas-sao-presas-em-central-de-golpes-com-inteligencia-artificial-no-litoral-de-sp.ghtml",
       "tamanho": 337839
+    },
+    {
+      "tipo": "referencia",
+      "src": "midia/referencias/golpe-mion/capa.png",
+      "descricao": "Forbes Brasil: Após Golpe com Marcos Mion, Deepfakes Entram na Mira da Justiça Brasileira",
+      "tags": [
+        "golpe-mion"
+      ],
+      "origem": "https://forbes.com.br/forbes-tech/2025/01/apos-golpe-com-marcos-mion-deepfakes-entram-na-mira-da-justica-brasileira/",
+      "tamanho": 971793
     },
     {
       "tipo": "referencia",
@@ -6469,6 +3749,16 @@
       "tamanho": 703745
     },
     {
+      "tipo": "referencia",
+      "src": "midia/referencias/tse-plataformas/capa.png",
+      "descricao": "Rede 98: TSE reúne plataformas digitais para combater deepfakes no segundo turno",
+      "tags": [
+        "tse-plataformas"
+      ],
+      "origem": "https://rede98.com.br/eleicoes2026/tse-reune-plataformas-digitais-para-combater-deepfakes-no-segundo-turno/",
+      "tamanho": 1309654
+    },
+    {
       "tipo": "video",
       "src": "midia/01_einstein_loop.mp4",
       "descricao": "01 einstein loop",
@@ -6537,6 +3827,16 @@
       ],
       "origem": "arquivos dos projetos",
       "tamanho": 1269112
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/Aladdin_2019_-_Arabian_Nights__Official_Instrumental__-_Aladdin_2019.mp3",
+      "descricao": "Aladdin 2019 Arabian Nights Official Instrumental Aladdin 2019",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7660146
     },
     {
       "tipo": "imagem",
@@ -6737,6 +4037,16 @@
       ],
       "origem": "arquivos dos projetos",
       "tamanho": 6442361
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/Coldplay_-_Clocks__Official_Instrumental__-_Starshootex.mp3",
+      "descricao": "Coldplay Clocks Official Instrumental Starshootex",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 13815640
     },
     {
       "tipo": "video",
@@ -7449,6 +4759,146 @@
       "tamanho": 2074265
     },
     {
+      "tipo": "video",
+      "src": "midia/sal/bolo.mp4",
+      "descricao": "bolo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4295276
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/brinde.mp4",
+      "descricao": "brinde",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5945625
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/espaco.mp4",
+      "descricao": "espaco",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7805104
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/flores.mp4",
+      "descricao": "flores",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3842456
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/leia.mp4",
+      "descricao": "leia",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3195655
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/leitora1.mp4",
+      "descricao": "leitora1",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4897955
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/leitora2.mp4",
+      "descricao": "leitora2",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 5480423
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/leitora3.mp4",
+      "descricao": "leitora3",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7254885
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/leitora4.mp4",
+      "descricao": "leitora4",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3552689
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/livro.mp4",
+      "descricao": "livro",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3670420
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/livros.mp4",
+      "descricao": "livros",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3194083
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/sal/nuvole_bianche.mp3",
+      "descricao": "nuvole bianche",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 16012016
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/sal/nuvole_bianche_ini.mp3",
+      "descricao": "nuvole bianche ini",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 8457535
+    },
+    {
+      "tipo": "video",
+      "src": "midia/sal/varanda.mp4",
+      "descricao": "varanda",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7548743
+    },
+    {
       "tipo": "efeito",
       "src": "midia/sfx_pop.mp3",
       "descricao": "sfx pop",
@@ -7477,6 +4927,206 @@
       ],
       "origem": "arquivos dos projetos",
       "tamanho": 17691
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/01_sultao_acorda.png",
+      "descricao": "01 sultao acorda",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2264252
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/02_adivinho.png",
+      "descricao": "02 adivinho",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2290077
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/03_furioso.png",
+      "descricao": "03 furioso",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2270282
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/04_segundo.png",
+      "descricao": "04 segundo",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2241824
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/05_ouro.png",
+      "descricao": "05 ouro",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2234954
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/06_guarda.png",
+      "descricao": "06 guarda",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2169610
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/07_moral.png",
+      "descricao": "07 moral",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2090417
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/08_palacio.png",
+      "descricao": "08 palacio",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4893377
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/09_dentes.png",
+      "descricao": "09 dentes",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4584373
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/10_esbravejando.png",
+      "descricao": "10 esbravejando",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4701445
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/11_felicidade.png",
+      "descricao": "11 felicidade",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4783024
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/12_velho.png",
+      "descricao": "12 velho",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4682749
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/13_contraste.png",
+      "descricao": "13 contraste",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4728226
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/14_sabio.png",
+      "descricao": "14 sabio",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4671106
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao2/15_comunicacao.png",
+      "descricao": "15 comunicacao",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 4997839
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao3/interrogacao.png",
+      "descricao": "interrogacao",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 36828
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/tao3/shape-of-you-violino-ini.mp3",
+      "descricao": "shape of you violino ini",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 3947673
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/tao3/shape-of-you-violino.mp3",
+      "descricao": "shape of you violino",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 7580734
+    },
+    {
+      "tipo": "musica",
+      "src": "midia/tao4/loveme.mp3",
+      "descricao": "loveme",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 2630008
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/tao4/vazio.png",
+      "descricao": "vazio",
+      "tags": [
+        "projetos"
+      ],
+      "origem": "arquivos dos projetos",
+      "tamanho": 93
     },
     {
       "tipo": "imagem",
