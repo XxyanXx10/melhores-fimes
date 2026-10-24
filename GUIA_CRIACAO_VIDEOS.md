@@ -315,6 +315,41 @@ quanto tempo levou e o que foi reaproveitado da biblioteca.
 
 ---
 
+## 4.11 Vídeos em 3D (Blender) — histórias animadas
+
+O Blender monta e anima as cenas **por código** (sem abrir a interface), e o resultado vira
+cenas `de: video` no plano, como qualquer outro clipe.
+
+**Instalação (uma vez):** `winget install --id BlenderFoundation.Blender -e` e o caminho do
+`blender.exe` em `server/config.json` → `"blender": "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe"`.
+
+**Personagens e objetos:** gerados na Magnific e guardados em
+`C:/Users/<você>/Videos/Melhores Fimes/3d/modelos/` (GLB):
+1. imagem do personagem de frente, fundo liso (Seedream 5 Pro, ~100 créditos);
+2. `models3d_generate` (Tripo v3.1, textura detalhada, ~1.160 créditos) → `.glb`;
+3. variações (ex.: o mesmo robô de blazer) = nova imagem com a primeira como referência, e de novo para 3D;
+4. objetos simples (geladeira etc.) = `models3d_text_generate` (~580 créditos).
+Os GLB da Tripo vêm de frente para **+X**: `importar()` gira para a câmera, põe a origem na base e ajusta a altura.
+
+**Peças prontas** em `blender/base3d.py`: `cenario`/`caixa`/`plano`, `texto` (texto 3D, fonte Arial Black,
+aceita acento), `etiqueta` (placa com texto), `importar` (GLB), `camera` (com alvo e desfoque), `iluminacao`,
+`escurecer`/`holofote`, e animação: `chave` (quadro-chave com BACK/BOUNCE/SINE), `aparecer` (surge com pulo),
+`cair` (cai e quica), `piscar` (some e volta), `flutuar`.
+
+**Uma história = um arquivo** (modelo: `blender/lojinha.py`): `TOMADAS` com a duração de cada tomada
+(tirada dos tempos da narração), uma função `t_<tomada>()` por tomada que monta a cena e anima câmera e objetos.
+
+```bash
+# conferir rápido: 6 quadros por tomada em meia resolução → .../3d/<cena>/<tomada>_teste/
+"<blender.exe>" -b --factory-startup --python blender/lojinha.py -- todas --teste
+# render final, solto, com log em render/.tmp/3d-<cena>.log → public/midia/banco/videos/3d-<cena>-<tomada>.mp4
+bash blender/renderizar.sh lojinha abertura missao barato ...
+```
+Render: EEVEE, 1080x1920, 30 fps, cor "Standard" (o AgX deixava tudo lavado). Na RTX 4060 dá ~1–2 s por quadro.
+Lições: a primeira tomada já começa com o texto grande na tela (gancho); texto 3D não pode ficar na
+frente do letreiro (põe numa `etiqueta` com fundo); etiquetas grandes e longe da borda; vermelho com
+emissão baixa (senão fica rosa); metal com `metal` ~0.5 (1.0 fica preto sem reflexo).
+
 ## 5. Formatos que funcionam
 
 | Formato | Como é | Cenas típicas |
