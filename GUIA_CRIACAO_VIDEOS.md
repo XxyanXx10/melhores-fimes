@@ -350,6 +350,32 @@ Lições: a primeira tomada já começa com o texto grande na tela (gancho); tex
 frente do letreiro (põe numa `etiqueta` com fundo); etiquetas grandes e longe da borda; vermelho com
 emissão baixa (senão fica rosa); metal com `metal` ~0.5 (1.0 fica preto sem reflexo).
 
+## 4.12 Série "O Estagiário Robô" — personagens humanos e diálogo com várias vozes
+
+**Elenco:** o robozinho (estagiário, `3d/modelos/robo.glb`), a **chefe** (`character-female-d`, de terno
+cinza) e o **colega** (`character-male-e`, de óculos), do pacote grátis **Kenney Mini Characters** (CC0, uso
+comercial liberado, sem crédito obrigatório), em `C:/Users/<você>/Videos/Melhores Fimes/3d/personagens/`.
+Para baixar de novo: <https://kenney.nl/assets/mini-characters>. Cada boneco traz ~30 animações:
+`idle`, `walk`, `sprint`, `emote-yes`, `emote-no`, `interact-left/right`, `pick-up`, `sit`, `jump`, `fall`, `die`…
+
+`blender/personagens3d.py`:
+- `personagem(arquivo, nome, altura, loc, giro)` importa e mede a altura real (o número do pacote não bate).
+- `animar(boneco, [(acao, ini, fim, velocidade)])` monta a sequência na NLA, com transição suave.
+- Para andar: `chave(boneco, 'location', ...)` + `walk`; para encarar alguém: `mirar(de, para)` (no ep01).
+
+**Diálogo com vozes diferentes:** no roteiro, `elenco` (personagem → voz) e `falas` ([{quem, texto}]).
+Vozes nativas em português do Brasil do Gemini: `GET /v1beta/voices?languageCode=pt-BR` (50 vozes:
+`pt-br-advisor-*`, `pt-br-assistant-*`, `pt-br-commercial-*`, `pt-br-concierge-*`). Narrador vazio = voz do canal.
+```bash
+node agente/dialogo.mjs ideias/roteiros-livres/ep01-estagiario-inventava.json   # gera e junta as falas
+node agente/roteiro-livre.mjs ideias/roteiros-livres/ep01-estagiario-inventava.json   # vídeo base + legenda
+```
+O robô ganha voz mais aguda com eco metálico (filtro `ROBO` em `dialogo.mjs`). Cada fala fica em cache.
+
+**Episódio:** humor + **um caso real** no meio (manchete 2D e número) + **dica útil** no fim. Modelo:
+`blender/ep01_estagiario.py` (11 tomadas) + `banco-cenas/planos/formato-ep01-estagiario.json`.
+Os rostos dos bonecos não mexem (sem leitura labial): a atuação é com o corpo, balões e câmera.
+
 ## 5. Formatos que funcionam
 
 | Formato | Como é | Cenas típicas |

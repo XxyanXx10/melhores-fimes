@@ -1,0 +1,80 @@
+{
+  "titulo": "O Estagiário Robô - ep 1 - inventava respostas",
+  "formato": "serie-estagiario-3d",
+  "elenco": {
+    "narrador": "",
+    "chefe": "pt-br-advisor-8",
+    "robo": "pt-br-commercial-4",
+    "colega": "pt-br-commercial-1"
+  },
+  "falas": [
+    {
+      "quem": "chefe",
+      "texto": "QUEM INVENTOU ISSO?!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\01-chefe.wav"
+    },
+    {
+      "quem": "narrador",
+      "texto": "Calma, que eu explico. Primeiro dia do estagiário novo… e ele é uma inteligência artificial.",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\02-narrador.wav"
+    },
+    {
+      "quem": "chefe",
+      "texto": "Robozinho, me traz três processos contra companhia aérea. Pra ontem!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\03-chefe.wav"
+    },
+    {
+      "quem": "robo",
+      "texto": "Prontinho, chefe! Fiz em dois segundos!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\04-robo.wav"
+    },
+    {
+      "quem": "narrador",
+      "texto": "Rápido… confiante… e totalmente inventado.",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\05-narrador.wav"
+    },
+    {
+      "quem": "chefe",
+      "texto": "Esses processos não existem!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\06-chefe.wav"
+    },
+    {
+      "quem": "robo",
+      "texto": "Mas eles pareciam tão reais…",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\07-robo.wav"
+    },
+    {
+      "quem": "narrador",
+      "texto": "Isso tem nome: alucinação. A IA não consulta a verdade: ela adivinha a próxima palavra. E já aconteceu de verdade: um advogado usou o ChatGPT e citou seis processos que nunca existiram. Ele e o escritório levaram multa de cinco mil dólares.",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\08-narrador.wav"
+    },
+    {
+      "quem": "colega",
+      "texto": "Então não dá pra confiar na IA?",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\09-colega.wav"
+    },
+    {
+      "quem": "narrador",
+      "texto": "Dá. Mas sempre peça a fonte… e confira.",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\10-narrador.wav"
+    },
+    {
+      "quem": "robo",
+      "texto": "Chefe, agora eu só trago processo de verdade!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\11-robo.wav"
+    },
+    {
+      "quem": "chefe",
+      "texto": "E confere duas vezes!",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\12-chefe.wav"
+    },
+    {
+      "quem": "narrador",
+      "texto": "Segue o canal pra ver o próximo dia do estagiário.",
+      "arquivo": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\13-narrador.wav"
+    }
+  ],
+  "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\dialogos\\ep01-estagiario-inventava\\dialogo.wav",
+  "texto": "QUEM INVENTOU ISSO?! Calma, que eu explico. Primeiro dia do estagiário novo… e ele é uma inteligência artificial. Robozinho, me traz três processos contra companhia aérea. Pra ontem! Prontinho, chefe! Fiz em dois segundos! Rápido… confiante… e totalmente inventado. Esses processos não existem! Mas eles pareciam tão reais… Isso tem nome: alucinação. A IA não consulta a verdade: ela adivinha a próxima palavra. E já aconteceu de verdade: um advogado usou o ChatGPT e citou seis processos que nunca existiram. Ele e o escritório levaram multa de cinco mil dólares. Então não dá pra confiar na IA? Dá. Mas sempre peça a fonte… e confira. Chefe, agora eu só trago processo de verdade! E confere duas vezes! Segue o canal pra ver o próximo dia do estagiário.",
+  "projeto": "O Estagiário Robô - ep 1 - inventava respostas.json"
+}

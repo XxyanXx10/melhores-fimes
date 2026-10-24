@@ -56,7 +56,7 @@ function dividirEmBlocos(texto, maxPalavras = 155) {
   return blocos;
 }
 
-async function requisitarAudioBloco(c, modelo, textoBloco, estilo) {
+async function requisitarAudioBloco(c, modelo, textoBloco, estilo, voz) {
   const prompt = estilo ? `${estilo}\n\n${textoBloco}` : textoBloco;
   for (let tent = 1; tent <= 3; tent++) {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${c.geminiKey}`, {
@@ -64,7 +64,7 @@ async function requisitarAudioBloco(c, modelo, textoBloco, estilo) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: c.geminiVoz } } },
+        generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: voz || c.geminiVoz } } },
       }),
       signal: AbortSignal.timeout(300000),
     });
@@ -88,7 +88,8 @@ async function requisitarAudioBloco(c, modelo, textoBloco, estilo) {
   }
 }
 
-export async function gerarNarracao(texto, titulo, { estilo } = {}) {
+// `voz` troca a voz só desta narração (personagens: "pt-br-advisor-8"...); sem ela, a voz do canal
+export async function gerarNarracao(texto, titulo, { estilo, voz } = {}) {
   const c = await cfg();
   if (!c.geminiKey) throw new Error('falta "geminiKey" em server/config.json');
   const modelo = c.geminiModeloVoz ?? 'gemini-3.8-flash-tts';
@@ -100,7 +101,7 @@ export async function gerarNarracao(texto, titulo, { estilo } = {}) {
     if (blocos.length > 1) {
       console.log(`    [voz ${i + 1}/${blocos.length}] narrando trecho (${blocos[i].split(/\s+/).length} palavras)...`);
     }
-    const pcm = await requisitarAudioBloco(c, modelo, blocos[i], estilo);
+    const pcm = await requisitarAudioBloco(c, modelo, blocos[i], estilo, voz);
     if (i > 0) pcms.push(pausaPcm);
     pcms.push(pcm);
   }
