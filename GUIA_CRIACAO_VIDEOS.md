@@ -385,7 +385,7 @@ O Metricool só recebe vídeo por **link**. O caminho que funciona:
 1. Copiar os MP4 para `G:\Meu Drive\Canal Dark - posts` (Google Drive para desktop instalado no PC).
    A pasta está como "qualquer pessoa com o link pode ver"; sem isso o Metricool recusa ("Failed to normalize media").
 2. Pegar o link de cada arquivo: `node agente/drive-ids.mjs "Canal Dark - posts"` (lê o índice local do Drive).
-3. `createScheduledPost` com: `providers` youtube + tiktok; `youtubeData` {title, type "short", privacy
+3. `createScheduledPost` com: `providers` youtube + tiktok + instagram (`instagramData` {type "REEL", showReelOnFeed true, isAiGenerated}); `youtubeData` {title, type "short", privacy
    "public", madeForKids false, category, isAiGeneratedContent}; `tiktokData` {**title obrigatório**,
    privacyOption "PUBLIC_TO_EVERYONE", isAigc}; `text` = descrição + hashtags; `firstCommentText` = comentário do calendário.
 4. Conferir com `getScheduledPosts`. Títulos, descrições e comentários vêm de `ideias/calendario.json`.
