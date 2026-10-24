@@ -393,6 +393,35 @@ O Metricool só recebe vídeo por **link**. O caminho que funciona:
 Declaração de IA: `true` quando há imagem realista feita por IA (Real ou IA, Pedi pra IA, POV, vexames);
 `false` em animação 3D e vídeos só com texto.
 
+## 4.14 VFX em vídeo gravado (hologramas estilo "Homem de Ferro")
+
+Primeiro feito com `20261024_175810.mp4`: o dono entra, toca a parede, aparecem hologramas,
+um assistente ("J.A.R.V.I.S.") fala, ele mexe no holograma e sai. Câmera **parada** é obrigatória.
+Tudo grátis, nada de Magnific. Arquivos de trabalho em `C:/Users/yaned/Videos/Melhores Fimes/vfx/jarvis/`.
+
+1. **Ambiente** (uma vez): venv em `C:/Users/yaned/Videos/Melhores Fimes/vfx/venv` com `mediapipe opencv-python numpy pillow`;
+   modelos em `vfx/modelos` (pose_landmarker_heavy.task, hand_landmarker.task, selfie_multiclass_256x256.tflite).
+   MediaPipe 1.x só tem a API Tasks (não existe `mp.solutions`).
+2. **Plate**: normalizar para 1080x1920 30 fps (`plate.mp4`). Olhar quadros a cada 0,5 s e anotar quando ele entra,
+   cada toque (posição da ponta do dedo), gestos e saída. Escolher o corte (aqui 5,5 s → 40 s).
+3. **Rastrear**: `venv/Scripts/python.exe vfx/rastrear.py plate.mp4 <pasta>` → `rastreio.json` (pulsos, indicadores,
+   pontas dos dedos por quadro) e `mascaras/` (recorte da pessoa, para os hologramas ficarem ATRÁS dela).
+4. **Falas**: `vfx/jarvis_falas.json` (tempo já cortado + texto) → `node vfx/jarvis_gerar_falas.mjs` (voz pronta
+   pt-br-concierge-3 + filtro de rádio/eco). O nome do script não pode terminar em `voz.mjs` (dispara o CLI do voz.mjs).
+5. **Hologramas**: `blender -b --factory-startup --python vfx/jarvis_holo.py -- <pasta> [--teste]`. Câmera ortográfica,
+   1 unidade = 100 px, então as posições do script são pixels do quadro. Tudo emissivo em fundo preto; o robô usa a
+   casca "holograma" (borda acesa + listras), e o giro dele segue o pulso rastreado. ~7 min para 1035 quadros.
+   Sempre conferir com `--teste` + sobrepor no plate antes do render inteiro: os elementos têm que caber na parede.
+6. **Compor**: `venv/Scripts/python.exe vfx/jarvis_compor.py <pasta> comp.mp4 <ffmpeg> [--teste 4.7,10.6]` — escurece e
+   esfria a sala quando liga, brilho dos hologramas, luz na parede e nele, pessoa por cima, brilho/rastro na ponta do dedo,
+   ondas nos toques, glitch, HUD com indicador de voz e legenda letra por letra. ~20 min.
+7. **Áudio**: `venv/Scripts/python.exe vfx/jarvis_audio.py <pasta> public/midia/musicas/futuro-synthwave.mp3 <ffmpeg> mix.wav`
+   — sons de interface sintetizados (grave ao ligar, toque, varredura, whoosh, arpejo de "salvo", desligar), falas,
+   música que abaixa quando ele fala. Juntar com o vídeo e rodar `node agente/masterizar.mjs`.
+
+Para outro vídeo do mesmo tipo: trocar os tempos no topo de `jarvis_holo.py` (ENTRA, TOQUE1…) e de `jarvis_compor.py`
+(TOQUES, JANELAS_DEDO), e as posições em pixels de cada grupo.
+
 ## 5. Formatos que funcionam
 
 | Formato | Como é | Cenas típicas |

@@ -1,0 +1,14 @@
+{
+  "voz": "pt-br-concierge-3",
+  "corte_inicio": 5.5,
+  "corte_fim": 40.0,
+  "falas": [
+    { "em": 1.8, "texto": "Boa noite, senhor. Todos os sistemas online." },
+    { "em": 5.2, "texto": "Iniciando projeção holográfica." },
+    { "em": 10.2, "texto": "Carregando o protótipo." },
+    { "em": 13.1, "texto": "Modelo liberado. Pode girar à vontade, senhor." },
+    { "em": 22.0, "texto": "Expandindo… Impressionante." },
+    { "em": 25.7, "texto": "Projeto salvo. Renderização completa." },
+    { "em": 31.0, "texto": "Até amanhã, senhor." }
+  ]
+}
