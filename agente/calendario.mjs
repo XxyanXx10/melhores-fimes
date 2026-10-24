@@ -5,19 +5,24 @@
  *
  *   node agente/calendario.mjs
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { RAIZ } from './banco-cenas.mjs';
 
 const PASTA = 'C:/Users/yaned/Desktop/Vídeos Canal Dark';
 const cal = JSON.parse(await readFile(path.join(RAIZ, 'ideias', 'calendario.json'), 'utf8'));
+// os lotes novos ficam em subpastas ("Novos vídeos (24-10)"): procura lá também
+const subpastas = readdirSync(PASTA, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
+const ondeEsta = (arq) => [PASTA, ...subpastas.map((s) => path.join(PASTA, s))].find((p) => existsSync(path.join(p, arq)));
+const existe = (arq) => Boolean(arq && ondeEsta(arq));
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 let diaAnterior = '';
 const linhas = cal.itens
   .map((i) => {
-    const pronto = i.arquivo && existsSync(path.join(PASTA, i.arquivo));
+    const pronto = existe(i.arquivo);
+    const sub = pronto ? path.relative(PASTA, ondeEsta(i.arquivo)) : '';
     const estado = !i.arquivo ? '<span class="e livre">vaga</span>' : pronto ? '<span class="e ok">pronto</span>' : '<span class="e fazendo">em produção</span>';
     const desc = i.descricao ? `${i.descricao}\n\n${cal.hashtags}` : '';
     const cab = i.dia !== diaAnterior ? `<h2>${esc(i.dia)}</h2>` : '';
@@ -25,7 +30,7 @@ const linhas = cal.itens
     const campo = (rotulo, texto) =>
       texto ? `<div class="campo"><b>${rotulo}</b><p>${esc(texto)}</p><button data-t="${esc(texto)}">copiar</button></div>` : '';
     return `${cab}<div class="item"><div class="topo"><span class="hora">${esc(i.hora)}</span><span class="fmt">${esc(i.formato)}</span>${i.novo ? '<span class="novo">novo</span>' : ''}${estado}</div>
-<div class="arq">${esc(i.arquivo || '—')}</div>${campo('Título', i.titulo)}${campo('Descrição', desc)}${campo('Comentário fixado', i.fixar)}</div>`;
+<div class="arq">${sub ? esc(sub) + ' / ' : ''}${esc(i.arquivo || '—')}</div>${campo('Título', i.titulo)}${campo('Descrição', desc)}${campo('Comentário fixado', i.fixar)}</div>`;
   })
   .join('\n');
 
@@ -48,5 +53,5 @@ document.querySelectorAll('button[data-t]').forEach(b=>b.onclick=async()=>{try{a
 </script></body></html>`;
 
 await writeFile(path.join(PASTA, 'Calendário de postagem.html'), html, 'utf8');
-const prontos = cal.itens.filter((i) => i.arquivo && existsSync(path.join(PASTA, i.arquivo))).length;
+const prontos = cal.itens.filter((i) => existe(i.arquivo)).length;
 console.log(`✓ ${PASTA}/Calendário de postagem.html — ${prontos} de ${cal.itens.filter((i) => i.arquivo).length} vídeos já na pasta`);
