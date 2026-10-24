@@ -190,7 +190,49 @@ export function CenaCelular({ cena, frame, fps, escala, progresso }: P) {
 }
 
 /** Frase de impacto: palavras grandes entrando uma a uma; as de `destaques` ganham cor */
-export function CenaFrase({ cena, frame, fps, escala }: P) {
+/**
+ * Frase de "edit" na tela preta: escreve letra por letra, dá um soco de zoom ao
+ * terminar, pisca com brilho e segue num zoom lento até a cena sair.
+ */
+function CenaFraseEdit({ cena, frame, fps, escala }: P) {
+  const cor = cena.destaque || '#F5D06F';
+  const texto = cena.titulo.toUpperCase();
+  const fonte = 'Impact, "Arial Black", sans-serif';
+  const tam = Math.min(230, 1900 / Math.max(5, texto.length)) * escala;
+  // soco: entra gigante e bate no tamanho certo; depois segue num zoom lento
+  const soco = spring({ frame, fps, config: { damping: 8, stiffness: 260 } });
+  const zoom = interpolate(soco, [0, 1], [2.4, 1]) + frame * 0.004;
+  // pisca branco/dourado no ritmo (a cada 4 quadros nos primeiros 20)
+  const fase = Math.floor(frame / 4) % 2 === 0;
+  const corCentro = frame < 20 ? (fase ? '#ffffff' : cor) : cor;
+  const flash = frame < 3 ? 1 - frame / 3 : 0;
+  // ecos da frase enchem a tela, linha por linha, piscando
+  const linhas = 9;
+  return (
+    <div style={{ position: 'relative', width: '100%', height: 1920 * escala, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', overflow: 'hidden' }}>
+        {Array.from({ length: linhas }, (_, i) => {
+          const aparece = frame >= 3 + Math.abs(i - (linhas - 1) / 2) * 2;
+          const pisca = (Math.floor(frame / 3) + i) % 3 === 0 ? 0.55 : 0.22;
+          const desliza = ((i % 2 ? 1 : -1) * frame * 3) % 200;
+          return (
+            <div key={i} style={{ fontFamily: fonte, fontSize: tam * 0.62, lineHeight: 1, whiteSpace: 'nowrap', color: 'transparent', WebkitTextStroke: `${2.5 * escala}px ${cor}`, opacity: aparece ? pisca : 0, transform: `translateX(${desliza * escala}px)` }}>
+              {`${texto}  ${texto}  ${texto}`}
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ position: 'relative', textAlign: 'center', transform: `scale(${zoom})`, fontFamily: fonte, fontSize: tam, lineHeight: 1, color: corCentro, letterSpacing: 2 * escala, textShadow: `0 0 ${40 * escala}px ${cor}cc, 0 ${8 * escala}px 0 #000`, padding: `0 ${30 * escala}px` }}>
+        {texto}
+      </div>
+      <div style={{ position: 'absolute', inset: 0, background: '#fff', opacity: flash }} />
+    </div>
+  );
+}
+
+export function CenaFrase(props: P) {
+  if (props.cena.animacao === 'edit') return <CenaFraseEdit {...props} />;
+  const { cena, frame, fps, escala } = props;
   const cor = cena.destaque || '#f5b301';
   const palavras = cena.titulo.split(/\s+/).filter(Boolean);
   // "IA?" e "IA" valem igual: a pontuação sai dos dois lados

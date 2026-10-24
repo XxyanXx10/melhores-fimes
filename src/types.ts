@@ -144,6 +144,8 @@ export type Foto = {
   /** centro da foto, em % do quadro */
   x: number;
   y: number;
+  /** oculta a legenda inferior durante esta imagem/vídeo (variação estilo YouTube) */
+  semLegenda?: boolean;
 };
 
 /**
@@ -297,6 +299,8 @@ export type CenaRemotion = {
   duracao: number;
   titulo: string;
   subtitulo?: string;
+  /** 'frase': 'edit' escreve letra por letra, soco de zoom e pisca (tela preta de edit) */
+  animacao?: 'edit';
   /** Pergunta exibida no balão do usuário (para tipo 'chatgpt') */
   promptUsuario?: string;
   /** Resposta digitada pela IA (para tipo 'chatgpt') */
@@ -344,5 +348,7 @@ export type CenaRemotion = {
   fonte?: string;
   logo?: string;
   data?: string;
+  /** oculta a legenda inferior durante esta cena (variação estilo YouTube) */
+  semLegenda?: boolean;
 };
 

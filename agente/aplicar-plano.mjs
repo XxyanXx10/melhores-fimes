@@ -56,7 +56,7 @@ function efeitoDeMeme(id, start, sfx, avisos) {
     avisos.push(`efeito "${cfgSfx.nome}" não está no catálogo — pulei`);
     return null;
   }
-  const t = +(start + (cfgSfx.em ?? 0)).toFixed(2);
+  const t = cfgSfx.t !== undefined ? +(+cfgSfx.t).toFixed(2) : +(start + (cfgSfx.em ?? 0)).toFixed(2);
   return {
     som: { id, src: item.src, nome: cfgSfx.nome, tipo: 'efeito', start: t, duracao: Math.min(item.duracao, cfgSfx.max ?? 4), volume: cfgSfx.volume ?? 0.75, fadeIn: 0, fadeOut: 0.2, repetir: false },
     pausa: cfgSfx.pausa ? { start: Math.max(0, +(t - 0.08).toFixed(2)), duracao: cfgSfx.pausa, volume: 0.04 } : null,
@@ -259,15 +259,21 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
     }
 
     if (de === 'remotion') {
-      const { de: _d, start: _s, fim: _f, duracao: _du, banco: _b, id: _i, sobrescrever: _o, fundo, ...campos } = corpo;
-      const cena = { id: `pl-${i}`, start, duracao, itens: [], titulo: '', ...campos, tema };
+      const { de: _d, start: _s, fim: _f, duracao: _du, banco: _b, id: _i, sobrescrever: _o, fundo, referencia: pastaRefCena, comLegenda, ...campos } = corpo;
+      const semLegenda = corpo.semLegenda ?? (plano.legendaModo === 'youtube' ? !comLegenda : undefined);
+      const cena = { id: `pl-${i}`, start, duracao, itens: [], titulo: '', ...campos, ...(semLegenda !== undefined ? { semLegenda } : {}), tema };
+      let refCena = ref;
+      if (pastaRefCena) {
+        const arqRefCena = path.join(RAIZ, 'public', 'midia', 'referencias', pastaRefCena, 'referencias.json');
+        if (existsSync(arqRefCena)) refCena = JSON.parse(await readFile(arqRefCena, 'utf8'));
+      }
       // manchete sem dados: vem da notícia (site, ícone, data, título e capa)
-      if (cena.tipo === 'manchete' && ref) {
-        cena.fonte ??= ref.fonte;
-        cena.logo ??= ref.logoFonte ?? undefined;
-        cena.data ??= ref.data;
-        if (!cena.titulo) cena.titulo = ref.titulo;
-        if (cena.imagem === undefined && ref.capa) cena.imagem = ref.capa.midia;
+      if (cena.tipo === 'manchete' && refCena) {
+        cena.fonte ??= refCena.fonte;
+        cena.logo ??= refCena.logoFonte ?? undefined;
+        cena.data ??= refCena.data;
+        if (!cena.titulo) cena.titulo = refCena.titulo;
+        if (cena.imagem === undefined && refCena.capa) cena.imagem = refCena.capa.midia;
         if (cena.imagem === false) delete cena.imagem;
       }
       // nada em inglês na tela: o público não lê
@@ -307,6 +313,7 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
         continue;
       }
       const zoomSai = corpo.zoom === 'sai';
+      const semLegenda = corpo.semLegenda ?? (plano.legendaModo === 'youtube' ? !corpo.comLegenda : undefined);
       fotos.push({
         id: `pl-${i}`,
         src: midia,
@@ -318,6 +325,7 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
         x: corpo.x ?? 50,
         y: corpo.y ?? 50,
         saidaRapida: true,
+        ...(semLegenda !== undefined ? { semLegenda } : {}),
         // imagem parada vira "animada" com uma aproximação lenta (ou afastamento)
         trajeto:
           de === 'imagem' && corpo.zoom !== false
@@ -331,7 +339,7 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
       continue;
     }
 
-    // efeito de meme no lugar do whoosh/pop padrão
+    // efeito de meme no lugar do whoosh/pop padrão (se tocar logo na entrada; se for no meio/fim, mantém o som de entrada)
     const listaSfx = c.sfx ? (Array.isArray(c.sfx) ? c.sfx : [c.sfx]) : [];
     for (const [k, sfx] of listaSfx.entries()) {
       const e = efeitoDeMeme(`pl-m${i}-${k}`, start, sfx, avisos);
@@ -339,7 +347,8 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
       sons.push(e.som);
       if (e.pausa) pausasMusica.push(e.pausa);
     }
-    if (!listaSfx.length && plano.sons !== false && c.som !== false) sons.push(somDeEntrada(`pl-s${i}`, start, corpo.tipo));
+    const temSfxNaEntrada = listaSfx.some((s) => typeof s === 'string' || (s.t !== undefined ? s.t - start < 0.5 : (s.em ?? 0) < 0.5));
+    if (!temSfxNaEntrada && plano.sons !== false && c.som !== false) sons.push(somDeEntrada(`pl-s${i}`, start, corpo.tipo));
 
     if (c.banco && c.de !== 'banco' && c.de !== 'pexels' && c.de !== 'print') {
       const novo = await adicionarAoBanco({
@@ -377,13 +386,34 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
   // o plano pode fixar legenda e posição; o resto vem da receita sorteada
   if (plano.template) receita.template = plano.template;
   if (plano.legendaY) receita.legendaY = plano.legendaY;
-  // "musica": { "src": "midia/musicas/x.mp3", "volume": 0.12 } troca a trilha; false tira a música
+  // "musica": { "src": "midia/musicas/x.mp3", "volume": 0.07 } ou "musicas": [{ "src", "start", "fim", "volume" }]
   if (plano.musica === false) receita.musica = null;
   else if (plano.musica?.src) receita.musica = plano.musica.src;
+  else if (Array.isArray(plano.musicas) && plano.musicas[0]?.src) receita.musica = plano.musicas[0].src;
   aplicarReceita(projeto, receita);
-  if (plano.musica === false) projeto.sons = projeto.sons.filter((x) => x.tipo !== 'musica');
+  if (plano.musica === false) {
+    projeto.sons = projeto.sons.filter((x) => x.tipo !== 'musica');
+  } else if (Array.isArray(plano.musicas) && plano.musicas.length > 0) {
+    projeto.sons = projeto.sons.filter((x) => x.tipo !== 'musica');
+    for (const [idxM, mCfg] of plano.musicas.entries()) {
+      const iniM = +(mCfg.start ?? 0);
+      const fimM = mCfg.fim !== undefined ? +mCfg.fim : projeto.duracao;
+      projeto.sons.push({
+        id: `pl-mus-${idxM}`,
+        src: mCfg.src,
+        nome: path.basename(mCfg.src),
+        tipo: 'musica',
+        start: iniM,
+        duracao: Math.max(1, +(fimM - iniM).toFixed(2)),
+        volume: mCfg.volume ?? 0.07,
+        fadeIn: mCfg.fadeIn ?? 1.5,
+        fadeOut: mCfg.fadeOut ?? 2.0,
+        repetir: true,
+      });
+    }
+  }
   for (const m of projeto.sons.filter((x) => x.tipo === 'musica')) {
-    m.volume = plano.musica?.volume ?? Math.min(m.volume ?? 0.07, 0.07);
+    m.volume = m.volume ? Math.min(m.volume, plano.musica?.volume ?? 0.07) : (plano.musica?.volume ?? 0.07);
     // "pausas": [{ "em": 6.4, "duracao": 0.8 }] + as pausas dos efeitos: a música cala e volta
     m.quedas = [...pausasMusica, ...(plano.pausas ?? []).map((p) => ({ start: p.em, duracao: p.duracao ?? 0.8, volume: p.volume ?? 0.04 }))];
   }

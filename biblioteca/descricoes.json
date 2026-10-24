@@ -774,5 +774,83 @@
       "pirataria"
     ],
     "origem": "gerada (Seedream 5 Pro, Magnific)"
+  },
+  "midia/banco/videos/chrome-ia-mario-plataforma.mp4": {
+    "descricao": "Jogo de plataforma estilo Super Mario (Super IA Bros) criado por IA em 1 arquivo HTML rodando no Google Chrome",
+    "tags": [
+      "chrome",
+      "ia",
+      "jogo",
+      "mario",
+      "plataforma",
+      "html5",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/01-super-ia-bros.html)"
+  },
+  "midia/banco/videos/chrome-ia-minecraft-voxel.mp4": {
+    "descricao": "Clone 3D de mundo de blocos estilo Minecraft criado por IA rodando no navegador Chrome",
+    "tags": [
+      "chrome",
+      "ia",
+      "jogo",
+      "minecraft",
+      "voxel",
+      "3d",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/02-minecraft-ia-voxel.html)"
+  },
+  "midia/banco/videos/chrome-ia-doom-3d.mp4": {
+    "descricao": "Motor 3D Raycasting estilo DOOM clássico escrito por IA em JavaScript puro rodando no Chrome",
+    "tags": [
+      "chrome",
+      "ia",
+      "jogo",
+      "doom",
+      "raycasting",
+      "3d",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/03-doom-ia-raycaster.html)"
+  },
+  "midia/banco/videos/chrome-ia-gta-cidade.mp4": {
+    "descricao": "Jogo de ação visto de cima estilo GTA clássico criado por IA rodando no navegador Chrome",
+    "tags": [
+      "chrome",
+      "ia",
+      "jogo",
+      "gta",
+      "cidade",
+      "polícia",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/04-gta-ia-cidade.html)"
+  },
+  "midia/banco/videos/chrome-ia-world-model-memoria.mp4": {
+    "descricao": "Comparativo prático no Chrome: Jogo com código HTML5 (memória fixa) vs Modelo de Mundo sem código (IA esquece o cenário)",
+    "tags": [
+      "chrome",
+      "ia",
+      "genie",
+      "modelo de mundo",
+      "comparativo",
+      "alucinação",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/05-world-model-amnesia.html)"
+  },
+  "midia/banco/videos/chrome-ia-corrida-3d.mp4": {
+    "descricao": "Jogo de corrida 3D Synthwave estilo OutRun gerado por IA rodando a 60 FPS no Chrome",
+    "tags": [
+      "chrome",
+      "ia",
+      "jogo",
+      "corrida",
+      "synthwave",
+      "3d",
+      "games"
+    ],
+    "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/06-corrida-ia-3d.html)"
   }
 }

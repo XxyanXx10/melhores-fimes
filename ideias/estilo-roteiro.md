@@ -45,6 +45,13 @@ Não é aula, não é propaganda, não é jornal lido em voz alta.
 
 Se a fórmula pedida precisa de número ou citação e a matéria não tem, use **revelacao**.
 
+**Regra dos 2 segundos (vale para qualquer fórmula):** a primeira frase tem no máximo 10 palavras
+e termina com ponto de exclamação ou interrogação. É ela que faz a pessoa parar de rolar.
+- **alerta** — fala direto com quem assiste, sobre algo que vai acontecer com ele.
+  "Cuidado com o vídeo que vai chegar no seu WhatsApp hoje!"
+Prefira temas ligados ao Brasil e ao momento (eleição, golpe, governo, famoso brasileiro):
+foram os que mais deram visualização no canal.
+
 ## Voz (o texto vai direto pra voz do Yan — a pontuação é a interpretação)
 
 - Misture frases bem curtas com frases médias. Frase curta = impacto.

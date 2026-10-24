@@ -32,8 +32,8 @@ export async function produzirRoteiroLivre(arquivo) {
   const c = await cfg();
   console.log(`  vídeo base: ${r.titulo}`);
   const [criado] = await gerarLoteDark([{ caminho: r.audio, titulo: r.titulo }], {
-    formato: '9:16',
-    template: c.darkTemplate ?? 'dark-misterio',
+    formato: r.formatoTela ?? '9:16',
+    template: r.template ?? c.darkTemplate ?? 'dark-misterio',
     modoFundo: 'escuro',
     gerarCenasRemotion: false,
     buscarImagensReaisWeb: false,

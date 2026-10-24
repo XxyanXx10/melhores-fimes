@@ -24,29 +24,91 @@ function comoWav(buf, taxa = 24000) {
   return Buffer.concat([h, buf]);
 }
 
+/** Extrai apenas os bytes PCM crus (remove cabeçalho RIFF/WAV de 44 bytes se vier) */
+function extrairPcm(buf) {
+  return buf.subarray(0, 4).toString() === 'RIFF' ? buf.subarray(44) : buf;
+}
+
+/** Divide roteiros longos (> 190 palavras) em blocos de ~150 palavras respeitando fim de frase */
+function dividirEmBlocos(texto, maxPalavras = 155) {
+  const palavrasTotal = texto.trim().split(/\s+/).filter(Boolean).length;
+  if (palavrasTotal <= 190) return [texto.trim()];
+  const sentencas = texto
+    .replace(/\r?\n+/g, ' ')
+    .split(/(?<=[.!?…])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const blocos = [];
+  let atual = [];
+  let cont = 0;
+  for (const s of sentencas) {
+    const n = s.split(/\s+/).filter(Boolean).length;
+    if (cont + n > maxPalavras && atual.length > 0) {
+      blocos.push(atual.join(' '));
+      atual = [s];
+      cont = n;
+    } else {
+      atual.push(s);
+      cont += n;
+    }
+  }
+  if (atual.length) blocos.push(atual.join(' '));
+  return blocos;
+}
+
+async function requisitarAudioBloco(c, modelo, textoBloco, estilo) {
+  const prompt = estilo ? `${estilo}\n\n${textoBloco}` : textoBloco;
+  for (let tent = 1; tent <= 3; tent++) {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${c.geminiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: c.geminiVoz } } },
+      }),
+      signal: AbortSignal.timeout(300000),
+    });
+    const j = await r.json();
+    if (j.error) {
+      if (tent < 3) {
+        await new Promise((res) => setTimeout(res, 2000 * tent));
+        continue;
+      }
+      throw new Error(j.error.message);
+    }
+    const dados = j.candidates?.[0]?.content?.parts?.find((p) => p.inlineData)?.inlineData;
+    if (!dados) {
+      if (tent < 3) {
+        await new Promise((res) => setTimeout(res, 2000 * tent));
+        continue;
+      }
+      throw new Error('a API não devolveu áudio');
+    }
+    return extrairPcm(Buffer.from(dados.data, 'base64'));
+  }
+}
+
 export async function gerarNarracao(texto, titulo, { estilo } = {}) {
   const c = await cfg();
   if (!c.geminiKey) throw new Error('falta "geminiKey" em server/config.json');
   const modelo = c.geminiModeloVoz ?? 'gemini-3.8-flash-tts';
-  const prompt = estilo ? `${estilo}\n\n${texto}` : texto;
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${c.geminiKey}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { voice: c.geminiVoz } } },
-    }),
-    signal: AbortSignal.timeout(300000),
-  });
-  const j = await r.json();
-  if (j.error) throw new Error(j.error.message);
-  const dados = j.candidates?.[0]?.content?.parts?.find((p) => p.inlineData)?.inlineData;
-  if (!dados) throw new Error('a API não devolveu áudio');
+  const blocos = dividirEmBlocos(texto);
+  const pcms = [];
+  // pausa natural curta (0.16s em 24kHz 16-bit mono) entre blocos de vídeos longos
+  const pausaPcm = Buffer.alloc(Math.floor(24000 * 0.16) * 2);
+  for (let i = 0; i < blocos.length; i++) {
+    if (blocos.length > 1) {
+      console.log(`    [voz ${i + 1}/${blocos.length}] narrando trecho (${blocos[i].split(/\s+/).length} palavras)...`);
+    }
+    const pcm = await requisitarAudioBloco(c, modelo, blocos[i], estilo);
+    if (i > 0) pcms.push(pausaPcm);
+    pcms.push(pcm);
+  }
   const pasta = path.join(RAIZ, 'render', '.fontes', 'narracoes');
   await mkdir(pasta, { recursive: true });
   const nome = `${Date.now()}-${titulo.replace(/[^\w\- áàâãéêíóôõúçÁÀÂÃÉÊÍÓÔÕÚÇ]/g, '_')}.wav`;
   const destino = path.join(pasta, nome);
-  await writeFile(destino, comoWav(Buffer.from(dados.data, 'base64')));
+  await writeFile(destino, comoWav(Buffer.concat(pcms)));
   return destino;
 }
 

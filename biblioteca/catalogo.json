@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-18T16:27:11.532Z",
+  "atualizado": "2026-10-19T00:51:05.428Z",
   "itens": [
     {
       "tipo": "musica",
@@ -1919,6 +1919,142 @@
       ],
       "origem": "gerada (Seedream 5 Pro, Magnific)",
       "tamanho": 638444
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-corrida-3d.mp4",
+      "descricao": "Jogo de corrida 3D Synthwave estilo OutRun gerado por IA rodando a 60 FPS no Chrome",
+      "tags": [
+        "chrome",
+        "ia",
+        "jogo",
+        "corrida",
+        "synthwave",
+        "3d",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/06-corrida-ia-3d.html)",
+      "tamanho": 1995535
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-doom-3d.mp4",
+      "descricao": "Motor 3D Raycasting estilo DOOM clássico escrito por IA em JavaScript puro rodando no Chrome",
+      "tags": [
+        "chrome",
+        "ia",
+        "jogo",
+        "doom",
+        "raycasting",
+        "3d",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/03-doom-ia-raycaster.html)",
+      "tamanho": 1722011
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-gta-cidade.mp4",
+      "descricao": "Jogo de ação visto de cima estilo GTA clássico criado por IA rodando no navegador Chrome",
+      "tags": [
+        "chrome",
+        "ia",
+        "jogo",
+        "gta",
+        "cidade",
+        "polícia",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/04-gta-ia-cidade.html)",
+      "tamanho": 1598114
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-mario-plataforma.mp4",
+      "descricao": "Jogo de plataforma estilo Super Mario (Super IA Bros) criado por IA em 1 arquivo HTML rodando no Google Chrome",
+      "tags": [
+        "chrome",
+        "ia",
+        "jogo",
+        "mario",
+        "plataforma",
+        "html5",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/01-super-ia-bros.html)",
+      "tamanho": 3563092
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-minecraft-voxel.mp4",
+      "descricao": "Clone 3D de mundo de blocos estilo Minecraft criado por IA rodando no navegador Chrome",
+      "tags": [
+        "chrome",
+        "ia",
+        "jogo",
+        "minecraft",
+        "voxel",
+        "3d",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/02-minecraft-ia-voxel.html)",
+      "tamanho": 5845887
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/chrome-ia-world-model-memoria.mp4",
+      "descricao": "Comparativo prático no Chrome: Jogo com código HTML5 (memória fixa) vs Modelo de Mundo sem código (IA esquece o cenário)",
+      "tags": [
+        "chrome",
+        "ia",
+        "genie",
+        "modelo de mundo",
+        "comparativo",
+        "alucinação",
+        "games"
+      ],
+      "origem": "gravado na prática no Google Chrome (jogos-chrome-ia/05-world-model-amnesia.html)",
+      "tamanho": 210085
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/comparativo-doom-original-vs-ia.mp4",
+      "descricao": "comparativo doom original vs ia",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 896189
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/comparativo-gta-original-vs-ia.mp4",
+      "descricao": "comparativo gta original vs ia",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 954087
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/comparativo-mario-original-vs-ia.mp4",
+      "descricao": "comparativo mario original vs ia",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1029780
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/comparativo-minecraft-original-vs-ia.mp4",
+      "descricao": "comparativo minecraft original vs ia",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1547458
+    },
+    {
+      "tipo": "video",
+      "src": "midia/banco/videos/comparativo-outrun-original-vs-ia.mp4",
+      "descricao": "comparativo outrun original vs ia",
+      "tags": [],
+      "origem": "Pexels (baixado)",
+      "tamanho": 1320193
     },
     {
       "tipo": "video",
@@ -5078,6 +5214,139 @@
       "descricao": "Núcleo de IA futurista brilhando (gancho de lançamento de IA)",
       "tags": [],
       "tamanho": 1674232
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-cyberpunk-2077-cidade.jpg",
+      "descricao": "orig cyberpunk 2077 cidade",
+      "tags": [],
+      "tamanho": 328519
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-doom-1993-acao.jpg",
+      "descricao": "orig doom 1993 acao",
+      "tags": [],
+      "tamanho": 554242
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-doom-1993-corredor.jpg",
+      "descricao": "orig doom 1993 corredor",
+      "tags": [],
+      "tamanho": 506188
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-gta1-topdown.jpg",
+      "descricao": "orig gta1 topdown",
+      "tags": [],
+      "tamanho": 436736
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-gta2-topdown.jpg",
+      "descricao": "orig gta2 topdown",
+      "tags": [],
+      "tamanho": 216486
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-gtav-policia.jpg",
+      "descricao": "orig gtav policia",
+      "tags": [],
+      "tamanho": 247380
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-gtav-rockstar.jpg",
+      "descricao": "orig gtav rockstar",
+      "tags": [],
+      "tamanho": 242251
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-mario-64.jpg",
+      "descricao": "orig mario 64",
+      "tags": [],
+      "tamanho": 315160
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-mario-bros-nes.jpg",
+      "descricao": "orig mario bros nes",
+      "tags": [],
+      "tamanho": 264162
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-mario-world-snes.jpg",
+      "descricao": "orig mario world snes",
+      "tags": [],
+      "tamanho": 326715
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-minecraft-classico.jpg",
+      "descricao": "orig minecraft classico",
+      "tags": [],
+      "tamanho": 156238
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-outrun-1986.jpg",
+      "descricao": "orig outrun 1986",
+      "tags": [],
+      "tamanho": 318295
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-roblox-studio.jpg",
+      "descricao": "orig roblox studio",
+      "tags": [],
+      "tamanho": 150620
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-steam-agulha-1.jpg",
+      "descricao": "orig steam agulha 1",
+      "tags": [],
+      "tamanho": 505671
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-steam-agulha-2.jpg",
+      "descricao": "orig steam agulha 2",
+      "tags": [],
+      "tamanho": 1025700
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-steam-agulha-3.jpg",
+      "descricao": "orig steam agulha 3",
+      "tags": [],
+      "tamanho": 405244
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-unreal-engine-editor.jpg",
+      "descricao": "orig unreal engine editor",
+      "tags": [],
+      "tamanho": 191449
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-zelda-escalada.jpg",
+      "descricao": "orig zelda escalada",
+      "tags": [],
+      "tamanho": 194232
+    },
+    {
+      "tipo": "imagem",
+      "src": "midia/banco/orig-zelda-parapente.jpg",
+      "descricao": "orig zelda parapente",
+      "tags": [],
+      "tamanho": 203086
     },
     {
       "tipo": "referencia",

@@ -41,7 +41,7 @@ const GATILHOS_DARK = new Set([
 
 function rodarFfmpeg(cmd, args) {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
+    const p = spawn(cmd, args, { windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
     let erro = '';
     p.stderr.on('data', (d) => (erro += String(d)));
     p.on('error', (e) => reject(new Error(`FFmpeg: ${e.message}`)));

@@ -79,7 +79,7 @@ function enfase(slot: 1 | 2 | undefined, style: CaptionStyle): React.CSSProperti
 
 export function Legenda({ bloco, ativa, revelada, style, largura, regiao }: Props) {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, height: altura } = useVideoConfig();
 
   if (!bloco || !bloco.words.length) return null;
 
@@ -94,7 +94,8 @@ export function Legenda({ bloco, ativa, revelada, style, largura, regiao }: Prop
   const escala = style.animation === 'pop' ? interpolate(entrada, [0, 1], [0.82, 1]) : 1;
   const sobe = style.animation === 'slide-up' ? interpolate(entrada, [0, 1], [28, 0]) : 0;
 
-  const fontePx = (style.fontSize / 100) * largura;
+  const baseDim = Math.min(largura, altura);
+  const fontePx = (style.fontSize / 100) * baseDim;
   // manual vence o automático, palavra por palavra
   const slots = bloco.words.map((w, i) => w.emphasis ?? enfaseAuto(bloco, i, style.autoEnfase));
 

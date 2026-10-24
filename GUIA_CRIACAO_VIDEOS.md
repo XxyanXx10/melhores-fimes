@@ -63,7 +63,7 @@ Copie `server/config.example.json` para `server/config.json` e preencha:
   "gpu": true,
   "pastaTemporaria": "C:/Users/<você>/AppData/Local/Temp/melhores-fimes-render",
   "geminiKey": "<chave do AI Studio>",
-  "geminiVoz": "voice_6zoz3sd3ggwi",
+  "geminiVoz": "voice_nc5nkbi7c4x9",
   "geminiModeloVoz": "gemini-3.8-flash-tts",
   "pexelsKey": "<chave do Pexels>"
 }
@@ -329,6 +329,39 @@ quanto tempo levou e o que foi reaproveitado da biblioteca.
 | **Notícia longa** (~110 s) | assunto quente explicado (IA copiando jogos, PS5 desbloqueado) | manchetes, vídeos oficiais, fotos da matéria |
 
 ---
+
+## 5.1 O que os números mostraram (YouTube, 26/09 a 23/10/2026)
+
+2.299 visualizações em 28 dias. Quase tudo veio de 4 vídeos:
+
+| Vídeo | Views | Por que funcionou |
+|---|---|---|
+| IA e a Imparcialidade nas Eleições | 1.108 | **polêmica brasileira e atual** (eleição, Lula/Meta/TSE) |
+| Real ou IA, você acerta? | 349 | **interativo**: a pessoa joga junto |
+| Amor de IA, um alerta real | 267 | **história real de brasileiro**, com emoção |
+| 3 vexames da IA | 237 | lista curta de mancadas, humor |
+
+Notícia de tecnologia "genérica" (Google, empresas, consciência, ferramentas) ficou entre 4 e 35 views.
+Mesmo o melhor vídeo foi assistido em média até 0:14 de 0:34 (43%): **a abertura decide tudo**.
+
+Prioridade de tema: 1) Brasil e polêmica do momento ligada a IA; 2) interativo (quiz); 3) história real
+com emoção; 4) humor e vexame. Evite notícia de produto gringo sem ligação com a vida do brasileiro.
+
+## 5.2 Abertura forte (os 2 primeiros segundos)
+
+O público decide em 1–2 s se para no vídeo. Regras:
+- **A primeira frase é um alerta, uma pergunta direta ou uma revelação**, com no máximo 10 palavras e
+  ponto de exclamação: "Cuidado com o vídeo que vai chegar no seu WhatsApp hoje!".
+  Nunca comece com contexto ("Uma empresa anunciou…").
+- **A primeira cena (0 a ~1,7 s) é uma palavra ou frase gigante** (`frase` com 1–2 palavras), na cor
+  certa para a emoção (`"destaque": "#ef4444"` para alerta), **com um efeito sonoro já no segundo 0**
+  (sirene, boom, whoosh). Depois vem a prova (celular, manchete, imagem).
+- Nada de tela vazia ou título pequeno no começo. Confira o quadro 30 (1 s) antes do render.
+- Voz: o texto da abertura curto e com exclamação faz a voz começar mais forte. A voz é a
+  **"Signature Voice"** (`voice_nc5nkbi7c4x9`); a antiga "Yan" fica em `geminiVozAnterior`.
+- **Áudio masterizado:** o `render.mjs` normaliza o MP4 final para **-14 LUFS** e realça a fala.
+  Antes os vídeos saíam em -22 LUFS (metade do volume dos outros Shorts, som "abafado").
+  Não instrua estilo no texto da voz: o modelo lê a instrução em voz alta.
 
 ## 6. O gosto do dono (aprovado e rejeitado)
 

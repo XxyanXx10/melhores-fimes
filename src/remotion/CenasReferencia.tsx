@@ -45,6 +45,7 @@ export function CenaManchete({ cena, frame, fps, escala, progresso }: P) {
   const cor = cena.destaque || '#ffe14d';
   const entrada = spring({ frame, fps, config: { damping: 15, stiffness: 120 } });
   const aproxima = interpolate(progresso, [0, 1], [1, 1.04]);
+  const horiz = escala < 0.9;
   let ordem = 0;
   return (
     <div
@@ -52,26 +53,28 @@ export function CenaManchete({ cena, frame, fps, escala, progresso }: P) {
         background: '#ffffff',
         borderRadius: 30 * escala,
         overflow: 'hidden',
+        maxWidth: horiz ? 940 * escala : undefined,
+        margin: horiz ? '0 auto' : undefined,
         boxShadow: `0 ${40 * escala}px ${110 * escala}px rgba(0,0,0,.7)`,
         transform: `scale(${interpolate(entrada, [0, 1], [0.86, 1]) * aproxima}) rotate(${interpolate(entrada, [0, 1], [-3, 0])}deg)`,
         color: '#111418',
       }}
     >
       {cena.imagem && (
-        <div style={{ width: '100%', aspectRatio: '16 / 9', overflow: 'hidden' }}>
+        <div style={{ width: '100%', aspectRatio: horiz ? '21 / 9' : '16 / 9', overflow: 'hidden' }}>
           <Img
             src={fonteDe(cena.imagem)}
             style={{ width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${interpolate(progresso, [0, 1], [1.02, 1.12])})` }}
           />
         </div>
       )}
-      <div style={{ padding: `${32 * escala}px ${38 * escala}px ${40 * escala}px` }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 * escala, marginBottom: 20 * escala }}>
-          {cena.logo && <Img src={fonteDe(cena.logo)} style={{ width: 56 * escala, height: 56 * escala, borderRadius: 12 * escala, objectFit: 'contain' }} />}
-          <span style={{ fontSize: 32 * escala, fontWeight: 800 }}>{cena.fonte}</span>
-          {cena.data && <span style={{ fontSize: 28 * escala, color: '#6b7280', fontWeight: 600 }}>· {cena.data}</span>}
+      <div style={{ padding: horiz ? `${22 * escala}px ${32 * escala}px ${26 * escala}px` : `${32 * escala}px ${38 * escala}px ${40 * escala}px` }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 * escala, marginBottom: (horiz ? 12 : 20) * escala }}>
+          {cena.logo && <Img src={fonteDe(cena.logo)} style={{ width: (horiz ? 44 : 56) * escala, height: (horiz ? 44 : 56) * escala, borderRadius: 12 * escala, objectFit: 'contain' }} />}
+          <span style={{ fontSize: (horiz ? 28 : 32) * escala, fontWeight: 800 }}>{cena.fonte}</span>
+          {cena.data && <span style={{ fontSize: (horiz ? 24 : 28) * escala, color: '#6b7280', fontWeight: 600 }}>· {cena.data}</span>}
         </div>
-        <div style={{ fontSize: (cena.imagem ? 60 : 70) * escala, fontWeight: 800, lineHeight: 1.16, letterSpacing: -0.5 * escala }}>
+        <div style={{ fontSize: (cena.imagem ? (horiz ? 46 : 60) : (horiz ? 56 : 70)) * escala, fontWeight: 800, lineHeight: 1.16, letterSpacing: -0.5 * escala }}>
           {pedacos(cena.titulo, cena.destaques).map((p, i) => {
             if (!p.quente) return <span key={i}>{p.texto} </span>;
             // um pedaço marcado depois do outro, a partir de quando o cartão assentou
@@ -101,7 +104,7 @@ export function CenaManchete({ cena, frame, fps, escala, progresso }: P) {
             );
           })}
         </div>
-        {cena.subtitulo && <div style={{ fontSize: 30 * escala, color: '#4b5563', marginTop: 18 * escala, lineHeight: 1.3 }}>{cena.subtitulo}</div>}
+        {cena.subtitulo && <div style={{ fontSize: (horiz ? 25 : 30) * escala, color: '#4b5563', marginTop: (horiz ? 12 : 18) * escala, lineHeight: 1.3 }}>{cena.subtitulo}</div>}
       </div>
     </div>
   );
@@ -119,9 +122,10 @@ export function CenaPrint({ cena, frame, fps, escala, progresso }: P) {
   const proporcao = (lw * r.w) / (lh * r.h);
   const moldura = cena.moldura ?? 'cartao';
   const barra = moldura === 'janela' ? 58 * escala : 0;
-  // até ~1000 px: a legenda fica embaixo (70–78% da tela) e não pode cobrir o print
-  const alturaMax = (cena.titulo ? 900 : 1000) * escala - barra;
-  const largura = Math.min(960 * escala, alturaMax * proporcao);
+  // até ~1000 px no vertical (9:16) ou ~720 px no horizontal (16:9), para não encostar na legenda
+  const horiz = escala < 0.9;
+  const alturaMax = (horiz ? (cena.titulo ? 680 : 760) : (cena.titulo ? 900 : 1000)) * escala - barra;
+  const largura = Math.min((horiz ? 1240 : 960) * escala, alturaMax * proporcao);
   const altura = largura / proporcao;
 
   const entrada = spring({ frame, fps, config: { damping: 14, stiffness: 120 } });

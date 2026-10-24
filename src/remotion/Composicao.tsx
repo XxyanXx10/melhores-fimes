@@ -327,7 +327,7 @@ export function Composicao(props: PropsComposicao) {
         >
           <Foto foto={f} />
           {/* imagem em tela cheia: sombra embaixo para a legenda não sumir em cima de foto clara */}
-          {f.cobrir && (
+          {f.cobrir && !f.semLegenda && (
             <AbsoluteFill style={{ background: 'linear-gradient(180deg, transparent 45%, rgba(0,0,0,.62) 64%, rgba(0,0,0,.78) 100%)', pointerEvents: 'none' }} />
           )}
         </Sequence>
@@ -343,14 +343,19 @@ export function Composicao(props: PropsComposicao) {
        * A legenda continua por cima de tudo (cartões, fotos, transição),
        * só a posição dela é que passa a levar a divisão em conta.
        */}
-      <Legenda
-        bloco={bloco}
-        ativa={palavraAtiva(bloco, t)}
-        revelada={ultimaIniciada(bloco, t)}
-        style={estilo}
-        largura={largura}
-        regiao={regiaoPrincipalCaixa(divisao, divisao ? fatorTamanho(divisao, progresso) : 0)}
-      />
+      {!(
+        (cenasRemotion ?? []).some((cr) => cr.semLegenda && t >= cr.start && t <= cr.start + cr.duracao) ||
+        fotos.some((f) => f.semLegenda && t >= f.start && t <= f.start + f.duracao)
+      ) && (
+        <Legenda
+          bloco={bloco}
+          ativa={palavraAtiva(bloco, t)}
+          revelada={ultimaIniciada(bloco, t)}
+          style={estilo}
+          largura={largura}
+          regiao={regiaoPrincipalCaixa(divisao, divisao ? fatorTamanho(divisao, progresso) : 0)}
+        />
+      )}
     </AbsoluteFill>
   );
 }

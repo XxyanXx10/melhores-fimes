@@ -48,7 +48,7 @@ function linhasDe(texto) {
 /** roda um comando e devolve o stderr — usado pelo silencedetect, que loga lá, não no stdout */
 function capturarErro(cmd, args) {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
+    const p = spawn(cmd, args, { windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
     let saida = '';
     p.stderr.on('data', (d) => (saida += d));
     p.on('error', reject);
@@ -59,7 +59,7 @@ function capturarErro(cmd, args) {
 /** roda um comando e devolve o stdout — usado pelo ffprobe */
 function capturar(cmd, args) {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
+    const p = spawn(cmd, args, { windowsHide: true, stdio: ['ignore', 'pipe', 'ignore'] });
     let saida = '';
     p.stdout.on('data', (d) => (saida += d));
     p.on('error', reject);
@@ -69,7 +69,7 @@ function capturar(cmd, args) {
 
 function rodar(cmd, args, rotulo) {
   return new Promise((resolve, reject) => {
-    const p = spawn(cmd, args, { windowsHide: true });
+    const p = spawn(cmd, args, { windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
     let erro = '';
     p.stderr.on('data', (d) => (erro += d));
     p.on('error', (e) => reject(new Error(`${rotulo}: ${e.message}`)));

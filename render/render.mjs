@@ -18,6 +18,7 @@ import { cpus } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lerConfig } from '../agente/nucleo.mjs';
+import { masterizar } from '../agente/masterizar.mjs';
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -35,7 +36,16 @@ const pastaDoConfig = (() => {
     return undefined;
   }
 })();
-const TEMPORARIO = pastaDoConfig || path.join(raiz, 'render', '.tmp');
+// o config.json é o mesmo nos dois computadores: se a pasta configurada for de outro PC
+// (usuário que não existe aqui), usa a pasta local em vez de quebrar
+const pastaValida = (() => {
+  if (!pastaDoConfig) return undefined;
+  const m = String(pastaDoConfig).replace(/\\/g, '/').match(/^([A-Za-z]:\/Users\/[^/]+)/i);
+  if (m && !fsSync.existsSync(m[1])) return undefined;
+  if (!fsSync.existsSync(path.parse(path.resolve(pastaDoConfig)).root)) return undefined;
+  return pastaDoConfig;
+})();
+const TEMPORARIO = pastaValida || path.join(raiz, 'render', '.tmp');
 
 /*
  * public/midia/banco/videos é uma junção para o C: (os vídeos baixados moram lá).
@@ -226,7 +236,8 @@ if (still !== undefined) {
    */
   const cfg = await lerConfig();
   const nucleos = cpus().length;
-  const emParalelo = cfg.concurrency > 0 ? cfg.concurrency : Math.max(2, Math.min(8, Math.floor(nucleos / 2)));
+  // nunca mais processos que núcleos - 1: o config do PC de mesa (10) derrubava o notebook de 4 núcleos
+  const emParalelo = Math.min(cfg.concurrency > 0 ? cfg.concurrency : Math.max(2, Math.min(8, Math.floor(nucleos / 2))), Math.max(1, nucleos - 1));
   console.log(`Usando ${emParalelo} de ${nucleos} núcleos.`);
 
   /* "--segundos 0-10" renderiza só esse pedaço: confere uma mudança sem esperar o vídeo todo */
@@ -271,6 +282,23 @@ if (still !== undefined) {
       void anotar({ rodando: true, progresso: progress, saida: null, erro: null });
     },
   });
+  /*
+   * Masterização do áudio. O Remotion mistura voz, música e efeitos, mas o
+   * resultado saía em -22 LUFS: no celular, metade do volume dos outros Shorts,
+   * e com a voz "abafada". Aqui o áudio passa por um corte de grave embolado,
+   * um realce de presença (onde fica a clareza da fala) e normalização em duas
+   * passadas para -14 LUFS, o padrão do YouTube. O vídeo é copiado sem recodificar.
+   * "masterizar": false no config desliga.
+   */
+  if (cfg.masterizar !== false && !trecho) {
+    // o passo a passo (duas passadas de loudnorm, realce da fala) mora em agente/masterizar.mjs
+    try {
+      const antes = await masterizar(saida);
+      console.log(`\nÁudio masterizado: ${antes.toFixed(1)} → -14 LUFS`);
+    } catch (e) {
+      console.log(`\n⚠ não masterizei o áudio (o vídeo ficou como saiu do render): ${String(e.message).slice(0, 200)}`);
+    }
+  }
   await anotar({ rodando: false, progresso: 1, saida: path.basename(saida), erro: null });
   console.log(`\n✓ MP4: ${saida}`);
   fonteVideo.fechar();

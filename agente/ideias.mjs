@@ -130,7 +130,7 @@ ${lista}`,
 }
 
 /* fórmulas de gancho (detalhadas em ideias/estilo-roteiro.md); cada vídeo sorteia uma */
-export const GANCHOS = ['revelacao', 'contraste', 'numero', 'consequencia', 'cena', 'pergunta', 'citacao'];
+export const GANCHOS = ['alerta', 'revelacao', 'contraste', 'numero', 'consequencia', 'cena', 'pergunta', 'citacao'];
 
 /* frases de virada do guia; as que os últimos roteiros usaram vão no pedido para variar */
 const VIRADAS = ['Mas o mais curioso', 'E aqui tá o problema', 'Só que tem um detalhe', 'E não para por aí', 'Agora vem a parte estranha', 'Mas olha o que aconteceu', 'E sabe o que é pior', 'Só que ninguém esperava'];

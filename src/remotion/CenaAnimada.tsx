@@ -13,7 +13,7 @@ export function CenaAnimada({ cena, largura }: Props) {
   const { fps, durationInFrames, height: altura } = useVideoConfig();
 
   const horizontal = largura > altura;
-  const escalaBase = largura / 1080;
+  const escalaBase = horizontal ? (altura / 1080) * 0.82 : largura / 1080;
 
   // Entrada e saída suaves da cena inteira
   const entrada = spring({
@@ -54,17 +54,17 @@ export function CenaAnimada({ cena, largura }: Props) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        // centralizado (um pouco acima do meio, para não brigar com a legenda)
+        // centralizado (um pouco acima do meio quando há legenda; no centro exato quando semLegenda)
         justifyContent: 'center',
-        paddingBottom: horizontal ? 0 : `${Math.round(560 * escalaBase)}px`,
+        paddingBottom: horizontal ? (cena.semLegenda ? '0px' : `${Math.round(130 * escalaBase)}px`) : `${Math.round(560 * escalaBase)}px`,
         paddingLeft: `${Math.round(48 * escalaBase)}px`,
         paddingRight: `${Math.round(48 * escalaBase)}px`,
       }}
     >
       <div
         style={{
-          width: horizontal ? '76%' : '94%',
-          maxWidth: `${Math.round(980 * escalaBase)}px`,
+          width: horizontal ? '82%' : '94%',
+          maxWidth: `${Math.round((horizontal ? 1180 : 980) * escalaBase)}px`,
           transform: `translateY(${deslizeY}px)`,
           fontFamily: 'Inter, system-ui, sans-serif',
         }}
