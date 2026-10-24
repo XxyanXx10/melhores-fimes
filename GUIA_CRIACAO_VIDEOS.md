@@ -376,6 +376,23 @@ O robô ganha voz mais aguda com eco metálico (filtro `ROBO` em `dialogo.mjs`).
 `blender/ep01_estagiario.py` (11 tomadas) + `banco-cenas/planos/formato-ep01-estagiario.json`.
 Os rostos dos bonecos não mexem (sem leitura labial): a atuação é com o corpo, balões e câmera.
 
+## 4.13 Agendar no YouTube e no TikTok (Metricool)
+
+O canal posta pelo **Metricool** (conexão oficial com o assistente). Marca: `blogId 7634705`, fuso
+`America/Sao_Paulo`, redes conectadas: YouTube, TikTok e Instagram (@ianautomacoes).
+
+O Metricool só recebe vídeo por **link**. O caminho que funciona:
+1. Copiar os MP4 para `G:\Meu Drive\Canal Dark - posts` (Google Drive para desktop instalado no PC).
+   A pasta está como "qualquer pessoa com o link pode ver"; sem isso o Metricool recusa ("Failed to normalize media").
+2. Pegar o link de cada arquivo: `node agente/drive-ids.mjs "Canal Dark - posts"` (lê o índice local do Drive).
+3. `createScheduledPost` com: `providers` youtube + tiktok; `youtubeData` {title, type "short", privacy
+   "public", madeForKids false, category, isAiGeneratedContent}; `tiktokData` {**title obrigatório**,
+   privacyOption "PUBLIC_TO_EVERYONE", isAigc}; `text` = descrição + hashtags; `firstCommentText` = comentário do calendário.
+4. Conferir com `getScheduledPosts`. Títulos, descrições e comentários vêm de `ideias/calendario.json`.
+
+Declaração de IA: `true` quando há imagem realista feita por IA (Real ou IA, Pedi pra IA, POV, vexames);
+`false` em animação 3D e vídeos só com texto.
+
 ## 5. Formatos que funcionam
 
 | Formato | Como é | Cenas típicas |
