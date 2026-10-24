@@ -136,7 +136,7 @@ with wave.open(arq_sfx, 'wb') as w:
     w.setframerate(SR)
     w.writeframes((sfx * 32767).astype(np.int16).tobytes())
 
-falas = json.load(open(os.path.join(PASTA, 'voz', 'falas.json')))['falas']
+falas = json.load(open(os.path.join(PASTA, 'voz', 'falas.json'), encoding='utf8'))['falas']
 cmd = [FFMPEG, '-y', '-loglevel', 'error', '-ss', str(CORTE), '-t', str(DUR), '-i', os.path.join(PASTA, 'plate.mp4'),
        '-i', MUSICA, '-i', arq_sfx]
 for f in falas:

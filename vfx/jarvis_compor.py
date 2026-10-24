@@ -68,7 +68,7 @@ def ponta_em(i):
 
 
 # ---------------------------------------------------------------- voz (para o indicador e a legenda)
-falas = json.load(open(os.path.join(PASTA, 'voz', 'falas.json')))['falas']
+falas = json.load(open(os.path.join(PASTA, 'voz', 'falas.json'), encoding='utf8'))['falas']
 nivel = np.zeros(N + 10, np.float32)
 for f in falas:
     with wave.open(f['arquivo']) as wv:
@@ -219,6 +219,19 @@ def glitch(h, i, t):
 
 
 # ---------------------------------------------------------------- quadro a quadro
+def limpar_mascara(m):
+    """o recorte às vezes pega pedaços da sombra na parede: fica só com o corpo (e partes grandes)"""
+    b = (m[..., 0] > 0.3).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(b, 8)
+    if n <= 2:
+        return m
+    area = st[:, cv2.CC_STAT_AREA]
+    manter = (area >= 0.2 * area[1:].max()).astype(np.uint8)
+    manter[0] = 0
+    ok = cv2.dilate(manter[lab], np.ones((9, 9), np.uint8)).astype(np.float32)
+    return m * cv2.GaussianBlur(ok, (0, 0), 2)[..., None]
+
+
 def compor(i, plate):
     t = i / FPS
     base = plate.astype(np.float32) / 255.0
@@ -239,6 +252,7 @@ def compor(i, plate):
     fundo = tela(base + luz * 0.55 + flash * 0.08, camada)
     m = cv2.imread(os.path.join(PASTA, 'mascaras', f'{min(len(rast), i + CORTE + 1):05d}.png'), cv2.IMREAD_GRAYSCALE)
     m = (m.astype(np.float32) / 255.0)[..., None] if m is not None else np.zeros((H, W, 1), np.float32)
+    m = limpar_mascara(m)
     pessoa = base + luz * 0.35 + flash * 0.05
     out = fundo * (1 - m) + pessoa * m
     out = tela(out, dedo(i, t))
