@@ -1,36 +1,277 @@
 {
   "titulo": "Calendário de postagem — Canal Dark",
-  "regras": "2 vídeos por dia, 12h e 19h. Comentários sempre ativados e um comentário fixado com a pergunta do vídeo.",
+  "regras": "2 vídeos por dia, 12h e 19h. Comentários sempre ativados e um comentário fixado com a pergunta do vídeo. Tudo já está agendado no Metricool (YouTube Shorts + TikTok): só conferir.",
   "hashtags": "#IA #InteligenciaArtificial #Shorts",
   "itens": [
-    { "dia": "Sáb 24/10", "hora": "19h", "arquivo": "A IA que tentou ter uma lojinha (3D).mp4", "formato": "História 3D", "titulo": "Deram uma loja pra uma IA cuidar… e olha o que aconteceu 😳", "descricao": "História real: em 2025, a Anthropic (criadora do Claude) deixou uma IA cuidar de uma lojinha de verdade. Ela vendeu no prejuízo, encheu o estoque de cubos de tungstênio e prometeu entregar os pedidos de blazer. 🤖 Você deixaria uma IA cuidar do seu dinheiro?", "fixar": "Você deixaria uma IA cuidar do seu dinheiro? 👇" },
-    { "dia": "Dom 25/10", "hora": "12h", "arquivo": "Real ou IA - nível difícil.mp4", "formato": "Real ou IA", "titulo": "Real ou IA? Duvido você acertar as 3 😏", "descricao": "Nível difícil: feijoada, Rio de Janeiro e gatos. Uma delas é pegadinha. Quantas você acertou?", "fixar": "Quantas você acertou? Sem roubar 👀" },
-    { "dia": "Dom 25/10", "hora": "19h", "arquivo": "Pedi pra IA - capitais em 2100 parte 2.mp4", "formato": "Pedi pra IA", "titulo": "Pedi pra IA mostrar as capitais em 2100 (parte 2) 🚀", "descricao": "Curitiba, BH, Recife, Fortaleza, Porto Alegre e Floripa no ano 2100, segundo a inteligência artificial. Qual ficou mais bonita?", "fixar": "Qual capital eu peço na próxima? 👇" },
-    { "dia": "Seg 26/10", "hora": "12h", "arquivo": "Golpe da voz clonada.mp4", "formato": "Alerta IA", "novo": true, "titulo": "Seu filho mandou áudio pedindo Pix? CUIDADO ⚠️", "descricao": "Golpistas clonam voz com IA usando poucos segundos de áudio. Combine uma palavra de segurança com a família e, se cair, peça o MED ao banco. Manda pra sua mãe!", "fixar": "Sua família já tem uma palavra de segurança? 🔐" },
-    { "dia": "Seg 26/10", "hora": "19h", "arquivo": "Real ou IA - comida brasileira.mp4", "formato": "Real ou IA", "novo": true, "titulo": "Real ou IA? Edição comida brasileira 🍗", "descricao": "Coxinha, pão de queijo e feijoada: uma delas foi feita por inteligência artificial. Você acerta?", "fixar": "Acertou as 3? Comenta 👇" },
-    { "dia": "Ter 27/10", "hora": "12h", "arquivo": "3 coisas que você nunca deve contar pro ChatGPT.mp4", "formato": "Alerta IA", "titulo": "3 coisas que você NUNCA deve contar pro ChatGPT 🚫", "descricao": "Senhas, foto de documento e segredo da empresa. A Samsung já teve problema com isso. E dá pra desligar o treino da IA nas configurações.", "fixar": "Você já contou alguma dessas pro ChatGPT? 😅" },
-    { "dia": "Ter 27/10", "hora": "19h", "arquivo": "O robô que mentiu pro humano (3D).mp4", "formato": "História 3D", "novo": true, "titulo": "Esse robô mentiu pra um humano… e se deu bem 🤖", "descricao": "História real: num teste de segurança do GPT-4, a IA convenceu uma pessoa a resolver o captcha por ela dizendo que tinha problema de visão.", "fixar": "Você teria percebido? 👇" },
-    { "dia": "Qua 28/10", "hora": "12h", "arquivo": "Pedi pra IA - perguntas que só brasileiro faz.mp4", "formato": "Pedi pra IA", "titulo": "Fiz pra IA as perguntas que só brasileiro faz 😂", "descricao": "Biscoito ou bolacha? Manga com leite faz mal? E o que significa \"depois a gente conversa\"? As respostas reais da IA.", "fixar": "Que pergunta eu faço na próxima? 👇" },
-    { "dia": "Qua 28/10", "hora": "19h", "arquivo": "A IA está copiando videogames.mp4", "formato": "Notícia longa", "titulo": "A IA do Google copiou Zelda e Mario 😳", "descricao": "O Project Genie cria mundos jogáveis a partir de texto, e as ações de games despencaram. Mas o problema de verdade são os clones feitos em horas.", "fixar": "Você jogaria uma cópia feita por IA? 🎮" },
-    { "dia": "Qui 29/10", "hora": "12h", "arquivo": "Famoso vendendo produto Pode ser IA.mp4", "formato": "Alerta IA", "novo": true, "titulo": "Viu famoso vendendo produto no Instagram? Pode ser golpe ⚠️", "descricao": "Golpistas usam vídeos falsos de famosos feitos com IA. O caso da Gisele Bündchen teve prejuízo estimado em R$ 20 milhões. Veja como perceber.", "fixar": "Você já viu um desses? Conta aqui 👇" },
-    { "dia": "Qui 29/10", "hora": "19h", "arquivo": "Real ou IA - bichos estranhos.mp4", "formato": "Real ou IA", "titulo": "Real ou IA? Esses bichos existem mesmo? 🐟", "descricao": "Axolote, peixe-bolha e antílope saiga: algum deles foi inventado pela IA? Duvido você acertar.", "fixar": "Qual te enganou? 👇" },
-    { "dia": "Sex 30/10", "hora": "12h", "arquivo": "O PS5 foi desbloqueado.mp4", "formato": "Notícia", "titulo": "Desbloquearam o PS5… e a Sony tá correndo atrás 🎮", "descricao": "O desbloqueio Relapse funciona pelo navegador do console. Teve emulador de PS2 feito com ajuda de IA, loja pirata e chave do chip vazada. Mas cuidado: pirataria é crime.", "fixar": "Você desbloquearia o seu? 👇" },
-    { "dia": "Sex 30/10", "hora": "19h", "arquivo": "Pedi pra IA - caramelo em outras profissões.mp4", "formato": "Pedi pra IA", "titulo": "Pedi pra IA colocar o caramelo em outras profissões 🐶", "descricao": "Caramelo CEO, astronauta, motoboy e jogador da seleção. (Esse está como rascunho no YouTube: é só publicar.)", "fixar": "Qual profissão eu peço na próxima? 👇" },
-    { "dia": "Sáb 31/10", "hora": "12h", "arquivo": "A IA que pediu 260 nuggets (3D).mp4", "formato": "História 3D", "novo": true, "titulo": "A IA do drive-thru pediu 260 nuggets 🍗🤖", "descricao": "História real: o McDonald's testou IA no drive-thru e ela não parava de colocar nuggets. Em 2024, o teste foi encerrado.", "fixar": "Você confiaria numa IA pra anotar seu pedido? 👇" },
-    { "dia": "Sáb 31/10", "hora": "19h", "arquivo": "POV - sua mãe descobriu o ChatGPT.mp4", "formato": "POV", "titulo": "POV: sua mãe descobriu o ChatGPT 😂", "descricao": "Bom dia com rosas, receita e conselho pra tudo. Marca aquela pessoa.", "fixar": "Marca sua mãe aqui 😂" },
-    { "dia": "Dom 01/11", "hora": "12h", "arquivo": "Real ou IA - lugares do Brasil.mp4", "formato": "Real ou IA", "novo": true, "titulo": "Real ou IA? Só um desses lugares do Brasil não existe 🇧🇷", "descricao": "Lençóis Maranhenses, Rio de Janeiro e uma cachoeira em Minas. Qual foi a inteligência artificial que inventou?", "fixar": "Acertou? 👇" },
-    { "dia": "Dom 01/11", "hora": "19h", "arquivo": "Pedi pra IA - capitais em 2100 parte 3.mp4", "formato": "Pedi pra IA", "titulo": "Pedi pra IA mostrar as capitais em 2100 (parte 3) 🚀", "descricao": "Belém, Goiânia, Natal, São Luís, Vitória e Cuiabá no ano 2100. Cuiabá ganhou ar-condicionado na cidade inteira.", "fixar": "Qual capital na parte 4? 👇" },
-    { "dia": "Seg 02/11", "hora": "12h", "arquivo": "A Meta AI lê seu WhatsApp.mp4", "formato": "Alerta IA", "novo": true, "titulo": "A Meta AI tá lendo seu WhatsApp? Veja como bloquear 🔒", "descricao": "Segundo a Meta, as mensagens seguem criptografadas. Mas dá pra impedir a Meta AI em cada conversa com a privacidade avançada do chat.", "fixar": "Já ativou no grupo da família? 👇" },
-    { "dia": "Seg 02/11", "hora": "19h", "arquivo": "O clone que foi clonado.mp4", "formato": "História", "titulo": "Copiaram o jogo… e depois copiaram a cópia 🤡", "descricao": "Um jogo viral de achar a agulha no palheiro ganhou 14 clones na Steam. Aí um clone acusou o outro de copiar o código, com erro e tudo.", "fixar": "Quem tem razão? 👇" },
-    { "dia": "Ter 03/11", "hora": "12h", "arquivo": "5 usos do ChatGPT que quase ninguém usa.mp4", "formato": "Lista útil", "titulo": "5 usos do ChatGPT que quase ninguém conhece 💡", "descricao": "Receita com o que tem na geladeira, conta de luz explicada, entrevista de emprego e resumo de áudio de 7 minutos.", "fixar": "Qual você não conhecia? 👇" },
-    { "dia": "Ter 03/11", "hora": "19h", "arquivo": "Pedi pra IA - comida brasileira virando arquitetura.mp4", "formato": "Pedi pra IA", "titulo": "Pedi pra IA transformar comida brasileira em prédio 🏢", "descricao": "Prédio de coxinha, estádio de feijoada e parque aquático de açaí. Qual você visitaria?", "fixar": "Qual comida eu peço na próxima? 👇" },
-    { "dia": "Qua 04/11", "hora": "12h", "arquivo": "4 vezes que a IA mentiu com confiança.mp4", "formato": "Vexame", "titulo": "4 vezes que a IA mentiu com toda a confiança 🤥", "descricao": "Advogado multado, chatbot que liberou ficar com a gorjeta, Bard e os 260 nuggets.", "fixar": "Qual foi a pior? 👇" },
-    { "dia": "Qua 04/11", "hora": "19h", "arquivo": "Real ou IA - bichos do Brasil.mp4", "formato": "Real ou IA", "novo": true, "titulo": "Real ou IA? Edição bichos do Brasil 🦜", "descricao": "Capivara, tucano e boto cor-de-rosa: um deles foi inventado pela inteligência artificial.", "fixar": "Qual te enganou? 👇" },
-    { "dia": "Qui 05/11", "hora": "12h", "arquivo": "A IA consegue copiar qualquer app-.mp4", "formato": "Notícia", "titulo": "A IA consegue copiar qualquer app? Até o Photoshop 😳", "descricao": "Surgiram clones do Photoshop feitos com IA e até banco ficou preocupado. Mas tem coisa que a IA não copia.", "fixar": "Você usaria um clone feito por IA? 👇" },
-    { "dia": "Qui 05/11", "hora": "19h", "arquivo": "POV - seu chefe descobriu o ChatGPT.mp4", "formato": "POV", "titulo": "POV: seu chefe descobriu o ChatGPT 💀", "descricao": "Reunião às 7h e relatório pra ontem. Marca aquele colega.", "fixar": "Marca seu colega 😂" },
-    { "dia": "Sex 06/11", "hora": "12h", "arquivo": "Pedi pra IA - caramelo em outras profissões parte 2.mp4", "formato": "Pedi pra IA", "titulo": "Pedi pra IA mais profissões pro caramelo (parte 2) 🐶", "descricao": "Caramelo médico, churrasqueiro, professor, bombeiro e segurança de shopping.", "fixar": "Qual profissão na parte 3? 👇" },
-    { "dia": "Sex 06/11", "hora": "19h", "arquivo": "POV - você é a IA e hoje é segunda.mp4", "formato": "POV", "titulo": "POV: você é a IA e hoje é segunda-feira 🤖", "descricao": "Todo mundo pedindo tudo ao mesmo tempo. Quem nunca?", "fixar": "Qual pedido você faria? 👇" },
-    { "dia": "Sáb 07/11", "hora": "12h", "arquivo": "", "formato": "Livre", "titulo": "(vaga para notícia quente da semana)", "descricao": "", "fixar": "" },
-    { "dia": "Sáb 07/11", "hora": "19h", "arquivo": "", "formato": "Livre", "titulo": "(vaga para a parte 2 do vídeo que mais bombar)", "descricao": "", "fixar": "" }
+    {
+      "dia": "Sáb 24/10",
+      "hora": "19h",
+      "arquivo": "A IA que tentou ter uma lojinha (3D).mp4",
+      "formato": "História 3D",
+      "titulo": "Deram uma loja pra uma IA cuidar… e olha o que aconteceu 😳",
+      "descricao": "História real: em 2025, a Anthropic (criadora do Claude) deixou uma IA cuidar de uma lojinha de verdade. Ela vendeu no prejuízo, encheu o estoque de cubos de tungstênio e prometeu entregar os pedidos de blazer. 🤖 Você deixaria uma IA cuidar do seu dinheiro?",
+      "fixar": "Você deixaria uma IA cuidar do seu dinheiro? 👇"
+    },
+    {
+      "dia": "Dom 25/10",
+      "hora": "12h",
+      "arquivo": "Real ou IA - nível difícil.mp4",
+      "formato": "Real ou IA",
+      "titulo": "Real ou IA? Duvido você acertar as 3 😏",
+      "descricao": "Nível difícil: feijoada, Rio de Janeiro e gatos. Uma delas é pegadinha. Quantas você acertou?",
+      "fixar": "Quantas você acertou? Sem roubar 👀"
+    },
+    {
+      "dia": "Dom 25/10",
+      "hora": "19h",
+      "arquivo": "Pedi pra IA - capitais em 2100 parte 2.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Pedi pra IA mostrar as capitais em 2100 (parte 2) 🚀",
+      "descricao": "Curitiba, BH, Recife, Fortaleza, Porto Alegre e Floripa no ano 2100, segundo a inteligência artificial. Qual ficou mais bonita?",
+      "fixar": "Qual capital eu peço na próxima? 👇"
+    },
+    {
+      "dia": "Seg 26/10",
+      "hora": "12h",
+      "arquivo": "Golpe da voz clonada.mp4",
+      "formato": "Alerta IA",
+      "novo": true,
+      "titulo": "Seu filho mandou áudio pedindo Pix? CUIDADO ⚠️",
+      "descricao": "Golpistas clonam voz com IA usando poucos segundos de áudio. Combine uma palavra de segurança com a família e, se cair, peça o MED ao banco. Manda pra sua mãe!",
+      "fixar": "Sua família já tem uma palavra de segurança? 🔐"
+    },
+    {
+      "dia": "Seg 26/10",
+      "hora": "19h",
+      "arquivo": "Real ou IA - comida brasileira.mp4",
+      "formato": "Real ou IA",
+      "novo": true,
+      "titulo": "Real ou IA? Edição comida brasileira 🍗",
+      "descricao": "Coxinha, pão de queijo e feijoada: uma delas foi feita por inteligência artificial. Você acerta?",
+      "fixar": "Acertou as 3? Comenta 👇"
+    },
+    {
+      "dia": "Ter 27/10",
+      "hora": "12h",
+      "arquivo": "3 coisas que você nunca deve contar pro ChatGPT.mp4",
+      "formato": "Alerta IA",
+      "titulo": "3 coisas que você NUNCA deve contar pro ChatGPT 🚫",
+      "descricao": "Senhas, foto de documento e segredo da empresa. A Samsung já teve problema com isso. E dá pra desligar o treino da IA nas configurações.",
+      "fixar": "Você já contou alguma dessas pro ChatGPT? 😅"
+    },
+    {
+      "dia": "Ter 27/10",
+      "hora": "19h",
+      "arquivo": "O robô que mentiu pro humano (3D).mp4",
+      "formato": "História 3D",
+      "novo": true,
+      "titulo": "Esse robô mentiu pra um humano… e se deu bem 🤖",
+      "descricao": "História real: num teste de segurança do GPT-4, a IA convenceu uma pessoa a resolver o captcha por ela dizendo que tinha problema de visão.",
+      "fixar": "Você teria percebido? 👇"
+    },
+    {
+      "dia": "Qua 28/10",
+      "hora": "12h",
+      "arquivo": "Pedi pra IA - perguntas que só brasileiro faz.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Fiz pra IA as perguntas que só brasileiro faz 😂",
+      "descricao": "Biscoito ou bolacha? Manga com leite faz mal? E o que significa \"depois a gente conversa\"? As respostas reais da IA.",
+      "fixar": "Que pergunta eu faço na próxima? 👇"
+    },
+    {
+      "dia": "Qua 28/10",
+      "hora": "19h",
+      "arquivo": "O Estagiário Robô - ep 1.mp4",
+      "formato": "Série 3D",
+      "novo": true,
+      "titulo": "O estagiário robô inventou tudo 😳 (ep. 1)",
+      "descricao": "Primeiro dia do estagiário novo… e ele é uma IA. Ele entregou processos que não existem: isso tem nome, alucinação. Caso real: um advogado foi multado em US$ 5 mil por confiar no ChatGPT. Peça a fonte e confira!",
+      "fixar": "O que o estagiário deve aprontar no próximo episódio? 👇"
+    },
+    {
+      "dia": "Qui 29/10",
+      "hora": "12h",
+      "arquivo": "Famoso vendendo produto Pode ser IA.mp4",
+      "formato": "Alerta IA",
+      "novo": true,
+      "titulo": "Viu famoso vendendo produto no Instagram? Pode ser golpe ⚠️",
+      "descricao": "Golpistas usam vídeos falsos de famosos feitos com IA. O caso da Gisele Bündchen teve prejuízo estimado em R$ 20 milhões. Veja como perceber.",
+      "fixar": "Você já viu um desses? Conta aqui 👇"
+    },
+    {
+      "dia": "Qui 29/10",
+      "hora": "19h",
+      "arquivo": "Real ou IA - bichos estranhos.mp4",
+      "formato": "Real ou IA",
+      "titulo": "Real ou IA? Esses bichos existem mesmo? 🐟",
+      "descricao": "Axolote, peixe-bolha e antílope saiga: algum deles foi inventado pela IA? Duvido você acertar.",
+      "fixar": "Qual te enganou? 👇"
+    },
+    {
+      "dia": "Sex 30/10",
+      "hora": "12h",
+      "arquivo": "O PS5 foi desbloqueado.mp4",
+      "formato": "Notícia",
+      "titulo": "Desbloquearam o PS5… e a Sony tá correndo atrás 🎮",
+      "descricao": "O desbloqueio Relapse funciona pelo navegador do console. Teve emulador de PS2 feito com ajuda de IA, loja pirata e chave do chip vazada. Mas cuidado: pirataria é crime.",
+      "fixar": "Você desbloquearia o seu? 👇"
+    },
+    {
+      "dia": "Sex 30/10",
+      "hora": "19h",
+      "arquivo": "Pedi pra IA - caramelo em outras profissões.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Pedi pra IA colocar o caramelo em outras profissões 🐶",
+      "descricao": "Caramelo CEO, astronauta, motoboy e jogador da seleção. (Esse está como rascunho no YouTube: é só publicar.)",
+      "fixar": "Qual profissão eu peço na próxima? 👇"
+    },
+    {
+      "dia": "Sáb 31/10",
+      "hora": "12h",
+      "arquivo": "A IA que pediu 260 nuggets (3D).mp4",
+      "formato": "História 3D",
+      "novo": true,
+      "titulo": "A IA do drive-thru pediu 260 nuggets 🍗🤖",
+      "descricao": "História real: o McDonald's testou IA no drive-thru e ela não parava de colocar nuggets. Em 2024, o teste foi encerrado.",
+      "fixar": "Você confiaria numa IA pra anotar seu pedido? 👇"
+    },
+    {
+      "dia": "Sáb 31/10",
+      "hora": "19h",
+      "arquivo": "POV - sua mãe descobriu o ChatGPT.mp4",
+      "formato": "POV",
+      "titulo": "POV: sua mãe descobriu o ChatGPT 😂",
+      "descricao": "Bom dia com rosas, receita e conselho pra tudo. Marca aquela pessoa.",
+      "fixar": "Marca sua mãe aqui 😂"
+    },
+    {
+      "dia": "Dom 01/11",
+      "hora": "12h",
+      "arquivo": "Real ou IA - lugares do Brasil.mp4",
+      "formato": "Real ou IA",
+      "novo": true,
+      "titulo": "Real ou IA? Só um desses lugares do Brasil não existe 🇧🇷",
+      "descricao": "Lençóis Maranhenses, Rio de Janeiro e uma cachoeira em Minas. Qual foi a inteligência artificial que inventou?",
+      "fixar": "Acertou? 👇"
+    },
+    {
+      "dia": "Dom 01/11",
+      "hora": "19h",
+      "arquivo": "Pedi pra IA - capitais em 2100 parte 3.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Pedi pra IA mostrar as capitais em 2100 (parte 3) 🚀",
+      "descricao": "Belém, Goiânia, Natal, São Luís, Vitória e Cuiabá no ano 2100. Cuiabá ganhou ar-condicionado na cidade inteira.",
+      "fixar": "Qual capital na parte 4? 👇"
+    },
+    {
+      "dia": "Seg 02/11",
+      "hora": "12h",
+      "arquivo": "A Meta AI lê seu WhatsApp.mp4",
+      "formato": "Alerta IA",
+      "novo": true,
+      "titulo": "A Meta AI tá lendo seu WhatsApp? Veja como bloquear 🔒",
+      "descricao": "Segundo a Meta, as mensagens seguem criptografadas. Mas dá pra impedir a Meta AI em cada conversa com a privacidade avançada do chat.",
+      "fixar": "Já ativou no grupo da família? 👇"
+    },
+    {
+      "dia": "Seg 02/11",
+      "hora": "19h",
+      "arquivo": "O clone que foi clonado.mp4",
+      "formato": "História",
+      "titulo": "Copiaram o jogo… e depois copiaram a cópia 🤡",
+      "descricao": "Um jogo viral de achar a agulha no palheiro ganhou 14 clones na Steam. Aí um clone acusou o outro de copiar o código, com erro e tudo.",
+      "fixar": "Quem tem razão? 👇"
+    },
+    {
+      "dia": "Ter 03/11",
+      "hora": "12h",
+      "arquivo": "5 usos do ChatGPT que quase ninguém usa.mp4",
+      "formato": "Lista útil",
+      "titulo": "5 usos do ChatGPT que quase ninguém conhece 💡",
+      "descricao": "Receita com o que tem na geladeira, conta de luz explicada, entrevista de emprego e resumo de áudio de 7 minutos.",
+      "fixar": "Qual você não conhecia? 👇"
+    },
+    {
+      "dia": "Ter 03/11",
+      "hora": "19h",
+      "arquivo": "Pedi pra IA - comida brasileira virando arquitetura.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Pedi pra IA transformar comida brasileira em prédio 🏢",
+      "descricao": "Prédio de coxinha, estádio de feijoada e parque aquático de açaí. Qual você visitaria?",
+      "fixar": "Qual comida eu peço na próxima? 👇"
+    },
+    {
+      "dia": "Qua 04/11",
+      "hora": "12h",
+      "arquivo": "4 vezes que a IA mentiu com confiança.mp4",
+      "formato": "Vexame",
+      "titulo": "4 vezes que a IA mentiu com toda a confiança 🤥",
+      "descricao": "Advogado multado, chatbot que liberou ficar com a gorjeta, Bard e os 260 nuggets.",
+      "fixar": "Qual foi a pior? 👇"
+    },
+    {
+      "dia": "Qua 04/11",
+      "hora": "19h",
+      "arquivo": "Real ou IA - bichos do Brasil.mp4",
+      "formato": "Real ou IA",
+      "novo": true,
+      "titulo": "Real ou IA? Edição bichos do Brasil 🦜",
+      "descricao": "Capivara, tucano e boto cor-de-rosa: um deles foi inventado pela inteligência artificial.",
+      "fixar": "Qual te enganou? 👇"
+    },
+    {
+      "dia": "Qui 05/11",
+      "hora": "12h",
+      "arquivo": "A IA consegue copiar qualquer app-.mp4",
+      "formato": "Notícia",
+      "titulo": "A IA consegue copiar qualquer app? Até o Photoshop 😳",
+      "descricao": "Surgiram clones do Photoshop feitos com IA e até banco ficou preocupado. Mas tem coisa que a IA não copia.",
+      "fixar": "Você usaria um clone feito por IA? 👇"
+    },
+    {
+      "dia": "Qui 05/11",
+      "hora": "19h",
+      "arquivo": "POV - seu chefe descobriu o ChatGPT.mp4",
+      "formato": "POV",
+      "titulo": "POV: seu chefe descobriu o ChatGPT 💀",
+      "descricao": "Reunião às 7h e relatório pra ontem. Marca aquele colega.",
+      "fixar": "Marca seu colega 😂"
+    },
+    {
+      "dia": "Sex 06/11",
+      "hora": "12h",
+      "arquivo": "Pedi pra IA - caramelo em outras profissões parte 2.mp4",
+      "formato": "Pedi pra IA",
+      "titulo": "Pedi pra IA mais profissões pro caramelo (parte 2) 🐶",
+      "descricao": "Caramelo médico, churrasqueiro, professor, bombeiro e segurança de shopping.",
+      "fixar": "Qual profissão na parte 3? 👇"
+    },
+    {
+      "dia": "Sex 06/11",
+      "hora": "19h",
+      "arquivo": "POV - você é a IA e hoje é segunda.mp4",
+      "formato": "POV",
+      "titulo": "POV: você é a IA e hoje é segunda-feira 🤖",
+      "descricao": "Todo mundo pedindo tudo ao mesmo tempo. Quem nunca?",
+      "fixar": "Qual pedido você faria? 👇"
+    },
+    {
+      "dia": "Sáb 07/11",
+      "hora": "12h",
+      "arquivo": "A IA está copiando videogames.mp4",
+      "formato": "Notícia longa",
+      "titulo": "A IA do Google copiou Zelda e Mario 😳",
+      "descricao": "O Project Genie cria mundos jogáveis a partir de texto, e as ações de games despencaram. Mas o problema de verdade são os clones feitos em horas.",
+      "fixar": "Você jogaria uma cópia feita por IA? 🎮"
+    },
+    {
+      "dia": "Sáb 07/11",
+      "hora": "19h",
+      "arquivo": "",
+      "formato": "Livre",
+      "titulo": "(vaga para a parte 2 do vídeo que mais bombar)",
+      "descricao": "",
+      "fixar": ""
+    }
   ]
 }
