@@ -14,7 +14,7 @@ from base3d import *  # noqa: E402,F401
 from personagens3d import personagem, animar  # noqa: E402
 
 MODELOS = 'C:/Users/yaned/Videos/Melhores Fimes/3d/modelos'
-SAIDA = 'C:/Users/yaned/Videos/Melhores Fimes/3d/ep01'
+SAIDA = 'C:/Users/yaned/Videos/Melhores Fimes/3d/ep01_estagiario'  # = nome do arquivo (o renderizar.sh procura aqui)
 
 TOMADAS = {
     'abertura': 3.40,     # 0.00–3.40  "QUEM INVENTOU ISSO?!" / "Calma, que eu explico."
