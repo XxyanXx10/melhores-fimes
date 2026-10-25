@@ -393,6 +393,24 @@ O Metricool só recebe vídeo por **link**. O caminho que funciona:
 Declaração de IA: `true` quando há imagem realista feita por IA (Real ou IA, Pedi pra IA, POV, vexames);
 `false` em animação 3D e vídeos só com texto.
 
+## 4.13b Série "A IA que…" (3D) e vídeo longo
+
+Formato que mais entregou (lojinha: 885 views em horas). Um caso **real** e absurdo por vídeo, ~35 s.
+1. Conferir os fatos na web antes de escrever (números que as fontes não confirmam saem do roteiro).
+2. Roteiro em `ideias/roteiros-livres/3d-*.json` (1ª frase = choque + número) → `node agente/roteiro-livre.mjs …`.
+3. Tempos de cada frase do projeto → uma tomada por frase (ou grupo de frases) no script da cena.
+4. Script da cena: `from historias3d import *` (robô com cache, `titulo`, `carimbo`, `tela`, `balao`, `celular`,
+   `confete`, `nota`, `luz_alarme`, `trocar`, `pular`, `tremer`, `s2q(segundos)`). Objetos grátis da Kenney (CC0)
+   com `objeto('car-kit/suv-luxury', …)` ou `objeto('furniture-kit/desk', …)`; pacotes em `3d/personagens/kenney-*`.
+   Modelos: `blender/apagou.py`, `investindo.py`, `carro.py`, `chantagem.py`.
+5. `--teste` + folha de contato antes do render inteiro: texto cortado na borda e câmera perto demais são os erros comuns.
+6. Plano `banco-cenas/planos/formato-3d-<cena>.json` (uma cena `video` por tomada + sfx) → aplicar-plano → render.
+7. **Vídeo longo semanal** (horas assistidas): `node agente/compilado.mjs ideias/compilados/<nome>.json` — junta os
+   Shorts em 16:9 com fundo desfocado, cartões "#1…" e "INSCREVA-SE", e masteriza.
+
+Atenção: o Blender em segundo plano **ignora a preferência de interpolação**; `chave()` agora grava BACK/BOUNCE/CONSTANT
+direto na chave (antes disso, `aparecer`/`cair` saíam suaves demais e textos "vazavam" antes da hora).
+
 ## 4.14 VFX em vídeo gravado (hologramas estilo "Homem de Ferro")
 
 Primeiro feito com `20261024_175810.mp4`: o dono entra, toca a parede, aparecem hologramas,
