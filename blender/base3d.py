@@ -202,10 +202,34 @@ def importar(caminho, nome, altura):
     return o
 
 
+def curvas(idbloco):
+    """F-curves da animação de um objeto/dado (Blender 5 guarda em camadas e "slots")"""
+    ad = idbloco.animation_data
+    if not ad or not ad.action:
+        return []
+    act = ad.action
+    try:
+        from bpy_extras import anim_utils
+        cb = anim_utils.action_get_channelbag_for_slot(act, ad.action_slot)
+        return list(cb.fcurves) if cb else []
+    except Exception:
+        return list(getattr(act, 'fcurves', []))
+
+
+def interpolar(idbloco, prop, quadro, interp):
+    """o Blender em segundo plano ignora a preferência de interpolação: aplica direto na chave"""
+    for fc in curvas(idbloco):
+        if fc.data_path == prop:
+            for k in fc.keyframe_points:
+                if abs(k.co[0] - quadro) < 0.5:
+                    k.interpolation = interp
+
+
 def chave(obj, prop, quadro, valor, interp='BEZIER'):
     bpy.context.preferences.edit.keyframe_new_interpolation_type = interp
     setattr(obj, prop, valor)
     obj.keyframe_insert(prop, frame=quadro)
+    interpolar(obj, prop, quadro, interp)
 
 
 def aparecer(obj, quadro, dur=8):
@@ -295,3 +319,49 @@ def renderizar(pasta, teste=False):
         return
     sc.render.filepath = f'{pasta}/f'
     bpy.ops.render.render(animation=True)
+
+
+KENNEY_KITS = 'C:/Users/yaned/Videos/Melhores Fimes/3d/personagens'
+
+
+def objeto(arquivo, nome, loc=(0, 0, 0), giro=0.0, altura=None, largura=None):
+    """objeto pronto dos pacotes grátis da Kenney (CC0): 'car-kit/suv-luxury', 'furniture-kit/desk'…
+    Fica com a base no chão e o tamanho pedido (altura ou largura em metros); sem tamanho, usa o
+    tamanho original do pacote. giro em graus, no eixo Z."""
+    kit, peca = arquivo.split('/')
+    pasta = f'{KENNEY_KITS}/kenney-{kit}/pacote/Models'
+    caminho = f'{pasta}/GLB format/{peca}.glb'
+    if not os.path.exists(caminho):
+        caminho = f'{pasta}/GLTF format/{peca}.glb'
+    antes = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=caminho)
+    novos = [o for o in bpy.data.objects if o not in antes]
+    malhas = [o for o in novos if o.type == 'MESH']
+    for o in malhas:
+        mw = o.matrix_world.copy()
+        o.parent = None
+        o.matrix_world = mw
+    for o in novos:
+        if o.type != 'MESH':
+            bpy.data.objects.remove(o)
+    o = malhas[0]
+    _ativo(o)
+    for m in malhas[1:]:
+        m.select_set(True)
+    if len(malhas) > 1:
+        bpy.ops.object.join()
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    me = o.data
+    pts = [v.co for v in me.vertices]
+    mn = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
+    mx = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+    me.transform(Matrix.Translation(-Vector(((mn.x + mx.x) / 2, (mn.y + mx.y) / 2, mn.z))))
+    if altura:
+        me.transform(Matrix.Scale(altura / (mx.z - mn.z), 4))
+    elif largura:
+        me.transform(Matrix.Scale(largura / max(mx.x - mn.x, mx.y - mn.y), 4))
+    me.update()
+    o.name = nome
+    o.location = loc
+    o.rotation_euler = (0, 0, math.radians(giro))
+    return o
