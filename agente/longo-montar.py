@@ -205,7 +205,7 @@ ass = os.path.join(TRAB, 'legenda.ass')
 with open(ass, 'w', encoding='utf-8') as f:
     f.write('[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n\n[V4+ Styles]\n'
             'Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n'
-            'Style: Fala,Arial Black,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,5,2,2,120,120,70,1\n\n'
+            'Style: Fala,Arial Black,54,&H00FFFFFF,&H00FFFFFF,&H50000000,&H50000000,0,0,0,0,100,100,0,0,3,12,0,2,120,120,64,1\n\n'
             '[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n')
     for a, z, txt in linhas:
         f.write(f'Dialogue: 0,{ts(a)},{ts(z)},Fala,,0,0,0,,{txt.upper()}\n')
@@ -257,4 +257,4 @@ ass_f = ass.replace('\\', '/').replace(':', '\\:')
 ffmpeg(['-i', video, '-i', mix, '-vf', f"subtitles='{ass_f}'", '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium',
         '-crf', '19', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', saida])
 subprocess.run(['node', os.path.join(RAIZ, 'agente', 'masterizar.mjs'), saida], check=True)
-print('✓', saida)
+print('ok', saida)
