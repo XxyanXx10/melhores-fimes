@@ -1,0 +1,1170 @@
+{
+  "roteiro": "ideias/longos/jogo-terror-ia.json",
+  "fonte": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+  "trabalho": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/montagem",
+  "saida": "C:/Users/yaned/Desktop/Vídeos Canal Dark/Pedi pra IA criar um jogo de terror (vídeo longo).mp4",
+  "musica": "public/midia/musicas/quiz-suspense.mp3",
+  "volumeMusica": 0.09,
+  "cobrir": [
+    1,
+    1,
+    372,
+    209
+  ],
+  "areas": {
+    "tela": [
+      380,
+      0,
+      1540,
+      1040
+    ],
+    "jogo": [
+      0,
+      40,
+      1920,
+      1000
+    ],
+    "piloto": [
+      0,
+      125,
+      1920,
+      860
+    ],
+    "painel": [
+      1160,
+      125,
+      760,
+      850
+    ],
+    "chat": [
+      40,
+      215,
+      800,
+      800
+    ],
+    "chatA": [
+      560,
+      40,
+      1040,
+      1000
+    ],
+    "chat34": [
+      420,
+      40,
+      760,
+      980
+    ],
+    "gpt": [
+      640,
+      60,
+      1000,
+      920
+    ],
+    "criterios": [
+      700,
+      120,
+      820,
+      820
+    ]
+  },
+  "blocos": [
+    {
+      "seg": "s00-gancho",
+      "sfx": [
+        {
+          "nome": "cinematic-boom-2-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 5968,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "selo": "FEITO 100% POR IA"
+        },
+        {
+          "em": "zero",
+          "src": 1020,
+          "vel": 120,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "isso",
+          "src": 4560,
+          "area": "jogo",
+          "zoom": [
+            1.05,
+            1
+          ]
+        },
+        {
+          "em": "predio",
+          "src": 2160,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "lanterna",
+          "src": 2150,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "criatura",
+          "src": 5563,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.1
+          ]
+        },
+        {
+          "em": "regra",
+          "src": 2128,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "olhe",
+          "src": 5971,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.1
+          ]
+        },
+        {
+          "em": "hoje",
+          "src": 3700,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.04
+          ]
+        },
+        {
+          "em": "presta",
+          "src": 4562,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "PEDI PRA IA CRIAR UM JOGO DE TERROR"
+        }
+      ]
+    },
+    {
+      "seg": "s01-pedido",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 18,
+          "area": "gpt",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "O PROMPT"
+        },
+        {
+          "em": "chatgpt",
+          "src": 25,
+          "area": [
+            700,
+            250,
+            980,
+            551
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "PROMPT ESCRITO PELO CHATGPT"
+        },
+        {
+          "em": "chama",
+          "src": 27,
+          "area": [
+            700,
+            560,
+            860,
+            420
+          ],
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "acorda",
+          "src": 40,
+          "area": "gpt",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "dezoito",
+          "src": 65,
+          "area": "criterios",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "18 CRITÉRIOS DE APROVAÇÃO"
+        },
+        {
+          "em": "claude",
+          "src": 106,
+          "area": [
+            600,
+            60,
+            900,
+            506
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "CLAUDE · OPUS 5.5"
+        },
+        {
+          "em": "permissao",
+          "src": 130,
+          "area": "chatA",
+          "zoom": [
+            1,
+            1.05
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "s02-etapa-a",
+      "cartao": [
+        "ETAPA A",
+        "O PRÉDIO"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 128,
+          "area": [
+            560,
+            40,
+            1000,
+            640
+          ],
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "curiosidade",
+          "src": 150,
+          "vel": 140,
+          "area": [
+            560,
+            40,
+            1000,
+            640
+          ],
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "⏩ 14 MINUTOS INSTALANDO",
+          "sfx": "clock-ticking-sound-effect"
+        },
+        {
+          "em": "escrever",
+          "src": 1020,
+          "vel": 110,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "⏩ ACELERADO 110x"
+        },
+        {
+          "em": "impressionou",
+          "src": 2045,
+          "area": [
+            430,
+            500,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "0 IMAGENS · 0 MODELOS 3D · 0 SONS BAIXADOS"
+        },
+        {
+          "em": "primeiro",
+          "src": 1745,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "1º TESTE: ESCURO DEMAIS"
+        },
+        {
+          "em": "print",
+          "src": 1842,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "cabelo",
+          "src": 1862,
+          "area": "painel",
+          "zoom": [
+            1.05,
+            1
+          ]
+        },
+        {
+          "em": "resultado",
+          "src": 2048,
+          "area": [
+            430,
+            560,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "17 SALAS"
+        },
+        {
+          "em": "lanterna",
+          "src": 2140,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "olha",
+          "src": 2122,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.04
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "s03-gameplay-a",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 2124,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "GAMEPLAY"
+        },
+        {
+          "em": "bilhetes",
+          "src": 2203,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.1
+          ]
+        }
+      ]
+    },
+    {
+      "pausa": 12,
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 4604,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "s04-etapa-b",
+      "cartao": [
+        "ETAPA B",
+        "O QUEBRA-CABEÇA"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 2330,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "pistas",
+          "src": 2665,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "painel",
+          "src": 2681,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "texto": "PAINEL COM CÓDIGO"
+        },
+        {
+          "em": "testa",
+          "src": 2580,
+          "vel": 40,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "A IA TESTANDO O PRÓPRIO JOGO"
+        },
+        {
+          "em": "cadeira",
+          "src": 2845,
+          "area": [
+            60,
+            400,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "BUG: CADEIRA BLOQUEANDO O QUARTO 14"
+        },
+        {
+          "em": "mediu",
+          "src": 2730,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "60 cm DE ESPAÇO"
+        },
+        {
+          "em": "dica",
+          "src": 2683,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.08
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "s05-mouse",
+      "sfx": [
+        {
+          "nome": "awkward-moment",
+          "em": 0.2,
+          "volume": 0.35,
+          "max": 1.8
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 2165,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "O PROBLEMA DO MOUSE"
+        },
+        {
+          "em": "pedi",
+          "src": 2885,
+          "area": [
+            40,
+            520,
+            800,
+            450
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "\"ARRUMA A QUESTÃO DO MOUSE\""
+        },
+        {
+          "em": "investigou",
+          "src": 2945,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "CAUSA: O NAVEGADOR DO APP BLOQUEIA O MOUSE"
+        },
+        {
+          "em": "alternativo",
+          "src": 3042,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "continuava",
+          "src": 4706,
+          "area": [
+            150,
+            320,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "honesta",
+          "src": 4712,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.04
+          ]
+        },
+        {
+          "em": "escreveu",
+          "src": 4822,
+          "area": [
+            374,
+            60,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "\"O ERRO FOI MEU, NÃO SEU.\""
+        }
+      ]
+    },
+    {
+      "seg": "s06-etapa-c",
+      "cartao": [
+        "ETAPA C",
+        "A CRIATURA"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        },
+        {
+          "nome": "hells-kitchen-suspense",
+          "em": 2.5,
+          "volume": 0.25,
+          "max": 4
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 3205,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "presenca",
+          "src": 3760,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "\"A PRESENÇA\""
+        },
+        {
+          "em": "estados",
+          "src": 3862,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "longe",
+          "src": 3762,
+          "area": "painel",
+          "zoom": [
+            1.1,
+            1.25
+          ]
+        },
+        {
+          "em": "correr",
+          "src": 3523,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "mecanica",
+          "src": 3620,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "ELA TE SEGUE A 6 METROS"
+        },
+        {
+          "em": "olhar",
+          "src": 3736,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "\"VOCÊ OLHOU.\"",
+          "sfx": "glitch"
+        },
+        {
+          "em": "navegacao",
+          "src": 3482,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "NAVEGAÇÃO A* (A-ESTRELA)"
+        },
+        {
+          "em": "corre",
+          "src": 3712,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "parado",
+          "src": 3640,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "sfx": "undertakers-bell-2uwfcie"
+        }
+      ]
+    },
+    {
+      "pausa": 14,
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 4796,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "EU JOGANDO"
+        }
+      ]
+    },
+    {
+      "seg": "s07-etapa-d",
+      "cartao": [
+        "ETAPA D",
+        "SUSTOS E FINAL"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 4905,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "sete",
+          "src": 5412,
+          "area": [
+            60,
+            330,
+            760,
+            520
+          ],
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "7 EVENTOS DE TERROR"
+        },
+        {
+          "em": "lampada",
+          "src": 5550,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "porta",
+          "src": 5592,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "respiracao",
+          "src": 5575,
+          "area": "jogo",
+          "zoom": [
+            1.05,
+            1
+          ]
+        },
+        {
+          "em": "sai",
+          "src": 5978,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "segunda",
+          "src": 5985,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.2
+          ],
+          "sfx": "hells-kitchen-suspense"
+        },
+        {
+          "em": "decide",
+          "src": 5152,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "OLHAR PRA TRÁS… OU NÃO?"
+        }
+      ]
+    },
+    {
+      "seg": "s08-etapa-e",
+      "cartao": [
+        "ETAPA E",
+        "O TESTE FINAL"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 5725,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "piloto",
+          "src": 5783,
+          "vel": 2.5,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "🤖 PILOTO AUTOMÁTICO"
+        },
+        {
+          "em": "vendo",
+          "src": 5800,
+          "vel": 2.5,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "NÃO SOU EU: É A IA JOGANDO SOZINHA"
+        },
+        {
+          "em": "morreu",
+          "src": 5838,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "apertou",
+          "src": 5882,
+          "vel": 3,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "🤖 PILOTO AUTOMÁTICO"
+        },
+        {
+          "em": "terminou",
+          "src": 5993,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "pausa",
+          "src": 6040,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "dezoito",
+          "src": 6121,
+          "area": [
+            60,
+            212,
+            780,
+            480
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "18 CRITÉRIOS ✔"
+        }
+      ]
+    },
+    {
+      "seg": "s08b-numeros",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 140,
+          "vel": 300,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "1h40 DO 1º COMANDO AO FIM"
+        },
+        {
+          "em": "trinta",
+          "src": 6110,
+          "area": [
+            1380,
+            330,
+            520,
+            292
+          ],
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "30+ ARQUIVOS DE CÓDIGO"
+        },
+        {
+          "em": "dezessete",
+          "src": 5520,
+          "vel": 2,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "17 SALAS · 7 SUSTOS · 2 FINAIS"
+        },
+        {
+          "em": "zero",
+          "src": 2160,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "0 IMAGENS BAIXADAS"
+        },
+        {
+          "em": "engracado",
+          "src": 6125,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "eu?",
+          "src": 4706,
+          "area": [
+            150,
+            320,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "pausa": 16,
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 5530,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "selo": "MINHA PARTIDA"
+        },
+        {
+          "em": 8,
+          "src": 5560,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.1
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "s09-veredito",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 5545,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "VEREDITO"
+        },
+        {
+          "em": "dinamica",
+          "src": 5590,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "lanterna",
+          "src": 2150,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "defeitos",
+          "src": 5540,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "OBJETOS QUADRADÕES"
+        },
+        {
+          "em": "privada",
+          "src": 2161,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "portas",
+          "src": 5655,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "criatura",
+          "src": 3790,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "MAIS ESQUISITA QUE ASSUSTADORA"
+        },
+        {
+          "em": "curioso",
+          "src": 6127,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "\"O SOM, EU NÃO CONSEGUI TESTAR\""
+        }
+      ]
+    },
+    {
+      "seg": "s10-cta",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 4560,
+          "area": "jogo",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "comenta",
+          "src": 4561,
+          "area": "jogo",
+          "zoom": [
+            1.08,
+            1.15
+          ],
+          "texto": "COMENTA: O QUE A IA DEVE MELHORAR?"
+        },
+        {
+          "em": "inscreve",
+          "src": 5970,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "PARTE 2 VEM AÍ"
+        }
+      ]
+    }
+  ],
+  "cobrirSo": [
+    "jogo",
+    "piloto"
+  ]
+}
