@@ -1768,7 +1768,7 @@
           "texto": "COMENTA: QUAL IA NA PARTE 3?"
         },
         {
-          "em": "inscreve",
+          "em": "chegou",
           "fonte": "J4",
           "src": 220.3,
           "vel": 0.5,
@@ -1776,8 +1776,18 @@
           "zoom": [
             1,
             1.15
-          ],
-          "texto": "PARTE 3 VEM AÍ"
+          ]
+        },
+        {
+          "em": "valeu",
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "cara",
+          "zoom": [
+            1.2,
+            1.4
+          ]
         }
       ]
     }

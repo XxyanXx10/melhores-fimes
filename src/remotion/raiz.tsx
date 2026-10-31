@@ -1,5 +1,6 @@
 import { Composition, registerRoot } from 'remotion';
 import { Composicao, propsPadrao, type PropsComposicao } from './Composicao';
+import { HubPort1Composicao, propsPadraoHubPort1, type PropsHubPort1 } from './HubPort1';
 
 /**
  * Ponto de entrada do Remotion CLI e do Renderer.
@@ -10,23 +11,44 @@ import { Composicao, propsPadrao, type PropsComposicao } from './Composicao';
  * `calculateMetadata`, para acompanharem o vídeo de origem.
  */
 registerRoot(() => (
-  <Composition
-    id="video"
-    component={Composicao}
-    durationInFrames={300}
-    fps={30}
-    width={1080}
-    height={1920}
-    defaultProps={propsPadrao}
-    calculateMetadata={({ props }: { props: PropsComposicao }) => {
-      const meta = props.meta;
-      if (!meta) return {};
-      return {
-        durationInFrames: Math.max(1, Math.round(meta.duracao * meta.fps)),
-        fps: meta.fps,
-        width: meta.largura,
-        height: meta.altura,
-      };
-    }}
-  />
+  <>
+    <Composition
+      id="video"
+      component={Composicao}
+      durationInFrames={300}
+      fps={30}
+      width={1080}
+      height={1920}
+      defaultProps={propsPadrao}
+      calculateMetadata={({ props }: { props: PropsComposicao }) => {
+        const meta = props.meta;
+        if (!meta) return {};
+        return {
+          durationInFrames: Math.max(1, Math.round(meta.duracao * meta.fps)),
+          fps: meta.fps,
+          width: meta.largura,
+          height: meta.altura,
+        };
+      }}
+    />
+    <Composition
+      id="hub-port1"
+      component={HubPort1Composicao}
+      durationInFrames={5550}
+      fps={30}
+      width={1920}
+      height={1080}
+      defaultProps={propsPadraoHubPort1}
+      calculateMetadata={({ props }: { props: PropsHubPort1 }) => {
+        const duracao = props.duracaoTotal ?? 185;
+        return {
+          durationInFrames: Math.max(1, Math.round(duracao * 30)),
+          fps: 30,
+          width: 1920,
+          height: 1080,
+        };
+      }}
+    />
+  </>
 ));
+

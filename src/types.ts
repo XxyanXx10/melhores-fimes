@@ -290,6 +290,8 @@ export type TipoCenaRemotion =
   | 'logos'
   /** etapas ligadas por setas (ChatGPT → Claude → Gemini), com ponto de luz e seta de volta */
   | 'fluxo'
+  /** botão "INSCREVER-SE" com a mão clicando e o sininho */
+  | 'inscrever'
   | 'manchete'
   | 'print'
   | 'quiz'

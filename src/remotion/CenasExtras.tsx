@@ -361,3 +361,39 @@ export function CenaFluxo({ cena, frame, fps, escala }: P) {
     </div>
   );
 }
+
+/**
+ * "Se inscreve": botão vermelho no estilo do YouTube, uma mão entra e clica, o botão vira
+ * "INSCRITO" e o sininho balança. `titulo` em cima (opcional), `subtitulo` embaixo (opcional).
+ */
+export function CenaInscrever({ cena, frame, fps, escala }: P) {
+  const clique = Math.round(fps * 1.3);
+  const entra = spring({ frame: frame - 2, fps, config: { damping: 12, stiffness: 140 } });
+  const mao = spring({ frame: frame - 8, fps, config: { damping: 16, stiffness: 90 } });
+  const aperta = frame >= clique && frame < clique + 5;
+  const inscrito = frame >= clique + 3;
+  const sino = spring({ frame: frame - clique - 10, fps, config: { damping: 18 } });
+  const balanco = frame > clique + 10 ? Math.sin((frame - clique) * 0.7) * 22 * Math.max(0, 1 - (frame - clique - 10) / (fps * 1.5)) : 0;
+  const onda = frame >= clique ? interpolate(frame - clique, [0, 14], [0, 1], { extrapolateRight: 'clamp' }) : 0;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {cena.titulo && (
+        <div style={{ fontSize: 66 * escala, fontWeight: 900, color: BRANCO, marginBottom: 40 * escala, textAlign: 'center', opacity: Math.min(1, entra), textShadow: '0 6px 20px rgba(0,0,0,.8)' }}>{cena.titulo}</div>
+      )}
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 34 * escala, transform: `scale(${interpolate(entra, [0, 1], [0.5, 1]) * (aperta ? 0.93 : 1)})` }}>
+        <div style={{ position: 'relative', padding: `${30 * escala}px ${70 * escala}px`, borderRadius: 999, background: inscrito ? '#3b3b44' : '#ff0033', color: '#fff', fontSize: 58 * escala, fontWeight: 900, letterSpacing: 1 * escala, boxShadow: `0 ${14 * escala}px ${40 * escala}px rgba(0,0,0,.6)` }}>
+          {inscrito ? 'INSCRITO' : 'INSCREVER-SE'}
+          {onda > 0 && onda < 1 && (
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 999, border: `${6 * escala}px solid #fff`, transform: `scale(${1 + onda * 0.35})`, opacity: 1 - onda }} />
+          )}
+        </div>
+        <div style={{ fontSize: 96 * escala, opacity: Math.min(1, sino), transform: `scale(${interpolate(sino, [0, 1], [0.2, 1])}) rotate(${balanco}deg)`, transformOrigin: '50% 10%' }}>🔔</div>
+        {/* a mão: vem de baixo, para em cima do botão e "aperta" */}
+        <div style={{ position: 'absolute', left: '42%', top: '45%', fontSize: 120 * escala, transform: `translate(${interpolate(mao, [0, 1], [220, 0]) * escala}px, ${interpolate(mao, [0, 1], [320, 0]) * escala}px) scale(${aperta ? 0.85 : 1}) rotate(-12deg)`, opacity: Math.min(1, mao * 1.5), filter: 'drop-shadow(0 8px 14px rgba(0,0,0,.7))' }}>👆</div>
+      </div>
+      {cena.subtitulo && (
+        <div style={{ fontSize: 40 * escala, fontWeight: 800, color: cena.destaque || '#ffd60a', marginTop: 110 * escala, opacity: Math.min(1, sino), textShadow: '0 4px 14px rgba(0,0,0,.8)' }}>{cena.subtitulo}</div>
+      )}
+    </div>
+  );
+}

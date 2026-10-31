@@ -7186,212 +7186,327 @@
     },
     {
       "id": "g12-cta",
-      "texto": "E agora é com você. Qual IA deve mexer no jogo na parte três, e o que ela deve mudar? Comenta aqui embaixo. Os comentários mais curtidos viram o próximo vídeo. E se inscreve, pra ver até onde isso vai.",
-      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470159731-A IA criou o jogo de terror mais perturbador do ano - g12-cta.wav",
-      "duracao": 12.85,
+      "texto": "E agora é com você. Qual IA deve mexer no jogo na parte três, e o que ela deve mudar? Comenta aqui embaixo: os comentários mais curtidos viram o próximo vídeo. E se você chegou até aqui, se inscreve no canal e ativa o sininho. Isso ajuda demais o canal a crescer, e você não perde a parte três. Valeu, e até a próxima!",
+      "duracao": 18.57,
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793476091666-A IA criou o jogo de terror mais perturbador do ano - g12-cta.wav",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793476091666-A IA criou o jogo de terror mais perturbador do ano - g12-cta.wav",
       "palavras": [
         {
           "text": "E",
-          "start": 0.01,
-          "end": 0.22
+          "start": 0.08,
+          "end": 0.13
         },
         {
           "text": "agora",
-          "start": 0.22,
-          "end": 0.55
+          "start": 0.13,
+          "end": 0.49
         },
         {
           "text": "é",
-          "start": 0.55,
-          "end": 0.73
+          "start": 0.49,
+          "end": 0.65
         },
         {
           "text": "com",
-          "start": 0.73,
-          "end": 0.99
+          "start": 0.65,
+          "end": 0.83
         },
         {
           "text": "você.",
-          "start": 0.99,
-          "end": 1.68
+          "start": 0.83,
+          "end": 1.54
         },
         {
           "text": "Qual",
-          "start": 1.68,
-          "end": 2.07
+          "start": 1.54,
+          "end": 1.94
         },
         {
           "text": "IA",
-          "start": 2.07,
-          "end": 2.13
+          "start": 1.94,
+          "end": 2.01
         },
         {
           "text": "deve",
-          "start": 2.13,
-          "end": 2.39
+          "start": 2.01,
+          "end": 2.28
         },
         {
           "text": "mexer",
-          "start": 2.39,
-          "end": 2.72
+          "start": 2.28,
+          "end": 2.61
         },
         {
           "text": "no",
-          "start": 2.72,
-          "end": 2.85
+          "start": 2.61,
+          "end": 2.74
         },
         {
           "text": "jogo",
-          "start": 2.85,
-          "end": 3.14
+          "start": 2.74,
+          "end": 3.04
         },
         {
           "text": "na",
-          "start": 3.14,
-          "end": 3.24
+          "start": 3.04,
+          "end": 3.19
         },
         {
           "text": "parte",
-          "start": 3.24,
-          "end": 3.57
+          "start": 3.19,
+          "end": 3.53
         },
         {
           "text": "três,",
-          "start": 3.57,
-          "end": 3.83
+          "start": 3.53,
+          "end": 3.92
         },
         {
           "text": "e",
-          "start": 3.83,
-          "end": 4.02
+          "start": 3.92,
+          "end": 4.05
         },
         {
           "text": "o",
-          "start": 4.02,
-          "end": 4.06
+          "start": 4.05,
+          "end": 4.08
         },
         {
           "text": "que",
-          "start": 4.06,
-          "end": 4.36
+          "start": 4.08,
+          "end": 4.33
         },
         {
           "text": "ela",
-          "start": 4.36,
-          "end": 4.56
+          "start": 4.33,
+          "end": 4.58
         },
         {
           "text": "deve",
-          "start": 4.56,
-          "end": 4.92
+          "start": 4.58,
+          "end": 4.9
         },
         {
           "text": "mudar?",
-          "start": 4.92,
-          "end": 5.7
+          "start": 4.9,
+          "end": 5.6
         },
         {
           "text": "Comenta",
-          "start": 5.7,
-          "end": 6.19
+          "start": 5.6,
+          "end": 5.98
         },
         {
           "text": "aqui",
-          "start": 6.19,
-          "end": 6.47
+          "start": 5.98,
+          "end": 6.2
         },
         {
-          "text": "embaixo.",
-          "start": 6.47,
-          "end": 7.2
+          "text": "embaixo:",
+          "start": 6.2,
+          "end": 6.71
         },
         {
-          "text": "Os",
-          "start": 7.2,
-          "end": 7.29
+          "text": "os",
+          "start": 6.71,
+          "end": 6.78
         },
         {
           "text": "comentários",
-          "start": 7.29,
-          "end": 7.82
+          "start": 6.78,
+          "end": 7.36
         },
         {
           "text": "mais",
-          "start": 7.82,
-          "end": 8.02
+          "start": 7.36,
+          "end": 7.54
         },
         {
           "text": "curtidos",
-          "start": 8.02,
-          "end": 8.42
+          "start": 7.54,
+          "end": 8.03
         },
         {
-          "text": "viram",
-          "start": 8.42,
-          "end": 8.67
-        },
-        {
-          "text": "o",
-          "start": 8.67,
-          "end": 8.84
+          "text": "viram o",
+          "start": 8.03,
+          "end": 8.25
         },
         {
           "text": "próximo",
-          "start": 8.84,
-          "end": 9.17
+          "start": 8.25,
+          "end": 8.6
         },
         {
           "text": "vídeo.",
-          "start": 9.17,
-          "end": 9.7
+          "start": 8.6,
+          "end": 9.16
         },
         {
           "text": "E",
-          "start": 9.7,
-          "end": 9.92
+          "start": 9.16,
+          "end": 9.29
         },
         {
           "text": "se",
-          "start": 9.92,
-          "end": 9.94
+          "start": 9.29,
+          "end": 9.35
         },
         {
-          "text": "inscreve,",
-          "start": 9.94,
-          "end": 10.56
+          "text": "você",
+          "start": 9.35,
+          "end": 9.68
         },
         {
-          "text": "pra",
-          "start": 10.56,
-          "end": 10.79
-        },
-        {
-          "text": "ver",
-          "start": 10.79,
-          "end": 11.25
+          "text": "chegou",
+          "start": 9.68,
+          "end": 9.99
         },
         {
           "text": "até",
-          "start": 11.25,
-          "end": 11.35
+          "start": 9.99,
+          "end": 10.59
         },
         {
-          "text": "onde",
-          "start": 11.35,
-          "end": 11.66
+          "text": "aqui,",
+          "start": 10.59,
+          "end": 10.72
         },
         {
-          "text": "isso",
-          "start": 11.66,
-          "end": 11.97
+          "text": "se",
+          "start": 10.72,
+          "end": 10.85
         },
         {
-          "text": "vai.",
-          "start": 11.97,
-          "end": 12.5
+          "text": "inscreve",
+          "start": 10.85,
+          "end": 11.37
+        },
+        {
+          "text": "no",
+          "start": 11.37,
+          "end": 11.5
+        },
+        {
+          "text": "canal",
+          "start": 11.5,
+          "end": 11.83
+        },
+        {
+          "text": "e",
+          "start": 11.83,
+          "end": 11.89
+        },
+        {
+          "text": "ativa",
+          "start": 11.89,
+          "end": 12.21
+        },
+        {
+          "text": "o",
+          "start": 12.21,
+          "end": 12.27
+        },
+        {
+          "text": "sininho.",
+          "start": 12.27,
+          "end": 12.88
+        },
+        {
+          "text": "Isso",
+          "start": 12.88,
+          "end": 13.12
+        },
+        {
+          "text": "ajuda",
+          "start": 13.12,
+          "end": 13.47
+        },
+        {
+          "text": "demais",
+          "start": 13.47,
+          "end": 13.79
+        },
+        {
+          "text": "o",
+          "start": 13.79,
+          "end": 13.85
+        },
+        {
+          "text": "canal",
+          "start": 13.85,
+          "end": 14.17
+        },
+        {
+          "text": "a",
+          "start": 14.17,
+          "end": 14.35
+        },
+        {
+          "text": "crescer,",
+          "start": 14.35,
+          "end": 14.75
+        },
+        {
+          "text": "e",
+          "start": 14.75,
+          "end": 14.92
+        },
+        {
+          "text": "você",
+          "start": 14.92,
+          "end": 15.23
+        },
+        {
+          "text": "não",
+          "start": 15.23,
+          "end": 15.47
+        },
+        {
+          "text": "perde",
+          "start": 15.47,
+          "end": 15.77
+        },
+        {
+          "text": "a",
+          "start": 15.77,
+          "end": 15.83
+        },
+        {
+          "text": "parte",
+          "start": 15.83,
+          "end": 16.12
+        },
+        {
+          "text": "três.",
+          "start": 16.12,
+          "end": 16.6
+        },
+        {
+          "text": "Valeu,",
+          "start": 16.6,
+          "end": 16.96
+        },
+        {
+          "text": "e",
+          "start": 16.96,
+          "end": 17.03
+        },
+        {
+          "text": "até",
+          "start": 17.03,
+          "end": 17.32
+        },
+        {
+          "text": "a",
+          "start": 17.32,
+          "end": 17.38
+        },
+        {
+          "text": "próxima!",
+          "start": 17.38,
+          "end": 18.24
         }
-      ],
-      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470159731-A IA criou o jogo de terror mais perturbador do ano - g12-cta.wav"
+      ]
     }
   ]
 }

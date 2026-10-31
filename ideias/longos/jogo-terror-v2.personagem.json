@@ -247,9 +247,9 @@
     "g12-cta": [
       [
         "0",
-        "feliz",
+        "pensativo",
         "bolha",
-        3.6
+        3.5
       ],
       [
         "comenta",
@@ -257,9 +257,15 @@
         "canto"
       ],
       [
-        "inscreve",
+        "chegou",
+        "feliz",
+        "bolha-canto"
+      ],
+      [
+        "valeu",
         "confiante",
-        "canto"
+        "bolha",
+        3
       ]
     ],
     "n01-chrome": [
@@ -481,6 +487,15 @@
         "CONSTRUIU E TESTOU",
         "DEIXOU ASSUSTADOR"
       ]
+    },
+    {
+      "seg": "g12-cta",
+      "em": "inscreve",
+      "dur": 6.5,
+      "tipo": "inscrever",
+      "titulo": "SE INSCREVE NO CANAL!",
+      "subtitulo": "e ativa o sininho 🔔",
+      "semLegenda": true
     }
   ]
 }
