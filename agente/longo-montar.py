@@ -28,6 +28,7 @@ M = json.load(open(arq, encoding='utf-8'))
 R = json.load(open(os.path.join(RAIZ, M['roteiro']), encoding='utf-8'))
 SEG = {s['id']: s for s in R['segmentos']}
 PREVIA = '--previa' in sys.argv
+BASE = '--base' in sys.argv
 SO = None
 if '--so' in sys.argv:
     a, b = sys.argv[sys.argv.index('--so') + 1].split('-')
@@ -105,6 +106,10 @@ def sobreposicao(caminho, tm, cartao=None):
         x0 = x1 - (r - l) - 56
         d.rounded_rectangle([x0, 46, x1, 46 + (b - t_) + 36], 14, fill=(220, 28, 40, 235))
         d.text((x0 + 28 - l, 46 + 18 - t_), txt, font=f, fill=(255, 255, 255, 255))
+    if tm.get('lado'):
+        f = ImageFont.truetype(F_TITULO, 44)
+        for txt, cx_, cor in ((tm.get('rotulo', 'ANTES'), W / 4, (255, 255, 255, 240)), (tm['lado'].get('rotulo', 'DEPOIS'), 3 * W / 4, (255, 214, 10, 245))):
+            caixa_texto(d, limpar_txt(txt), f, cx_, H - 170, cor, (15, 15, 20, 255))
     if tm.get('texto'):
         f = ImageFont.truetype(F_TITULO, 58)
         caixa_texto(d, limpar_txt(tm['texto']), f, W / 2, 130, (255, 214, 10, 245), (15, 15, 20, 255))
@@ -121,6 +126,10 @@ def sobreposicao(caminho, tm, cartao=None):
 
 
 # ------------------------------------------------------------------ tomadas
+def fonte(tm):
+    return M['fontes'][tm['fonte']] if 'fonte' in tm else M['fonte']
+
+
 def area(tm):
     a = tm.get('area', 'tela')
     return M['areas'][a] if isinstance(a, str) else a
@@ -149,10 +158,29 @@ def render_tomada(b, k, tm, saida):
         f"zoompan=z='{z0}+({z1}-{z0})*on/{n}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s={ow}x{oh}:fps={FPS}[v];"
         f'[1:v]scale={ow}:{oh},format=rgba,fade=in:st=0.12:d=0.25:alpha=1[o];[v][o]overlay=0:0:shortest=0'
     )
+    if tm.get('congelar'):
+        filtros = filtros.replace(f'[0:v]setpts=(PTS-STARTPTS)/{vel},fps={FPS},',
+                                  f'[0:v]trim=end_frame=1,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration={dur + 1},fps={FPS},')
+    if tm.get('lado'):
+        L = tm['lado']
+        x2, y2, w2, h2 = L['area'] if not isinstance(L['area'], str) else M['areas'][L['area']]
+        meia = ow // 2
+        cobrir2 = f'delogo=x={cx}:y={cy}:w={cw}:h={ch},'
+        filtros = (
+            f'[0:v]setpts=(PTS-STARTPTS)/{vel},fps={FPS},{cobrir}crop={w}:{h}:{x}:{y},'
+            f'scale={meia}:{oh}:force_original_aspect_ratio=increase,crop={meia}:{oh}[e];'
+            f'[2:v]setpts=PTS-STARTPTS,fps={FPS},{cobrir2}crop={w2}:{h2}:{x2}:{y2},'
+            f'scale={meia}:{oh}:force_original_aspect_ratio=increase,crop={meia}:{oh}[d];'
+            f'[e][d]hstack,drawbox=x={meia - 3}:y=0:w=6:h={oh}:color=white@0.9:t=fill[v];'
+            f'[1:v]scale={ow}:{oh},format=rgba,fade=in:st=0.12:d=0.25:alpha=1[o];[v][o]overlay=0:0:shortest=0'
+        )
     entradas = []
     if vel >= 20:
         entradas += ['-skip_frame', 'nokey']
-    entradas += ['-ss', str(tm['src']), '-t', str(dur * vel + 1), '-i', M['fonte'], '-loop', '1', '-t', str(dur), '-i', ov]
+    entradas += ['-ss', str(tm['src']), '-t', str(dur * vel + 1), '-i', fonte(tm), '-loop', '1', '-t', str(dur), '-i', ov]
+    if tm.get('lado'):
+        L = tm['lado']
+        entradas += ['-ss', str(L['src']), '-t', str(dur + 1), '-i', M['fontes'][L['fonte']] if 'fonte' in L else M['fonte']]
     if cartao:
         cv = saida.replace('.mp4', '-cartao.png')
         sobreposicao(cv, {}, cartao)
@@ -230,6 +258,15 @@ for b in blocos:
         if tm.get('sfx'):
             efeitos.append((b['t0'] + tm['ini'] + 0.1, tm['sfx'], 0.35, 2.5))
 rot = []
+for b in blocos:
+    for tm in b['tomadas']:
+        if tm.get('som') and float(tm.get('vel', 1)) == 1 and not tm.get('congelar'):
+            entradas += ['-ss', str(tm['src']), '-t', str(tm['dur']), '-i', fonte(tm)]
+            ms = int((b['t0'] + tm['ini']) * 1000)
+            partes.append(f'[{k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={tm["som"]},afade=t=in:d=0.15,'
+                          f'afade=t=out:st={max(0, tm["dur"] - 0.2)}:d=0.2,adelay={ms}|{ms}[e{k}]')
+            rot.append(f'[e{k}]')
+            k += 1
 for t0, nome, vol, mx in efeitos:
     p = os.path.join(SFX, nome + '.mp3')
     if not os.path.exists(p):
@@ -240,17 +277,31 @@ for t0, nome, vol, mx in efeitos:
     partes.append(f'[{k}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{mx},afade=t=out:st={max(0, mx - 0.4)}:d=0.4,volume={vol},adelay={ms}|{ms}[e{k}]')
     rot.append(f'[e{k}]')
     k += 1
-entradas += ['-stream_loop', '-1', '-i', os.path.join(RAIZ, M['musica'])]
-partes.append(f'[{k}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{TOTAL},volume={M.get("volumeMusica", 0.08)},'
-              f'afade=t=in:d=2,afade=t=out:st={TOTAL - 3}:d=3[mus]')
-partes.append('[voz]asplit[voz1][voz2]')
-partes.append('[mus][voz2]sidechaincompress=threshold=0.03:ratio=5:attack=30:release=500[musd]')
-todos = '[voz1][musd]' + ''.join(rot)
-partes.append(f'{todos}amix=inputs={2 + len(rot)}:normalize=0:duration=first,atrim=0:{TOTAL}[out]')
+if BASE:
+    partes.append(f'[voz]' + ''.join(rot) + f'amix=inputs={1 + len(rot)}:normalize=0:duration=first,atrim=0:{TOTAL}[out]')
+else:
+    entradas += ['-stream_loop', '-1', '-i', os.path.join(RAIZ, M['musica'])]
+    partes.append(f'[{k}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{TOTAL},volume={M.get("volumeMusica", 0.08)},'
+                  f'afade=t=in:d=2,afade=t=out:st={TOTAL - 3}:d=3[mus]')
+    partes.append('[voz]asplit[voz1][voz2]')
+    partes.append('[mus][voz2]sidechaincompress=threshold=0.03:ratio=5:attack=30:release=500[musd]')
+    todos = '[voz1][musd]' + ''.join(rot)
+    partes.append(f'{todos}amix=inputs={2 + len(rot)}:normalize=0:duration=first,atrim=0:{TOTAL}[out]')
 mix = os.path.join(TRAB, 'mix.wav')
 ffmpeg([*entradas, '-filter_complex', ';'.join(partes), '-map', '[out]', '-ar', '48000', '-ac', '2', mix])
 
 # ------------------------------------------------------------------ final
+if BASE:
+    base = M['saidaBase']
+    ffmpeg(['-i', video, '-i', mix, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k',
+            '-movflags', '+faststart', '-shortest', base])
+    linha = [{'bloco': b['i'], 'seg': b.get('seg'), 't0': round(b['t0'], 3), 'dur': round(b['dur'], 3),
+              'tomadas': [{k_: v for k_, v in tm.items() if k_ in ('ini', 'dur', 'src', 'fonte', 'texto', 'selo', 'personagem')} for tm in b['tomadas']],
+              'palavras': [{**w, 'start': round(b['t0'] + w['start'], 3), 'end': round(b['t0'] + w['end'], 3)} for w in b['palavras']]}
+             for b in blocos]
+    json.dump({'duracao': round(TOTAL, 3), 'blocos': linha}, open(os.path.join(TRAB, 'linha.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print('ok base', base)
+    sys.exit(0)
 saida = M['saida']
 os.makedirs(os.path.dirname(saida), exist_ok=True)
 ass_f = ass.replace('\\', '/').replace(':', '\\:')

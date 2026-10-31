@@ -1,0 +1,1188 @@
+{
+  "roteiro": "ideias/longos/jogo-terror-v2.json",
+  "fonte": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+  "fontes": {
+    "C": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+    "J1": "C:/Users/yaned/Videos/2026-10-31 11-58-32.mp4",
+    "G2": "C:/Users/yaned/Videos/2026-10-31 12-59-17.mp4",
+    "G3": "C:/Users/yaned/Videos/2026-10-31 13-47-54.mp4",
+    "J4": "C:/Users/yaned/Videos/2026-10-31 14-03-19.mp4",
+    "J5": "C:/Users/yaned/Videos/2026-10-31 14-09-43.mp4"
+  },
+  "trabalho": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/montagem-v2",
+  "saida": "C:/Users/yaned/Desktop/Vídeos Canal Dark/A IA criou o jogo de terror mais perturbador do ano.mp4",
+  "saidaBase": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/montagem-v2/base.mp4",
+  "musica": "public/midia/musicas/quiz-suspense.mp3",
+  "volumeMusica": 0.09,
+  "cobrir": [
+    1,
+    1,
+    372,
+    209
+  ],
+  "cobrirSo": [
+    "jogo",
+    "piloto",
+    "jogo1"
+  ],
+  "areas": {
+    "tela": [
+      380,
+      0,
+      1540,
+      1040
+    ],
+    "jogo": [
+      0,
+      40,
+      1920,
+      1000
+    ],
+    "piloto": [
+      0,
+      125,
+      1920,
+      860
+    ],
+    "painel": [
+      1160,
+      125,
+      760,
+      850
+    ],
+    "chat": [
+      40,
+      215,
+      800,
+      800
+    ],
+    "chatA": [
+      560,
+      40,
+      1040,
+      1000
+    ],
+    "gpt": [
+      640,
+      60,
+      1000,
+      920
+    ],
+    "criterios": [
+      700,
+      120,
+      820,
+      820
+    ],
+    "jogo1": [
+      0,
+      86,
+      1920,
+      952
+    ],
+    "jogo5": [
+      0,
+      86,
+      1920,
+      994
+    ],
+    "gem2": [
+      380,
+      140,
+      1280,
+      720
+    ],
+    "gem3": [
+      440,
+      60,
+      1040,
+      585
+    ],
+    "gemtexto": [
+      520,
+      80,
+      880,
+      900
+    ],
+    "cara": [
+      520,
+      171,
+      600,
+      338
+    ],
+    "monstro": [
+      340,
+      90,
+      760,
+      855
+    ]
+  },
+  "blocos": [
+    {
+      "seg": "g00-gancho",
+      "sfx": [
+        {
+          "nome": "cinematic-boom-2-sound-effect",
+          "em": 0,
+          "volume": 0.55
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 184.6,
+          "vel": 0.45,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "selo": "FEITO 100% POR IA"
+        },
+        {
+          "em": "repara",
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "cara",
+          "zoom": [
+            1,
+            1.35
+          ],
+          "texto": "O SÍMBOLO DE OUTRA IA",
+          "sfx": "undertakers-bell-2uwfcie"
+        },
+        {
+          "em": "duas",
+          "fonte": "C",
+          "src": 1745,
+          "area": "painel",
+          "rotulo": "CLAUDE",
+          "lado": {
+            "fonte": "J4",
+            "src": 182.9,
+            "area": "jogo5",
+            "rotulo": "GEMINI"
+          }
+        },
+        {
+          "em": "inteiro",
+          "fonte": "J1",
+          "src": 155,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "transformou",
+          "fonte": "J4",
+          "src": 220,
+          "vel": 0.6,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.2
+          ]
+        },
+        {
+          "em": "final",
+          "fonte": "J5",
+          "src": 375,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ]
+        },
+        {
+          "em": "presta",
+          "fonte": "J5",
+          "src": 384,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "A IA CRIOU O JOGO DE TERROR MAIS PERTURBADOR DO ANO"
+        }
+      ]
+    },
+    {
+      "seg": "g01-pedido",
+      "cartao": [
+        "PARTE 1",
+        "O CLAUDE CRIA O JOGO"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 18,
+          "area": "gpt",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "chatgpt",
+          "src": 25,
+          "area": [
+            700,
+            250,
+            980,
+            551
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "PROMPT ESCRITO PELO CHATGPT"
+        },
+        {
+          "em": "nome",
+          "src": 27,
+          "area": [
+            700,
+            560,
+            860,
+            420
+          ],
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "acorda",
+          "fonte": "J1",
+          "src": 8,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "dezoito",
+          "src": 65,
+          "area": "criterios",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "18 CRITÉRIOS DE APROVAÇÃO"
+        },
+        {
+          "em": "claude",
+          "src": 106,
+          "area": [
+            600,
+            60,
+            900,
+            506
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "CLAUDE · OPUS 5.5"
+        },
+        {
+          "em": "permissao",
+          "src": 130,
+          "area": "chatA",
+          "zoom": [
+            1,
+            1.05
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g02-construcao",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 128,
+          "area": [
+            560,
+            40,
+            1000,
+            640
+          ],
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "quatorze",
+          "src": 150,
+          "vel": 140,
+          "area": [
+            560,
+            40,
+            1000,
+            640
+          ],
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "14 MINUTOS INSTALANDO",
+          "sfx": "clock-ticking-sound-effect"
+        },
+        {
+          "em": "escreveu",
+          "src": 1020,
+          "vel": 110,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "ACELERADO 110x"
+        },
+        {
+          "em": "baixar",
+          "src": 2045,
+          "area": [
+            430,
+            500,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "0 IMAGENS · 0 MODELOS 3D · 0 SONS BAIXADOS"
+        },
+        {
+          "em": "testa",
+          "src": 1745,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "A IA TESTANDO O PRÓPRIO JOGO"
+        },
+        {
+          "em": "escuro",
+          "src": 1842,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "bug",
+          "src": 2845,
+          "area": [
+            60,
+            400,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "BUG: CADEIRA BLOQUEANDO A SALA"
+        }
+      ]
+    },
+    {
+      "seg": "g03-mouse",
+      "sfx": [
+        {
+          "nome": "awkward-moment",
+          "em": 0.2,
+          "volume": 0.35,
+          "max": 1.8
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 2885,
+          "area": [
+            40,
+            520,
+            800,
+            450
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "A TRETA DO MOUSE"
+        },
+        {
+          "em": "investigar",
+          "src": 4706,
+          "area": [
+            150,
+            320,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "escreveu",
+          "src": 4822,
+          "area": [
+            374,
+            60,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "\"O ERRO FOI MEU, NÃO SEU.\""
+        }
+      ]
+    },
+    {
+      "seg": "g04-criatura",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 3205,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "presenca",
+          "src": 3760,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "\"A PRESENÇA\""
+        },
+        {
+          "em": "olhar",
+          "src": 3736,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "\"VOCÊ OLHOU.\"",
+          "sfx": "glitch"
+        },
+        {
+          "em": "piloto",
+          "src": 5783,
+          "vel": 2.5,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "PILOTO AUTOMÁTICO"
+        },
+        {
+          "em": "hora",
+          "src": 5993,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "1h40 DO 1º COMANDO AO FIM"
+        }
+      ]
+    },
+    {
+      "pausa": 9,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J1",
+          "src": 125,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "selo": "EU JOGANDO · VERSÃO DO CLAUDE"
+        },
+        {
+          "em": 4.5,
+          "fonte": "J1",
+          "src": 245,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g05-decepcao",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J1",
+          "src": 96,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "lanterna",
+          "fonte": "J1",
+          "src": 215,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "criatura",
+          "src": 3790,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "A CRIATURA ANTIGA",
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "objetos",
+          "fonte": "J1",
+          "src": 515,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "OBJETOS QUADRADÕES"
+        },
+        {
+          "em": "ideia",
+          "fonte": "J1",
+          "src": 575,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g06-virada",
+      "cartao": [
+        "PARTE 2",
+        "O GEMINI ENTRA NO JOGO"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "G2",
+          "src": 22,
+          "area": "gem2",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "backup",
+          "fonte": "G2",
+          "src": 24,
+          "area": [
+            380,
+            140,
+            1000,
+            563
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "BACKUP DE TUDO"
+        },
+        {
+          "em": "gemini",
+          "fonte": "G2",
+          "src": 60,
+          "area": "gem2",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "GEMINI · GOOGLE"
+        },
+        {
+          "em": "demogorgon",
+          "fonte": "G2",
+          "src": 215,
+          "area": [
+            380,
+            160,
+            900,
+            506
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "ESTILO DEMOGORGON"
+        },
+        {
+          "em": "simbolo",
+          "fonte": "G2",
+          "src": 216,
+          "area": [
+            380,
+            160,
+            900,
+            506
+          ],
+          "zoom": [
+            1.1,
+            1.25
+          ],
+          "texto": "COM A CARA DO SÍMBOLO DO CLAUDE"
+        }
+      ]
+    },
+    {
+      "seg": "g07-gemini",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "G2",
+          "src": 995,
+          "area": "gemtexto",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "cabeca",
+          "fonte": "G2",
+          "src": 996,
+          "area": [
+            520,
+            300,
+            880,
+            495
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "5 PÉTALAS NA COR DO CLAUDE"
+        },
+        {
+          "em": "dentes",
+          "fonte": "J4",
+          "src": 185.5,
+          "vel": 0.5,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "tentaculos",
+          "fonte": "G2",
+          "src": 997,
+          "area": [
+            520,
+            420,
+            880,
+            495
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "8 TENTÁCULOS"
+        },
+        {
+          "em": "refez",
+          "fonte": "G2",
+          "src": 1020,
+          "area": "gemtexto",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "referencia",
+          "fonte": "G3",
+          "src": 30,
+          "area": [
+            560,
+            80,
+            640,
+            360
+          ],
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "MINHA IMAGEM DE REFERÊNCIA"
+        }
+      ]
+    },
+    {
+      "seg": "g07b-objetos",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "G3",
+          "src": 70,
+          "area": "gem3",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "fusivel",
+          "fonte": "G3",
+          "src": 72,
+          "area": [
+            560,
+            60,
+            800,
+            450
+          ],
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "O FUSÍVEL FLUTUANDO FORA DA GAVETA"
+        },
+        {
+          "em": "refez",
+          "fonte": "G3",
+          "src": 800,
+          "area": "gemtexto",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "escondido",
+          "fonte": "J4",
+          "src": 33,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "AGORA DENTRO DA GAVETA"
+        }
+      ]
+    },
+    {
+      "seg": "g07c-antes-depois",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J1",
+          "src": 125,
+          "area": "jogo1",
+          "rotulo": "CLAUDE",
+          "lado": {
+            "fonte": "J4",
+            "src": 182.9,
+            "area": "jogo5",
+            "rotulo": "GEMINI"
+          }
+        },
+        {
+          "em": "mesmo",
+          "fonte": "J1",
+          "src": 245,
+          "area": "jogo1",
+          "rotulo": "CLAUDE",
+          "lado": {
+            "fonte": "J5",
+            "src": 65,
+            "area": "jogo5",
+            "rotulo": "GEMINI"
+          }
+        },
+        {
+          "em": "jogar",
+          "fonte": "J4",
+          "src": 150,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g08-tensao",
+      "sfx": [
+        {
+          "nome": "hells-kitchen-suspense",
+          "em": 0,
+          "volume": 0.3,
+          "max": 8
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 160,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "VERSÃO DO GEMINI"
+        }
+      ]
+    },
+    {
+      "pausa": 10.6,
+      "sfx": [
+        {
+          "nome": "clock-ticking-sound-effect",
+          "em": 0,
+          "volume": 0.3,
+          "max": 9
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 174,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.12
+          ]
+        }
+      ]
+    },
+    {
+      "pausa": 1.5,
+      "sfx": [
+        {
+          "nome": "cinematic-boom-2-sound-effect",
+          "em": 0.5,
+          "volume": 0.8
+        },
+        {
+          "nome": "flashbang-sound-effect",
+          "em": 0.5,
+          "volume": 0.35,
+          "max": 1.2
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 184.6,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.3
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g09-revelacao",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "cara",
+          "zoom": [
+            1,
+            1.5
+          ],
+          "texto": "O NOVO MONSTRO"
+        },
+        {
+          "em": "cara",
+          "fonte": "J4",
+          "src": 184.8,
+          "vel": 0.25,
+          "area": "jogo5",
+          "zoom": [
+            1.15,
+            1.35
+          ]
+        },
+        {
+          "em": "inteligencia",
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "monstro",
+          "rotulo": "CRIADO PELO GEMINI",
+          "lado": {
+            "fonte": "G2",
+            "src": 216,
+            "area": [
+              380,
+              160,
+              900,
+              506
+            ],
+            "rotulo": "COM A CARA DO CLAUDE"
+          }
+        },
+        {
+          "em": "pegou",
+          "fonte": "J4",
+          "src": 185.3,
+          "vel": 0.5,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "sfx": "augghh-ahhhhh-sound-effect"
+        }
+      ]
+    },
+    {
+      "seg": "g10-jogando",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 219.6,
+          "vel": 0.7,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "corre",
+          "fonte": "J5",
+          "src": 360,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "som": 0.5
+        },
+        {
+          "em": "morri",
+          "fonte": "J4",
+          "src": 186.6,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "sfx": "bruh-sound-effect"
+        }
+      ]
+    },
+    {
+      "pausa": 24,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 348,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.9,
+          "selo": "VERSÃO NOVA · COM SOM"
+        },
+        {
+          "em": 11,
+          "fonte": "J5",
+          "src": 359,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "som": 0.9
+        }
+      ]
+    },
+    {
+      "seg": "g11-veredito",
+      "cartao": [
+        "VEREDITO",
+        "QUAL IA MANDOU MELHOR?"
+      ],
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 6121,
+          "area": [
+            60,
+            212,
+            780,
+            480
+          ],
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "claude",
+          "src": 5783,
+          "vel": 2.5,
+          "area": "piloto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "CLAUDE: CONSTRUIU E TESTOU"
+        },
+        {
+          "em": "gemini",
+          "fonte": "J4",
+          "src": 182.9,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "selo": "GEMINI: DEIXOU ASSUSTADOR"
+        },
+        {
+          "em": "juntos",
+          "fonte": "J5",
+          "src": 375,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "som": 0.5
+        },
+        {
+          "em": "defeitos",
+          "fonte": "J1",
+          "src": 515,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "pedidos",
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "cara",
+          "zoom": [
+            1.2,
+            1.4
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "g12-cta",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 384,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "comenta",
+          "fonte": "J5",
+          "src": 386,
+          "area": "jogo5",
+          "zoom": [
+            1.08,
+            1.15
+          ],
+          "texto": "COMENTA: QUAL IA NA PARTE 3?"
+        },
+        {
+          "em": "inscreve",
+          "fonte": "J4",
+          "src": 220.3,
+          "vel": 0.5,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "PARTE 3 VEM AÍ"
+        }
+      ]
+    }
+  ]
+}
