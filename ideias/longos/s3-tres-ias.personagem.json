@@ -1,0 +1,73 @@
+{
+  "projeto": "Short - 3 IAs criaram um jogo de terror",
+  "template": "dark-retencao",
+  "estilo": {
+    "positionY": 64
+  },
+  "musica": {
+    "src": "midia/musicas/historia-curiosa.mp3",
+    "volume": 0.08
+  },
+  "modos": {
+    "canto": {
+      "pasta": "midia/personagem",
+      "x": 82,
+      "y": 80,
+      "largura": 26,
+      "entrada": "pop"
+    },
+    "bolha": {
+      "pasta": "midia/personagem/bolha",
+      "x": 50,
+      "y": 40,
+      "largura": 58,
+      "entrada": "escala"
+    }
+  },
+  "reacoes": {
+    "s3-tres-ias": [
+      [
+        "0",
+        "determinado",
+        "canto"
+      ],
+      [
+        "chatgpt",
+        "pensativo",
+        "canto"
+      ],
+      [
+        "claude",
+        "confiante",
+        "canto"
+      ],
+      [
+        "gemini",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "antes",
+        "pensativo",
+        "bolha",
+        1.8
+      ],
+      [
+        "completo",
+        "feliz",
+        "canto"
+      ]
+    ]
+  },
+  "cenas": [
+    {
+      "seg": "s3-tres-ias",
+      "em": "completo",
+      "dur": 6,
+      "tipo": "inscrever",
+      "titulo": "VÍDEO COMPLETO NO CANAL",
+      "subtitulo": "se inscreve 🔔",
+      "semLegenda": true
+    }
+  ]
+}

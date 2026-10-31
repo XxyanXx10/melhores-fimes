@@ -1,0 +1,78 @@
+{
+  "projeto": "Short - A IA desenhou a cara de outra IA num monstro",
+  "template": "dark-retencao",
+  "estilo": {
+    "positionY": 64
+  },
+  "musica": {
+    "src": "midia/musicas/terror-tensao.mp3",
+    "volume": 0.08
+  },
+  "modos": {
+    "canto": {
+      "pasta": "midia/personagem",
+      "x": 82,
+      "y": 80,
+      "largura": 26,
+      "entrada": "pop"
+    },
+    "bolha": {
+      "pasta": "midia/personagem/bolha",
+      "x": 50,
+      "y": 40,
+      "largura": 58,
+      "entrada": "escala"
+    }
+  },
+  "reacoes": {
+    "s1-monstro": [
+      [
+        "0",
+        "assustado",
+        "canto"
+      ],
+      [
+        "pedi",
+        "confiante",
+        "bolha",
+        2.6
+      ],
+      [
+        "mas",
+        "entediado",
+        "canto"
+      ],
+      [
+        "chamei",
+        "pensativo",
+        "canto"
+      ],
+      [
+        "olha",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "quando",
+        "assustado",
+        "canto"
+      ],
+      [
+        "completo",
+        "feliz",
+        "canto"
+      ]
+    ]
+  },
+  "cenas": [
+    {
+      "seg": "s1-monstro",
+      "em": "completo",
+      "dur": 6,
+      "tipo": "inscrever",
+      "titulo": "VÍDEO COMPLETO NO CANAL",
+      "subtitulo": "se inscreve 🔔",
+      "semLegenda": true
+    }
+  ]
+}

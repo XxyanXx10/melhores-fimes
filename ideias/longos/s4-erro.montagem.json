@@ -1,0 +1,255 @@
+{
+  "roteiro": "ideias/longos/shorts-jogo-terror.json",
+  "formato": "9:16",
+  "fonte": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+  "fontes": {
+    "C": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+    "J1": "C:/Users/yaned/Videos/2026-10-31 11-58-32.mp4",
+    "G2": "C:/Users/yaned/Videos/2026-10-31 12-59-17.mp4",
+    "G3": "C:/Users/yaned/Videos/2026-10-31 13-47-54.mp4",
+    "J4": "C:/Users/yaned/Videos/2026-10-31 14-03-19.mp4",
+    "J5": "C:/Users/yaned/Videos/2026-10-31 14-09-43.mp4"
+  },
+  "trabalho": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s4-erro",
+  "saida": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s4-erro/final.mp4",
+  "saidaBase": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s4-erro/base.mp4",
+  "musica": "public/midia/musicas/escritorio-ironico.mp3",
+  "volumeMusica": 0.08,
+  "cobrir": [
+    1,
+    1,
+    372,
+    209
+  ],
+  "cobrirSo": [
+    "vj5",
+    "vj1",
+    "vjogoC",
+    "vpiloto",
+    "vcara",
+    "vmonstro"
+  ],
+  "areas": {
+    "vj5": [
+      600,
+      86,
+      720,
+      994
+    ],
+    "vj1": [
+      600,
+      86,
+      720,
+      952
+    ],
+    "vjogoC": [
+      600,
+      40,
+      720,
+      1000
+    ],
+    "vpiloto": [
+      640,
+      125,
+      640,
+      860
+    ],
+    "vpainel": [
+      1160,
+      125,
+      760,
+      850
+    ],
+    "vcara": [
+      620,
+      140,
+      400,
+      520
+    ],
+    "vmonstro": [
+      340,
+      90,
+      760,
+      855
+    ],
+    "chat": [
+      40,
+      215,
+      800,
+      800
+    ],
+    "gpt": [
+      640,
+      60,
+      1000,
+      920
+    ],
+    "criterios": [
+      700,
+      120,
+      820,
+      820
+    ],
+    "gemtexto": [
+      520,
+      80,
+      880,
+      900
+    ],
+    "gem2": [
+      380,
+      140,
+      1280,
+      720
+    ]
+  },
+  "blocos": [
+    {
+      "seg": "s4-erro",
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.35
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 4822,
+          "area": [
+            374,
+            60,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.12
+          ],
+          "texto": "\"O ERRO FOI MEU, NÃO SEU.\""
+        },
+        {
+          "em": "pedi",
+          "fonte": "J1",
+          "src": 125,
+          "area": "vj1",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "selo": "CLAUDE"
+        },
+        {
+          "em": "mouse",
+          "src": 2165,
+          "area": "vjogoC",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "O MOUSE NÃO FICAVA PRESO"
+        },
+        {
+          "em": "reclamei",
+          "src": 2885,
+          "area": [
+            40,
+            520,
+            800,
+            450
+          ],
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "investigar",
+          "src": 4706,
+          "area": [
+            150,
+            320,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "escreveu",
+          "src": 4822,
+          "area": [
+            374,
+            60,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.15
+          ],
+          "texto": "\"O ERRO FOI MEU, NÃO SEU.\"",
+          "sfx": "angel-sound-effect"
+        },
+        {
+          "em": "gente",
+          "fonte": "J1",
+          "src": 245,
+          "area": "vj1",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "pronto",
+          "fonte": "J4",
+          "src": 185.3,
+          "vel": 0.5,
+          "area": "vj5",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "completo",
+          "fonte": "J5",
+          "src": 384,
+          "area": "vj5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "VÍDEO COMPLETO NO CANAL"
+        }
+      ]
+    },
+    {
+      "pausa": 2.2,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 387,
+          "area": "vj5",
+          "zoom": [
+            1,
+            1.08
+          ]
+        }
+      ]
+    }
+  ],
+  "trilhas": [
+    {
+      "de": "s4-erro",
+      "musica": "midia/musicas/escritorio-ironico.mp3",
+      "volume": 0.08
+    }
+  ]
+}

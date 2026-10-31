@@ -1,0 +1,233 @@
+{
+  "roteiro": "ideias/longos/shorts-jogo-terror.json",
+  "formato": "9:16",
+  "fonte": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+  "fontes": {
+    "C": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+    "J1": "C:/Users/yaned/Videos/2026-10-31 11-58-32.mp4",
+    "G2": "C:/Users/yaned/Videos/2026-10-31 12-59-17.mp4",
+    "G3": "C:/Users/yaned/Videos/2026-10-31 13-47-54.mp4",
+    "J4": "C:/Users/yaned/Videos/2026-10-31 14-03-19.mp4",
+    "J5": "C:/Users/yaned/Videos/2026-10-31 14-09-43.mp4"
+  },
+  "trabalho": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s3-tres-ias",
+  "saida": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s3-tres-ias/final.mp4",
+  "saidaBase": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s3-tres-ias/base.mp4",
+  "musica": "public/midia/musicas/historia-curiosa.mp3",
+  "volumeMusica": 0.08,
+  "cobrir": [
+    1,
+    1,
+    372,
+    209
+  ],
+  "cobrirSo": [
+    "vj5",
+    "vj1",
+    "vjogoC",
+    "vpiloto",
+    "vcara",
+    "vmonstro"
+  ],
+  "areas": {
+    "vj5": [
+      600,
+      86,
+      720,
+      994
+    ],
+    "vj1": [
+      600,
+      86,
+      720,
+      952
+    ],
+    "vjogoC": [
+      600,
+      40,
+      720,
+      1000
+    ],
+    "vpiloto": [
+      640,
+      125,
+      640,
+      860
+    ],
+    "vpainel": [
+      1160,
+      125,
+      760,
+      850
+    ],
+    "vcara": [
+      620,
+      140,
+      400,
+      520
+    ],
+    "vmonstro": [
+      340,
+      90,
+      760,
+      855
+    ],
+    "chat": [
+      40,
+      215,
+      800,
+      800
+    ],
+    "gpt": [
+      640,
+      60,
+      1000,
+      920
+    ],
+    "criterios": [
+      700,
+      120,
+      820,
+      820
+    ],
+    "gemtexto": [
+      520,
+      80,
+      880,
+      900
+    ],
+    "gem2": [
+      380,
+      140,
+      1280,
+      720
+    ]
+  },
+  "blocos": [
+    {
+      "seg": "s3-tres-ias",
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.35
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 220.0,
+          "vel": 0.6,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.15
+          ],
+          "texto": "3 IAs CRIARAM ESSE JOGO DE TERROR"
+        },
+        {
+          "em": "chatgpt",
+          "src": 25,
+          "area": [
+            700,
+            250,
+            980,
+            551
+          ],
+          "zoom": [
+            1.0,
+            1.1
+          ],
+          "selo": "CHATGPT · O PLANO"
+        },
+        {
+          "em": "dezoito",
+          "src": 65,
+          "area": "criterios",
+          "zoom": [
+            1.0,
+            1.1
+          ],
+          "texto": "18 CRITÉRIOS"
+        },
+        {
+          "em": "claude",
+          "src": 1020,
+          "vel": 110,
+          "area": "gpt",
+          "zoom": [
+            1.0,
+            1.05
+          ],
+          "selo": "CLAUDE · CONSTRÓI"
+        },
+        {
+          "em": "hora",
+          "fonte": "J1",
+          "src": 155,
+          "area": "vj1",
+          "zoom": [
+            1.0,
+            1.08
+          ],
+          "texto": "1h40 · TUDO GERADO POR CÓDIGO"
+        },
+        {
+          "em": "gemini",
+          "fonte": "G2",
+          "src": 995,
+          "area": "gemtexto",
+          "zoom": [
+            1.0,
+            1.05
+          ],
+          "selo": "GEMINI · APERFEIÇOA"
+        },
+        {
+          "em": "antes",
+          "fonte": "J1",
+          "src": 125,
+          "area": "vj1",
+          "rotulo": "ANTES · CLAUDE",
+          "lado": {
+            "fonte": "J4",
+            "src": 182.9,
+            "area": "vj5",
+            "rotulo": "DEPOIS · GEMINI"
+          }
+        },
+        {
+          "em": "chrome",
+          "fonte": "J5",
+          "src": 360,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.08
+          ],
+          "som": 0.5,
+          "texto": "RODA DIRETO NO CHROME"
+        },
+        {
+          "em": "completo",
+          "fonte": "J5",
+          "src": 384,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.08
+          ],
+          "texto": "VÍDEO COMPLETO NO CANAL"
+        }
+      ]
+    }
+  ],
+  "trilhas": [
+    {
+      "de": "s3-tres-ias",
+      "musica": "midia/musicas/historia-curiosa.mp3",
+      "volume": 0.08
+    }
+  ]
+}

@@ -44,3 +44,21 @@
 - TikTok: aquecer a conta (uso diário no celular) e postar de vez em quando direto pelo app com som em alta.
 - Conferir no YouTube Studio: "Pedi pra IA capitais do Brasil em 2100" está com **comentários desativados**
   (sinal de que ficou marcado como "conteúdo para crianças") — trocar para "não é para crianças".
+
+## Números do canal em 31/10/2026 (YouTube Shorts, visualizações públicas)
+| Formato | Vídeos e views |
+|---|---|
+| **Real ou IA (quiz)** | bichos estranhos 1,2 mil · comida brasileira 967 · nível difícil 918 · você acerta 356 |
+| **Brasil + humor/polêmica** | perguntas que só brasileiro faz 1 mil · imparcialidade nas eleições 1,1 mil |
+| **Games/tech com gancho** | PS5 desbloqueado 957 |
+| **Golpe/alerta concreto** | voz clonada pedindo Pix 941 (golpe genérico de famoso: 65) |
+| **História real em 3D** | lojinha 994 · robô que mentiu 502 · estagiário ep. 1 462 · nuggets 307 |
+| **Não funcionou** | "Pedi pra IA" imagens (capitais 2100: 9 e 49 · caramelo: 8) · notícia genérica (7 a 35) |
+
+**Conclusão:** o que entrega é (1) jogo com o público (quiz), (2) Brasil/cotidiano, (3) caso real absurdo contado como
+história, (4) alerta com situação concreta ("seu filho mandou áudio pedindo Pix"). Imagem gerada sem história e
+notícia genérica não entregam: parar com esses formatos.
+
+**Próximo passo com o personagem:** ele vira o apresentador fixo: aparece reagindo no Real ou IA ("eu errei essa"),
+narra as histórias 3D na bolha e abre os alertas com cara de assustado. Toda semana: 1 vídeo longo + 3–4 Shorts
+dele que mandam pro longo ("vídeo completo no canal").

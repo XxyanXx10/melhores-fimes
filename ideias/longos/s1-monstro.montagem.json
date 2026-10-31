@@ -1,0 +1,261 @@
+{
+  "roteiro": "ideias/longos/shorts-jogo-terror.json",
+  "formato": "9:16",
+  "fonte": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+  "fontes": {
+    "C": "C:/Users/yaned/Videos/2026-10-27 18-58-46.mp4",
+    "J1": "C:/Users/yaned/Videos/2026-10-31 11-58-32.mp4",
+    "G2": "C:/Users/yaned/Videos/2026-10-31 12-59-17.mp4",
+    "G3": "C:/Users/yaned/Videos/2026-10-31 13-47-54.mp4",
+    "J4": "C:/Users/yaned/Videos/2026-10-31 14-03-19.mp4",
+    "J5": "C:/Users/yaned/Videos/2026-10-31 14-09-43.mp4"
+  },
+  "trabalho": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s1-monstro",
+  "saida": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s1-monstro/final.mp4",
+  "saidaBase": "C:/Users/yaned/Videos/Melhores Fimes/jogo-terror/shorts/s1-monstro/base.mp4",
+  "musica": "public/midia/musicas/terror-tensao.mp3",
+  "volumeMusica": 0.08,
+  "cobrir": [
+    1,
+    1,
+    372,
+    209
+  ],
+  "cobrirSo": [
+    "vj5",
+    "vj1",
+    "vjogoC",
+    "vpiloto",
+    "vcara",
+    "vmonstro"
+  ],
+  "areas": {
+    "vj5": [
+      600,
+      86,
+      720,
+      994
+    ],
+    "vj1": [
+      600,
+      86,
+      720,
+      952
+    ],
+    "vjogoC": [
+      600,
+      40,
+      720,
+      1000
+    ],
+    "vpiloto": [
+      640,
+      125,
+      640,
+      860
+    ],
+    "vpainel": [
+      1160,
+      125,
+      760,
+      850
+    ],
+    "vcara": [
+      620,
+      140,
+      400,
+      520
+    ],
+    "vmonstro": [
+      340,
+      90,
+      760,
+      855
+    ],
+    "chat": [
+      40,
+      215,
+      800,
+      800
+    ],
+    "gpt": [
+      640,
+      60,
+      1000,
+      920
+    ],
+    "criterios": [
+      700,
+      120,
+      820,
+      820
+    ],
+    "gemtexto": [
+      520,
+      80,
+      880,
+      900
+    ],
+    "gem2": [
+      380,
+      140,
+      1280,
+      720
+    ]
+  },
+  "blocos": [
+    {
+      "seg": "s1-monstro",
+      "sfx": [
+        {
+          "nome": "whoosh-sound-effect",
+          "em": 0,
+          "volume": 0.35
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "vcara",
+          "zoom": [
+            1.0,
+            1.3
+          ],
+          "texto": "UMA IA DESENHOU A CARA DE OUTRA IA",
+          "sfx": "reveal-sound-effect"
+        },
+        {
+          "em": "monstro",
+          "fonte": "J4",
+          "src": 184.6,
+          "vel": 0.5,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.12
+          ]
+        },
+        {
+          "em": "pedi",
+          "src": 1745,
+          "area": "vpainel",
+          "zoom": [
+            1.0,
+            1.05
+          ],
+          "selo": "CLAUDE"
+        },
+        {
+          "em": "mas",
+          "src": 3790,
+          "area": "vpainel",
+          "zoom": [
+            1.0,
+            1.15
+          ],
+          "texto": "O MONSTRO ANTIGO",
+          "sfx": "bruh-sound-effect"
+        },
+        {
+          "em": "chamei",
+          "fonte": "G2",
+          "src": 215,
+          "area": [
+            380,
+            160,
+            900,
+            506
+          ],
+          "zoom": [
+            1.0,
+            1.08
+          ],
+          "selo": "GEMINI"
+        },
+        {
+          "em": "demogorgon",
+          "fonte": "G2",
+          "src": 216,
+          "area": [
+            380,
+            160,
+            900,
+            506
+          ],
+          "zoom": [
+            1.05,
+            1.2
+          ],
+          "texto": "COM A CARA DO SÍMBOLO DO CLAUDE"
+        },
+        {
+          "em": "olha",
+          "fonte": "J4",
+          "src": 182.9,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.15
+          ]
+        },
+        {
+          "em": "cinco",
+          "fonte": "J4",
+          "src": 185.17,
+          "congelar": true,
+          "area": "vcara",
+          "zoom": [
+            1.1,
+            1.4
+          ],
+          "texto": "5 PÉTALAS NA COR DO CLAUDE"
+        },
+        {
+          "em": "quando",
+          "fonte": "J4",
+          "src": 185.3,
+          "vel": 0.4,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.2
+          ],
+          "sfx": "undertakers-bell-2uwfcie"
+        },
+        {
+          "em": "pegou",
+          "fonte": "J4",
+          "src": 219.6,
+          "vel": 0.6,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.15
+          ],
+          "sfx": "augghh-ahhhhh-sound-effect"
+        },
+        {
+          "em": "completo",
+          "fonte": "J5",
+          "src": 384,
+          "area": "vj5",
+          "zoom": [
+            1.0,
+            1.08
+          ],
+          "texto": "VÍDEO COMPLETO NO CANAL"
+        }
+      ]
+    }
+  ],
+  "trilhas": [
+    {
+      "de": "s1-monstro",
+      "musica": "midia/musicas/terror-tensao.mp3",
+      "volume": 0.08
+    }
+  ]
+}

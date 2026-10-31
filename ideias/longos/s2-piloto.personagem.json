@@ -1,0 +1,80 @@
+{
+  "projeto": "Short - A IA zerou o jogo que ela mesma criou",
+  "template": "dark-retencao",
+  "estilo": {
+    "positionY": 64
+  },
+  "musica": {
+    "src": "midia/musicas/quiz-suspense.mp3",
+    "volume": 0.08
+  },
+  "modos": {
+    "canto": {
+      "pasta": "midia/personagem",
+      "x": 82,
+      "y": 80,
+      "largura": 26,
+      "entrada": "pop"
+    },
+    "bolha": {
+      "pasta": "midia/personagem/bolha",
+      "x": 50,
+      "y": 40,
+      "largura": 58,
+      "entrada": "escala"
+    }
+  },
+  "reacoes": {
+    "s2-piloto": [
+      [
+        "0",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "pedi",
+        "confiante",
+        "bolha",
+        2.4
+      ],
+      [
+        "robo",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "sabe",
+        "engracado",
+        "canto"
+      ],
+      [
+        "olhou",
+        "sarcastico",
+        "canto"
+      ],
+      [
+        "completo",
+        "feliz",
+        "canto"
+      ]
+    ],
+    "pausa-1": [
+      [
+        "0",
+        "feliz",
+        "canto"
+      ]
+    ]
+  },
+  "cenas": [
+    {
+      "seg": "s2-piloto",
+      "em": "completo",
+      "dur": 6,
+      "tipo": "inscrever",
+      "titulo": "VÍDEO COMPLETO NO CANAL",
+      "subtitulo": "se inscreve 🔔",
+      "semLegenda": true
+    }
+  ]
+}

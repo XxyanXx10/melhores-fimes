@@ -25,6 +25,9 @@ SFX = os.path.join(RAIZ, 'public', 'midia', 'sfx-meme')
 
 arq = sys.argv[1]
 M = json.load(open(arq, encoding='utf-8'))
+VERTICAL = M.get('formato') == '9:16'
+if VERTICAL:
+    W, H = 1080, 1920
 R = json.load(open(os.path.join(RAIZ, M['roteiro']), encoding='utf-8'))
 SEG = {s['id']: s for s in R['segmentos']}
 PREVIA = '--previa' in sys.argv
@@ -88,6 +91,20 @@ print(f'duração total: {int(TOTAL // 60)}min {TOTAL % 60:.1f}s, {sum(len(b["to
 
 # ------------------------------------------------------------------ sobreposições (PIL)
 def caixa_texto(d, txt, fonte, cx, y, fundo, cor, pad=(34, 18), raio=18):
+    if d.textlength(txt, font=fonte) > W - 2 * pad[0] - 60 and ' ' in txt:
+        pal = txt.split(' ')
+        linhas, atual = [], ''
+        for p_ in pal:
+            prova = (atual + ' ' + p_).strip()
+            if d.textlength(prova, font=fonte) > W - 2 * pad[0] - 60 and atual:
+                linhas.append(atual)
+                atual = p_
+            else:
+                atual = prova
+        linhas.append(atual)
+        for i_, ln in enumerate(linhas):
+            caixa_texto(d, ln, fonte, cx, y + i_ * (fonte.size + 2 * pad[1] + 8), fundo, cor, pad, raio)
+        return
     l, t_, r, b = d.textbbox((0, 0), txt, font=fonte)
     w, h = r - l, b - t_
     x0, y0 = cx - w / 2 - pad[0], y
@@ -104,15 +121,20 @@ def sobreposicao(caminho, tm, cartao=None):
         l, t_, r, b = d.textbbox((0, 0), txt, font=f)
         x1 = W - 50
         x0 = x1 - (r - l) - 56
-        d.rounded_rectangle([x0, 46, x1, 46 + (b - t_) + 36], 14, fill=(220, 28, 40, 235))
-        d.text((x0 + 28 - l, 46 + 18 - t_), txt, font=f, fill=(255, 255, 255, 255))
+        y_s = 150 if VERTICAL else 46
+        d.rounded_rectangle([x0, y_s, x1, y_s + (b - t_) + 36], 14, fill=(220, 28, 40, 235))
+        d.text((x0 + 28 - l, y_s + 18 - t_), txt, font=f, fill=(255, 255, 255, 255))
     if tm.get('lado'):
         f = ImageFont.truetype(F_TITULO, 44)
-        for txt, cx_, cor in ((tm.get('rotulo', 'ANTES'), W / 4, (255, 255, 255, 240)), (tm['lado'].get('rotulo', 'DEPOIS'), 3 * W / 4, (255, 214, 10, 245))):
-            caixa_texto(d, limpar_txt(txt), f, cx_, H - 170, cor, (15, 15, 20, 255))
+        if VERTICAL:
+            for txt, y_, cor in ((tm.get('rotulo', 'ANTES'), H / 2 - 110, (255, 255, 255, 240)), (tm['lado'].get('rotulo', 'DEPOIS'), H / 2 + 30, (255, 214, 10, 245))):
+                caixa_texto(d, limpar_txt(txt), f, W / 2, y_, cor, (15, 15, 20, 255))
+        else:
+            for txt, cx_, cor in ((tm.get('rotulo', 'ANTES'), W / 4, (255, 255, 255, 240)), (tm['lado'].get('rotulo', 'DEPOIS'), 3 * W / 4, (255, 214, 10, 245))):
+                caixa_texto(d, limpar_txt(txt), f, cx_, H - 170, cor, (15, 15, 20, 255))
     if tm.get('texto'):
         f = ImageFont.truetype(F_TITULO, 58)
-        caixa_texto(d, limpar_txt(tm['texto']), f, W / 2, 130, (255, 214, 10, 245), (15, 15, 20, 255))
+        caixa_texto(d, limpar_txt(tm['texto']), f, W / 2, 260 if VERTICAL else 130, (255, 214, 10, 245), (15, 15, 20, 255))
     if cartao:
         sombra = Image.new('RGBA', (W, H), (0, 0, 0, 170))
         img = Image.alpha_composite(sombra, img)
@@ -145,7 +167,7 @@ def render_tomada(b, k, tm, saida):
     cobrir = f'delogo=x={cx}:y={cy}:w={cw}:h={ch},' if nome_area in M.get('cobrirSo', []) else ''
     z0, z1 = tm.get('zoom', [1.0, 1.0])
     n = max(1, round(dur * FPS))
-    ow, oh = (960, 540) if PREVIA else (W, H)
+    ow, oh = (W // 2, H // 2) if PREVIA else (W, H)
     cartao = b.get('cartao') if k == 0 else None
     ov = saida.replace('.mp4', '.png')
     sobreposicao(ov, tm, None)
@@ -165,6 +187,8 @@ def render_tomada(b, k, tm, saida):
         L = tm['lado']
         x2, y2, w2, h2 = L['area'] if not isinstance(L['area'], str) else M['areas'][L['area']]
         meia = ow // 2
+        if VERTICAL:   # no vertical a divisão é em cima / embaixo
+            meio_h = oh // 2
         cobrir2 = f'delogo=x={cx}:y={cy}:w={cw}:h={ch},'
         filtros = (
             f'[0:v]setpts=(PTS-STARTPTS)/{vel},fps={FPS},{cobrir}crop={w}:{h}:{x}:{y},'
@@ -172,6 +196,13 @@ def render_tomada(b, k, tm, saida):
             f'[2:v]setpts=PTS-STARTPTS,fps={FPS},{cobrir2}crop={w2}:{h2}:{x2}:{y2},'
             f'scale={meia}:{oh}:force_original_aspect_ratio=increase,crop={meia}:{oh}[d];'
             f'[e][d]hstack,drawbox=x={meia - 3}:y=0:w=6:h={oh}:color=white@0.9:t=fill[v];'
+            f'[1:v]scale={ow}:{oh},format=rgba,fade=in:st=0.12:d=0.25:alpha=1[o];[v][o]overlay=0:0:shortest=0'
+        ) if not VERTICAL else (
+            f'[0:v]setpts=(PTS-STARTPTS)/{vel},fps={FPS},{cobrir}crop={w}:{h}:{x}:{y},'
+            f'scale={ow}:{meio_h}:force_original_aspect_ratio=increase,crop={ow}:{meio_h}[e];'
+            f'[2:v]setpts=PTS-STARTPTS,fps={FPS},{cobrir2}crop={w2}:{h2}:{x2}:{y2},'
+            f'scale={ow}:{meio_h}:force_original_aspect_ratio=increase,crop={ow}:{meio_h}[d];'
+            f'[e][d]vstack,drawbox=x=0:y={meio_h - 3}:w={ow}:h=6:color=white@0.9:t=fill[v];'
             f'[1:v]scale={ow}:{oh},format=rgba,fade=in:st=0.12:d=0.25:alpha=1[o];[v][o]overlay=0:0:shortest=0'
         )
     entradas = []
@@ -293,8 +324,9 @@ ffmpeg([*entradas, '-filter_complex', ';'.join(partes), '-map', '[out]', '-ar', 
 # ------------------------------------------------------------------ final
 if BASE:
     base = M['saidaBase']
-    ffmpeg(['-i', video, '-i', mix, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k',
-            '-movflags', '+faststart', '-shortest', base])
+    # reencoda com quadro constante: a colagem com "-c copy" deixava buracos de tempo que o Remotion não acha
+    ffmpeg(['-i', video, '-i', mix, '-map', '0:v', '-map', '1:a', '-r', str(FPS), '-fps_mode', 'cfr', '-c:v', 'libx264', '-preset', 'fast',
+            '-crf', '17', '-g', str(FPS), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', base])
     linha = [{'bloco': b['i'], 'seg': b.get('seg'), 't0': round(b['t0'], 3), 'dur': round(b['dur'], 3),
               'tomadas': [{k_: v for k_, v in tm.items() if k_ in ('ini', 'dur', 'src', 'fonte', 'texto', 'selo', 'personagem')} for tm in b['tomadas']],
               'palavras': [{**w, 'start': round(b['t0'] + w['start'], 3), 'end': round(b['t0'] + w['end'], 3)} for w in b['palavras']]}
