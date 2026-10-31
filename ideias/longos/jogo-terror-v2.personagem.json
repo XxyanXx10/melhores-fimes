@@ -262,35 +262,6 @@
         "canto"
       ]
     ],
-    "pausa-20": [
-      [
-        "0",
-        "determinado",
-        "canto"
-      ],
-      [
-        "11",
-        "assustado",
-        "canto"
-      ]
-    ],
-    "pausa-22": [
-      [
-        "0",
-        "determinado",
-        "canto"
-      ],
-      [
-        "13",
-        "assustado",
-        "canto"
-      ],
-      [
-        "26",
-        "bravo",
-        "canto"
-      ]
-    ],
     "n01-chrome": [
       [
         "0",
@@ -396,6 +367,58 @@
         "assustado",
         "bolha",
         3
+      ]
+    ],
+    "n08a-partida": [
+      [
+        "0",
+        "determinado",
+        "bolha",
+        3.5
+      ],
+      [
+        "cuidado",
+        "pensativo",
+        "canto"
+      ],
+      [
+        "repara",
+        "assustado",
+        "canto"
+      ],
+      [
+        "tempo",
+        "envergonhado",
+        "canto"
+      ]
+    ],
+    "n08b-retorno": [
+      [
+        "0",
+        "determinado",
+        "canto"
+      ],
+      [
+        "gavetas",
+        "feliz",
+        "canto"
+      ],
+      [
+        "corredor",
+        "assustado",
+        "canto"
+      ]
+    ],
+    "pausa-24": [
+      [
+        "0",
+        "determinado",
+        "canto"
+      ],
+      [
+        "9",
+        "pensativo",
+        "canto"
       ]
     ]
   },

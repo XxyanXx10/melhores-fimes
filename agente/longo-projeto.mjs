@@ -70,6 +70,17 @@ const cenas = P.cenas.map((c, i) => {
 
 // legenda só nos trechos escolhidos (montagem.legendaEm = ids dos segmentos); sem a lista, o vídeo todo
 const trechos = (M.legendaEm ?? []).flatMap((id) => L.blocos.filter((b) => b.seg === id).map((b) => [+b.t0.toFixed(2), +(b.t0 + b.dur).toFixed(2)]));
+// música por trecho (montagem.trilhas = [{de: id do segmento, musica, volume}]); sem lista, uma só o vídeo todo
+function trilhas() {
+  const lista = (M.trilhas ?? []).map((tr) => ({ ...tr, t: L.blocos.find((b) => b.seg === tr.de)?.t0 })).filter((tr) => tr.t !== undefined);
+  if (!lista.length) return [{ id: 'mus-0', src: P.musica.src, nome: path.basename(P.musica.src), tipo: 'musica', start: 0, duracao: 0, volume: P.musica.volume, fadeIn: 2, fadeOut: 3, repetir: true, quedas: [] }];
+  lista.sort((a, b) => a.t - b.t);
+  return lista.map((tr, i) => {
+    const fim = lista[i + 1]?.t ?? L.duracao;
+    return { id: `mus-${i}`, src: tr.musica, nome: path.basename(tr.musica), tipo: 'musica', start: +tr.t.toFixed(2), duracao: +(fim - tr.t + 0.8).toFixed(2),
+      volume: tr.volume ?? 0.07, fadeIn: 1.2, fadeOut: 1.2, repetir: true, quedas: [] };
+  });
+}
 const palavras = L.blocos.flatMap((b) => b.palavras.map((w) => ({ text: w.text, start: w.start, end: w.end })));
 const projeto = {
   versao: 1,
@@ -87,7 +98,7 @@ const projeto = {
   forcaZoom: 1,
   zoomsManuais: [],
   fotos,
-  sons: [{ id: 'mus-0', src: P.musica.src, nome: path.basename(P.musica.src), tipo: 'musica', start: 0, duracao: 0, volume: P.musica.volume, fadeIn: 2, fadeOut: 3, repetir: true, quedas: [] }],
+  sons: trilhas(),
   cartoes: [],
   cenasRemotion: cenas,
   divisoes: [],

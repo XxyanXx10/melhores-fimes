@@ -134,9 +134,15 @@
       "seg": "g00-gancho",
       "sfx": [
         {
-          "nome": "cinematic-boom-2-sound-effect",
+          "nome": "glitch",
           "em": 0,
-          "volume": 0.55
+          "volume": 0.45
+        },
+        {
+          "nome": "undertakers-bell-2uwfcie",
+          "em": 0.3,
+          "volume": 0.35,
+          "max": 2.5
         }
       ],
       "tomadas": [
@@ -163,7 +169,7 @@
             1.35
           ],
           "texto": "O SÍMBOLO DE OUTRA IA",
-          "sfx": "undertakers-bell-2uwfcie"
+          "sfx": "reveal-sound-effect"
         },
         {
           "em": "duas",
@@ -312,6 +318,14 @@
             1.06
           ]
         }
+      ],
+      "sfx": [
+        {
+          "nome": "magic-spells-delight-ding-bubbly-level-u",
+          "em": 0.8,
+          "volume": 0.3,
+          "max": 2
+        }
       ]
     },
     {
@@ -324,13 +338,14 @@
         {
           "nome": "whoosh-sound-effect",
           "em": 0,
-          "volume": 0.5
+          "volume": 0.45,
+          "max": 2
         }
       ],
       "tomadas": [
         {
           "em": 0,
-          "src": 18,
+          "src": 24,
           "area": "gpt",
           "zoom": [
             1,
@@ -635,6 +650,14 @@
           ],
           "texto": "NAVEGAÇÃO A* (A-ESTRELA)"
         }
+      ],
+      "sfx": [
+        {
+          "nome": "tik-tik",
+          "em": 0.2,
+          "volume": 0.35,
+          "max": 2
+        }
       ]
     },
     {
@@ -925,9 +948,10 @@
       ],
       "sfx": [
         {
-          "nome": "whoosh-sound-effect",
+          "nome": "flashback",
           "em": 0,
-          "volume": 0.5
+          "volume": 0.45,
+          "max": 2
         }
       ],
       "tomadas": [
@@ -1188,18 +1212,18 @@
             1.06
           ]
         }
+      ],
+      "sfx": [
+        {
+          "nome": "camera-shutter",
+          "em": 0.1,
+          "volume": 0.4
+        }
       ]
     },
     {
       "seg": "g08-tensao",
-      "sfx": [
-        {
-          "nome": "hells-kitchen-suspense",
-          "em": 0,
-          "volume": 0.3,
-          "max": 8
-        }
-      ],
+      "sfx": [],
       "tomadas": [
         {
           "em": 0,
@@ -1216,14 +1240,7 @@
     },
     {
       "pausa": 10.6,
-      "sfx": [
-        {
-          "nome": "clock-ticking-sound-effect",
-          "em": 0,
-          "volume": 0.3,
-          "max": 9
-        }
-      ],
+      "sfx": [],
       "tomadas": [
         {
           "em": 0,
@@ -1241,15 +1258,16 @@
       "pausa": 1.5,
       "sfx": [
         {
-          "nome": "cinematic-boom-2-sound-effect",
-          "em": 0.5,
-          "volume": 0.8
+          "nome": "reveal-sound-effect",
+          "em": 0.35,
+          "volume": 0.6,
+          "max": 2
         },
         {
-          "nome": "flashbang-sound-effect",
+          "nome": "chinese-gong-meme-sound-effect",
           "em": 0.5,
-          "volume": 0.35,
-          "max": 1.2
+          "volume": 0.25,
+          "max": 2
         }
       ],
       "tomadas": [
@@ -1363,24 +1381,176 @@
       ]
     },
     {
-      "pausa": 24,
+      "seg": "n08a-partida",
       "tomadas": [
         {
           "em": 0,
           "fonte": "J5",
-          "src": 348,
+          "src": 8,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.55,
+          "selo": "EU JOGANDO · VERSÃO NOVA"
+        },
+        {
+          "em": "fusiveis",
+          "fonte": "J5",
+          "src": 22,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.55
+        },
+        {
+          "em": "sala",
+          "fonte": "J5",
+          "src": 40,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.55
+        },
+        {
+          "em": "repara",
+          "fonte": "J5",
+          "src": 58,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "som": 0.8
+        },
+        {
+          "em": "banheiro",
+          "fonte": "J5",
+          "src": 66,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.55
+        },
+        {
+          "em": "tempo",
+          "fonte": "J5",
+          "src": 74,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "som": 0.7
+        }
+      ]
+    },
+    {
+      "pausa": 4.2,
+      "sfx": [
+        {
+          "nome": "augghh-ahhhhh-sound-effect",
+          "em": 2.6,
+          "volume": 0.4,
+          "max": 1.5
+        }
+      ],
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 79.2,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "som": 1
+        }
+      ]
+    },
+    {
+      "seg": "n08b-retorno",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 92,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.55
+        },
+        {
+          "em": "gavetas",
+          "fonte": "J5",
+          "src": 140,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "som": 0.6,
+          "texto": "O FUSÍVEL DENTRO DA GAVETA"
+        },
+        {
+          "em": "corredor",
+          "fonte": "J5",
+          "src": 150,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ],
+          "som": 0.7
+        }
+      ]
+    },
+    {
+      "pausa": 4.5,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 156.5,
+          "area": "jogo5",
+          "zoom": [
+            1.1,
+            1.35
+          ],
+          "som": 1,
+          "sfx": "undertakers-bell-2uwfcie"
+        }
+      ]
+    },
+    {
+      "pausa": 18,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 268,
           "area": "jogo5",
           "zoom": [
             1,
             1.06
           ],
           "som": 0.9,
-          "selo": "VERSÃO NOVA · COM SOM"
+          "selo": "TENTATIVA 3"
         },
         {
-          "em": 11,
+          "em": 9,
           "fonte": "J5",
-          "src": 359,
+          "src": 279,
           "area": "jogo5",
           "zoom": [
             1,
@@ -1479,45 +1649,6 @@
       ]
     },
     {
-      "pausa": 40,
-      "tomadas": [
-        {
-          "em": 0,
-          "fonte": "J5",
-          "src": 125,
-          "area": "jogo5",
-          "zoom": [
-            1,
-            1.06
-          ],
-          "som": 0.9,
-          "selo": "EU JOGANDO · VERSÃO NOVA"
-        },
-        {
-          "em": 13,
-          "fonte": "J5",
-          "src": 200,
-          "area": "jogo5",
-          "zoom": [
-            1,
-            1.08
-          ],
-          "som": 0.9
-        },
-        {
-          "em": 26,
-          "fonte": "J5",
-          "src": 260,
-          "area": "jogo5",
-          "zoom": [
-            1,
-            1.08
-          ],
-          "som": 0.9
-        }
-      ]
-    },
-    {
       "seg": "g11-veredito",
       "cartao": [
         "VEREDITO",
@@ -1525,9 +1656,10 @@
       ],
       "sfx": [
         {
-          "nome": "whoosh-sound-effect",
+          "nome": "cartoon-transition",
           "em": 0,
-          "volume": 0.5
+          "volume": 0.45,
+          "max": 2
         }
       ],
       "tomadas": [
@@ -1547,7 +1679,7 @@
         },
         {
           "em": "chatgpt",
-          "src": 18,
+          "src": 24,
           "area": "gpt",
           "zoom": [
             1,
@@ -1663,6 +1795,65 @@
     "g06-virada",
     "g07-gemini",
     "g07b-objetos",
-    "g11-veredito"
+    "g11-veredito",
+    "n08a-partida",
+    "n08b-retorno"
+  ],
+  "trilhas": [
+    {
+      "de": "g00-gancho",
+      "musica": "midia/musicas/terror-tensao.mp3",
+      "volume": 0.1
+    },
+    {
+      "de": "n01-chrome",
+      "musica": "midia/musicas/historia-curiosa.mp3",
+      "volume": 0.07
+    },
+    {
+      "de": "n04-tecnico",
+      "musica": "midia/musicas/futuro-synthwave.mp3",
+      "volume": 0.06
+    },
+    {
+      "de": "n05-gameplay",
+      "musica": "midia/musicas/terror-ambiente.mp3",
+      "volume": 0.1
+    },
+    {
+      "de": "g05-decepcao",
+      "musica": "midia/musicas/escritorio-ironico.mp3",
+      "volume": 0.07
+    },
+    {
+      "de": "g06-virada",
+      "musica": "midia/musicas/futuro-synthwave.mp3",
+      "volume": 0.06
+    },
+    {
+      "de": "g08-tensao",
+      "musica": "midia/musicas/terror-tensao.mp3",
+      "volume": 0.13
+    },
+    {
+      "de": "g09-revelacao",
+      "musica": "midia/musicas/quiz-suspense.mp3",
+      "volume": 0.08
+    },
+    {
+      "de": "n08a-partida",
+      "musica": "midia/musicas/terror-ambiente.mp3",
+      "volume": 0.09
+    },
+    {
+      "de": "n07-versao-nova",
+      "musica": "midia/musicas/quiz-suspense.mp3",
+      "volume": 0.08
+    },
+    {
+      "de": "g11-veredito",
+      "musica": "midia/musicas/historia-curiosa.mp3",
+      "volume": 0.07
+    }
   ]
 }
