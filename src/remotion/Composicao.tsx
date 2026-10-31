@@ -344,6 +344,7 @@ export function Composicao(props: PropsComposicao) {
        * só a posição dela é que passa a levar a divisão em conta.
        */}
       {!(
+        (estilo.trechos?.length ? !estilo.trechos.some(([a, b]) => t >= a && t <= b) : false) ||
         (cenasRemotion ?? []).some((cr) => cr.semLegenda && t >= cr.start && t <= cr.start + cr.duracao) ||
         fotos.some((f) => f.semLegenda && t >= f.start && t <= f.start + f.duracao)
       ) && (

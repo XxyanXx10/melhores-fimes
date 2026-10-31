@@ -1,36 +1,463 @@
 {
   "projeto": "A IA criou o jogo de terror (v2)",
   "template": "dark-cinema",
-  "estilo": { "positionY": 88, "fontSize": 3.6, "wordsPerBlock": 5 },
-  "musica": { "src": "midia/musicas/quiz-suspense.mp3", "volume": 0.08 },
+  "estilo": {
+    "positionY": 88,
+    "fontSize": 3.6,
+    "wordsPerBlock": 5
+  },
+  "musica": {
+    "src": "midia/musicas/quiz-suspense.mp3",
+    "volume": 0.08
+  },
   "modos": {
-    "canto": { "pasta": "midia/personagem", "x": 89, "y": 70, "largura": 12, "entrada": "pop" },
-    "bolha": { "pasta": "midia/personagem/bolha", "x": 50, "y": 50, "largura": 28, "entrada": "escala" },
-    "bolha-canto": { "pasta": "midia/personagem/bolha", "x": 10, "y": 72, "largura": 15, "entrada": "pop" }
+    "canto": {
+      "pasta": "midia/personagem",
+      "x": 89,
+      "y": 70,
+      "largura": 12,
+      "entrada": "pop"
+    },
+    "bolha": {
+      "pasta": "midia/personagem/bolha",
+      "x": 50,
+      "y": 48,
+      "largura": 30,
+      "entrada": "escala"
+    },
+    "bolha-canto": {
+      "pasta": "midia/personagem/bolha",
+      "x": 10,
+      "y": 72,
+      "largura": 15,
+      "entrada": "pop"
+    }
   },
   "reacoes": {
-    "g00-gancho": [["0", "assustado", "canto"], ["duas", "pensativo", "canto"], ["final", "confiante", "canto"]],
-    "g01-pedido": [["0", "feliz", "bolha", 3.2], ["claude", "confiante", "canto"]],
-    "g02-construcao": [["quatorze", "entediado", "canto"], ["impressionante", "surpreso", "bolha-canto"], ["bug", "pensativo", "canto"]],
-    "g03-mouse": [["0", "bravo", "canto"], ["escreveu", "sarcastico", "canto"]],
-    "g04-criatura": [["olhar", "assustado", "canto"], ["piloto", "surpreso", "canto"]],
-    "pausa-5": [["0", "determinado", "canto"]],
-    "g05-decepcao": [["0", "feliz", "canto"], ["criatura", "entediado", "bolha", 3], ["objetos", "envergonhado", "canto"], ["ideia", "sarcastico", "bolha", 2.4]],
-    "g06-virada": [["gemini", "confiante", "canto"], ["demogorgon", "engracado", "canto"]],
-    "g07-gemini": [["0", "surpreso", "canto"], ["dentes", "assustado", "canto"], ["referencia", "confiante", "bolha-canto"]],
-    "g07b-objetos": [["0", "bravo", "canto"], ["escondido", "feliz", "canto"]],
-    "g07c-antes-depois": [["0", "pensativo", "bolha", 2.4]],
-    "g08-tensao": [["0", "determinado", "bolha-canto"]],
-    "g09-revelacao": [["0", "assustado", "canto"], ["inteligencia", "surpreso", "bolha-canto"]],
-    "g10-jogando": [["corre", "assustado", "canto"], ["morri", "triste", "bolha", 2.4]],
-    "pausa-16": [["0", "determinado", "canto"], ["11", "assustado", "canto"]],
-    "g11-veredito": [["0", "pensativo", "bolha", 3], ["gemini", "confiante", "canto"], ["defeitos", "envergonhado", "canto"], ["pedidos", "surpreso", "canto"]],
-    "g12-cta": [["0", "feliz", "bolha", 3.6], ["comenta", "engracado", "canto"], ["inscreve", "confiante", "canto"]]
+    "g00-gancho": [
+      [
+        "0",
+        "assustado",
+        "canto"
+      ],
+      [
+        "duas",
+        "pensativo",
+        "canto"
+      ],
+      [
+        "final",
+        "confiante",
+        "canto"
+      ]
+    ],
+    "g01-pedido": [
+      [
+        "0",
+        "feliz",
+        "bolha",
+        3.2
+      ],
+      [
+        "prompt",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "dezoito",
+        "pensativo",
+        "canto"
+      ]
+    ],
+    "g02-construcao": [
+      [
+        "quatorze",
+        "entediado",
+        "canto"
+      ],
+      [
+        "impressionante",
+        "surpreso",
+        "bolha-canto"
+      ],
+      [
+        "bug",
+        "pensativo",
+        "canto"
+      ]
+    ],
+    "g03-mouse": [
+      [
+        "0",
+        "bravo",
+        "canto"
+      ],
+      [
+        "escreveu",
+        "sarcastico",
+        "canto"
+      ]
+    ],
+    "g04-criatura": [
+      [
+        "olhar",
+        "assustado",
+        "canto"
+      ],
+      [
+        "piloto",
+        "surpreso",
+        "canto"
+      ]
+    ],
+    "g05-decepcao": [
+      [
+        "0",
+        "feliz",
+        "canto"
+      ],
+      [
+        "criatura",
+        "entediado",
+        "bolha",
+        3
+      ],
+      [
+        "objetos",
+        "envergonhado",
+        "canto"
+      ],
+      [
+        "ideia",
+        "sarcastico",
+        "bolha",
+        2.4
+      ]
+    ],
+    "g06-virada": [
+      [
+        "0",
+        "pensativo",
+        "bolha",
+        3.5
+      ],
+      [
+        "gemini",
+        "confiante",
+        "canto"
+      ],
+      [
+        "demogorgon",
+        "engracado",
+        "canto"
+      ]
+    ],
+    "g07-gemini": [
+      [
+        "0",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "dentes",
+        "assustado",
+        "canto"
+      ],
+      [
+        "referencia",
+        "confiante",
+        "bolha-canto"
+      ]
+    ],
+    "g07b-objetos": [
+      [
+        "0",
+        "bravo",
+        "canto"
+      ],
+      [
+        "escondido",
+        "feliz",
+        "canto"
+      ]
+    ],
+    "g07c-antes-depois": [
+      [
+        "0",
+        "pensativo",
+        "bolha",
+        2.4
+      ]
+    ],
+    "g08-tensao": [
+      [
+        "0",
+        "determinado",
+        "bolha-canto"
+      ]
+    ],
+    "g09-revelacao": [
+      [
+        "0",
+        "assustado",
+        "canto"
+      ],
+      [
+        "inteligencia",
+        "surpreso",
+        "bolha-canto"
+      ]
+    ],
+    "g10-jogando": [
+      [
+        "corre",
+        "assustado",
+        "canto"
+      ],
+      [
+        "morri",
+        "triste",
+        "bolha",
+        2.4
+      ]
+    ],
+    "g11-veredito": [
+      [
+        "0",
+        "pensativo",
+        "bolha",
+        3
+      ],
+      [
+        "gemini",
+        "confiante",
+        "canto"
+      ],
+      [
+        "defeitos",
+        "envergonhado",
+        "canto"
+      ],
+      [
+        "pedidos",
+        "surpreso",
+        "canto"
+      ]
+    ],
+    "g12-cta": [
+      [
+        "0",
+        "feliz",
+        "bolha",
+        3.6
+      ],
+      [
+        "comenta",
+        "engracado",
+        "canto"
+      ],
+      [
+        "inscreve",
+        "confiante",
+        "canto"
+      ]
+    ],
+    "pausa-20": [
+      [
+        "0",
+        "determinado",
+        "canto"
+      ],
+      [
+        "11",
+        "assustado",
+        "canto"
+      ]
+    ],
+    "pausa-22": [
+      [
+        "0",
+        "determinado",
+        "canto"
+      ],
+      [
+        "13",
+        "assustado",
+        "canto"
+      ],
+      [
+        "26",
+        "bravo",
+        "canto"
+      ]
+    ],
+    "n01-chrome": [
+      [
+        "0",
+        "pensativo",
+        "bolha",
+        4
+      ],
+      [
+        "javascript",
+        "confiante",
+        "canto"
+      ],
+      [
+        "time",
+        "feliz",
+        "bolha",
+        3
+      ]
+    ],
+    "n03-claude": [
+      [
+        "0",
+        "confiante",
+        "bolha",
+        3.5
+      ],
+      [
+        "programador",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "opus",
+        "determinado",
+        "canto"
+      ]
+    ],
+    "n04-tecnico": [
+      [
+        "0",
+        "pensativo",
+        "bolha",
+        3.5
+      ],
+      [
+        "sons",
+        "surpreso",
+        "canto"
+      ],
+      [
+        "navegacao",
+        "pensativo",
+        "canto"
+      ]
+    ],
+    "n05-gameplay": [
+      [
+        "0",
+        "determinado",
+        "bolha",
+        3.5
+      ],
+      [
+        "bilhete",
+        "assustado",
+        "canto"
+      ],
+      [
+        "parede",
+        "assustado",
+        "canto"
+      ],
+      [
+        "objetivo",
+        "pensativo",
+        "bolha",
+        3
+      ],
+      [
+        "formula",
+        "confiante",
+        "canto"
+      ]
+    ],
+    "n07-versao-nova": [
+      [
+        "0",
+        "feliz",
+        "canto"
+      ],
+      [
+        "caligrafia",
+        "assustado",
+        "canto"
+      ],
+      [
+        "codigo",
+        "determinado",
+        "canto"
+      ],
+      [
+        "sombras",
+        "assustado",
+        "bolha",
+        3
+      ]
+    ]
   },
   "cenas": [
-    { "seg": "g02-construcao", "em": "cinco", "dur": 4.2, "tipo": "checklist", "titulo": "5 ETAPAS", "itens": ["A · O prédio", "B · O quebra-cabeça", "C · A criatura", "D · Sustos e final", "E · O teste final"] },
-    { "seg": "g04-criatura", "em": "hora", "dur": 3.6, "tipo": "numero", "titulo": "DO 1º COMANDO AO JOGO PRONTO", "valor": "1h40" },
-    { "seg": "g06-virada", "em": "gemini", "dur": 3.8, "tipo": "logos", "titulo": "DUAS IAs, UM JOGO", "icones": ["claude", "googlegemini"], "itens": ["CLAUDE", "GEMINI"] },
-    { "seg": "g11-veredito", "em": "claude", "dur": 4.2, "tipo": "logos", "titulo": "QUEM MANDOU MELHOR?", "icones": ["claude", "googlegemini"], "itens": ["CONSTRUIU E TESTOU", "DEIXOU ASSUSTADOR"] }
+    {
+      "seg": "n02-time",
+      "em": "chatgpt",
+      "dur": 18.5,
+      "tipo": "fluxo",
+      "titulo": "O TIME DE IAs",
+      "icones": [
+        "openai",
+        "claude",
+        "googlegemini"
+      ],
+      "itens": [
+        "CHATGPT|planeja",
+        "CLAUDE|constrói",
+        "GEMINI|aperfeiçoa"
+      ],
+      "subtitulo": "ideia → jogo → jogo melhor",
+      "destaque": "#a855f7",
+      "semLegenda": true
+    },
+    {
+      "seg": "g02-construcao",
+      "em": "cinco",
+      "dur": 4.2,
+      "tipo": "checklist",
+      "titulo": "5 ETAPAS",
+      "itens": [
+        "A · O prédio",
+        "B · O quebra-cabeça",
+        "C · A criatura",
+        "D · Sustos e final",
+        "E · O teste final"
+      ]
+    },
+    {
+      "seg": "g04-criatura",
+      "em": "hora",
+      "dur": 3.6,
+      "tipo": "numero",
+      "titulo": "DO 1º COMANDO AO JOGO PRONTO",
+      "valor": "1h40"
+    },
+    {
+      "seg": "g11-veredito",
+      "em": "chatgpt",
+      "dur": 5,
+      "tipo": "logos",
+      "titulo": "QUEM MANDOU MELHOR?",
+      "icones": [
+        "openai",
+        "claude",
+        "googlegemini"
+      ],
+      "itens": [
+        "O PLANO",
+        "CONSTRUIU E TESTOU",
+        "DEIXOU ASSUSTADOR"
+      ]
+    }
   ]
 }

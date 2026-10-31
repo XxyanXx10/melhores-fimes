@@ -49,6 +49,7 @@ const ROTULOS_CENA: Record<TipoCenaRemotion, string> = {
   chatgpt: '💬 ChatGPT',
   'contexto-ia': '🧠 Contexto IA',
   checklist: '✅ Checklist',
+  fluxo: '🔁 Fluxo entre IAs',
   privacidade: '🛡️ Privacidade',
   codigo: '💻 Código / Terminal',
   versus: '⚡ Comparativo',

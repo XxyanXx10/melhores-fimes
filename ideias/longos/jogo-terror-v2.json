@@ -331,388 +331,1530 @@
       "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470078928-A IA criou o jogo de terror mais perturbador do ano - g00-gancho.wav"
     },
     {
-      "id": "g01-pedido",
-      "texto": "Começou assim. Eu pedi pro ChatGPT escrever um prompt bem detalhado de um jogo de terror. O nome: Não Olhe Para Trás. Você acorda num prédio abandonado, com uma lanterna fraca, e precisa achar três fusíveis, religar a energia, descobrir o código de uma porta e fugir. No final, dezoito critérios de aprovação. E eu entreguei tudo isso pro Claude, a inteligência artificial da Anthropic, com permissão pra criar arquivos, rodar comandos e abrir o navegador sozinho.",
-      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470087677-A IA criou o jogo de terror mais perturbador do ano - g01-pedido.wav",
-      "duracao": 28.89,
+      "id": "n01-chrome",
+      "texto": "Antes de tudo, a ideia. Eu queria um jogo que rodasse direto no Chrome. Sem baixar nada, sem instalar nada: você abre o navegador e joga. Pra isso, o jogo é feito em JavaScript, com uma biblioteca chamada Three.js, que desenha gráficos 3D dentro do navegador. É a mesma tecnologia de muitos sites interativos que você já viu por aí. E em vez de usar uma inteligência artificial só, eu montei um time.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472049401-A IA criou o jogo de terror mais perturbador do ano - n01-chrome.wav",
+      "duracao": 26.93,
       "palavras": [
         {
-          "text": "Começou",
-          "start": 0.16,
-          "end": 0.53
-        },
-        {
-          "text": "assim.",
-          "start": 0.53,
-          "end": 1.13
-        },
-        {
-          "text": "Eu",
-          "start": 1.13,
-          "end": 1.13
-        },
-        {
-          "text": "pedi",
-          "start": 1.13,
-          "end": 1.39
-        },
-        {
-          "text": "pro",
-          "start": 1.39,
-          "end": 1.66
-        },
-        {
-          "text": "ChatGPT",
-          "start": 1.66,
-          "end": 2.12
-        },
-        {
-          "text": "escrever",
-          "start": 2.12,
-          "end": 2.66
-        },
-        {
-          "text": "um",
-          "start": 2.66,
-          "end": 2.82
-        },
-        {
-          "text": "prompt",
-          "start": 2.82,
-          "end": 3.35
-        },
-        {
-          "text": "bem",
-          "start": 3.35,
-          "end": 3.4
-        },
-        {
-          "text": "detalhado",
-          "start": 3.4,
-          "end": 4.12
+          "text": "Antes",
+          "start": 0.11,
+          "end": 0.63
         },
         {
           "text": "de",
-          "start": 4.12,
-          "end": 4.24
+          "start": 0.63,
+          "end": 0.81
         },
         {
-          "text": "um",
-          "start": 4.24,
-          "end": 4.36
-        },
-        {
-          "text": "jogo",
-          "start": 4.36,
-          "end": 4.6
-        },
-        {
-          "text": "de",
-          "start": 4.6,
-          "end": 4.72
-        },
-        {
-          "text": "terror. O",
-          "start": 4.72,
-          "end": 5.52
-        },
-        {
-          "text": "nome:",
-          "start": 5.52,
-          "end": 6.05
-        },
-        {
-          "text": "Não",
-          "start": 6.05,
-          "end": 6.65
-        },
-        {
-          "text": "Olhe",
-          "start": 6.65,
-          "end": 7.18
-        },
-        {
-          "text": "Para",
-          "start": 7.18,
-          "end": 7.53
-        },
-        {
-          "text": "Trás.",
-          "start": 7.53,
-          "end": 8.24
-        },
-        {
-          "text": "Você",
-          "start": 8.24,
-          "end": 8.56
-        },
-        {
-          "text": "acorda",
-          "start": 8.56,
-          "end": 8.94
-        },
-        {
-          "text": "num",
-          "start": 8.94,
-          "end": 9.19
-        },
-        {
-          "text": "prédio",
-          "start": 9.19,
-          "end": 9.58
-        },
-        {
-          "text": "abandonado,",
-          "start": 9.58,
-          "end": 10.22
-        },
-        {
-          "text": "com",
-          "start": 10.22,
-          "end": 10.49
-        },
-        {
-          "text": "uma",
-          "start": 10.49,
-          "end": 10.61
-        },
-        {
-          "text": "lanterna",
-          "start": 10.61,
-          "end": 11.11
-        },
-        {
-          "text": "fraca,",
-          "start": 11.11,
-          "end": 11.59
-        },
-        {
-          "text": "e",
-          "start": 11.59,
-          "end": 11.59
-        },
-        {
-          "text": "precisa",
-          "start": 11.59,
-          "end": 12.12
-        },
-        {
-          "text": "achar",
-          "start": 12.12,
-          "end": 12.5
-        },
-        {
-          "text": "três",
-          "start": 12.5,
-          "end": 12.88
-        },
-        {
-          "text": "fusíveis,",
-          "start": 12.88,
-          "end": 13.6
-        },
-        {
-          "text": "religar a",
-          "start": 13.6,
-          "end": 14.02
-        },
-        {
-          "text": "energia,",
-          "start": 14.02,
-          "end": 14.73
-        },
-        {
-          "text": "descobrir",
-          "start": 14.73,
-          "end": 15.06
-        },
-        {
-          "text": "o",
-          "start": 15.06,
-          "end": 15.12
-        },
-        {
-          "text": "código",
-          "start": 15.12,
-          "end": 15.55
-        },
-        {
-          "text": "de",
-          "start": 15.55,
-          "end": 15.72
-        },
-        {
-          "text": "uma",
-          "start": 15.72,
-          "end": 15.85
-        },
-        {
-          "text": "porta",
-          "start": 15.85,
-          "end": 16.16
-        },
-        {
-          "text": "e",
-          "start": 16.16,
-          "end": 16.22
-        },
-        {
-          "text": "fugir.",
-          "start": 16.22,
-          "end": 16.74
-        },
-        {
-          "text": "No",
-          "start": 16.74,
-          "end": 16.93
-        },
-        {
-          "text": "final,",
-          "start": 16.93,
-          "end": 17.37
-        },
-        {
-          "text": "dezoito",
-          "start": 17.37,
-          "end": 17.8
-        },
-        {
-          "text": "critérios",
-          "start": 17.8,
-          "end": 18.52
-        },
-        {
-          "text": "de",
-          "start": 18.52,
-          "end": 18.89
-        },
-        {
-          "text": "aprovação.",
-          "start": 18.89,
-          "end": 19.52
-        },
-        {
-          "text": "E",
-          "start": 19.52,
-          "end": 19.68
-        },
-        {
-          "text": "eu",
-          "start": 19.68,
-          "end": 19.76
-        },
-        {
-          "text": "entreguei",
-          "start": 19.76,
-          "end": 20.65
-        },
-        {
-          "text": "tudo",
-          "start": 20.65,
-          "end": 20.84
-        },
-        {
-          "text": "isso",
-          "start": 20.84,
-          "end": 21.18
-        },
-        {
-          "text": "pro",
-          "start": 21.18,
-          "end": 21.43
-        },
-        {
-          "text": "Claude,",
-          "start": 21.43,
-          "end": 21.98
+          "text": "tudo,",
+          "start": 0.81,
+          "end": 1.36
         },
         {
           "text": "a",
-          "start": 21.98,
-          "end": 22.02
+          "start": 1.36,
+          "end": 1.39
         },
         {
-          "text": "inteligência",
-          "start": 22.02,
-          "end": 22.86
+          "text": "ideia.",
+          "start": 1.39,
+          "end": 2.14
         },
         {
-          "text": "artificial",
-          "start": 22.86,
-          "end": 23.44
+          "text": "Eu",
+          "start": 2.14,
+          "end": 2.46
         },
         {
-          "text": "da",
-          "start": 23.44,
-          "end": 23.56
+          "text": "queria",
+          "start": 2.46,
+          "end": 2.71
         },
         {
-          "text": "Anthropic,",
-          "start": 23.56,
-          "end": 24.29
+          "text": "um",
+          "start": 2.71,
+          "end": 2.84
         },
         {
-          "text": "com",
-          "start": 24.29,
-          "end": 24.4
+          "text": "jogo",
+          "start": 2.84,
+          "end": 3.14
         },
         {
-          "text": "permissão",
-          "start": 24.4,
-          "end": 24.8
+          "text": "que",
+          "start": 3.14,
+          "end": 3.35
         },
         {
-          "text": "pra",
-          "start": 24.8,
-          "end": 24.97
+          "text": "rodasse",
+          "start": 3.35,
+          "end": 3.95
         },
         {
-          "text": "criar",
-          "start": 24.97,
-          "end": 25.25
+          "text": "direto",
+          "start": 3.95,
+          "end": 4.31
         },
         {
-          "text": "arquivos,",
-          "start": 25.25,
-          "end": 25.93
+          "text": "no",
+          "start": 4.31,
+          "end": 4.42
         },
         {
-          "text": "rodar",
-          "start": 25.93,
-          "end": 26.12
+          "text": "Chrome.",
+          "start": 4.42,
+          "end": 5.08
         },
         {
-          "text": "comandos",
-          "start": 26.12,
-          "end": 26.54
+          "text": "Sem baixar",
+          "start": 5.08,
+          "end": 5.28
         },
         {
-          "text": "e",
-          "start": 26.54,
-          "end": 26.59
+          "text": "nada,",
+          "start": 5.28,
+          "end": 6
         },
         {
-          "text": "abrir",
-          "start": 26.59,
-          "end": 26.92
+          "text": "sem",
+          "start": 6,
+          "end": 6.2
+        },
+        {
+          "text": "instalar",
+          "start": 6.2,
+          "end": 6.69
+        },
+        {
+          "text": "nada:",
+          "start": 6.69,
+          "end": 7.54
+        },
+        {
+          "text": "você",
+          "start": 7.54,
+          "end": 7.69
+        },
+        {
+          "text": "abre",
+          "start": 7.69,
+          "end": 8.06
         },
         {
           "text": "o",
-          "start": 26.92,
-          "end": 26.92
+          "start": 8.06,
+          "end": 8.19
         },
         {
           "text": "navegador",
-          "start": 26.92,
-          "end": 27.42
+          "start": 8.19,
+          "end": 9.04
+        },
+        {
+          "text": "e",
+          "start": 9.04,
+          "end": 9.04
+        },
+        {
+          "text": "joga.",
+          "start": 9.04,
+          "end": 9.72
+        },
+        {
+          "text": "Pra",
+          "start": 9.72,
+          "end": 9.99
+        },
+        {
+          "text": "isso,",
+          "start": 9.99,
+          "end": 10.39
+        },
+        {
+          "text": "o",
+          "start": 10.39,
+          "end": 10.45
+        },
+        {
+          "text": "jogo",
+          "start": 10.45,
+          "end": 10.72
+        },
+        {
+          "text": "é",
+          "start": 10.72,
+          "end": 10.85
+        },
+        {
+          "text": "feito",
+          "start": 10.85,
+          "end": 11.18
+        },
+        {
+          "text": "em",
+          "start": 11.18,
+          "end": 11.25
+        },
+        {
+          "text": "JavaScript,",
+          "start": 11.25,
+          "end": 12.18
+        },
+        {
+          "text": "com",
+          "start": 12.18,
+          "end": 12.3
+        },
+        {
+          "text": "uma",
+          "start": 12.3,
+          "end": 12.41
+        },
+        {
+          "text": "biblioteca",
+          "start": 12.41,
+          "end": 12.88
+        },
+        {
+          "text": "chamada",
+          "start": 12.88,
+          "end": 13.32
+        },
+        {
+          "text": "Three.js,",
+          "start": 13.32,
+          "end": 15.08
+        },
+        {
+          "text": "que",
+          "start": 15.08,
+          "end": 15.28
+        },
+        {
+          "text": "desenha",
+          "start": 15.28,
+          "end": 15.74
+        },
+        {
+          "text": "gráficos",
+          "start": 15.74,
+          "end": 16.33
+        },
+        {
+          "text": "3D",
+          "start": 16.33,
+          "end": 16.58
+        },
+        {
+          "text": "dentro",
+          "start": 16.58,
+          "end": 16.69
+        },
+        {
+          "text": "do",
+          "start": 16.69,
+          "end": 17.12
+        },
+        {
+          "text": "navegador.",
+          "start": 17.12,
+          "end": 17.76
+        },
+        {
+          "text": "É",
+          "start": 17.76,
+          "end": 17.9
+        },
+        {
+          "text": "a",
+          "start": 17.9,
+          "end": 17.97
+        },
+        {
+          "text": "mesma",
+          "start": 17.97,
+          "end": 18.39
+        },
+        {
+          "text": "tecnologia",
+          "start": 18.39,
+          "end": 19.02
+        },
+        {
+          "text": "de",
+          "start": 19.02,
+          "end": 19.16
+        },
+        {
+          "text": "muitos",
+          "start": 19.16,
+          "end": 19.37
+        },
+        {
+          "text": "sites",
+          "start": 19.37,
+          "end": 20.22
+        },
+        {
+          "text": "interativos",
+          "start": 20.22,
+          "end": 20.87
+        },
+        {
+          "text": "que",
+          "start": 20.87,
+          "end": 21.02
+        },
+        {
+          "text": "você",
+          "start": 21.02,
+          "end": 21.42
+        },
+        {
+          "text": "já",
+          "start": 21.42,
+          "end": 21.71
+        },
+        {
+          "text": "viu",
+          "start": 21.71,
+          "end": 22.07
+        },
+        {
+          "text": "por",
+          "start": 22.07,
+          "end": 22.14
+        },
+        {
+          "text": "aí. E",
+          "start": 22.14,
+          "end": 22.4
+        },
+        {
+          "text": "em",
+          "start": 22.4,
+          "end": 22.55
+        },
+        {
+          "text": "vez",
+          "start": 22.55,
+          "end": 22.77
+        },
+        {
+          "text": "de",
+          "start": 22.77,
+          "end": 23.03
+        },
+        {
+          "text": "usar",
+          "start": 23.03,
+          "end": 23.3
+        },
+        {
+          "text": "uma",
+          "start": 23.3,
+          "end": 23.44
+        },
+        {
+          "text": "inteligência",
+          "start": 23.44,
+          "end": 24.86
+        },
+        {
+          "text": "artificial",
+          "start": 24.86,
+          "end": 25.18
+        },
+        {
+          "text": "só,",
+          "start": 25.18,
+          "end": 25.6
+        },
+        {
+          "text": "eu",
+          "start": 25.6,
+          "end": 25.75
+        },
+        {
+          "text": "montei",
+          "start": 25.75,
+          "end": 26.09
+        },
+        {
+          "text": "um",
+          "start": 26.09,
+          "end": 26.21
+        },
+        {
+          "text": "time.",
+          "start": 26.21,
+          "end": 26.68
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472049401-A IA criou o jogo de terror mais perturbador do ano - n01-chrome.wav"
+    },
+    {
+      "id": "n02-time",
+      "texto": "Cada uma no que ela faz de melhor. O ChatGPT, pra transformar a minha ideia num plano bem detalhado. O Claude, pra construir o jogo inteiro, do zero. E o Gemini, a IA do Google, dentro do Antigravity, pra refinar os detalhes e deixar tudo mais assustador. Uma planeja, a outra constrói, e a última aperfeiçoa.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472057041-A IA criou o jogo de terror mais perturbador do ano - n02-time.wav",
+      "duracao": 22.97,
+      "palavras": [
+        {
+          "text": "Cada",
+          "start": 0.25,
+          "end": 0.4
+        },
+        {
+          "text": "uma",
+          "start": 0.4,
+          "end": 0.7
+        },
+        {
+          "text": "no",
+          "start": 0.7,
+          "end": 0.9
+        },
+        {
+          "text": "que",
+          "start": 0.9,
+          "end": 1.27
+        },
+        {
+          "text": "ela",
+          "start": 1.27,
+          "end": 1.5
+        },
+        {
+          "text": "faz",
+          "start": 1.5,
+          "end": 1.8
+        },
+        {
+          "text": "de",
+          "start": 1.8,
+          "end": 2
+        },
+        {
+          "text": "melhor.",
+          "start": 2,
+          "end": 2.72
+        },
+        {
+          "text": "O",
+          "start": 2.72,
+          "end": 3.02
+        },
+        {
+          "text": "ChatGPT,",
+          "start": 3.02,
+          "end": 4.35
+        },
+        {
+          "text": "pra",
+          "start": 4.35,
+          "end": 4.58
+        },
+        {
+          "text": "transformar",
+          "start": 4.58,
+          "end": 5.25
+        },
+        {
+          "text": "a",
+          "start": 5.25,
+          "end": 5.5
+        },
+        {
+          "text": "minha",
+          "start": 5.5,
+          "end": 5.81
+        },
+        {
+          "text": "ideia",
+          "start": 5.81,
+          "end": 5.83
+        },
+        {
+          "text": "num",
+          "start": 5.83,
+          "end": 5.98
+        },
+        {
+          "text": "plano",
+          "start": 5.98,
+          "end": 6.32
+        },
+        {
+          "text": "bem",
+          "start": 6.32,
+          "end": 6.5
+        },
+        {
+          "text": "detalhado.",
+          "start": 6.5,
+          "end": 7.27
+        },
+        {
+          "text": "O",
+          "start": 7.27,
+          "end": 7.46
+        },
+        {
+          "text": "Claude,",
+          "start": 7.46,
+          "end": 8.1
+        },
+        {
+          "text": "pra",
+          "start": 8.1,
+          "end": 8.36
+        },
+        {
+          "text": "construir",
+          "start": 8.36,
+          "end": 8.64
+        },
+        {
+          "text": "o",
+          "start": 8.64,
+          "end": 8.94
+        },
+        {
+          "text": "jogo",
+          "start": 8.94,
+          "end": 9.16
+        },
+        {
+          "text": "inteiro,",
+          "start": 9.16,
+          "end": 9.95
+        },
+        {
+          "text": "do",
+          "start": 9.95,
+          "end": 10.12
+        },
+        {
+          "text": "zero.",
+          "start": 10.12,
+          "end": 10.68
+        },
+        {
+          "text": "E",
+          "start": 10.68,
+          "end": 10.76
+        },
+        {
+          "text": "o",
+          "start": 10.76,
+          "end": 10.84
+        },
+        {
+          "text": "Gemini, a",
+          "start": 10.84,
+          "end": 11.72
+        },
+        {
+          "text": "IA",
+          "start": 11.72,
+          "end": 11.96
+        },
+        {
+          "text": "do",
+          "start": 11.96,
+          "end": 12.06
+        },
+        {
+          "text": "Google,",
+          "start": 12.06,
+          "end": 12.52
+        },
+        {
+          "text": "dentro",
+          "start": 12.52,
+          "end": 13.03
+        },
+        {
+          "text": "do",
+          "start": 13.03,
+          "end": 13.64
+        },
+        {
+          "text": "Antigravity,",
+          "start": 13.64,
+          "end": 14.23
+        },
+        {
+          "text": "pra",
+          "start": 14.23,
+          "end": 14.5
+        },
+        {
+          "text": "refinar",
+          "start": 14.5,
+          "end": 14.84
+        },
+        {
+          "text": "os",
+          "start": 14.84,
+          "end": 15.14
+        },
+        {
+          "text": "detalhes",
+          "start": 15.14,
+          "end": 15.68
+        },
+        {
+          "text": "e",
+          "start": 15.68,
+          "end": 15.76
+        },
+        {
+          "text": "deixar",
+          "start": 15.76,
+          "end": 16.29
+        },
+        {
+          "text": "tudo",
+          "start": 16.29,
+          "end": 16.61
+        },
+        {
+          "text": "mais",
+          "start": 16.61,
+          "end": 16.95
+        },
+        {
+          "text": "assustador.",
+          "start": 16.95,
+          "end": 18.08
+        },
+        {
+          "text": "Uma",
+          "start": 18.08,
+          "end": 18.38
+        },
+        {
+          "text": "planeja,",
+          "start": 18.38,
+          "end": 19.12
+        },
+        {
+          "text": "a",
+          "start": 19.12,
+          "end": 19.35
+        },
+        {
+          "text": "outra",
+          "start": 19.35,
+          "end": 19.64
+        },
+        {
+          "text": "constrói,",
+          "start": 19.64,
+          "end": 20.41
+        },
+        {
+          "text": "e",
+          "start": 20.41,
+          "end": 20.5
+        },
+        {
+          "text": "a",
+          "start": 20.5,
+          "end": 20.66
+        },
+        {
+          "text": "última",
+          "start": 20.66,
+          "end": 21.18
+        },
+        {
+          "text": "aperfeiçoa.",
+          "start": 21.18,
+          "end": 22.16
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472057041-A IA criou o jogo de terror mais perturbador do ano - n02-time.wav"
+    },
+    {
+      "id": "g01-pedido",
+      "texto": "Começou pelo ChatGPT. Por que ele? Porque ele é muito bom em organizar ideias e escrever instruções claras. Eu expliquei em poucas linhas o que eu queria, e ele me devolveu um prompt enorme. O jogo se chama Não Olhe Para Trás: terror psicológico, em primeira pessoa. Você acorda num prédio abandonado, com uma lanterna fraca, e precisa achar três fusíveis, religar a energia, descobrir o código de uma porta e fugir. E no final, dezoito critérios de aprovação, pra dizer se o jogo estava pronto de verdade.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472066202-A IA criou o jogo de terror mais perturbador do ano - g01-pedido.wav",
+      "duracao": 33.41,
+      "palavras": [
+        {
+          "text": "Começou",
+          "start": 0.29,
+          "end": 0.84
+        },
+        {
+          "text": "pelo",
+          "start": 0.84,
+          "end": 1.26
+        },
+        {
+          "text": "ChatGPT. Por que",
+          "start": 1.26,
+          "end": 1.78
+        },
+        {
+          "text": "ele?",
+          "start": 1.78,
+          "end": 2.33
+        },
+        {
+          "text": "Porque",
+          "start": 2.33,
+          "end": 2.81
+        },
+        {
+          "text": "ele",
+          "start": 2.81,
+          "end": 3.43
+        },
+        {
+          "text": "é",
+          "start": 3.43,
+          "end": 3.46
+        },
+        {
+          "text": "muito",
+          "start": 3.46,
+          "end": 4.34
+        },
+        {
+          "text": "bom",
+          "start": 4.34,
+          "end": 4.48
+        },
+        {
+          "text": "em",
+          "start": 4.48,
+          "end": 4.59
+        },
+        {
+          "text": "organizar",
+          "start": 4.59,
+          "end": 5.12
+        },
+        {
+          "text": "ideias",
+          "start": 5.12,
+          "end": 5.64
+        },
+        {
+          "text": "e",
+          "start": 5.64,
+          "end": 5.69
+        },
+        {
+          "text": "escrever",
+          "start": 5.69,
+          "end": 6
+        },
+        {
+          "text": "instruções",
+          "start": 6,
+          "end": 6.56
+        },
+        {
+          "text": "claras.",
+          "start": 6.56,
+          "end": 7.26
+        },
+        {
+          "text": "Eu",
+          "start": 7.26,
+          "end": 7.55
+        },
+        {
+          "text": "expliquei",
+          "start": 7.55,
+          "end": 7.94
+        },
+        {
+          "text": "em",
+          "start": 7.94,
+          "end": 8.06
+        },
+        {
+          "text": "poucas",
+          "start": 8.06,
+          "end": 8.42
+        },
+        {
+          "text": "linhas",
+          "start": 8.42,
+          "end": 8.82
+        },
+        {
+          "text": "o",
+          "start": 8.82,
+          "end": 8.85
+        },
+        {
+          "text": "que",
+          "start": 8.85,
+          "end": 9.15
+        },
+        {
+          "text": "eu",
+          "start": 9.15,
+          "end": 9.59
+        },
+        {
+          "text": "queria,",
+          "start": 9.59,
+          "end": 9.6
+        },
+        {
+          "text": "e",
+          "start": 9.6,
+          "end": 9.79
+        },
+        {
+          "text": "ele",
+          "start": 9.79,
+          "end": 9.93
+        },
+        {
+          "text": "me",
+          "start": 9.93,
+          "end": 10.09
+        },
+        {
+          "text": "devolveu",
+          "start": 10.09,
+          "end": 10.77
+        },
+        {
+          "text": "um",
+          "start": 10.77,
+          "end": 10.94
+        },
+        {
+          "text": "prompt",
+          "start": 10.94,
+          "end": 11.45
+        },
+        {
+          "text": "enorme.",
+          "start": 11.45,
+          "end": 12.28
+        },
+        {
+          "text": "O",
+          "start": 12.28,
+          "end": 12.57
+        },
+        {
+          "text": "jogo",
+          "start": 12.57,
+          "end": 12.69
+        },
+        {
+          "text": "se",
+          "start": 12.69,
+          "end": 12.89
+        },
+        {
+          "text": "chama Não",
+          "start": 12.89,
+          "end": 13.67
+        },
+        {
+          "text": "Olhe",
+          "start": 13.67,
+          "end": 14.24
+        },
+        {
+          "text": "Para",
+          "start": 14.24,
+          "end": 14.24
+        },
+        {
+          "text": "Trás:",
+          "start": 14.24,
+          "end": 14.96
+        },
+        {
+          "text": "terror",
+          "start": 14.96,
+          "end": 15.67
+        },
+        {
+          "text": "psicológico,",
+          "start": 15.67,
+          "end": 16.48
+        },
+        {
+          "text": "em",
+          "start": 16.48,
+          "end": 16.77
+        },
+        {
+          "text": "primeira",
+          "start": 16.77,
+          "end": 17.13
+        },
+        {
+          "text": "pessoa.",
+          "start": 17.13,
+          "end": 17.52
+        },
+        {
+          "text": "Você",
+          "start": 17.52,
+          "end": 17.87
+        },
+        {
+          "text": "acorda",
+          "start": 17.87,
+          "end": 18.41
+        },
+        {
+          "text": "num",
+          "start": 18.41,
+          "end": 18.41
+        },
+        {
+          "text": "prédio",
+          "start": 18.41,
+          "end": 18.86
+        },
+        {
+          "text": "abandonado,",
+          "start": 18.86,
+          "end": 19.69
+        },
+        {
+          "text": "com",
+          "start": 19.69,
+          "end": 19.88
+        },
+        {
+          "text": "uma",
+          "start": 19.88,
+          "end": 19.91
+        },
+        {
+          "text": "lanterna",
+          "start": 19.91,
+          "end": 20.39
+        },
+        {
+          "text": "fraca,",
+          "start": 20.39,
+          "end": 20.83
+        },
+        {
+          "text": "e",
+          "start": 20.83,
+          "end": 21
+        },
+        {
+          "text": "precisa",
+          "start": 21,
+          "end": 21.28
+        },
+        {
+          "text": "achar",
+          "start": 21.28,
+          "end": 21.68
+        },
+        {
+          "text": "três",
+          "start": 21.68,
+          "end": 22.02
+        },
+        {
+          "text": "fusíveis,",
+          "start": 22.02,
+          "end": 22.88
+        },
+        {
+          "text": "religar a",
+          "start": 22.88,
+          "end": 23.54
+        },
+        {
+          "text": "energia,",
+          "start": 23.54,
+          "end": 24.26
+        },
+        {
+          "text": "descobrir",
+          "start": 24.26,
+          "end": 25.14
+        },
+        {
+          "text": "o",
+          "start": 25.14,
+          "end": 25.21
+        },
+        {
+          "text": "código",
+          "start": 25.21,
+          "end": 25.99
+        },
+        {
+          "text": "de",
+          "start": 25.99,
+          "end": 26.27
+        },
+        {
+          "text": "uma",
+          "start": 26.27,
+          "end": 26.31
+        },
+        {
+          "text": "porta",
+          "start": 26.31,
+          "end": 26.74
+        },
+        {
+          "text": "e",
+          "start": 26.74,
+          "end": 26.83
+        },
+        {
+          "text": "fugir.",
+          "start": 26.83,
+          "end": 27.36
+        },
+        {
+          "text": "E",
+          "start": 27.37,
+          "end": 27.55
+        },
+        {
+          "text": "no",
+          "start": 27.55,
+          "end": 27.65
+        },
+        {
+          "text": "final,",
+          "start": 27.65,
+          "end": 28.02
+        },
+        {
+          "text": "dezoito",
+          "start": 28.02,
+          "end": 28.43
+        },
+        {
+          "text": "critérios",
+          "start": 28.43,
+          "end": 29.23
+        },
+        {
+          "text": "de",
+          "start": 29.23,
+          "end": 29.43
+        },
+        {
+          "text": "aprovação,",
+          "start": 29.43,
+          "end": 29.97
+        },
+        {
+          "text": "pra",
+          "start": 29.97,
+          "end": 30.2
+        },
+        {
+          "text": "dizer",
+          "start": 30.2,
+          "end": 30.71
+        },
+        {
+          "text": "se",
+          "start": 30.71,
+          "end": 30.77
+        },
+        {
+          "text": "o",
+          "start": 30.77,
+          "end": 30.79
+        },
+        {
+          "text": "jogo",
+          "start": 30.79,
+          "end": 31.04
+        },
+        {
+          "text": "estava",
+          "start": 31.04,
+          "end": 31.45
+        },
+        {
+          "text": "pronto",
+          "start": 31.45,
+          "end": 31.86
+        },
+        {
+          "text": "de",
+          "start": 31.86,
+          "end": 31.99
+        },
+        {
+          "text": "verdade.",
+          "start": 31.99,
+          "end": 32.84
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472066202-A IA criou o jogo de terror mais perturbador do ano - g01-pedido.wav"
+    },
+    {
+      "id": "n03-claude",
+      "texto": "Com o prompt pronto, eu levei tudo pro Claude, a inteligência artificial da Anthropic. E por que o Claude pra construir? Porque ele é muito forte em projetos grandes, com dezenas de arquivos conversando entre si. Ele não escreve só um pedaço de código: ele cria a pasta, instala as ferramentas, escreve o jogo, abre o navegador e testa o que fez. É quase um programador trabalhando sozinho. Eu usei o Opus 5.5, o modelo mais forte dele, com permissão pra criar arquivos e rodar comandos no meu computador.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472074975-A IA criou o jogo de terror mais perturbador do ano - n03-claude.wav",
+      "duracao": 29.17,
+      "palavras": [
+        {
+          "text": "Com",
+          "start": 0.22,
+          "end": 0.22
+        },
+        {
+          "text": "o",
+          "start": 0.22,
+          "end": 0.37
+        },
+        {
+          "text": "prompt",
+          "start": 0.37,
+          "end": 0.81
+        },
+        {
+          "text": "pronto,",
+          "start": 0.81,
+          "end": 1.53
+        },
+        {
+          "text": "eu",
+          "start": 1.53,
+          "end": 1.58
+        },
+        {
+          "text": "levei",
+          "start": 1.58,
+          "end": 1.94
+        },
+        {
+          "text": "tudo",
+          "start": 1.94,
+          "end": 2.19
+        },
+        {
+          "text": "pro",
+          "start": 2.19,
+          "end": 2.47
+        },
+        {
+          "text": "Claude,",
+          "start": 2.47,
+          "end": 2.93
+        },
+        {
+          "text": "a",
+          "start": 2.93,
+          "end": 2.97
+        },
+        {
+          "text": "inteligência",
+          "start": 2.97,
+          "end": 3.68
+        },
+        {
+          "text": "artificial",
+          "start": 3.68,
+          "end": 4.11
+        },
+        {
+          "text": "da",
+          "start": 4.11,
+          "end": 4.18
+        },
+        {
+          "text": "Anthropic.",
+          "start": 4.18,
+          "end": 4.68
+        },
+        {
+          "text": "E",
+          "start": 4.68,
+          "end": 4.9
+        },
+        {
+          "text": "por",
+          "start": 4.9,
+          "end": 4.97
+        },
+        {
+          "text": "que",
+          "start": 4.97,
+          "end": 5.26
+        },
+        {
+          "text": "o",
+          "start": 5.26,
+          "end": 5.26
+        },
+        {
+          "text": "Claude",
+          "start": 5.26,
+          "end": 5.64
+        },
+        {
+          "text": "pra",
+          "start": 5.64,
+          "end": 6.23
+        },
+        {
+          "text": "construir?",
+          "start": 6.23,
+          "end": 6.82
+        },
+        {
+          "text": "Porque",
+          "start": 6.82,
+          "end": 7.2
+        },
+        {
+          "text": "ele",
+          "start": 7.2,
+          "end": 7.4
+        },
+        {
+          "text": "é",
+          "start": 7.4,
+          "end": 7.52
+        },
+        {
+          "text": "muito",
+          "start": 7.52,
+          "end": 7.84
+        },
+        {
+          "text": "forte",
+          "start": 7.84,
+          "end": 8.14
+        },
+        {
+          "text": "em",
+          "start": 8.14,
+          "end": 8.4
+        },
+        {
+          "text": "projetos",
+          "start": 8.4,
+          "end": 8.79
+        },
+        {
+          "text": "grandes,",
+          "start": 8.79,
+          "end": 9.45
+        },
+        {
+          "text": "com",
+          "start": 9.45,
+          "end": 9.57
+        },
+        {
+          "text": "dezenas",
+          "start": 9.57,
+          "end": 9.92
+        },
+        {
+          "text": "de",
+          "start": 9.92,
+          "end": 10.02
+        },
+        {
+          "text": "arquivos",
+          "start": 10.02,
+          "end": 10.5
+        },
+        {
+          "text": "conversando",
+          "start": 10.5,
+          "end": 11
+        },
+        {
+          "text": "entre",
+          "start": 11,
+          "end": 11.16
+        },
+        {
+          "text": "si.",
+          "start": 11.16,
+          "end": 11.86
+        },
+        {
+          "text": "Ele",
+          "start": 11.86,
+          "end": 12.08
+        },
+        {
+          "text": "não",
+          "start": 12.08,
+          "end": 12.26
+        },
+        {
+          "text": "escreve",
+          "start": 12.26,
+          "end": 12.67
+        },
+        {
+          "text": "só",
+          "start": 12.67,
+          "end": 12.83
+        },
+        {
+          "text": "um",
+          "start": 12.83,
+          "end": 12.94
+        },
+        {
+          "text": "pedaço",
+          "start": 12.94,
+          "end": 13.39
+        },
+        {
+          "text": "de",
+          "start": 13.39,
+          "end": 13.44
+        },
+        {
+          "text": "código:",
+          "start": 13.44,
+          "end": 14.09
+        },
+        {
+          "text": "ele",
+          "start": 14.09,
+          "end": 14.32
+        },
+        {
+          "text": "cria a",
+          "start": 14.32,
+          "end": 14.6
+        },
+        {
+          "text": "pasta,",
+          "start": 14.6,
+          "end": 15
+        },
+        {
+          "text": "instala",
+          "start": 15,
+          "end": 15.1
+        },
+        {
+          "text": "as",
+          "start": 15.1,
+          "end": 15.36
+        },
+        {
+          "text": "ferramentas,",
+          "start": 15.36,
+          "end": 16.05
+        },
+        {
+          "text": "escreve",
+          "start": 16.05,
+          "end": 16.46
+        },
+        {
+          "text": "o",
+          "start": 16.46,
+          "end": 16.65
+        },
+        {
+          "text": "jogo,",
+          "start": 16.65,
+          "end": 17
+        },
+        {
+          "text": "abre",
+          "start": 17,
+          "end": 17.29
+        },
+        {
+          "text": "o",
+          "start": 17.29,
+          "end": 17.36
+        },
+        {
+          "text": "navegador",
+          "start": 17.36,
+          "end": 18.01
+        },
+        {
+          "text": "e",
+          "start": 18.01,
+          "end": 18.08
+        },
+        {
+          "text": "testa",
+          "start": 18.08,
+          "end": 18.51
+        },
+        {
+          "text": "o",
+          "start": 18.51,
+          "end": 18.58
+        },
+        {
+          "text": "que",
+          "start": 18.58,
+          "end": 18.73
+        },
+        {
+          "text": "fez.",
+          "start": 18.73,
+          "end": 19.22
+        },
+        {
+          "text": "É",
+          "start": 19.22,
+          "end": 19.44
+        },
+        {
+          "text": "quase",
+          "start": 19.44,
+          "end": 19.64
+        },
+        {
+          "text": "um",
+          "start": 19.64,
+          "end": 19.8
+        },
+        {
+          "text": "programador",
+          "start": 19.8,
+          "end": 20.77
+        },
+        {
+          "text": "trabalhando",
+          "start": 20.77,
+          "end": 21.23
         },
         {
           "text": "sozinho.",
-          "start": 27.42,
-          "end": 28.08
+          "start": 21.23,
+          "end": 21.86
+        },
+        {
+          "text": "Eu",
+          "start": 21.86,
+          "end": 22.08
+        },
+        {
+          "text": "usei",
+          "start": 22.08,
+          "end": 22.44
+        },
+        {
+          "text": "o",
+          "start": 22.44,
+          "end": 22.45
+        },
+        {
+          "text": "Opus",
+          "start": 22.45,
+          "end": 22.7
+        },
+        {
+          "text": "5.5,",
+          "start": 22.7,
+          "end": 23.65
+        },
+        {
+          "text": "o",
+          "start": 23.65,
+          "end": 23.73
+        },
+        {
+          "text": "modelo",
+          "start": 23.73,
+          "end": 24.32
+        },
+        {
+          "text": "mais",
+          "start": 24.32,
+          "end": 24.59
+        },
+        {
+          "text": "forte",
+          "start": 24.59,
+          "end": 25.02
+        },
+        {
+          "text": "dele,",
+          "start": 25.02,
+          "end": 25.44
+        },
+        {
+          "text": "com",
+          "start": 25.44,
+          "end": 25.66
+        },
+        {
+          "text": "permissão",
+          "start": 25.66,
+          "end": 26.17
+        },
+        {
+          "text": "pra",
+          "start": 26.17,
+          "end": 26.4
+        },
+        {
+          "text": "criar",
+          "start": 26.4,
+          "end": 26.66
+        },
+        {
+          "text": "arquivos",
+          "start": 26.66,
+          "end": 27.11
+        },
+        {
+          "text": "e",
+          "start": 27.11,
+          "end": 27.16
+        },
+        {
+          "text": "rodar",
+          "start": 27.16,
+          "end": 27.44
+        },
+        {
+          "text": "comandos",
+          "start": 27.44,
+          "end": 27.9
+        },
+        {
+          "text": "no",
+          "start": 27.9,
+          "end": 28.07
+        },
+        {
+          "text": "meu",
+          "start": 28.07,
+          "end": 28.17
+        },
+        {
+          "text": "computador.",
+          "start": 28.17,
+          "end": 28.86
         }
       ],
-      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470087677-A IA criou o jogo de terror mais perturbador do ano - g01-pedido.wav"
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472074975-A IA criou o jogo de terror mais perturbador do ano - n03-claude.wav"
     },
     {
       "id": "g02-construcao",
@@ -1132,6 +2274,470 @@
         }
       ],
       "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470096602-A IA criou o jogo de terror mais perturbador do ano - g02-construcao.wav"
+    },
+    {
+      "id": "n04-tecnico",
+      "texto": "E aqui tem um detalhe técnico que eu achei genial. Como o jogo não tem nenhum arquivo de imagem, todas as texturas, o piso quadriculado, as manchas na parede, a ferrugem das portas, são desenhadas pelo código na hora em que o jogo abre. Os sons também: os passos, os rangidos, o grito da criatura, tudo sintetizado. E mesmo assim, o jogo roda a sessenta quadros por segundo num computador comum. E pra andar pelo prédio sem atravessar parede, a criatura usa um sistema de navegação, o mesmo tipo de algoritmo usado em jogos profissionais.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472084349-A IA criou o jogo de terror mais perturbador do ano - n04-tecnico.wav",
+      "duracao": 33.01,
+      "palavras": [
+        {
+          "text": "E",
+          "start": 0.07,
+          "end": 0.18
+        },
+        {
+          "text": "aqui",
+          "start": 0.18,
+          "end": 0.41
+        },
+        {
+          "text": "tem",
+          "start": 0.41,
+          "end": 0.74
+        },
+        {
+          "text": "um",
+          "start": 0.74,
+          "end": 0.78
+        },
+        {
+          "text": "detalhe",
+          "start": 0.78,
+          "end": 1.36
+        },
+        {
+          "text": "técnico",
+          "start": 1.36,
+          "end": 1.84
+        },
+        {
+          "text": "que",
+          "start": 1.84,
+          "end": 2.06
+        },
+        {
+          "text": "eu",
+          "start": 2.06,
+          "end": 2.31
+        },
+        {
+          "text": "achei",
+          "start": 2.31,
+          "end": 2.58
+        },
+        {
+          "text": "genial.",
+          "start": 2.58,
+          "end": 3.24
+        },
+        {
+          "text": "Como",
+          "start": 3.24,
+          "end": 3.51
+        },
+        {
+          "text": "o",
+          "start": 3.51,
+          "end": 3.57
+        },
+        {
+          "text": "jogo",
+          "start": 3.57,
+          "end": 4.02
+        },
+        {
+          "text": "não",
+          "start": 4.02,
+          "end": 4.11
+        },
+        {
+          "text": "tem",
+          "start": 4.11,
+          "end": 4.32
+        },
+        {
+          "text": "nenhum",
+          "start": 4.32,
+          "end": 4.71
+        },
+        {
+          "text": "arquivo",
+          "start": 4.71,
+          "end": 5.18
+        },
+        {
+          "text": "de",
+          "start": 5.18,
+          "end": 5.3
+        },
+        {
+          "text": "imagem,",
+          "start": 5.3,
+          "end": 5.91
+        },
+        {
+          "text": "todas",
+          "start": 5.91,
+          "end": 6.36
+        },
+        {
+          "text": "as",
+          "start": 6.36,
+          "end": 6.67
+        },
+        {
+          "text": "texturas,",
+          "start": 6.67,
+          "end": 7.21
+        },
+        {
+          "text": "o",
+          "start": 7.21,
+          "end": 7.28
+        },
+        {
+          "text": "piso",
+          "start": 7.28,
+          "end": 7.55
+        },
+        {
+          "text": "quadriculado,",
+          "start": 7.55,
+          "end": 8.4
+        },
+        {
+          "text": "as",
+          "start": 8.4,
+          "end": 8.58
+        },
+        {
+          "text": "manchas",
+          "start": 8.58,
+          "end": 9.18
+        },
+        {
+          "text": "na",
+          "start": 9.18,
+          "end": 9.3
+        },
+        {
+          "text": "parede,",
+          "start": 9.3,
+          "end": 10
+        },
+        {
+          "text": "a",
+          "start": 10,
+          "end": 10.2
+        },
+        {
+          "text": "ferrugem",
+          "start": 10.2,
+          "end": 10.71
+        },
+        {
+          "text": "das",
+          "start": 10.71,
+          "end": 10.93
+        },
+        {
+          "text": "portas,",
+          "start": 10.93,
+          "end": 11.77
+        },
+        {
+          "text": "são",
+          "start": 11.77,
+          "end": 11.83
+        },
+        {
+          "text": "desenhadas",
+          "start": 11.83,
+          "end": 12.32
+        },
+        {
+          "text": "pelo",
+          "start": 12.32,
+          "end": 12.54
+        },
+        {
+          "text": "código",
+          "start": 12.54,
+          "end": 12.98
+        },
+        {
+          "text": "na",
+          "start": 12.98,
+          "end": 13.1
+        },
+        {
+          "text": "hora",
+          "start": 13.1,
+          "end": 13.36
+        },
+        {
+          "text": "em",
+          "start": 13.36,
+          "end": 13.42
+        },
+        {
+          "text": "que",
+          "start": 13.42,
+          "end": 13.52
+        },
+        {
+          "text": "o",
+          "start": 13.52,
+          "end": 13.57
+        },
+        {
+          "text": "jogo",
+          "start": 13.57,
+          "end": 13.91
+        },
+        {
+          "text": "abre.",
+          "start": 13.91,
+          "end": 14.48
+        },
+        {
+          "text": "Os",
+          "start": 14.48,
+          "end": 14.66
+        },
+        {
+          "text": "sons",
+          "start": 14.66,
+          "end": 14.95
+        },
+        {
+          "text": "também:",
+          "start": 14.95,
+          "end": 15.68
+        },
+        {
+          "text": "os",
+          "start": 15.68,
+          "end": 15.84
+        },
+        {
+          "text": "passos,",
+          "start": 15.84,
+          "end": 16.34
+        },
+        {
+          "text": "os",
+          "start": 16.34,
+          "end": 16.47
+        },
+        {
+          "text": "rangidos,",
+          "start": 16.47,
+          "end": 17.2
+        },
+        {
+          "text": "o",
+          "start": 17.2,
+          "end": 17.28
+        },
+        {
+          "text": "grito",
+          "start": 17.28,
+          "end": 17.84
+        },
+        {
+          "text": "da",
+          "start": 17.84,
+          "end": 17.91
+        },
+        {
+          "text": "criatura,",
+          "start": 17.91,
+          "end": 18.68
+        },
+        {
+          "text": "tudo",
+          "start": 18.68,
+          "end": 19.03
+        },
+        {
+          "text": "sintetizado.",
+          "start": 19.03,
+          "end": 20.04
+        },
+        {
+          "text": "E",
+          "start": 20.04,
+          "end": 20.22
+        },
+        {
+          "text": "mesmo",
+          "start": 20.22,
+          "end": 20.82
+        },
+        {
+          "text": "assim,",
+          "start": 20.82,
+          "end": 21.4
+        },
+        {
+          "text": "o",
+          "start": 21.4,
+          "end": 21.41
+        },
+        {
+          "text": "jogo",
+          "start": 21.41,
+          "end": 21.84
+        },
+        {
+          "text": "roda a sessenta",
+          "start": 21.84,
+          "end": 22.14
+        },
+        {
+          "text": "quadros por segundo",
+          "start": 22.14,
+          "end": 22.94
+        },
+        {
+          "text": "num",
+          "start": 22.94,
+          "end": 23.47
+        },
+        {
+          "text": "computador",
+          "start": 23.47,
+          "end": 24.14
+        },
+        {
+          "text": "comum.",
+          "start": 24.14,
+          "end": 24.72
+        },
+        {
+          "text": "E",
+          "start": 24.72,
+          "end": 24.9
+        },
+        {
+          "text": "pra",
+          "start": 24.9,
+          "end": 24.98
+        },
+        {
+          "text": "andar",
+          "start": 24.98,
+          "end": 25.24
+        },
+        {
+          "text": "pelo",
+          "start": 25.24,
+          "end": 25.5
+        },
+        {
+          "text": "prédio",
+          "start": 25.5,
+          "end": 26.18
+        },
+        {
+          "text": "sem",
+          "start": 26.18,
+          "end": 26.34
+        },
+        {
+          "text": "atravessar",
+          "start": 26.34,
+          "end": 26.55
+        },
+        {
+          "text": "parede,",
+          "start": 26.55,
+          "end": 27.02
+        },
+        {
+          "text": "a",
+          "start": 27.02,
+          "end": 27.08
+        },
+        {
+          "text": "criatura",
+          "start": 27.08,
+          "end": 27.58
+        },
+        {
+          "text": "usa",
+          "start": 27.58,
+          "end": 27.84
+        },
+        {
+          "text": "um",
+          "start": 27.84,
+          "end": 28.15
+        },
+        {
+          "text": "sistema",
+          "start": 28.15,
+          "end": 28.33
+        },
+        {
+          "text": "de",
+          "start": 28.33,
+          "end": 28.45
+        },
+        {
+          "text": "navegação,",
+          "start": 28.45,
+          "end": 29.2
+        },
+        {
+          "text": "o",
+          "start": 29.23,
+          "end": 29.38
+        },
+        {
+          "text": "mesmo",
+          "start": 29.38,
+          "end": 29.6
+        },
+        {
+          "text": "tipo",
+          "start": 29.6,
+          "end": 29.98
+        },
+        {
+          "text": "de",
+          "start": 29.98,
+          "end": 30
+        },
+        {
+          "text": "algoritmo",
+          "start": 30,
+          "end": 30.56
+        },
+        {
+          "text": "usado",
+          "start": 30.56,
+          "end": 30.99
+        },
+        {
+          "text": "em",
+          "start": 30.99,
+          "end": 31
+        },
+        {
+          "text": "jogos",
+          "start": 31,
+          "end": 31.33
+        },
+        {
+          "text": "profissionais.",
+          "start": 31.33,
+          "end": 32.52
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472084349-A IA criou o jogo de terror mais perturbador do ano - n04-tecnico.wav"
     },
     {
       "id": "g03-mouse",
@@ -1652,6 +3258,635 @@
       "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470109467-A IA criou o jogo de terror mais perturbador do ano - g04-criatura.wav"
     },
     {
+      "id": "n05-gameplay",
+      "texto": "Agora deixa eu te explicar como funciona o jogo. Você acorda numa sala de manutenção, no escuro, sem lembrar de nada. A lanterna está no chão, e a bateria não dura pra sempre. Em cima da mesa, um bilhete de alguém que passou por ali antes: não grite, não corra à toa. Ela não precisa enxergar você pra saber onde você está. Ela escuta. Na saída da sala, escrito na parede: se ouvir passos atrás de você, não olhe para trás. A partir daí, o objetivo é achar três fusíveis, religar a energia no quadro, juntar as pistas espalhadas pelo prédio, descobrir o código da porta de saída, e fugir. É a fórmula clássica de jogo de terror: chave, código, e alguma coisa te caçando no escuro.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472097514-A IA criou o jogo de terror mais perturbador do ano - n05-gameplay.wav",
+      "duracao": 46.69,
+      "palavras": [
+        {
+          "text": "Agora",
+          "start": 0.06,
+          "end": 0.38
+        },
+        {
+          "text": "deixa",
+          "start": 0.38,
+          "end": 0.76
+        },
+        {
+          "text": "eu",
+          "start": 0.76,
+          "end": 0.91
+        },
+        {
+          "text": "te",
+          "start": 0.91,
+          "end": 1.06
+        },
+        {
+          "text": "explicar",
+          "start": 1.06,
+          "end": 1.68
+        },
+        {
+          "text": "como",
+          "start": 1.68,
+          "end": 1.97
+        },
+        {
+          "text": "funciona",
+          "start": 1.97,
+          "end": 2.58
+        },
+        {
+          "text": "o",
+          "start": 2.58,
+          "end": 2.69
+        },
+        {
+          "text": "jogo.",
+          "start": 2.69,
+          "end": 3.3
+        },
+        {
+          "text": "Você",
+          "start": 3.3,
+          "end": 3.37
+        },
+        {
+          "text": "acorda",
+          "start": 3.37,
+          "end": 3.87
+        },
+        {
+          "text": "numa",
+          "start": 3.87,
+          "end": 4.06
+        },
+        {
+          "text": "sala",
+          "start": 4.06,
+          "end": 4.27
+        },
+        {
+          "text": "de",
+          "start": 4.27,
+          "end": 4.4
+        },
+        {
+          "text": "manutenção,",
+          "start": 4.4,
+          "end": 5.49
+        },
+        {
+          "text": "no",
+          "start": 5.49,
+          "end": 5.56
+        },
+        {
+          "text": "escuro,",
+          "start": 5.56,
+          "end": 6.51
+        },
+        {
+          "text": "sem",
+          "start": 6.51,
+          "end": 6.76
+        },
+        {
+          "text": "lembrar",
+          "start": 6.76,
+          "end": 7.08
+        },
+        {
+          "text": "de",
+          "start": 7.08,
+          "end": 7.24
+        },
+        {
+          "text": "nada.",
+          "start": 7.24,
+          "end": 8.08
+        },
+        {
+          "text": "A",
+          "start": 8.08,
+          "end": 8.16
+        },
+        {
+          "text": "lanterna",
+          "start": 8.16,
+          "end": 8.84
+        },
+        {
+          "text": "está",
+          "start": 8.84,
+          "end": 9.1
+        },
+        {
+          "text": "no",
+          "start": 9.1,
+          "end": 9.21
+        },
+        {
+          "text": "chão,",
+          "start": 9.21,
+          "end": 9.62
+        },
+        {
+          "text": "e",
+          "start": 9.62,
+          "end": 9.76
+        },
+        {
+          "text": "a",
+          "start": 9.76,
+          "end": 9.78
+        },
+        {
+          "text": "bateria",
+          "start": 9.78,
+          "end": 10.35
+        },
+        {
+          "text": "não",
+          "start": 10.35,
+          "end": 10.67
+        },
+        {
+          "text": "dura",
+          "start": 10.67,
+          "end": 10.96
+        },
+        {
+          "text": "pra",
+          "start": 10.96,
+          "end": 11.43
+        },
+        {
+          "text": "sempre.",
+          "start": 11.43,
+          "end": 11.92
+        },
+        {
+          "text": "Em",
+          "start": 11.92,
+          "end": 12.06
+        },
+        {
+          "text": "cima",
+          "start": 12.06,
+          "end": 12.34
+        },
+        {
+          "text": "da",
+          "start": 12.34,
+          "end": 12.68
+        },
+        {
+          "text": "mesa,",
+          "start": 12.68,
+          "end": 12.94
+        },
+        {
+          "text": "um",
+          "start": 12.94,
+          "end": 13.05
+        },
+        {
+          "text": "bilhete",
+          "start": 13.05,
+          "end": 13.6
+        },
+        {
+          "text": "de",
+          "start": 13.6,
+          "end": 13.67
+        },
+        {
+          "text": "alguém",
+          "start": 13.67,
+          "end": 14.16
+        },
+        {
+          "text": "que",
+          "start": 14.16,
+          "end": 14.36
+        },
+        {
+          "text": "passou",
+          "start": 14.36,
+          "end": 14.8
+        },
+        {
+          "text": "por",
+          "start": 14.8,
+          "end": 15
+        },
+        {
+          "text": "ali",
+          "start": 15,
+          "end": 15.29
+        },
+        {
+          "text": "antes:",
+          "start": 15.29,
+          "end": 15.75
+        },
+        {
+          "text": "não",
+          "start": 15.75,
+          "end": 16.05
+        },
+        {
+          "text": "grite,",
+          "start": 16.05,
+          "end": 16.64
+        },
+        {
+          "text": "não",
+          "start": 16.64,
+          "end": 17.06
+        },
+        {
+          "text": "corra à toa.",
+          "start": 17.06,
+          "end": 18.08
+        },
+        {
+          "text": "Ela",
+          "start": 18.08,
+          "end": 18.28
+        },
+        {
+          "text": "não",
+          "start": 18.28,
+          "end": 18.55
+        },
+        {
+          "text": "precisa",
+          "start": 18.55,
+          "end": 19.02
+        },
+        {
+          "text": "enxergar",
+          "start": 19.02,
+          "end": 19.56
+        },
+        {
+          "text": "você",
+          "start": 19.56,
+          "end": 19.88
+        },
+        {
+          "text": "pra",
+          "start": 19.88,
+          "end": 20.08
+        },
+        {
+          "text": "saber",
+          "start": 20.08,
+          "end": 20.42
+        },
+        {
+          "text": "onde",
+          "start": 20.42,
+          "end": 20.68
+        },
+        {
+          "text": "você",
+          "start": 20.68,
+          "end": 21.05
+        },
+        {
+          "text": "está.",
+          "start": 21.05,
+          "end": 21.65
+        },
+        {
+          "text": "Ela",
+          "start": 21.65,
+          "end": 22.03
+        },
+        {
+          "text": "escuta.",
+          "start": 22.03,
+          "end": 23.2
+        },
+        {
+          "text": "Na",
+          "start": 23.2,
+          "end": 23.39
+        },
+        {
+          "text": "saída",
+          "start": 23.39,
+          "end": 23.96
+        },
+        {
+          "text": "da",
+          "start": 23.96,
+          "end": 24
+        },
+        {
+          "text": "sala,",
+          "start": 24,
+          "end": 24.33
+        },
+        {
+          "text": "escrito",
+          "start": 24.33,
+          "end": 24.88
+        },
+        {
+          "text": "na",
+          "start": 24.88,
+          "end": 25.04
+        },
+        {
+          "text": "parede:",
+          "start": 25.04,
+          "end": 25.72
+        },
+        {
+          "text": "se",
+          "start": 25.72,
+          "end": 25.88
+        },
+        {
+          "text": "ouvir",
+          "start": 25.88,
+          "end": 26.54
+        },
+        {
+          "text": "passos",
+          "start": 26.54,
+          "end": 26.77
+        },
+        {
+          "text": "atrás",
+          "start": 26.77,
+          "end": 27.26
+        },
+        {
+          "text": "de",
+          "start": 27.26,
+          "end": 27.42
+        },
+        {
+          "text": "você,",
+          "start": 27.42,
+          "end": 27.99
+        },
+        {
+          "text": "não",
+          "start": 27.99,
+          "end": 28.32
+        },
+        {
+          "text": "olhe",
+          "start": 28.32,
+          "end": 28.69
+        },
+        {
+          "text": "para",
+          "start": 28.69,
+          "end": 28.88
+        },
+        {
+          "text": "trás.",
+          "start": 28.88,
+          "end": 29.6
+        },
+        {
+          "text": "A",
+          "start": 29.61,
+          "end": 29.67
+        },
+        {
+          "text": "partir",
+          "start": 29.67,
+          "end": 30.09
+        },
+        {
+          "text": "daí,",
+          "start": 30.09,
+          "end": 30.51
+        },
+        {
+          "text": "o",
+          "start": 30.51,
+          "end": 30.57
+        },
+        {
+          "text": "objetivo",
+          "start": 30.57,
+          "end": 31.14
+        },
+        {
+          "text": "é",
+          "start": 31.14,
+          "end": 31.28
+        },
+        {
+          "text": "achar",
+          "start": 31.28,
+          "end": 31.68
+        },
+        {
+          "text": "três",
+          "start": 31.68,
+          "end": 31.98
+        },
+        {
+          "text": "fusíveis,",
+          "start": 31.98,
+          "end": 32.94
+        },
+        {
+          "text": "religar a",
+          "start": 32.94,
+          "end": 33.4
+        },
+        {
+          "text": "energia",
+          "start": 33.4,
+          "end": 34.02
+        },
+        {
+          "text": "no",
+          "start": 34.02,
+          "end": 34.19
+        },
+        {
+          "text": "quadro,",
+          "start": 34.19,
+          "end": 34.88
+        },
+        {
+          "text": "juntar",
+          "start": 34.88,
+          "end": 35.21
+        },
+        {
+          "text": "as",
+          "start": 35.21,
+          "end": 35.32
+        },
+        {
+          "text": "pistas",
+          "start": 35.32,
+          "end": 35.65
+        },
+        {
+          "text": "espalhadas",
+          "start": 35.65,
+          "end": 36.2
+        },
+        {
+          "text": "pelo",
+          "start": 36.2,
+          "end": 36.41
+        },
+        {
+          "text": "prédio,",
+          "start": 36.41,
+          "end": 36.96
+        },
+        {
+          "text": "descobrir",
+          "start": 36.96,
+          "end": 37.58
+        },
+        {
+          "text": "o",
+          "start": 37.58,
+          "end": 37.6
+        },
+        {
+          "text": "código",
+          "start": 37.6,
+          "end": 38.18
+        },
+        {
+          "text": "da",
+          "start": 38.18,
+          "end": 38.25
+        },
+        {
+          "text": "porta",
+          "start": 38.25,
+          "end": 38.5
+        },
+        {
+          "text": "de",
+          "start": 38.5,
+          "end": 38.63
+        },
+        {
+          "text": "saída,",
+          "start": 38.63,
+          "end": 39.04
+        },
+        {
+          "text": "e",
+          "start": 39.04,
+          "end": 39.16
+        },
+        {
+          "text": "fugir.",
+          "start": 39.16,
+          "end": 40.16
+        },
+        {
+          "text": "É",
+          "start": 40.16,
+          "end": 40.29
+        },
+        {
+          "text": "a",
+          "start": 40.29,
+          "end": 40.36
+        },
+        {
+          "text": "fórmula",
+          "start": 40.36,
+          "end": 40.92
+        },
+        {
+          "text": "clássica",
+          "start": 40.92,
+          "end": 41.48
+        },
+        {
+          "text": "de",
+          "start": 41.48,
+          "end": 41.64
+        },
+        {
+          "text": "jogo",
+          "start": 41.64,
+          "end": 41.87
+        },
+        {
+          "text": "de",
+          "start": 41.87,
+          "end": 42
+        },
+        {
+          "text": "terror:",
+          "start": 42,
+          "end": 42.64
+        },
+        {
+          "text": "chave,",
+          "start": 42.64,
+          "end": 43.53
+        },
+        {
+          "text": "código,",
+          "start": 43.53,
+          "end": 44.39
+        },
+        {
+          "text": "e",
+          "start": 44.39,
+          "end": 44.46
+        },
+        {
+          "text": "alguma",
+          "start": 44.46,
+          "end": 44.88
+        },
+        {
+          "text": "coisa",
+          "start": 44.88,
+          "end": 45.14
+        },
+        {
+          "text": "te",
+          "start": 45.14,
+          "end": 45.26
+        },
+        {
+          "text": "caçando",
+          "start": 45.26,
+          "end": 45.75
+        },
+        {
+          "text": "no",
+          "start": 45.75,
+          "end": 45.86
+        },
+        {
+          "text": "escuro.",
+          "start": 45.86,
+          "end": 46.48
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472097514-A IA criou o jogo de terror mais perturbador do ano - n05-gameplay.wav"
+    },
+    {
       "id": "g05-decepcao",
       "texto": "Aí eu fui jogar. E o jogo é bom! A lanterna acabando dá agonia, tem chave, tem código, tem susto. Mas a criatura… era uma figura esquisita, feita de formas simples. Não dava medo nenhum. E os objetos eram todos quadradões. Foi aí que eu tive uma ideia.",
       "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470116130-A IA criou o jogo de terror mais perturbador do ano - g05-decepcao.wav",
@@ -1902,302 +4137,372 @@
     },
     {
       "id": "g06-virada",
-      "texto": "E se outra inteligência artificial entrasse no projeto? Eu fiz um backup de tudo e abri o mesmo jogo no Gemini, a IA do Google. E pedi uma coisa bem específica: um monstro no estilo do Demogorgon, de Stranger Things. Só que com a cara sendo o símbolo do Claude. Como se o monstro tivesse sido criado por ele.",
-      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470123106-A IA criou o jogo de terror mais perturbador do ano - g06-virada.wav",
-      "duracao": 21.21,
+      "texto": "E aqui entra a terceira inteligência artificial. Eu queria testar o novo Gemini, a IA do Google, que aparece lá como Argon, dentro do Antigravity, o ambiente de programação do Google. Fiz um backup de tudo, abri o mesmo projeto, e pedi uma coisa bem específica: um monstro no estilo do Demogorgon, de Stranger Things. Só que com a cara sendo o símbolo do Claude. Como se o monstro tivesse sido criado por ele.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472106093-A IA criou o jogo de terror mais perturbador do ano - g06-virada.wav",
+      "duracao": 28.41,
       "palavras": [
         {
           "text": "E",
           "start": 0.06,
-          "end": 0.14
+          "end": 0.06
         },
         {
-          "text": "se",
-          "start": 0.14,
-          "end": 0.19
+          "text": "aqui",
+          "start": 0.06,
+          "end": 0.35
         },
         {
-          "text": "outra",
-          "start": 0.19,
-          "end": 0.56
-        },
-        {
-          "text": "inteligência",
-          "start": 0.56,
-          "end": 1.27
-        },
-        {
-          "text": "artificial",
-          "start": 1.27,
-          "end": 1.9
-        },
-        {
-          "text": "entrasse",
-          "start": 1.9,
-          "end": 2.43
-        },
-        {
-          "text": "no",
-          "start": 2.43,
-          "end": 2.55
-        },
-        {
-          "text": "projeto?",
-          "start": 2.55,
-          "end": 3.58
-        },
-        {
-          "text": "Eu",
-          "start": 3.58,
-          "end": 3.72
-        },
-        {
-          "text": "fiz",
-          "start": 3.72,
-          "end": 3.91
-        },
-        {
-          "text": "um",
-          "start": 3.91,
-          "end": 4.04
-        },
-        {
-          "text": "backup",
-          "start": 4.04,
-          "end": 4.44
-        },
-        {
-          "text": "de",
-          "start": 4.44,
-          "end": 4.57
-        },
-        {
-          "text": "tudo",
-          "start": 4.57,
-          "end": 4.86
-        },
-        {
-          "text": "e",
-          "start": 4.86,
-          "end": 4.98
-        },
-        {
-          "text": "abri",
-          "start": 4.98,
-          "end": 5.36
-        },
-        {
-          "text": "o",
-          "start": 5.36,
-          "end": 5.44
-        },
-        {
-          "text": "mesmo",
-          "start": 5.44,
-          "end": 5.87
-        },
-        {
-          "text": "jogo",
-          "start": 5.87,
-          "end": 6.24
-        },
-        {
-          "text": "no",
-          "start": 6.24,
-          "end": 6.38
-        },
-        {
-          "text": "Gemini,",
-          "start": 6.38,
-          "end": 7.12
-        },
-        {
-          "text": "a IA",
-          "start": 7.12,
-          "end": 7.54
-        },
-        {
-          "text": "do",
-          "start": 7.54,
-          "end": 7.88
-        },
-        {
-          "text": "Google.",
-          "start": 7.88,
-          "end": 8.54
-        },
-        {
-          "text": "E",
-          "start": 8.54,
-          "end": 8.74
-        },
-        {
-          "text": "pedi",
-          "start": 8.74,
-          "end": 8.96
-        },
-        {
-          "text": "uma",
-          "start": 8.96,
-          "end": 9.26
-        },
-        {
-          "text": "coisa",
-          "start": 9.26,
-          "end": 9.51
-        },
-        {
-          "text": "bem",
-          "start": 9.51,
-          "end": 9.75
-        },
-        {
-          "text": "específica:",
-          "start": 9.75,
-          "end": 10.52
-        },
-        {
-          "text": "um",
-          "start": 10.52,
-          "end": 10.72
-        },
-        {
-          "text": "monstro",
-          "start": 10.72,
-          "end": 11.44
-        },
-        {
-          "text": "no",
-          "start": 11.44,
-          "end": 11.65
-        },
-        {
-          "text": "estilo",
-          "start": 11.65,
-          "end": 12.26
-        },
-        {
-          "text": "do",
-          "start": 12.26,
-          "end": 12.46
-        },
-        {
-          "text": "Demogorgon,",
-          "start": 12.46,
-          "end": 13.75
-        },
-        {
-          "text": "de",
-          "start": 13.75,
-          "end": 13.94
-        },
-        {
-          "text": "Stranger",
-          "start": 13.94,
-          "end": 14.49
-        },
-        {
-          "text": "Things.",
-          "start": 14.49,
-          "end": 15
-        },
-        {
-          "text": "Só",
-          "start": 15,
-          "end": 15.28
-        },
-        {
-          "text": "que",
-          "start": 15.28,
-          "end": 15.56
-        },
-        {
-          "text": "com",
-          "start": 15.56,
-          "end": 15.84
+          "text": "entra",
+          "start": 0.35,
+          "end": 0.66
         },
         {
           "text": "a",
-          "start": 15.84,
-          "end": 16.12
+          "start": 0.66,
+          "end": 0.72
         },
         {
-          "text": "cara",
-          "start": 16.12,
-          "end": 16.62
+          "text": "terceira",
+          "start": 0.72,
+          "end": 1.25
         },
         {
-          "text": "sendo",
-          "start": 16.62,
-          "end": 16.77
+          "text": "inteligência",
+          "start": 1.25,
+          "end": 2.06
+        },
+        {
+          "text": "artificial.",
+          "start": 2.06,
+          "end": 3.04
+        },
+        {
+          "text": "Eu",
+          "start": 3.04,
+          "end": 3.18
+        },
+        {
+          "text": "queria",
+          "start": 3.18,
+          "end": 3.61
+        },
+        {
+          "text": "testar",
+          "start": 3.61,
+          "end": 4.04
         },
         {
           "text": "o",
-          "start": 16.77,
-          "end": 17.15
+          "start": 4.04,
+          "end": 4.22
         },
         {
-          "text": "símbolo",
-          "start": 17.15,
-          "end": 17.7
+          "text": "novo",
+          "start": 4.22,
+          "end": 4.4
+        },
+        {
+          "text": "Gemini,",
+          "start": 4.4,
+          "end": 5.03
+        },
+        {
+          "text": "a IA",
+          "start": 5.03,
+          "end": 5.28
         },
         {
           "text": "do",
-          "start": 17.7,
-          "end": 17.87
+          "start": 5.28,
+          "end": 5.43
         },
         {
-          "text": "Claude.",
-          "start": 17.87,
-          "end": 18.44
+          "text": "Google,",
+          "start": 5.43,
+          "end": 6.07
         },
         {
-          "text": "Como",
-          "start": 18.44,
-          "end": 18.71
+          "text": "que",
+          "start": 6.07,
+          "end": 6.35
         },
         {
-          "text": "se",
-          "start": 18.71,
-          "end": 18.8
+          "text": "aparece",
+          "start": 6.35,
+          "end": 6.47
+        },
+        {
+          "text": "lá",
+          "start": 6.47,
+          "end": 6.6
+        },
+        {
+          "text": "como",
+          "start": 6.6,
+          "end": 7.19
+        },
+        {
+          "text": "Argon,",
+          "start": 7.19,
+          "end": 7.7
+        },
+        {
+          "text": "dentro",
+          "start": 7.7,
+          "end": 8.02
+        },
+        {
+          "text": "do",
+          "start": 8.02,
+          "end": 8.12
+        },
+        {
+          "text": "Antigravity,",
+          "start": 8.12,
+          "end": 9.27
         },
         {
           "text": "o",
-          "start": 18.8,
-          "end": 18.92
+          "start": 9.27,
+          "end": 9.3
+        },
+        {
+          "text": "ambiente",
+          "start": 9.3,
+          "end": 9.89
+        },
+        {
+          "text": "de",
+          "start": 9.89,
+          "end": 10.05
+        },
+        {
+          "text": "programação",
+          "start": 10.05,
+          "end": 11.11
+        },
+        {
+          "text": "do",
+          "start": 11.11,
+          "end": 11.43
+        },
+        {
+          "text": "Google.",
+          "start": 11.43,
+          "end": 11.94
+        },
+        {
+          "text": "Fiz",
+          "start": 11.94,
+          "end": 12.3
+        },
+        {
+          "text": "um",
+          "start": 12.3,
+          "end": 12.54
+        },
+        {
+          "text": "backup",
+          "start": 12.54,
+          "end": 13.26
+        },
+        {
+          "text": "de",
+          "start": 13.26,
+          "end": 13.5
+        },
+        {
+          "text": "tudo,",
+          "start": 13.5,
+          "end": 14.24
+        },
+        {
+          "text": "abri",
+          "start": 14.24,
+          "end": 14.64
+        },
+        {
+          "text": "o",
+          "start": 14.64,
+          "end": 14.7
+        },
+        {
+          "text": "mesmo",
+          "start": 14.7,
+          "end": 15
+        },
+        {
+          "text": "projeto,",
+          "start": 15,
+          "end": 15.66
+        },
+        {
+          "text": "e",
+          "start": 15.66,
+          "end": 15.81
+        },
+        {
+          "text": "pedi",
+          "start": 15.81,
+          "end": 16.21
+        },
+        {
+          "text": "uma",
+          "start": 16.21,
+          "end": 16.49
+        },
+        {
+          "text": "coisa",
+          "start": 16.49,
+          "end": 16.96
+        },
+        {
+          "text": "bem",
+          "start": 16.96,
+          "end": 17.23
+        },
+        {
+          "text": "específica:",
+          "start": 17.23,
+          "end": 18.45
+        },
+        {
+          "text": "um",
+          "start": 18.45,
+          "end": 18.65
         },
         {
           "text": "monstro",
-          "start": 18.92,
-          "end": 19.34
+          "start": 18.65,
+          "end": 19.28
+        },
+        {
+          "text": "no",
+          "start": 19.28,
+          "end": 19.46
+        },
+        {
+          "text": "estilo do",
+          "start": 19.46,
+          "end": 20.02
+        },
+        {
+          "text": "Demogorgon,",
+          "start": 20.02,
+          "end": 21.08
+        },
+        {
+          "text": "de",
+          "start": 21.08,
+          "end": 21.12
+        },
+        {
+          "text": "Stranger",
+          "start": 21.12,
+          "end": 21.99
+        },
+        {
+          "text": "Things.",
+          "start": 21.99,
+          "end": 23.04
+        },
+        {
+          "text": "Só",
+          "start": 23.04,
+          "end": 23.23
+        },
+        {
+          "text": "que",
+          "start": 23.23,
+          "end": 23.42
+        },
+        {
+          "text": "com",
+          "start": 23.42,
+          "end": 23.61
+        },
+        {
+          "text": "a",
+          "start": 23.61,
+          "end": 23.69
+        },
+        {
+          "text": "cara",
+          "start": 23.69,
+          "end": 23.93
+        },
+        {
+          "text": "sendo",
+          "start": 23.93,
+          "end": 24.26
+        },
+        {
+          "text": "o",
+          "start": 24.26,
+          "end": 24.31
+        },
+        {
+          "text": "símbolo",
+          "start": 24.31,
+          "end": 24.84
+        },
+        {
+          "text": "do",
+          "start": 24.84,
+          "end": 24.96
+        },
+        {
+          "text": "Claude.",
+          "start": 24.96,
+          "end": 25.42
+        },
+        {
+          "text": "Como",
+          "start": 25.42,
+          "end": 25.47
+        },
+        {
+          "text": "se",
+          "start": 25.47,
+          "end": 25.8
+        },
+        {
+          "text": "o",
+          "start": 25.8,
+          "end": 26.02
+        },
+        {
+          "text": "monstro",
+          "start": 26.02,
+          "end": 26.35
         },
         {
           "text": "tivesse",
-          "start": 19.34,
-          "end": 19.84
+          "start": 26.35,
+          "end": 26.84
         },
         {
           "text": "sido",
-          "start": 19.84,
-          "end": 20.06
+          "start": 26.84,
+          "end": 27.03
         },
         {
           "text": "criado",
-          "start": 20.06,
-          "end": 20.36
+          "start": 27.03,
+          "end": 27.56
         },
         {
           "text": "por",
-          "start": 20.36,
-          "end": 20.58
+          "start": 27.56,
+          "end": 28.8
         },
         {
           "text": "ele.",
-          "start": 20.58,
-          "end": 20.96
+          "start": 28.8,
+          "end": 29.8
         }
       ],
-      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470123106-A IA criou o jogo de terror mais perturbador do ano - g06-virada.wav"
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472106093-A IA criou o jogo de terror mais perturbador do ano - g06-virada.wav"
     },
     {
       "id": "g07-gemini",
@@ -3509,408 +5814,882 @@
       "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470146016-A IA criou o jogo de terror mais perturbador do ano - g10-jogando.wav"
     },
     {
-      "id": "g11-veredito",
-      "texto": "Então, qual IA mandou melhor? O Claude construiu o jogo inteiro, testou sozinho, corrigiu os próprios erros, e até zerou o jogo no piloto automático. O Gemini pegou um jogo pronto e deixou ele bonito e assustador de verdade. Juntos, em poucas horas, saiu um jogo de terror que eu nunca ia conseguir fazer sozinho. Ainda tem defeitos: o prédio é pequeno, e algumas coisas ainda travam. Mas pra um jogo feito só com pedidos, é assustador o quanto ele evoluiu.",
-      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470154632-A IA criou o jogo de terror mais perturbador do ano - g11-veredito.wav",
-      "duracao": 28.41,
+      "id": "n07-versao-nova",
+      "texto": "Na versão nova, a dinâmica continua a mesma, mas tudo ficou mais vivo. Repara nos bilhetes, como esse livro de visitas da recepção: a última linha foi escrita com outra caligrafia. Ela não recebe visitas. Ela acompanha. O painel da saída ganhou teclas de verdade. E quando você digita o código certo, as luzes ficam vermelhas, o alarme dispara, e começa a fuga final. Lá fora, no pátio, debaixo da chuva, aparecem duas sombras no chão. Uma delas não é sua.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472117022-A IA criou o jogo de terror mais perturbador do ano - n07-versao-nova.wav",
+      "duracao": 35.01,
       "palavras": [
         {
-          "text": "Então,",
-          "start": 0.19,
-          "end": 0.6
+          "text": "Na",
+          "start": 0.07,
+          "end": 0.32
         },
         {
-          "text": "qual",
-          "start": 0.6,
-          "end": 1.07
+          "text": "versão",
+          "start": 0.32,
+          "end": 0.73
         },
         {
-          "text": "IA",
-          "start": 1.07,
-          "end": 1.14
+          "text": "nova,",
+          "start": 0.73,
+          "end": 1.29
         },
         {
-          "text": "mandou",
-          "start": 1.14,
-          "end": 1.52
+          "text": "a",
+          "start": 1.29,
+          "end": 1.37
         },
         {
-          "text": "melhor?",
-          "start": 1.52,
-          "end": 2.25
+          "text": "dinâmica",
+          "start": 1.37,
+          "end": 2.01
         },
         {
-          "text": "O",
-          "start": 2.25,
-          "end": 2.63
+          "text": "continua",
+          "start": 2.01,
+          "end": 2.66
         },
         {
-          "text": "Claude",
-          "start": 2.63,
-          "end": 2.92
+          "text": "a",
+          "start": 2.66,
+          "end": 2.74
         },
         {
-          "text": "construiu",
-          "start": 2.92,
-          "end": 3.68
+          "text": "mesma,",
+          "start": 2.74,
+          "end": 3.56
         },
         {
-          "text": "o",
-          "start": 3.68,
-          "end": 3.75
+          "text": "mas",
+          "start": 3.56,
+          "end": 3.62
         },
         {
-          "text": "jogo",
-          "start": 3.75,
-          "end": 4.08
+          "text": "tudo",
+          "start": 3.62,
+          "end": 4.03
         },
         {
-          "text": "inteiro,",
-          "start": 4.08,
-          "end": 4.84
+          "text": "ficou",
+          "start": 4.03,
+          "end": 4.41
         },
         {
-          "text": "testou",
-          "start": 4.84,
-          "end": 5.08
+          "text": "mais",
+          "start": 4.41,
+          "end": 4.65
         },
         {
-          "text": "sozinho,",
-          "start": 5.08,
-          "end": 5.84
+          "text": "vivo.",
+          "start": 4.65,
+          "end": 5.22
         },
         {
-          "text": "corrigiu",
-          "start": 5.84,
-          "end": 6.12
+          "text": "Repara",
+          "start": 5.22,
+          "end": 5.67
         },
         {
-          "text": "os",
-          "start": 6.12,
-          "end": 6.42
+          "text": "nos",
+          "start": 5.67,
+          "end": 5.9
         },
         {
-          "text": "próprios",
-          "start": 6.42,
-          "end": 6.84
+          "text": "bilhetes,",
+          "start": 5.9,
+          "end": 6.65
         },
         {
-          "text": "erros,",
-          "start": 6.84,
-          "end": 7.2
-        },
-        {
-          "text": "e",
-          "start": 7.2,
+          "text": "como",
+          "start": 6.65,
           "end": 7.23
         },
         {
-          "text": "até",
+          "text": "esse",
           "start": 7.23,
-          "end": 7.48
+          "end": 7.24
         },
         {
-          "text": "zerou",
-          "start": 7.48,
-          "end": 7.83
+          "text": "livro",
+          "start": 7.24,
+          "end": 7.62
         },
         {
-          "text": "o",
-          "start": 7.83,
-          "end": 7.89
+          "text": "de",
+          "start": 7.62,
+          "end": 7.8
         },
         {
-          "text": "jogo",
-          "start": 7.89,
-          "end": 8.16
-        },
-        {
-          "text": "no",
-          "start": 8.16,
+          "text": "visitas",
+          "start": 7.8,
           "end": 8.29
         },
         {
-          "text": "piloto",
+          "text": "da",
           "start": 8.29,
-          "end": 8.68
+          "end": 8.75
         },
         {
-          "text": "automático.",
-          "start": 8.68,
-          "end": 9.74
+          "text": "recepção:",
+          "start": 8.75,
+          "end": 9.38
+        },
+        {
+          "text": "a",
+          "start": 9.38,
+          "end": 9.7
+        },
+        {
+          "text": "última",
+          "start": 9.7,
+          "end": 9.97
+        },
+        {
+          "text": "linha",
+          "start": 9.97,
+          "end": 10.29
+        },
+        {
+          "text": "foi",
+          "start": 10.29,
+          "end": 10.75
+        },
+        {
+          "text": "escrita",
+          "start": 10.75,
+          "end": 10.99
+        },
+        {
+          "text": "com",
+          "start": 10.99,
+          "end": 11.19
+        },
+        {
+          "text": "outra",
+          "start": 11.19,
+          "end": 11.59
+        },
+        {
+          "text": "caligrafia.",
+          "start": 11.59,
+          "end": 12.64
+        },
+        {
+          "text": "Ela",
+          "start": 12.64,
+          "end": 12.96
+        },
+        {
+          "text": "não",
+          "start": 12.96,
+          "end": 13.29
+        },
+        {
+          "text": "recebe",
+          "start": 13.29,
+          "end": 14.01
+        },
+        {
+          "text": "visitas.",
+          "start": 14.01,
+          "end": 14.8
+        },
+        {
+          "text": "Ela",
+          "start": 14.8,
+          "end": 15.21
+        },
+        {
+          "text": "acompanha.",
+          "start": 15.21,
+          "end": 16.82
         },
         {
           "text": "O",
-          "start": 9.74,
-          "end": 9.79
+          "start": 16.82,
+          "end": 17.14
         },
         {
-          "text": "Gemini",
-          "start": 9.79,
-          "end": 10.52
+          "text": "painel",
+          "start": 17.14,
+          "end": 17.31
         },
         {
-          "text": "pegou",
-          "start": 10.52,
-          "end": 10.81
+          "text": "da",
+          "start": 17.31,
+          "end": 17.46
         },
         {
-          "text": "um",
-          "start": 10.81,
-          "end": 10.92
+          "text": "saída",
+          "start": 17.46,
+          "end": 17.87
         },
         {
-          "text": "jogo",
-          "start": 10.92,
-          "end": 11.14
+          "text": "ganhou",
+          "start": 17.87,
+          "end": 18.29
         },
         {
-          "text": "pronto",
-          "start": 11.14,
-          "end": 11.56
-        },
-        {
-          "text": "e",
-          "start": 11.56,
-          "end": 11.68
-        },
-        {
-          "text": "deixou",
-          "start": 11.68,
-          "end": 11.8
-        },
-        {
-          "text": "ele",
-          "start": 11.8,
-          "end": 12.05
-        },
-        {
-          "text": "bonito",
-          "start": 12.05,
-          "end": 12.52
-        },
-        {
-          "text": "e",
-          "start": 12.52,
-          "end": 12.78
-        },
-        {
-          "text": "assustador",
-          "start": 12.78,
-          "end": 13.45
+          "text": "teclas",
+          "start": 18.29,
+          "end": 18.63
         },
         {
           "text": "de",
-          "start": 13.45,
-          "end": 13.62
+          "start": 18.63,
+          "end": 18.83
         },
         {
           "text": "verdade.",
-          "start": 13.62,
-          "end": 14.46
+          "start": 18.83,
+          "end": 19.34
         },
         {
-          "text": "Juntos,",
-          "start": 14.46,
-          "end": 15.02
+          "text": "E",
+          "start": 19.34,
+          "end": 19.66
         },
         {
-          "text": "em",
-          "start": 15.02,
-          "end": 15.11
+          "text": "quando",
+          "start": 19.66,
+          "end": 19.77
         },
         {
-          "text": "poucas",
-          "start": 15.11,
-          "end": 15.75
+          "text": "você",
+          "start": 19.77,
+          "end": 20.08
         },
         {
-          "text": "horas,",
-          "start": 15.75,
-          "end": 16.06
-        },
-        {
-          "text": "saiu",
-          "start": 16.06,
-          "end": 16.3
-        },
-        {
-          "text": "um",
-          "start": 16.3,
-          "end": 16.64
-        },
-        {
-          "text": "jogo",
-          "start": 16.64,
-          "end": 16.84
-        },
-        {
-          "text": "de",
-          "start": 16.84,
-          "end": 17
-        },
-        {
-          "text": "terror",
-          "start": 17,
-          "end": 17.64
-        },
-        {
-          "text": "que eu",
-          "start": 17.64,
-          "end": 17.76
-        },
-        {
-          "text": "nunca",
-          "start": 17.76,
-          "end": 18.12
-        },
-        {
-          "text": "ia",
-          "start": 18.12,
-          "end": 18.26
-        },
-        {
-          "text": "conseguir",
-          "start": 18.26,
-          "end": 18.9
-        },
-        {
-          "text": "fazer",
-          "start": 18.9,
-          "end": 19.25
-        },
-        {
-          "text": "sozinho.",
-          "start": 19.25,
-          "end": 20.28
-        },
-        {
-          "text": "Ainda",
-          "start": 20.28,
-          "end": 20.39
-        },
-        {
-          "text": "tem",
-          "start": 20.39,
-          "end": 20.52
-        },
-        {
-          "text": "defeitos:",
-          "start": 20.52,
-          "end": 21.11
+          "text": "digita",
+          "start": 20.08,
+          "end": 20.42
         },
         {
           "text": "o",
-          "start": 21.11,
-          "end": 21.16
+          "start": 20.42,
+          "end": 20.71
         },
         {
-          "text": "prédio",
-          "start": 21.16,
-          "end": 21.66
+          "text": "código",
+          "start": 20.71,
+          "end": 20.94
         },
         {
-          "text": "é",
-          "start": 21.66,
-          "end": 21.7
+          "text": "certo,",
+          "start": 20.94,
+          "end": 21.47
         },
         {
-          "text": "pequeno,",
-          "start": 21.7,
+          "text": "as",
+          "start": 21.47,
+          "end": 21.6
+        },
+        {
+          "text": "luzes",
+          "start": 21.6,
           "end": 22.12
         },
         {
-          "text": "e",
+          "text": "ficam",
           "start": 22.12,
-          "end": 22.52
+          "end": 22.71
         },
         {
-          "text": "algumas",
-          "start": 22.52,
-          "end": 22.52
-        },
-        {
-          "text": "coisas",
-          "start": 22.52,
-          "end": 22.92
-        },
-        {
-          "text": "ainda",
-          "start": 22.92,
-          "end": 23.24
-        },
-        {
-          "text": "travam.",
-          "start": 23.24,
-          "end": 23.91
-        },
-        {
-          "text": "Mas",
-          "start": 23.91,
-          "end": 24.11
-        },
-        {
-          "text": "pra",
-          "start": 24.11,
-          "end": 24.32
-        },
-        {
-          "text": "um",
-          "start": 24.32,
-          "end": 24.45
-        },
-        {
-          "text": "jogo",
-          "start": 24.45,
-          "end": 25.04
-        },
-        {
-          "text": "feito",
-          "start": 25.04,
-          "end": 25.15
-        },
-        {
-          "text": "só com",
-          "start": 25.15,
-          "end": 25.28
-        },
-        {
-          "text": "pedidos,",
-          "start": 25.28,
-          "end": 26.06
-        },
-        {
-          "text": "é",
-          "start": 26.06,
-          "end": 26.2
-        },
-        {
-          "text": "assustador",
-          "start": 26.2,
-          "end": 26.86
+          "text": "vermelhas,",
+          "start": 22.71,
+          "end": 23.22
         },
         {
           "text": "o",
-          "start": 26.86,
-          "end": 26.92
+          "start": 23.22,
+          "end": 23.54
+        },
+        {
+          "text": "alarme",
+          "start": 23.54,
+          "end": 23.99
+        },
+        {
+          "text": "dispara,",
+          "start": 23.99,
+          "end": 24.76
+        },
+        {
+          "text": "e",
+          "start": 24.76,
+          "end": 24.87
+        },
+        {
+          "text": "começa",
+          "start": 24.87,
+          "end": 25.64
+        },
+        {
+          "text": "a",
+          "start": 25.64,
+          "end": 25.8
+        },
+        {
+          "text": "fuga",
+          "start": 25.8,
+          "end": 26.18
+        },
+        {
+          "text": "final.",
+          "start": 26.18,
+          "end": 27.1
+        },
+        {
+          "text": "Lá",
+          "start": 27.17,
+          "end": 27.42
+        },
+        {
+          "text": "fora,",
+          "start": 27.42,
+          "end": 28.04
+        },
+        {
+          "text": "no",
+          "start": 28.04,
+          "end": 28.47
+        },
+        {
+          "text": "pátio,",
+          "start": 28.47,
+          "end": 29.11
+        },
+        {
+          "text": "debaixo",
+          "start": 29.11,
+          "end": 29.68
+        },
+        {
+          "text": "da",
+          "start": 29.68,
+          "end": 29.83
+        },
+        {
+          "text": "chuva,",
+          "start": 29.83,
+          "end": 30.71
+        },
+        {
+          "text": "aparecem",
+          "start": 30.71,
+          "end": 31.21
+        },
+        {
+          "text": "duas",
+          "start": 31.21,
+          "end": 31.63
+        },
+        {
+          "text": "sombras",
+          "start": 31.63,
+          "end": 32.46
+        },
+        {
+          "text": "no",
+          "start": 32.46,
+          "end": 32.66
+        },
+        {
+          "text": "chão.",
+          "start": 32.66,
+          "end": 33.52
+        },
+        {
+          "text": "Uma",
+          "start": 33.52,
+          "end": 33.84
+        },
+        {
+          "text": "delas",
+          "start": 33.84,
+          "end": 33.94
+        },
+        {
+          "text": "não",
+          "start": 33.94,
+          "end": 34.16
+        },
+        {
+          "text": "é",
+          "start": 34.16,
+          "end": 34.25
+        },
+        {
+          "text": "sua.",
+          "start": 34.25,
+          "end": 34.6
+        }
+      ],
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472117022-A IA criou o jogo de terror mais perturbador do ano - n07-versao-nova.wav"
+    },
+    {
+      "id": "g11-veredito",
+      "texto": "Então, qual IA mandou melhor? O ChatGPT transformou uma ideia solta num plano completo. O Claude construiu o jogo inteiro, testou sozinho, corrigiu os próprios erros, e até zerou o jogo no piloto automático. E o Gemini pegou um jogo pronto e deixou ele bonito e assustador de verdade. Juntas, em poucas horas, elas fizeram um jogo de terror que eu nunca ia conseguir fazer sozinho. Ainda tem defeitos: o prédio é pequeno, e algumas coisas ainda travam. Mas pra um jogo feito só com pedidos, é assustador o quanto ele evoluiu.",
+      "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472126952-A IA criou o jogo de terror mais perturbador do ano - g11-veredito.wav",
+      "duracao": 33.93,
+      "palavras": [
+        {
+          "text": "Então,",
+          "start": 0.07,
+          "end": 0.82
+        },
+        {
+          "text": "qual",
+          "start": 0.82,
+          "end": 1.08
+        },
+        {
+          "text": "IA",
+          "start": 1.08,
+          "end": 1.26
+        },
+        {
+          "text": "mandou",
+          "start": 1.26,
+          "end": 1.89
+        },
+        {
+          "text": "melhor?",
+          "start": 1.89,
+          "end": 2.72
+        },
+        {
+          "text": "O",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "ChatGPT",
+          "start": 2.8,
+          "end": 3.54
+        },
+        {
+          "text": "transformou",
+          "start": 3.54,
+          "end": 4.37
+        },
+        {
+          "text": "uma",
+          "start": 4.37,
+          "end": 4.63
+        },
+        {
+          "text": "ideia",
+          "start": 4.63,
+          "end": 5.33
+        },
+        {
+          "text": "solta",
+          "start": 5.33,
+          "end": 5.55
+        },
+        {
+          "text": "num",
+          "start": 5.55,
+          "end": 5.76
+        },
+        {
+          "text": "plano",
+          "start": 5.76,
+          "end": 6.29
+        },
+        {
+          "text": "completo.",
+          "start": 6.29,
+          "end": 7.04
+        },
+        {
+          "text": "O",
+          "start": 7.04,
+          "end": 7.11
+        },
+        {
+          "text": "Claude",
+          "start": 7.11,
+          "end": 7.39
+        },
+        {
+          "text": "construiu",
+          "start": 7.39,
+          "end": 7.95
+        },
+        {
+          "text": "o",
+          "start": 7.95,
+          "end": 8
+        },
+        {
+          "text": "jogo",
+          "start": 8,
+          "end": 8.24
+        },
+        {
+          "text": "inteiro,",
+          "start": 8.24,
+          "end": 8.78
+        },
+        {
+          "text": "testou",
+          "start": 8.78,
+          "end": 9.26
+        },
+        {
+          "text": "sozinho,",
+          "start": 9.26,
+          "end": 9.87
+        },
+        {
+          "text": "corrigiu",
+          "start": 9.87,
+          "end": 10.04
+        },
+        {
+          "text": "os",
+          "start": 10.04,
+          "end": 10.15
+        },
+        {
+          "text": "próprios",
+          "start": 10.15,
+          "end": 10.75
+        },
+        {
+          "text": "erros,",
+          "start": 10.75,
+          "end": 11.1
+        },
+        {
+          "text": "e",
+          "start": 11.1,
+          "end": 11.17
+        },
+        {
+          "text": "até",
+          "start": 11.17,
+          "end": 11.51
+        },
+        {
+          "text": "zerou",
+          "start": 11.51,
+          "end": 11.89
+        },
+        {
+          "text": "o",
+          "start": 11.89,
+          "end": 12.04
+        },
+        {
+          "text": "jogo",
+          "start": 12.04,
+          "end": 12.31
+        },
+        {
+          "text": "no",
+          "start": 12.31,
+          "end": 12.43
+        },
+        {
+          "text": "piloto",
+          "start": 12.43,
+          "end": 12.86
+        },
+        {
+          "text": "automático.",
+          "start": 12.86,
+          "end": 13.84
+        },
+        {
+          "text": "E",
+          "start": 13.84,
+          "end": 13.91
+        },
+        {
+          "text": "o",
+          "start": 13.91,
+          "end": 13.96
+        },
+        {
+          "text": "Gemini",
+          "start": 13.96,
+          "end": 14.56
+        },
+        {
+          "text": "pegou",
+          "start": 14.56,
+          "end": 14.69
+        },
+        {
+          "text": "um",
+          "start": 14.69,
+          "end": 14.75
+        },
+        {
+          "text": "jogo",
+          "start": 14.75,
+          "end": 15.02
+        },
+        {
+          "text": "pronto",
+          "start": 15.02,
+          "end": 15.41
+        },
+        {
+          "text": "e",
+          "start": 15.41,
+          "end": 15.48
+        },
+        {
+          "text": "deixou ele",
+          "start": 15.48,
+          "end": 16.13
+        },
+        {
+          "text": "bonito",
+          "start": 16.13,
+          "end": 16.54
+        },
+        {
+          "text": "e",
+          "start": 16.54,
+          "end": 16.67
+        },
+        {
+          "text": "assustador",
+          "start": 16.67,
+          "end": 17.26
+        },
+        {
+          "text": "de",
+          "start": 17.26,
+          "end": 17.41
+        },
+        {
+          "text": "verdade.",
+          "start": 17.41,
+          "end": 18.2
+        },
+        {
+          "text": "Juntas,",
+          "start": 18.2,
+          "end": 18.79
+        },
+        {
+          "text": "em",
+          "start": 18.79,
+          "end": 19.02
+        },
+        {
+          "text": "poucas",
+          "start": 19.02,
+          "end": 19.25
+        },
+        {
+          "text": "horas,",
+          "start": 19.25,
+          "end": 19.58
+        },
+        {
+          "text": "elas",
+          "start": 19.58,
+          "end": 19.86
+        },
+        {
+          "text": "fizeram",
+          "start": 19.86,
+          "end": 20.44
+        },
+        {
+          "text": "um",
+          "start": 20.44,
+          "end": 20.46
+        },
+        {
+          "text": "jogo",
+          "start": 20.46,
+          "end": 20.82
+        },
+        {
+          "text": "de",
+          "start": 20.82,
+          "end": 21.03
+        },
+        {
+          "text": "terror",
+          "start": 21.03,
+          "end": 21.32
+        },
+        {
+          "text": "que",
+          "start": 21.32,
+          "end": 21.46
+        },
+        {
+          "text": "eu",
+          "start": 21.46,
+          "end": 21.6
+        },
+        {
+          "text": "nunca",
+          "start": 21.6,
+          "end": 21.93
+        },
+        {
+          "text": "ia",
+          "start": 21.93,
+          "end": 22.12
+        },
+        {
+          "text": "conseguir",
+          "start": 22.12,
+          "end": 22.76
+        },
+        {
+          "text": "fazer",
+          "start": 22.76,
+          "end": 23.05
+        },
+        {
+          "text": "sozinho.",
+          "start": 23.05,
+          "end": 24.52
+        },
+        {
+          "text": "Ainda",
+          "start": 24.52,
+          "end": 24.83
+        },
+        {
+          "text": "tem",
+          "start": 24.83,
+          "end": 25.29
+        },
+        {
+          "text": "defeitos:",
+          "start": 25.29,
+          "end": 25.68
+        },
+        {
+          "text": "o",
+          "start": 25.68,
+          "end": 25.74
+        },
+        {
+          "text": "prédio",
+          "start": 25.74,
+          "end": 26.19
+        },
+        {
+          "text": "é",
+          "start": 26.19,
+          "end": 26.31
+        },
+        {
+          "text": "pequeno,",
+          "start": 26.31,
+          "end": 26.77
+        },
+        {
+          "text": "e",
+          "start": 26.77,
+          "end": 27.18
+        },
+        {
+          "text": "algumas",
+          "start": 27.18,
+          "end": 27.35
+        },
+        {
+          "text": "coisas",
+          "start": 27.35,
+          "end": 27.67
+        },
+        {
+          "text": "ainda",
+          "start": 27.67,
+          "end": 28.09
+        },
+        {
+          "text": "travam.",
+          "start": 28.09,
+          "end": 28.64
+        },
+        {
+          "text": "Mas",
+          "start": 28.64,
+          "end": 28.79
+        },
+        {
+          "text": "pra",
+          "start": 28.79,
+          "end": 29
+        },
+        {
+          "text": "um",
+          "start": 29,
+          "end": 29.1
+        },
+        {
+          "text": "jogo",
+          "start": 29.1,
+          "end": 29.36
+        },
+        {
+          "text": "feito",
+          "start": 29.43,
+          "end": 30.18
+        },
+        {
+          "text": "só",
+          "start": 30.18,
+          "end": 30.27
+        },
+        {
+          "text": "com",
+          "start": 30.27,
+          "end": 30.57
+        },
+        {
+          "text": "pedidos,",
+          "start": 30.57,
+          "end": 31.58
+        },
+        {
+          "text": "é",
+          "start": 31.58,
+          "end": 31.59
+        },
+        {
+          "text": "assustador",
+          "start": 31.59,
+          "end": 32.17
+        },
+        {
+          "text": "o",
+          "start": 32.17,
+          "end": 32.19
         },
         {
           "text": "quanto",
-          "start": 26.92,
-          "end": 27.44
+          "start": 32.19,
+          "end": 32.5
         },
         {
           "text": "ele",
-          "start": 27.44,
-          "end": 27.7
+          "start": 32.5,
+          "end": 32.66
         },
         {
           "text": "evoluiu.",
-          "start": 27.7,
-          "end": 28.08
+          "start": 32.66,
+          "end": 33.24
         }
       ],
-      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793470154632-A IA criou o jogo de terror mais perturbador do ano - g11-veredito.wav"
+      "palavrasDe": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793472126952-A IA criou o jogo de terror mais perturbador do ano - g11-veredito.wav"
     },
     {
       "id": "g12-cta",

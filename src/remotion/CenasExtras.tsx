@@ -290,3 +290,74 @@ export function CenaLogos({ cena, frame, fps, escala }: P) {
     </div>
   );
 }
+
+/**
+ * Fluxo entre ferramentas (ex.: ChatGPT → Claude → Gemini): cada etapa entra uma depois da
+ * outra, a seta "desenha" de uma para a próxima, um ponto de luz percorre o caminho sem parar
+ * e, no fim, uma seta de volta fecha o ciclo. `icones` = logos (em midia/banco/logos),
+ * `itens` = "NOME|papel" de cada etapa, `subtitulo` = texto da seta de volta (opcional).
+ */
+export function CenaFluxo({ cena, frame, fps, escala }: P) {
+  const cor = cena.destaque || '#a855f7';
+  const n = Math.max(1, cena.itens.length);
+  const passo = Math.round(fps * 1.1);
+  const lado = 210 * escala;
+  const vao = 150 * escala;
+  const larguraTotal = n * lado + (n - 1) * vao;
+  const xs = Array.from({ length: n }, (_, i) => i * (lado + vao));
+  const fimSetas = 6 + (n - 1) * passo + passo;
+  const ciclo = spring({ frame: frame - fimSetas, fps, config: { damping: 200 }, durationInFrames: Math.round(fps * 0.9) });
+  // ponto de luz que anda pelo caminho inteiro (ida + volta) em loop
+  const volta = (frame % Math.round(fps * 3.2)) / (fps * 3.2);
+  return (
+    <div>
+      <div style={{ textAlign: 'center', marginBottom: 40 * escala }}>
+        <div style={{ fontSize: 60 * escala, fontWeight: 900, color: BRANCO, letterSpacing: -1 * escala }}>{cena.titulo}</div>
+      </div>
+      <div style={{ position: 'relative', width: larguraTotal, height: lado + 230 * escala, margin: '0 auto' }}>
+        {/* setas entre as etapas */}
+        {xs.slice(0, -1).map((x, i) => {
+          const p = interpolate(frame, [6 + i * passo + passo * 0.45, 6 + (i + 1) * passo], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+          return (
+            <div key={`s${i}`} style={{ position: 'absolute', left: x + lado + 14 * escala, top: lado / 2 - 4 * escala, width: (vao - 28 * escala) * p, height: 8 * escala, borderRadius: 8 * escala, background: `linear-gradient(90deg, ${cor}55, ${cor})`, boxShadow: `0 0 ${18 * escala}px ${cor}` }}>
+              <div style={{ position: 'absolute', right: -6 * escala, top: -9 * escala, width: 0, height: 0, opacity: p > 0.95 ? 1 : 0, borderTop: `${13 * escala}px solid transparent`, borderBottom: `${13 * escala}px solid transparent`, borderLeft: `${20 * escala}px solid ${cor}` }} />
+            </div>
+          );
+        })}
+        {/* seta de volta (o ciclo), por baixo */}
+        {n > 1 && (
+          <svg width={larguraTotal} height={200 * escala} style={{ position: 'absolute', left: 0, top: lado + 20 * escala, overflow: 'visible', opacity: ciclo }}>
+            <path
+              d={`M ${xs[n - 1] + lado / 2} 0 C ${xs[n - 1] + lado / 2} ${150 * escala}, ${lado / 2} ${150 * escala}, ${lado / 2} 0`}
+              fill="none" stroke={cor} strokeWidth={6 * escala} strokeDasharray={`${14 * escala} ${12 * escala}`}
+              strokeDashoffset={-frame * 2 * escala} opacity={0.85}
+            />
+            {cena.subtitulo && (
+              <text x={larguraTotal / 2} y={150 * escala} textAnchor="middle" fill={BRANCO} fontSize={30 * escala} fontWeight={800}>{cena.subtitulo}</text>
+            )}
+          </svg>
+        )}
+        {/* ponto de luz percorrendo a fila */}
+        {frame > fimSetas && n > 1 && (
+          <div style={{ position: 'absolute', top: lado / 2 - 11 * escala, left: lado / 2 + volta * (xs[n - 1]) - 11 * escala, width: 22 * escala, height: 22 * escala, borderRadius: '50%', background: '#fff', boxShadow: `0 0 ${24 * escala}px ${10 * escala}px ${cor}` }} />
+        )}
+        {/* as etapas */}
+        {xs.map((x, i) => {
+          const e = spring({ frame: frame - 6 - i * passo, fps, config: { damping: 11, stiffness: 150 } });
+          const [nome, papel] = (cena.itens[i] ?? '').split('|');
+          const icone = cena.icones?.[i];
+          const arq = icone && (/\.(svg|png|jpe?g|webp)$/i.test(icone) ? icone : `${icone}.svg`);
+          return (
+            <div key={i} style={{ position: 'absolute', left: x, top: 0, width: lado, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: Math.min(1, e), transform: `scale(${interpolate(e, [0, 1], [0.4, 1])})` }}>
+              <div style={{ width: lado, height: lado, borderRadius: 48 * escala, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 0 0 ${6 * escala}px ${cor}, 0 ${16 * escala}px ${44 * escala}px rgba(0,0,0,.6)` }}>
+                {arq && <Img src={staticFile(`midia/banco/logos/${arq}`)} style={{ width: '60%', height: '60%', objectFit: 'contain' }} />}
+              </div>
+              <div style={{ fontSize: 38 * escala, fontWeight: 900, color: BRANCO, marginTop: 20 * escala, textShadow: '0 4px 14px rgba(0,0,0,.8)', whiteSpace: 'nowrap' }}>{nome}</div>
+              {papel && <div style={{ fontSize: 28 * escala, fontWeight: 700, color: cor, marginTop: 6 * escala, whiteSpace: 'nowrap', textShadow: '0 4px 14px rgba(0,0,0,.8)' }}>{papel}</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

@@ -115,6 +115,18 @@
       90,
       760,
       855
+    ],
+    "telacheia": [
+      0,
+      0,
+      1920,
+      1080
+    ],
+    "modelo": [
+      420,
+      830,
+      480,
+      270
     ]
   },
   "blocos": [
@@ -211,6 +223,98 @@
       ]
     },
     {
+      "seg": "n01-chrome",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 384,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "chrome",
+          "fonte": "J5",
+          "src": 92,
+          "area": "telacheia",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "RODA DIRETO NO CHROME"
+        },
+        {
+          "em": "javascript",
+          "src": 1020,
+          "vel": 110,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "JAVASCRIPT + THREE.JS"
+        },
+        {
+          "em": "tecnologia",
+          "fonte": "J1",
+          "src": 155,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "time",
+          "fonte": "J4",
+          "src": 150,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
+      "seg": "n02-time",
+      "tomadas": [
+        {
+          "em": 0,
+          "src": 3700,
+          "vel": 30,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "gemini",
+          "fonte": "G2",
+          "src": 995,
+          "area": "gemtexto",
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "planeja",
+          "fonte": "J5",
+          "src": 120,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ]
+        }
+      ]
+    },
+    {
       "seg": "g01-pedido",
       "cartao": [
         "PARTE 1",
@@ -231,10 +335,11 @@
           "zoom": [
             1,
             1.05
-          ]
+          ],
+          "selo": "CHATGPT · O PLANO"
         },
         {
-          "em": "chatgpt",
+          "em": "expliquei",
           "src": 25,
           "area": [
             700,
@@ -246,10 +351,20 @@
             1,
             1.1
           ],
-          "texto": "PROMPT ESCRITO PELO CHATGPT"
+          "texto": "MINHA IDEIA EM POUCAS LINHAS"
         },
         {
-          "em": "nome",
+          "em": "prompt",
+          "src": 40,
+          "area": "gpt",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "UM PROMPT ENORME"
+        },
+        {
+          "em": "chama",
           "src": 27,
           "area": [
             700,
@@ -281,9 +396,14 @@
             1.1
           ],
           "texto": "18 CRITÉRIOS DE APROVAÇÃO"
-        },
+        }
+      ]
+    },
+    {
+      "seg": "n03-claude",
+      "tomadas": [
         {
-          "em": "claude",
+          "em": 0,
           "src": 106,
           "area": [
             600,
@@ -295,7 +415,57 @@
             1,
             1.08
           ],
-          "selo": "CLAUDE · OPUS 5.5"
+          "selo": "CLAUDE · ANTHROPIC"
+        },
+        {
+          "em": "grandes",
+          "src": 1020,
+          "vel": 110,
+          "area": "tela",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "PROJETOS GRANDES, DEZENAS DE ARQUIVOS"
+        },
+        {
+          "em": "pasta",
+          "src": 150,
+          "vel": 140,
+          "area": [
+            560,
+            40,
+            1000,
+            640
+          ],
+          "zoom": [
+            1,
+            1.05
+          ]
+        },
+        {
+          "em": "navegador",
+          "src": 1745,
+          "area": "painel",
+          "zoom": [
+            1,
+            1.06
+          ]
+        },
+        {
+          "em": "opus",
+          "src": 2040,
+          "area": [
+            880,
+            960,
+            560,
+            100
+          ],
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "OPUS 5.5"
         },
         {
           "em": "permissao",
@@ -401,6 +571,69 @@
             1.08
           ],
           "texto": "BUG: CADEIRA BLOQUEANDO A SALA"
+        }
+      ]
+    },
+    {
+      "seg": "n04-tecnico",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J1",
+          "src": 155,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "TEXTURAS DESENHADAS PELO CÓDIGO"
+        },
+        {
+          "em": "piso",
+          "fonte": "J1",
+          "src": 245,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.12
+          ]
+        },
+        {
+          "em": "sons",
+          "fonte": "J5",
+          "src": 65,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.6,
+          "texto": "SONS SINTETIZADOS"
+        },
+        {
+          "em": "roda",
+          "src": 2045,
+          "area": [
+            430,
+            500,
+            760,
+            428
+          ],
+          "zoom": [
+            1,
+            1.06
+          ],
+          "texto": "60 QUADROS POR SEGUNDO"
+        },
+        {
+          "em": "navegacao",
+          "src": 3482,
+          "area": "chat",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "texto": "NAVEGAÇÃO A* (A-ESTRELA)"
         }
       ]
     },
@@ -518,23 +751,107 @@
       ]
     },
     {
-      "pausa": 9,
+      "seg": "n05-gameplay",
       "tomadas": [
         {
           "em": 0,
           "fonte": "J1",
-          "src": 125,
+          "src": 6,
           "area": "jogo1",
           "zoom": [
             1,
-            1.06
+            1.08
           ],
-          "selo": "EU JOGANDO · VERSÃO DO CLAUDE"
+          "selo": "COMO FUNCIONA O JOGO"
         },
         {
-          "em": 4.5,
+          "em": "lanterna",
           "fonte": "J1",
-          "src": 245,
+          "src": 18,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "bilhete",
+          "fonte": "J1",
+          "src": 35,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.18
+          ]
+        },
+        {
+          "em": "parede",
+          "fonte": "J1",
+          "src": 64,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "objetivo",
+          "fonte": "J4",
+          "src": 33,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "3 FUSÍVEIS"
+        },
+        {
+          "em": "energia",
+          "fonte": "J4",
+          "src": 211,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "texto": "RELIGAR A ENERGIA"
+        },
+        {
+          "em": "pistas",
+          "fonte": "J1",
+          "src": 545,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "texto": "PISTAS PELO PRÉDIO"
+        },
+        {
+          "em": "codigo",
+          "fonte": "J5",
+          "src": 349,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "O CÓDIGO DA SAÍDA"
+        },
+        {
+          "em": "fugir",
+          "fonte": "J1",
+          "src": 603,
+          "area": "jogo1",
+          "zoom": [
+            1,
+            1.08
+          ]
+        },
+        {
+          "em": "formula",
+          "fonte": "J1",
+          "src": 455,
           "area": "jogo1",
           "zoom": [
             1,
@@ -625,6 +942,28 @@
           ]
         },
         {
+          "em": "testar",
+          "fonte": "G2",
+          "src": 995,
+          "area": "modelo",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "texto": "GEMINI 4 ARGON"
+        },
+        {
+          "em": "antigravity",
+          "fonte": "G2",
+          "src": 1000,
+          "area": "gemtexto",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "ANTIGRAVITY · GOOGLE"
+        },
+        {
           "em": "backup",
           "fonte": "G2",
           "src": 24,
@@ -639,17 +978,6 @@
             1.08
           ],
           "texto": "BACKUP DE TUDO"
-        },
-        {
-          "em": "gemini",
-          "fonte": "G2",
-          "src": 60,
-          "area": "gem2",
-          "zoom": [
-            1,
-            1.05
-          ],
-          "selo": "GEMINI · GOOGLE"
         },
         {
           "em": "demogorgon",
@@ -1063,6 +1391,133 @@
       ]
     },
     {
+      "seg": "n07-versao-nova",
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 30,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.5,
+          "selo": "VERSÃO NOVA"
+        },
+        {
+          "em": "bilhetes",
+          "fonte": "J5",
+          "src": 95.5,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.15
+          ]
+        },
+        {
+          "em": "caligrafia",
+          "fonte": "J5",
+          "src": 97,
+          "area": [
+            640,
+            540,
+            640,
+            360
+          ],
+          "zoom": [
+            1,
+            1.08
+          ],
+          "texto": "\"ELA NÃO RECEBE VISITAS. ELA ACOMPANHA.\""
+        },
+        {
+          "em": "painel",
+          "fonte": "J5",
+          "src": 349,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.12
+          ],
+          "som": 0.5
+        },
+        {
+          "em": "vermelhas",
+          "fonte": "J5",
+          "src": 360,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "som": 0.5
+        },
+        {
+          "em": "patio",
+          "fonte": "J5",
+          "src": 375,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.1
+          ],
+          "som": 0.5
+        },
+        {
+          "em": "sombras",
+          "fonte": "J5",
+          "src": 376.5,
+          "area": "jogo5",
+          "zoom": [
+            1.15,
+            1.35
+          ],
+          "som": 0.5,
+          "sfx": "hells-kitchen-suspense"
+        }
+      ]
+    },
+    {
+      "pausa": 40,
+      "tomadas": [
+        {
+          "em": 0,
+          "fonte": "J5",
+          "src": 125,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.06
+          ],
+          "som": 0.9,
+          "selo": "EU JOGANDO · VERSÃO NOVA"
+        },
+        {
+          "em": 13,
+          "fonte": "J5",
+          "src": 200,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "som": 0.9
+        },
+        {
+          "em": 26,
+          "fonte": "J5",
+          "src": 260,
+          "area": "jogo5",
+          "zoom": [
+            1,
+            1.08
+          ],
+          "som": 0.9
+        }
+      ]
+    },
+    {
       "seg": "g11-veredito",
       "cartao": [
         "VEREDITO",
@@ -1091,6 +1546,16 @@
           ]
         },
         {
+          "em": "chatgpt",
+          "src": 18,
+          "area": "gpt",
+          "zoom": [
+            1,
+            1.05
+          ],
+          "selo": "CHATGPT: O PLANO"
+        },
+        {
           "em": "claude",
           "src": 5783,
           "vel": 2.5,
@@ -1113,7 +1578,7 @@
           "selo": "GEMINI: DEIXOU ASSUSTADOR"
         },
         {
-          "em": "juntos",
+          "em": "juntas",
           "fonte": "J5",
           "src": 375,
           "area": "jogo5",
@@ -1184,5 +1649,20 @@
         }
       ]
     }
+  ],
+  "legendaEm": [
+    "n01-chrome",
+    "g01-pedido",
+    "n03-claude",
+    "g02-construcao",
+    "n04-tecnico",
+    "g03-mouse",
+    "g04-criatura",
+    "n05-gameplay",
+    "g05-decepcao",
+    "g06-virada",
+    "g07-gemini",
+    "g07b-objetos",
+    "g11-veredito"
   ]
 }

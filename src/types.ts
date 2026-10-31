@@ -43,6 +43,11 @@ export type CaptionStyle = {
   emphases: [Emphasis, Emphasis];
   /** aplica ênfase sozinho quando a palavra não foi marcada à mão */
   autoEnfase: AutoEnfase;
+  /**
+   * Legenda só nestes trechos ([início, fim] em s). Vazio/ausente = vídeo todo.
+   * Para vídeos longos em que a legenda não precisa aparecer o tempo inteiro.
+   */
+  trechos?: [number, number][];
 };
 
 export type Template = {
@@ -283,6 +288,8 @@ export type TipoCenaRemotion =
   | 'celular'
   | 'frase'
   | 'logos'
+  /** etapas ligadas por setas (ChatGPT → Claude → Gemini), com ponto de luz e seta de volta */
+  | 'fluxo'
   | 'manchete'
   | 'print'
   | 'quiz'

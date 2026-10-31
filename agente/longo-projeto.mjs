@@ -68,6 +68,8 @@ const cenas = P.cenas.map((c, i) => {
   return { id: `cena-${i}`, start: +t.toFixed(2), duracao: dur, itens: [], ...resto };
 });
 
+// legenda só nos trechos escolhidos (montagem.legendaEm = ids dos segmentos); sem a lista, o vídeo todo
+const trechos = (M.legendaEm ?? []).flatMap((id) => L.blocos.filter((b) => b.seg === id).map((b) => [+b.t0.toFixed(2), +(b.t0 + b.dur).toFixed(2)]));
 const palavras = L.blocos.flatMap((b) => b.palavras.map((w) => ({ text: w.text, start: w.start, end: w.end })));
 const projeto = {
   versao: 1,
@@ -80,7 +82,7 @@ const projeto = {
   largura: 1920,
   altura: 1080,
   template: P.template,
-  estilo: P.estilo,
+  estilo: { ...P.estilo, ...(trechos.length ? { trechos } : {}) },
   movimento: 'off',
   forcaZoom: 1,
   zoomsManuais: [],
