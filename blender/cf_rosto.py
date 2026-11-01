@@ -84,6 +84,14 @@ def pontos_no_rosto(arm, ini, fim, passo=0.012, x=(-0.17, 0.17), z=(0.68, 1.02),
     return n
 
 
+def afinar_letras(*nomes):
+    """no close as letras são pequenas: a extrusão padrão da etiqueta engrossa e borra o contorno"""
+    for n in nomes:
+        t = bpy.data.objects[n + '_txt']
+        t.data.extrude = 0.0012
+        t.data.bevel_depth = 0.0003
+
+
 def regua(nome, a, b, quadro, cor=(0.2, 0.9, 1.0)):
     """linha de medida entre dois pontos (com bolinhas nas pontas), crescendo do meio"""
     a, b = Vector(a), Vector(b)
@@ -154,6 +162,7 @@ def t_pontos():
     aparecer(e, s2q(3.7))
     i = etiqueta('inv', 'LUZ INVISÍVEL', VERMELHO_IR, (1, 1, 1), (0.0, -0.25, 0.6), largura=0.42, altura=0.07, tam=0.038)
     aparecer(i, s2q(5.4))
+    afinar_letras('n', 'inv')
     cam_suave(cam, alvo, [(1, (0.12, -1.35, 0.9), (0, 0, 0.86)), (fim, (-0.05, -1.05, 0.86), (0, 0, 0.85))])
 
 
@@ -171,6 +180,7 @@ def t_mede():
     for k, (txt, z, q, cor) in enumerate((('OLHOS', (0, 0.93), 1.5, (0.2, 0.75, 0.95)), ('NARIZ', (-0.14, 0.8), 2.7, (0.98, 0.72, 0.2)), ('QUEIXO', (0, 0.665), 3.6, (0.35, 0.78, 0.45)))):
         e = etiqueta(f'e{k}', txt, cor, (1, 1, 1), (z[0], -0.27, z[1]), largura=0.17, altura=0.055, tam=0.03)
         aparecer(e, s2q(q))
+    afinar_letras('e0', 'e1', 'e2')
     cam_suave(cam, alvo, [(1, (0, -1.0, 0.86), (0, 0, 0.83)), (fim, (0, -0.9, 0.85), (0, 0, 0.82))])
 
 
