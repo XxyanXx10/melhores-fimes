@@ -325,6 +325,8 @@ async function aplicar(arqProjeto, arqPlano, arqSaida) {
         x: corpo.x ?? 50,
         y: corpo.y ?? 50,
         saidaRapida: true,
+        // "camada": "fundo" (na cena ou no plano): o vídeo fica por baixo das cenas animadas e sem a sombra da legenda
+        ...((corpo.camada ?? plano.camada) === 'fundo' ? { camada: 'fundo' } : {}),
         ...(semLegenda !== undefined ? { semLegenda } : {}),
         // imagem parada vira "animada" com uma aproximação lenta (ou afastamento)
         trajeto:

@@ -1,0 +1,7 @@
+{
+  "titulo": "Como funciona - como o ChatGPT escreve",
+  "formato": "como-funciona-3d",
+  "texto": "Como o ChatGPT escreve uma resposta? Ele não procura a resposta pronta em lugar nenhum. Ele adivinha. Uma palavra de cada vez. Quando você escreve, por exemplo: a capital do Brasil é… o texto vira pedacinhos, chamados tokens. Aí ele calcula qual pedaço tem mais chance de vir depois. Brasília, muita chance. Rio, pouca. São Paulo, quase nenhuma. Ele escolhe Brasília, coloca no final, e faz tudo de novo pra próxima palavra. Milhares de vezes, em poucos segundos. Mas como ele sabe as chances? Ele leu uma quantidade gigante de textos: sites, livros, conversas. E aprendeu quais palavras costumam vir depois de quais. É por isso que às vezes ele inventa. Quando não sabe, ele ainda escolhe a palavra que parece certa. Isso tem até nome: alucinação. Então, o ChatGPT não pensa como a gente. Ele é o maior adivinhador de palavras do mundo. Você sabia disso? Comenta aí.",
+  "audio": "D:\\Edição de video simplificado\\render\\.fontes\\narracoes\\1793511016552-Como funciona - como o ChatGPT escreve.wav",
+  "projeto": "Como funciona - como o ChatGPT escreve.json"
+}

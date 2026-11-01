@@ -22,7 +22,7 @@ const vertical = (p.altura ?? 1920) > (p.largura ?? 1080);
 const MODOS = vertical
   ? { explica: { pasta: 'midia/personagem/bolha', x: 50, y: 30, largura: 52, entrada: 'escala' },
       canto: { pasta: 'midia/personagem', x: 85, y: 87, largura: 20, entrada: 'pop' },
-      bolha: { pasta: 'midia/personagem/bolha', x: 50, y: 40, largura: 56, entrada: 'escala' } }
+      bolha: { pasta: 'midia/personagem/bolha', x: 50, y: 68, largura: 56, entrada: 'escala' } }
   : { explica: { pasta: 'midia/personagem/bolha', x: 50, y: 40, largura: 26, entrada: 'escala' },
       canto: { pasta: 'midia/personagem', x: 89, y: 70, largura: 12, entrada: 'pop' },
       bolha: { pasta: 'midia/personagem/bolha', x: 50, y: 48, largura: 30, entrada: 'escala' } };
@@ -71,7 +71,8 @@ p.cenasRemotion = (p.cenasRemotion ?? []).filter((c) => c.tipo !== 'inscrever');
 if (!semCta) {
   // no fim ele aparece pequeno em cima do botão, feliz, pedindo a inscrição
   const md = MODOS.explica;
-  p.fotos.push({ id: 'pers-fim', src: `${md.pasta}/feliz.png`, start: +inicioCta.toFixed(2), duracao: +(dur - inicioCta).toFixed(2),
+  // --sem-bolha-fim: o botão sem a bolha (quando o apresentador já está em cena, como na série 3D)
+  if (!process.argv.includes('--sem-bolha-fim')) p.fotos.push({ id: 'pers-fim', src: `${md.pasta}/feliz.png`, start: +inicioCta.toFixed(2), duracao: +(dur - inicioCta).toFixed(2),
     entrada: 'escala', largura: md.largura * 0.6, x: md.x, y: vertical ? 24 : 22 });
   p.cenasRemotion.push({ id: 'cena-inscrever', tipo: 'inscrever', start: +inicioCta.toFixed(2), duracao: +(dur - inicioCta + 0.2).toFixed(2),
     titulo: cta, subtitulo: 'e ativa o sininho 🔔', itens: [], semLegenda: true });
