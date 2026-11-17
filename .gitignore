@@ -38,3 +38,9 @@ render/.inicio_*
 ideias/ideias.json
 banco-cenas/
 tmp_diag/
+
+# conexao remota (PC de casa): senha e arquivos de trabalho
+remoto/config.json
+remoto/.estacao/
+remoto/.cliente/
+public/midia/_remoto/
