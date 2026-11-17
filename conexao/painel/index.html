@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conexão — render no PC de casa</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --fundo: #0d0f13;
+    --painel: #151820;
+    --painel2: #1b1f29;
+    --borda: #262b37;
+    --texto: #e8eaf0;
+    --suave: #8d95a6;
+    --apagado: #5b6273;
+    --azul: #7aa2ff;
+    --verde: #39d98a;
+    --ambar: #f6b546;
+    --vermelho: #ff6f6f;
+    --roxo: #b48cff;
+    --raio: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); }
+  body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button, input, select { font: inherit; color: inherit; }
+  a { color: var(--azul); }
+  .topo {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; align-items: center; gap: 18px;
+    padding: 12px 24px; background: rgba(13,15,19,.88); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--borda);
+  }
+  .marca { font-weight: 700; letter-spacing: .2px; display: flex; align-items: center; gap: 10px; }
+  .marca i { width: 10px; height: 10px; border-radius: 50%; background: var(--apagado); box-shadow: 0 0 0 4px rgba(255,255,255,.04); }
+  .marca i.on { background: var(--verde); box-shadow: 0 0 0 4px rgba(57,217,138,.15); }
+  .abas { display: flex; gap: 4px; margin-left: 8px; }
+  .abas button {
+    border: 0; background: transparent; padding: 7px 14px; border-radius: 9px; color: var(--suave); cursor: pointer;
+  }
+  .abas button.ativa { background: var(--painel2); color: var(--texto); }
+  .topo .dir { margin-left: auto; color: var(--apagado); font-size: 12px; }
+  main { max-width: 1180px; margin: 0 auto; padding: 22px 24px 60px; }
+  .oculto { display: none !important; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--suave); margin: 30px 0 12px; font-weight: 600; }
+  .cartao { background: var(--painel); border: 1px solid var(--borda); border-radius: var(--raio); }
+
+  /* ---------- as duas máquinas ---------- */
+  .maquinas { display: grid; grid-template-columns: 1fr 220px 1fr; gap: 0; align-items: stretch; }
+  .maquina { padding: 18px 20px; }
+  .maquina .rotulo { font-size: 12px; color: var(--suave); text-transform: uppercase; letter-spacing: 1px; }
+  .maquina .nome { font-size: 20px; font-weight: 700; margin: 2px 0 2px; }
+  .maquina .spec { color: var(--suave); font-size: 12.5px; min-height: 19px; }
+  .estado { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--painel2); color: var(--suave); }
+  .estado::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .estado.on { color: var(--verde); }
+  .estado.off { color: var(--vermelho); }
+  .estado.trab { color: var(--roxo); }
+  .barras { margin-top: 14px; display: grid; gap: 8px; }
+  .barra { display: grid; grid-template-columns: 44px 1fr 42px; gap: 10px; align-items: center; font-size: 12px; color: var(--suave); }
+  .barra .trilho { height: 7px; background: var(--painel2); border-radius: 9px; overflow: hidden; }
+  .barra .cheio { height: 100%; width: 0; border-radius: 9px; background: var(--azul); transition: width .8s ease; }
+  .barra.gpu .cheio { background: var(--roxo); }
+  .barra.mem .cheio { background: #5fc8d8; }
+  .barra .v { text-align: right; font-variant-numeric: tabular-nums; color: var(--texto); }
+  .ponte { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 8px; }
+  .ponte .linha { position: relative; width: 100%; height: 2px; background: var(--borda); overflow: hidden; }
+  .ponte .linha.ativa { background: rgba(122,162,255,.25); }
+  .ponte .pontos { position: absolute; inset: -3px 0; display: none; }
+  .ponte .linha.ativa .pontos { display: block; }
+  .ponte .pontos span {
+    position: absolute; top: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--azul);
+    animation: anda 1.6s linear infinite;
+  }
+  .ponte .linha.volta .pontos span { background: var(--verde); animation-name: volta; }
+  .ponte .pontos span:nth-child(2) { animation-delay: .4s; }
+  .ponte .pontos span:nth-child(3) { animation-delay: .8s; }
+  .ponte .pontos span:nth-child(4) { animation-delay: 1.2s; }
+  @keyframes anda { from { left: -8px; } to { left: 100%; } }
+  @keyframes volta { from { left: 100%; } to { left: -8px; } }
+  .ponte .acima, .ponte .abaixo { font-size: 12px; color: var(--suave); text-align: center; min-height: 18px; }
+  .ponte .acima { margin-bottom: 10px; font-weight: 600; color: var(--texto); }
+  .ponte .abaixo { margin-top: 10px; }
+
+  /* ---------- pareamento ---------- */
+  .parear { padding: 18px 20px; }
+  .parear p { color: var(--suave); margin: 6px 0 12px; font-size: 13px; }
+  .campos { display: grid; grid-template-columns: 1fr 130px; gap: 8px; }
+  input[type=text], input[type=number], input[type=search] {
+    background: var(--painel2); border: 1px solid var(--borda); border-radius: 9px; padding: 8px 11px; outline: none; width: 100%;
+  }
+  input:focus { border-color: var(--azul); }
+  .btn {
+    border: 1px solid var(--borda); background: var(--painel2); padding: 8px 14px; border-radius: 9px; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { border-color: #3a4152; }
+  .btn.prim { background: var(--azul); border-color: var(--azul); color: #0b1020; font-weight: 650; }
+  .btn.prim:hover { filter: brightness(1.08); }
+  .btn.peq { padding: 4px 10px; font-size: 12.5px; }
+  .btn.perigo { color: var(--vermelho); }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .erro-msg { color: var(--vermelho); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+  /* ---------- trabalhos ---------- */
+  .grade { display: grid; grid-template-columns: 1.45fr 1fr; gap: 18px; align-items: start; }
+  .grade > div, .trab, .trab .cab .titulo { min-width: 0; }
+  .trab .acoes { flex-wrap: wrap; }
+  .trabalhos { display: grid; gap: 10px; }
+  .vazio { padding: 26px; text-align: center; color: var(--apagado); }
+  .trab { padding: 14px 16px; }
+  .trab .cab { display: flex; align-items: baseline; gap: 10px; }
+  .trab .titulo { font-weight: 650; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .trab .quando { color: var(--apagado); font-size: 12px; margin-left: auto; white-space: nowrap; }
+  .etapas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 12px 0 8px; }
+  .etapa { font-size: 11.5px; color: var(--apagado); }
+  .etapa .tr { height: 5px; border-radius: 9px; background: var(--painel2); overflow: hidden; margin-bottom: 5px; }
+  .etapa .tr div { height: 100%; width: 0; background: var(--azul); transition: width .6s ease; }
+  .etapa.feita { color: var(--suave); }
+  .etapa.feita .tr div { width: 100%; background: rgba(122,162,255,.55); }
+  .etapa.agora { color: var(--texto); font-weight: 600; }
+  .etapa.agora.render .tr div { background: var(--roxo); }
+  .etapa.agora.volta .tr div { background: var(--verde); }
+  .etapa.agora.espera .tr div { width: 100% !important; background: repeating-linear-gradient(90deg, #39425a 0 10px, #2a3142 10px 20px); animation: listra 1s linear infinite; background-size: 20px 100%; }
+  @keyframes listra { from { background-position: 0 0; } to { background-position: 20px 0; } }
+  .trab.pronto .etapa .tr div { width: 100%; background: var(--verde); }
+  .trab .det { display: flex; gap: 12px; align-items: center; font-size: 12.5px; color: var(--suave); flex-wrap: wrap; }
+  .trab .det b { color: var(--texto); font-weight: 600; }
+  .trab .acoes { margin-left: auto; display: flex; gap: 6px; }
+  .trab.erro { border-color: rgba(255,111,111,.35); }
+  .trab.erro .det .msg { color: var(--vermelho); }
+  .selo { font-size: 11px; padding: 1px 8px; border-radius: 99px; background: var(--painel2); color: var(--suave); }
+  .selo.ok { color: var(--verde); }
+  .selo.ruim { color: var(--vermelho); }
+  .codigo-dif { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: rgba(246,181,70,.08); border: 1px solid rgba(246,181,70,.3); font-size: 13px; }
+  .codigo-dif code { display: block; color: var(--ambar); font-size: 12px; margin: 6px 0 10px; white-space: pre-wrap; }
+  .log { margin-top: 10px; max-height: 220px; overflow: auto; background: #0a0c10; border-radius: 9px; padding: 10px; font: 12px/1.45 ui-monospace, Consolas, monospace; color: #aab2c2; white-space: pre-wrap; }
+
+  /* ---------- mandar render ---------- */
+  .mandar { padding: 16px; }
+  .mandar .busca { margin-bottom: 10px; }
+  .projetos { max-height: 330px; overflow: auto; border: 1px solid var(--borda); border-radius: 10px; }
+  .proj { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 8px 11px; border-bottom: 1px solid var(--borda); cursor: pointer; }
+  .proj:last-child { border-bottom: 0; }
+  .proj:hover { background: var(--painel2); }
+  .proj .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .proj .m { color: var(--apagado); font-size: 12px; text-align: right; white-space: nowrap; }
+  .proj.sem-video .n { color: var(--apagado); }
+  .proj input { accent-color: var(--azul); }
+  .opcoes { display: grid; gap: 10px; margin: 14px 0; }
+  .seg { display: flex; background: var(--painel2); border-radius: 10px; padding: 3px; gap: 3px; }
+  .seg label { flex: 1; text-align: center; padding: 6px 8px; border-radius: 8px; cursor: pointer; color: var(--suave); font-size: 13px; }
+  .seg input { display: none; }
+  .seg label:has(input:checked) { background: var(--painel); color: var(--texto); box-shadow: 0 1px 0 rgba(255,255,255,.04) inset; }
+  .linha-op { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--suave); }
+  .linha-op input[type=text], .linha-op input[type=number] { width: 110px; }
+  .chave { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--suave); font-size: 13px; }
+  .chave input { accent-color: var(--azul); }
+  .mandar .btn.prim { width: 100%; padding: 11px; font-size: 14.5px; }
+
+  /* ---------- drive ---------- */
+  .drive { padding: 16px; margin-top: 18px; }
+  .drive h3 { margin: 0 0 4px; font-size: 15px; }
+  .drive .sub { color: var(--suave); font-size: 12.5px; margin-bottom: 10px; }
+  .drive ul { list-style: none; margin: 0; padding: 0; }
+  .drive li { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--borda); font-size: 13px; }
+  .drive li .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .drive li .m { color: var(--apagado); font-size: 12px; white-space: nowrap; }
+
+  /* ---------- como funciona ---------- */
+  .explica { max-width: 900px; }
+  .explica h1 { font-size: 30px; margin: 10px 0 6px; letter-spacing: -.3px; }
+  .explica .lead { color: var(--suave); font-size: 16px; max-width: 700px; margin-bottom: 26px; }
+  .viagem { padding: 22px; }
+  .viagem svg { width: 100%; height: auto; display: block; }
+  .passos { display: grid; gap: 0; margin-top: 8px; counter-reset: passo; }
+  .passo { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 16px 0; border-top: 1px solid var(--borda); }
+  .passo:first-child { border-top: 0; }
+  .passo .num { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--painel2); font-weight: 700; color: var(--suave); }
+  .passo.ida .num { color: var(--azul); background: rgba(122,162,255,.12); }
+  .passo.casa .num { color: var(--roxo); background: rgba(180,140,255,.12); }
+  .passo.volta .num { color: var(--verde); background: rgba(57,217,138,.12); }
+  .passo h4 { margin: 4px 0 4px; font-size: 15px; }
+  .passo p { margin: 0; color: var(--suave); }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .caixa { padding: 18px 20px; }
+  .caixa h3 { margin: 0 0 8px; font-size: 16px; }
+  .caixa p, .caixa li { color: var(--suave); }
+  .caixa ul { padding-left: 18px; margin: 8px 0 0; }
+  .conta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .conta label { font-size: 12px; color: var(--suave); display: grid; gap: 4px; }
+  .resultado { font-size: 22px; font-weight: 700; }
+  .resultado small { display: block; font-size: 12.5px; color: var(--suave); font-weight: 400; }
+  table.onde { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.onde td, table.onde th { padding: 8px 6px; border-top: 1px solid var(--borda); text-align: left; vertical-align: top; }
+  table.onde th { color: var(--suave); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; }
+
+  @media (max-width: 900px) {
+    .maquinas { grid-template-columns: 1fr; }
+    .ponte { padding: 14px 0; }
+    .grade, .duas, .conta { grid-template-columns: 1fr; }
+    main { padding: 16px 16px 50px; }
+    .topo { padding: 10px 16px; gap: 10px; }
+    .topo .dir { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="marca"><i id="luz"></i>Conexão</div>
+  <nav class="abas">
+    <button data-aba="painel" class="ativa">Painel</button>
+    <button data-aba="como">Como funciona</button>
+  </nav>
+  <div class="dir" id="atualizado"></div>
+</header>
+
+<main>
+  <!-- ================= PAINEL ================= -->
+  <section id="aba-painel">
+    <div class="cartao maquinas">
+      <div class="maquina" id="m-eu"></div>
+      <div class="ponte">
+        <div class="acima" id="ponte-acima"></div>
+        <div class="linha" id="ponte-linha"><div class="pontos"><span></span><span></span><span></span><span></span></div></div>
+        <div class="abaixo" id="ponte-abaixo"></div>
+      </div>
+      <div id="m-la"></div>
+    </div>
+
+    <div class="grade">
+      <div>
+        <h2>Trabalhos</h2>
+        <div class="trabalhos" id="trabalhos"></div>
+      </div>
+      <div>
+        <h2>Renderizar no PC de casa</h2>
+        <div class="cartao mandar">
+          <input type="search" class="busca" id="busca" placeholder="Procurar projeto…">
+          <div class="projetos" id="projetos"><div class="vazio">carregando…</div></div>
+          <div class="opcoes">
+            <div class="seg" id="modo">
+              <label><input type="radio" name="modo" value="completo" checked>Vídeo inteiro</label>
+              <label><input type="radio" name="modo" value="frame">Só um frame</label>
+              <label><input type="radio" name="modo" value="trecho">Um trecho</label>
+            </div>
+            <div class="linha-op oculto" id="op-frame">Frame nº <input type="number" id="frame" value="90" min="0"></div>
+            <div class="linha-op oculto" id="op-trecho">Segundos <input type="text" id="segundos" value="0-10" placeholder="0-10"></div>
+            <label class="chave"><input type="checkbox" id="alta"> Qualidade alta (arquivo maior, demora mais)</label>
+            <label class="chave" id="op-drive"><input type="checkbox" id="paraDrive"> Entregar na pasta Prontos do Drive (em vez de render/)</label>
+          </div>
+          <button class="btn prim" id="mandar" disabled>Escolha um projeto</button>
+          <div class="erro-msg" id="mandar-erro"></div>
+        </div>
+
+        <div class="cartao drive" id="drive"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMO FUNCIONA ================= -->
+  <section id="aba-como" class="oculto">
+    <div class="explica">
+      <h1>Uma ida e uma volta.</h1>
+      <p class="lead">Você edita no notebook. O PC de casa só faz a parte pesada, que é renderizar. Por isso só viajam duas coisas: o material do vídeo vai, o MP4 pronto volta.</p>
+
+      <div class="cartao viagem">
+        <svg viewBox="0 0 860 250" role="img" aria-label="Notebook manda o projeto e os arquivos que faltam; PC de casa renderiza e devolve só o MP4">
+          <defs>
+            <marker id="ponta-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7aa2ff"/></marker>
+            <marker id="ponta-v" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#39d98a"/></marker>
+          </defs>
+          <rect x="20" y="40" width="230" height="170" rx="16" fill="#1b1f29" stroke="#262b37"/>
+          <text x="135" y="74" text-anchor="middle" fill="#8d95a6" font-size="12" letter-spacing="1.5">NOTEBOOK</text>
+          <text x="135" y="102" text-anchor="middle" fill="#e8eaf0" font-size="17" font-weight="700">Você edita aqui</text>
+          <text x="135" y="132" text-anchor="middle" fill="#8d95a6" font-size="13">legenda, cortes, efeitos</text>
+          <text x="135" y="152" text-anchor="middle" fill="#8d95a6" font-size="13">tudo num projeto .json</text>
+          <text x="135" y="186" text-anchor="middle" fill="#39d98a" font-size="13">fica livre para o Premiere</text>
+
+          <rect x="610" y="40" width="230" height="170" rx="16" fill="#1b1f29" stroke="#262b37"/>
+          <text x="725" y="74" text-anchor="middle" fill="#8d95a6" font-size="12" letter-spacing="1.5">PC DE CASA</text>
+          <text x="725" y="102" text-anchor="middle" fill="#e8eaf0" font-size="17" font-weight="700">Renderiza</text>
+          <text x="725" y="132" text-anchor="middle" fill="#8d95a6" font-size="13">fila, um por vez</text>
+          <text x="725" y="152" text-anchor="middle" fill="#8d95a6" font-size="13">guarda o material 15 dias</text>
+          <text x="725" y="186" text-anchor="middle" fill="#b48cff" font-size="13">RTX 4060</text>
+
+          <line x1="262" y1="100" x2="598" y2="100" stroke="#7aa2ff" stroke-width="2.5" marker-end="url(#ponta-a)"/>
+          <text x="430" y="84" text-anchor="middle" fill="#7aa2ff" font-size="14" font-weight="700">IDA</text>
+          <text x="430" y="122" text-anchor="middle" fill="#8d95a6" font-size="12.5">projeto (KB) + só os arquivos que lá ainda não tem</text>
+
+          <line x1="598" y1="160" x2="262" y2="160" stroke="#39d98a" stroke-width="2.5" marker-end="url(#ponta-v)"/>
+          <text x="430" y="150" text-anchor="middle" fill="#39d98a" font-size="14" font-weight="700">VOLTA</text>
+          <text x="430" y="182" text-anchor="middle" fill="#8d95a6" font-size="12.5">só o MP4 pronto</text>
+
+          <text x="430" y="232" text-anchor="middle" fill="#5b6273" font-size="12">direto entre as suas máquinas, pelo Tailscale (túnel criptografado), sem passar por nuvem</text>
+        </svg>
+      </div>
+
+      <h2>Passo a passo, quando você diz “renderiza no PC de casa”</h2>
+      <div class="cartao caixa">
+        <div class="passos">
+          <div class="passo"><div class="num">1</div><div><h4>O Claude salva o projeto</h4><p>O que você editou (texto, tempos, zoom, efeitos) vira um arquivo .json em <code>projeto/</code>. São poucos KB.</p></div></div>
+          <div class="passo"><div class="num">2</div><div><h4>Lista o que o vídeo usa</h4><p>O vídeo bruto, as músicas, os sons, as fotos e os logos. Para cada arquivo calcula uma impressão digital (hash). É assim que ele reconhece o arquivo mesmo com outro nome.</p></div></div>
+          <div class="passo ida"><div class="num">3</div><div><h4>Ida: pergunta antes de mandar</h4><p>“Desses aqui, quais você já tem?” Manda só os que faltam. Se a internet cair, continua de onde parou. O vídeo bruto vai uma vez e fica guardado lá.</p></div></div>
+          <div class="passo"><div class="num">4</div><div><h4>Confere o código do template</h4><p>Se você mudou o estilo da legenda no notebook e o PC de casa está com a versão antiga, ele avisa antes. Assim o vídeo não volta diferente da prévia.</p></div></div>
+          <div class="passo casa"><div class="num">5</div><div><h4>Fila e render no PC de casa</h4><p>Cada vídeo entra na fila e é renderizado com o mesmo motor de sempre, um por vez. Mande 4 de uma vez e pode desligar a cabeça. O notebook não faz nada pesado nessa hora.</p></div></div>
+          <div class="passo volta"><div class="num">6</div><div><h4>Volta: só o MP4</h4><p>Cada vídeo desce assim que fica pronto e cai em <code>render/</code> (ou também na pasta Prontos do Drive).</p></div></div>
+        </div>
+      </div>
+
+      <div class="duas">
+        <div class="cartao caixa">
+          <h3>E se eu mudar uma coisa e renderizar de novo?</h3>
+          <p>A segunda ida é levíssima. O vídeo bruto já está lá, então só o projeto (KB) viaja, mais algum arquivo novo que você tenha posto. A volta é o MP4 de novo.</p>
+          <ul>
+            <li><b>1ª vez:</b> ida pesada (vídeo bruto) + volta (MP4)</li>
+            <li><b>Ajustes:</b> ida de KB + volta (MP4)</li>
+            <li>Não existe “sobe, desce, sobe, desce”: a edição acontece toda aqui.</li>
+          </ul>
+        </div>
+        <div class="cartao caixa">
+          <h3>Quanto tempo leva a ida?</h3>
+          <p>Depende do upload da internet onde o notebook está. Enquanto sobe, o notebook continua livre: subir arquivo quase não usa processador.</p>
+          <div class="conta">
+            <label>Vídeo bruto (GB)<input type="number" id="c-gb" value="2" step="0.1" min="0"></label>
+            <label>Upload (Mbps)<input type="number" id="c-mbps" value="20" step="1" min="1"></label>
+          </div>
+          <div class="resultado" id="c-res"></div>
+        </div>
+      </div>
+
+      <div class="duas">
+        <div class="cartao caixa">
+          <h3>Vídeos do celular, pelo Drive</h3>
+          <p>O celular sobe o vídeo na pasta <b>Entrada</b> do Drive. No PC, o <i>Google Drive para computador</i> faz ele aparecer como arquivo normal. Você diz ao Claude como editar, e o vídeo pronto vai para <b>Prontos</b>, que você abre no celular.</p>
+          <ul>
+            <li>Melhor no PC de casa: o vídeo chega pelo Drive e renderiza ali mesmo, sem a ida.</li>
+            <li>No notebook também funciona: chega pelo Drive, você edita, e o render vai para casa.</li>
+          </ul>
+        </div>
+        <div class="cartao caixa">
+          <h3>Pelo celular, falando com o Claude</h3>
+          <p>Deixe o Claude Code aberto com o <b>Remote Control</b> ligado no computador que vai trabalhar. No app do Claude, mande um áudio: “subi o vídeo na Entrada, corta os silêncios, legenda no estilo de sempre e me manda”. Este painel também abre no celular se o PC estiver com <code>--rede</code>.</p>
+        </div>
+      </div>
+
+      <h2>O que fica onde</h2>
+      <div class="cartao caixa">
+        <table class="onde">
+          <tr><th>Coisa</th><th>Notebook</th><th>PC de casa</th></tr>
+          <tr><td>Projetos (.json)</td><td>o original, em <code>projeto/</code></td><td>uma cópia por render, em <code>conexao/.estacao/tarefas/</code></td></tr>
+          <tr><td>Vídeo bruto, músicas, sons</td><td>onde você deixou</td><td>cópia guardada 15 dias em <code>conexao/.estacao/cache/</code></td></tr>
+          <tr><td>MP4 pronto</td><td><code>render/</code> (e Prontos do Drive, se pedir)</td><td>fica lá 15 dias, caso precise baixar de novo</td></tr>
+          <tr><td>Senha da conexão</td><td colspan="2"><code>conexao/config.json</code> nos dois, fora do Git</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const bytes = (n) => {
+  if (!Number.isFinite(n)) return '?';
+  const u = ['B', 'KB', 'MB', 'GB', 'TB']; let i = 0;
+  while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+  return `${n.toFixed(i >= 2 ? 1 : 0).replace('.', ',')} ${u[i]}`;
+};
+const pct = (x) => (x == null || !Number.isFinite(x) ? '—' : `${Math.round(x * 100)}%`);
+const dur = (s) => {
+  if (!Number.isFinite(s) || s < 0) return '?';
+  s = Math.round(s);
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m} min${s % 60 && m < 10 ? ` ${s % 60}s` : ''}`;
+  return `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`;
+};
+const ha = (t) => {
+  const s = (Date.now() - t) / 1000;
+  if (s < 60) return 'agora';
+  if (s < 3600) return `há ${Math.floor(s / 60)} min`;
+  if (s < 86400) return `há ${Math.floor(s / 3600)} h`;
+  return new Date(t).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+};
+
+async function api(caminho, corpo) {
+  const r = await fetch(caminho, corpo === undefined ? {} : { method: 'POST', headers: { 'content-type': 'application/json', 'x-painel': '1' }, body: JSON.stringify(corpo) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.erro || `erro ${r.status}`);
+  return j;
+}
+
+/* ---------- abas ---------- */
+document.querySelectorAll('.abas button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.abas button').forEach((x) => x.classList.toggle('ativa', x === b));
+  $('#aba-painel').classList.toggle('oculto', b.dataset.aba !== 'painel');
+  $('#aba-como').classList.toggle('oculto', b.dataset.aba !== 'como');
+  try { localStorage.setItem('conexao-aba', b.dataset.aba); } catch {}
+}));
+try { const a = localStorage.getItem('conexao-aba'); if (a) document.querySelector(`.abas button[data-aba="${a}"]`)?.click(); } catch {}
+
+/* ---------- máquinas ---------- */
+function barra(rotulo, valor, classe = '') {
+  return `<div class="barra ${classe}"><span>${rotulo}</span><div class="trilho"><div class="cheio" style="width:${valor == null ? 0 : Math.min(100, Math.max(1, valor * 100))}%"></div></div><span class="v">${pct(valor)}</span></div>`;
+}
+
+function desenharMaquinas(est) {
+  const eu = est.eu;
+  const ehEstacao = eu.papel === 'estacao';
+  $('#m-eu').innerHTML = `
+    <div class="rotulo">${ehEstacao ? 'Este computador (a estação)' : 'Este computador'}</div>
+    <div class="nome">${esc(ehEstacao ? eu.nome : 'Notebook')}</div>
+    <div class="spec">${esc(eu.computador)} · ${eu.nucleos} núcleos · ${bytes(eu.memoria)}</div>
+    <div class="barras">${barra('CPU', eu.uso.cpu)}${barra('RAM', eu.uso.memoria, 'mem')}${eu.uso.gpu ? barra('GPU', eu.uso.gpu.uso / 100, 'gpu') : ''}</div>`;
+
+  const la = $('#m-la');
+  if (!est.config.configurado) {
+    if (la.dataset.modo === 'parear') return; // não apagar o que a pessoa está digitando
+    la.dataset.modo = 'parear';
+    la.className = 'cartao parear';
+    la.style.border = '0';
+    la.innerHTML = `
+      <div class="rotulo" style="font-size:12px;color:var(--suave);text-transform:uppercase;letter-spacing:1px">PC de casa</div>
+      <div class="nome" style="font-size:20px;font-weight:700">Conectar</div>
+      <p>No PC de casa, abra a estação (<code>conexao\\iniciar-estacao.bat</code>). Ela mostra um código de 6 dígitos. Digite aqui o nome do PC no Tailscale e o código.</p>
+      <div class="campos"><input type="text" id="p-serv" placeholder="nome no Tailscale (ex.: pc-casa)"><input type="text" id="p-cod" placeholder="código" inputmode="numeric"></div>
+      <button class="btn prim" id="p-ok" style="margin-top:10px;width:100%">Conectar</button>
+      <div class="erro-msg" id="p-erro"></div>`;
+    $('#p-ok').onclick = async () => {
+      $('#p-erro').textContent = '';
+      $('#p-ok').disabled = true;
+      try { await api('/api/parear', { servidor: $('#p-serv').value, codigo: $('#p-cod').value }); atualizar(); }
+      catch (e) { $('#p-erro').textContent = e.message; }
+      finally { $('#p-ok').disabled = false; }
+    };
+    return;
+  }
+  la.dataset.modo = 'maquina';
+  la.className = 'maquina';
+  la.style.border = '';
+  const e = est.estacao;
+  if (!e.online) {
+    la.innerHTML = `
+      <div class="rotulo">PC de casa</div>
+      <div class="nome">${esc(est.config.servidor?.replace(/^https?:\/\//, '') ?? '')}</div>
+      <span class="estado off">sem resposta</span>
+      <div class="spec" style="margin-top:10px">${esc(e.erro ?? '')}</div>
+      <div class="spec" style="margin-top:8px">${e.senhaErrada ? 'A senha mudou lá. Pareie de novo com um código novo (configurar.mjs --parear no PC de casa).' : 'Confira: PC ligado e acordado · Tailscale conectado nos dois · janela da estação aberta lá.'}</div>`;
+    return;
+  }
+  const i = e.info;
+  const trabalhando = !!i.rodando;
+  la.innerHTML = `
+    <div class="rotulo">PC de casa</div>
+    <div class="nome">${esc(i.nome)}</div>
+    <div class="spec">${esc(i.placa ?? (i.gpu ? 'GPU ligada' : 'sem GPU no config'))} · ${i.nucleos} núcleos · ${esc(i.memoria)} · ${esc(i.discoLivre ?? '?')} livres</div>
+    <div style="margin-top:6px"><span class="estado ${trabalhando ? 'trab' : 'on'}">${trabalhando ? `renderizando ${esc(i.rodando.nome)}` : 'online, esperando'}</span>
+    ${i.naFila ? `<span class="selo" style="margin-left:6px">${i.naFila} na fila</span>` : ''}</div>
+    <div class="barras">${barra('CPU', i.uso?.cpu)}${barra('RAM', i.uso?.memoria, 'mem')}${i.uso?.gpu ? barra('GPU', i.uso.gpu.uso / 100, 'gpu') : ''}</div>`;
+}
+
+function desenharPonte(est) {
+  const linha = $('#ponte-linha');
+  const subindo = est.trabalhos.find((t) => t.etapa === 'enviando' && t.sub);
+  const descendo = est.trabalhos.find((t) => t.etapa === 'baixando' && t.desc);
+  const rodando = est.trabalhos.find((t) => t.etapa === 'renderizando');
+  linha.classList.toggle('ativa', !!(subindo || descendo));
+  linha.classList.toggle('volta', !subindo && !!descendo);
+  let acima = '', abaixo = '';
+  if (!est.config.configurado) acima = 'não conectado';
+  else if (!est.estacao.online) acima = 'sem conexão';
+  else if (subindo) { acima = `↑ ${bytes(subindo.sub.vel)}/s`; abaixo = `indo: ${esc(subindo.sub.nome)}`; }
+  else if (descendo) { acima = `↓ ${bytes(descendo.desc.vel)}/s`; abaixo = `voltando: ${esc(descendo.desc.nome)}`; }
+  else if (rodando) { acima = 'conectado'; abaixo = 'o PC de casa está trabalhando'; }
+  else { acima = 'conectado'; abaixo = est.estacao.latencia != null ? `resposta em ${est.estacao.latencia} ms` : ''; }
+  $('#ponte-acima').textContent = acima;
+  $('#ponte-abaixo').innerHTML = abaixo;
+  $('#luz').classList.toggle('on', !!est.estacao.online);
+}
+
+/* ---------- trabalhos ---------- */
+const ETAPAS = [['enviando', 'Ida'], ['fila', 'Fila'], ['renderizando', 'Render'], ['baixando', 'Volta'], ['pronto', 'Pronto']];
+const INDICE = { enviando: 0, fila: 1, renderizando: 2, 'pronto-la': 3, baixando: 3, pronto: 4 };
+const logsAbertos = new Set();
+
+function desenharTrabalhos(est) {
+  const caixa = $('#trabalhos');
+  const lista = est.trabalhos.slice(0, 25);
+  if (!lista.length) {
+    caixa.innerHTML = `<div class="cartao vazio">Nada por aqui ainda. Escolha um projeto ao lado e mande para o PC de casa — ou peça ao Claude.</div>`;
+    return;
+  }
+  aplicarCartoes(caixa, lista.map((t) => {
+    const ruim = t.etapa === 'erro' || t.etapa === 'cancelada';
+    const idx = INDICE[t.etapa] ?? -1;
+    const etapas = ETAPAS.map(([k, rot], n) => {
+      let cls = '', largura = 0;
+      if (!ruim && n < idx) { cls = 'feita'; largura = 100; }
+      if (t.etapa === 'pronto') largura = 100;
+      if (!ruim && n === idx) {
+        cls = 'agora' + (k === 'renderizando' ? ' render' : k === 'baixando' ? ' volta' : '');
+        if (t.etapa === 'fila' || t.etapa === 'pronto-la' || (t.etapa === 'enviando' && !t.sub)) cls += ' espera';
+        largura = (t.progresso ?? 0) * 100;
+      }
+      return `<div class="etapa ${cls}"><div class="tr"><div style="width:${largura}%"></div></div>${rot}</div>`;
+    }).join('');
+
+    const info = [];
+    if (t.etapa === 'enviando' && t.sub) info.push(`<b>${pct(t.progresso)}</b> de ${bytes(t.sub.total)} · ${bytes(t.sub.vel)}/s · falta ${dur((t.sub.total - t.sub.feito) / t.sub.vel)}`);
+    if (t.etapa === 'renderizando') info.push(`<b>${pct(t.progresso)}</b>`);
+    if (t.etapa === 'baixando' && t.desc) info.push(`<b>${pct(t.progresso)}</b> de ${bytes(t.desc.total)} · ${bytes(t.desc.vel)}/s`);
+    if (t.detalhe) info.push(`<span class="msg">${esc(t.detalhe)}</span>`);
+    if (t.arquivos) info.push(t.arquivos.mandados ? `ida ${bytes(t.arquivos.bytesMandados)}` : 'ida: lá já tinha tudo');
+    if (t.resultados?.length && (t.etapa === 'pronto' || t.etapa === 'pronto-la' || t.etapa === 'baixando')) info.push(`volta ${bytes(t.resultados[0].tamanho)}`);
+    if (t.fim && t.inicio && t.etapa !== 'erro') info.push(`render ${dur((t.fim - t.inicio) / 1000)}`);
+
+    const acoes = [];
+    if (t.id && (t.etapa === 'fila' || t.etapa === 'renderizando')) acoes.push(`<button class="btn peq perigo" data-cancelar="${esc(t.id)}">Cancelar</button>`);
+    if (t.id && t.etapa === 'pronto-la') acoes.push(`<button class="btn peq" data-baixar="${esc(t.id)}">Baixar</button>`);
+    if (t.salvos?.length) acoes.push(`<button class="btn peq" data-abrir="${esc(t.salvos[0])}">Abrir pasta</button>`);
+    if (t.id || t.processo) acoes.push(`<button class="btn peq" data-log="${esc(t.id ?? t.processo)}" data-tipo="${t.id ? 'tarefa' : 'processo'}">${logsAbertos.has(t.id ?? t.processo) ? 'Fechar log' : 'Log'}</button>`);
+    if (!t.id && t.processo && t.etapa === 'erro') acoes.push(`<button class="btn peq" data-dispensar="${esc(t.processo)}">Dispensar</button>`);
+
+    const proc = t.processo ? est.processos.find((p) => p.id === t.processo) : null;
+    const dif = proc?.codigoDiferente?.length && !proc.dispensado ? `
+      <div class="codigo-dif">O código que desenha o vídeo está diferente no PC de casa:
+        <code>${esc(proc.codigoDiferente.slice(0, 10).join('\n'))}${proc.codigoDiferente.length > 10 ? `\n… e mais ${proc.codigoDiferente.length - 10}` : ''}</code>
+        <button class="btn peq prim" data-repetir="${esc(proc.id)}" data-codigo="levar">Levar o código daqui</button>
+        <button class="btn peq" data-repetir="${esc(proc.id)}" data-codigo="ignorar">Usar o de lá</button>
+      </div>` : '';
+
+    const quem = t.origem && !t.daqui ? `<span class="selo">de ${esc(t.origem)}</span>` : '';
+    const selo = t.etapa === 'pronto' ? '<span class="selo ok">pronto</span>' : t.etapa === 'erro' ? '<span class="selo ruim">erro</span>' : t.etapa === 'cancelada' ? '<span class="selo ruim">cancelado</span>' : '';
+    const chaveLog = t.id ?? t.processo;
+    return `<div class="cartao trab ${t.etapa === 'pronto' ? 'pronto' : ''} ${ruim ? 'erro' : ''}" data-chave="${esc(t.chave)}">
+      <div class="cab"><div class="titulo">${esc(t.nome)}</div>${selo}${quem}<div class="quando">${ha(t.criada)}</div></div>
+      <div class="etapas">${etapas}</div>
+      <div class="det">${info.join(' · ')}<div class="acoes">${acoes.join('')}</div></div>
+      ${dif}
+      ${logsAbertos.has(chaveLog) ? `<div class="log" data-log-de="${esc(chaveLog)}">${esc(logs.get(chaveLog) ?? 'carregando…')}</div>` : ''}
+    </div>`;
+  }));
+}
+
+/*
+ * Atualiza só os cartões que mudaram, e nunca o que está debaixo do mouse:
+ * trocar o HTML a cada 1,5 s engoliria o clique num botão.
+ */
+function aplicarCartoes(caixa, htmls) {
+  const molde = document.createElement('template');
+  const atuais = new Map([...caixa.children].filter((el) => el.dataset.chave).map((el) => [el.dataset.chave, el]));
+  if (caixa.children.length && !atuais.size) caixa.innerHTML = '';
+  let anterior = null;
+  for (const html of htmls) {
+    molde.innerHTML = html.trim();
+    const novo = molde.content.firstElementChild;
+    const chave = novo.dataset.chave;
+    let el = atuais.get(chave);
+    atuais.delete(chave);
+    if (!el) {
+      el = novo;
+      el.dataset.html = html;
+    } else if (el.dataset.html !== html && !el.matches(':hover')) {
+      const log = el.querySelector('.log');
+      const rolagem = log ? log.scrollTop : 0;
+      el.replaceWith(novo);
+      el = novo;
+      el.dataset.html = html;
+      const logNovo = el.querySelector('.log');
+      if (logNovo) logNovo.scrollTop = rolagem;
+    }
+    const esperado = anterior ? anterior.nextElementSibling : caixa.firstElementChild;
+    if (esperado !== el) caixa.insertBefore(el, esperado);
+    anterior = el;
+  }
+  for (const el of atuais.values()) el.remove();
+}
+
+const logs = new Map();
+async function carregarLog(chave, tipo) {
+  try {
+    const r = await api(tipo === 'tarefa' ? `/api/tarefa/${encodeURIComponent(chave)}` : `/api/processo/${encodeURIComponent(chave)}`);
+    const texto = tipo === 'tarefa' ? (r.log || r.erro || '(sem log)') : (r.log || []).join('\n');
+    logs.set(chave, String(texto).split('\n').slice(-120).join('\n'));
+  } catch (e) { logs.set(chave, e.message); }
+  const el = document.querySelector(`[data-log-de="${CSS.escape(chave)}"]`);
+  if (el) { el.textContent = logs.get(chave); el.scrollTop = el.scrollHeight; }
+}
+
+$('#trabalhos').addEventListener('click', async (ev) => {
+  const b = ev.target.closest('button');
+  if (!b) return;
+  try {
+    if (b.dataset.cancelar) { if (confirm('Cancelar este render?')) await api('/api/cancelar', { id: b.dataset.cancelar }); }
+    else if (b.dataset.baixar) await api('/api/baixar', { id: b.dataset.baixar });
+    else if (b.dataset.abrir) await api('/api/abrir', { caminho: b.dataset.abrir });
+    else if (b.dataset.dispensar) await api('/api/dispensar', { processo: b.dataset.dispensar });
+    else if (b.dataset.repetir) await api('/api/repetir', { processo: b.dataset.repetir, codigo: b.dataset.codigo });
+    else if (b.dataset.log) {
+      const k = b.dataset.log;
+      if (logsAbertos.has(k)) logsAbertos.delete(k); else { logsAbertos.add(k); carregarLog(k, b.dataset.tipo); }
+    }
+    atualizar();
+  } catch (e) { alert(e.message); }
+});
+
+/* ---------- mandar ---------- */
+let projetos = [];
+const escolhidos = new Set();
+
+async function carregarProjetos() {
+  try { projetos = (await api('/api/projetos')).projetos; } catch { projetos = []; }
+  desenharProjetos();
+}
+
+function desenharProjetos() {
+  const q = $('#busca').value.trim().toLowerCase();
+  const lista = projetos.filter((p) => !q || p.nome.toLowerCase().includes(q));
+  $('#projetos').innerHTML = lista.length ? lista.map((p) => `
+    <label class="proj ${p.videoExiste ? '' : 'sem-video'}" title="${esc(p.arquivo)}${p.videoExiste ? '' : '\n(o vídeo deste projeto não está neste computador)'}">
+      <input type="checkbox" value="${esc(p.arquivo)}" ${escolhidos.has(p.arquivo) ? 'checked' : ''} ${p.videoExiste ? '' : 'disabled'}>
+      <span class="n">${esc(p.nome)}</span>
+      <span class="m">${p.duracao ? dur(p.duracao) + ' · ' : ''}${p.tamanhoVideo ? bytes(p.tamanhoVideo) + ' · ' : ''}${ha(p.modificado)}</span>
+    </label>`).join('') : `<div class="vazio">${projetos.length ? 'Nenhum projeto com esse nome.' : 'Nenhum projeto em projeto/.'}</div>`;
+  atualizarBotao();
+}
+
+function atualizarBotao() {
+  const n = escolhidos.size;
+  const b = $('#mandar');
+  b.disabled = !n || !ultimoEstado?.config.configurado;
+  b.textContent = !ultimoEstado?.config.configurado ? 'Conecte o PC de casa primeiro' : !n ? 'Escolha um projeto' : `Renderizar ${n === 1 ? '1 vídeo' : `${n} vídeos`} no PC de casa`;
+}
+
+$('#busca').addEventListener('input', desenharProjetos);
+$('#projetos').addEventListener('change', (ev) => {
+  if (ev.target.type !== 'checkbox') return;
+  if (ev.target.checked) escolhidos.add(ev.target.value); else escolhidos.delete(ev.target.value);
+  atualizarBotao();
+});
+$('#modo').addEventListener('change', () => {
+  const m = document.querySelector('input[name=modo]:checked').value;
+  $('#op-frame').classList.toggle('oculto', m !== 'frame');
+  $('#op-trecho').classList.toggle('oculto', m !== 'trecho');
+});
+$('#mandar').addEventListener('click', async () => {
+  $('#mandar-erro').textContent = '';
+  const modo = document.querySelector('input[name=modo]:checked').value;
+  try {
+    await api('/api/renderizar', {
+      projetos: [...escolhidos],
+      modo,
+      frame: $('#frame').value,
+      segundos: $('#segundos').value.trim(),
+      alta: $('#alta').checked,
+      destino: $('#paraDrive').checked ? 'drive' : 'render',
+    });
+    const n = escolhidos.size;
+    escolhidos.clear();
+    desenharProjetos();
+    const b = $('#mandar');
+    b.textContent = n === 1 ? '✓ Mandado — acompanhe em Trabalhos' : `✓ ${n} mandados — acompanhe em Trabalhos`;
+    setTimeout(atualizarBotao, 2500);
+    atualizar();
+  } catch (e) { $('#mandar-erro').textContent = e.message; }
+});
+
+/* ---------- drive ---------- */
+function desenharDrive(est) {
+  const d = est.drive;
+  $('#op-drive').classList.toggle('oculto', !d?.configurado);
+  const caixa = $('#drive');
+  if (!d?.configurado) {
+    caixa.innerHTML = `<h3>Google Drive</h3>
+      <div class="sub">${d?.encontrado ? `O Drive está em <code>${esc(d.encontrado)}</code>. Peça ao Claude: “configura a pasta do Drive” (<code>node conexao/drive.mjs --configurar</code>).` : 'Para receber vídeos do celular: instale o <i>Google Drive para computador</i> neste PC e peça ao Claude “configura a pasta do Drive”.'}</div>`;
+    return;
+  }
+  const novos = d.entrada.filter((i) => !i.trazido);
+  const html = `<h3>Google Drive</h3>
+    <div class="sub">Celular sobe em <b>${esc(d.pasta.split(/[\\/]/).pop())}/Entrada</b> · os prontos ficam em <b>Prontos</b></div>
+    <div style="font-size:12px;color:var(--suave);margin:10px 0 2px">ENTRADA ${novos.length ? `· ${novos.length} novo(s)` : ''}</div>
+    <ul>${d.entrada.length ? d.entrada.slice(0, 8).map((i) => `<li><span class="n">${i.tipo === 'takes' ? '📁 ' : ''}${esc(i.nome)}</span>
+      <span class="m">${i.tipo === 'takes' ? `${i.videos} takes · ` : ''}${bytes(i.tamanho)} · ${ha(i.modificado)}</span>
+      ${i.trazido ? '<span class="selo ok">trazido</span>' : `<button class="btn peq" data-trazer="${esc(i.nome)}">Trazer</button>`}</li>`).join('') : '<li><span class="n" style="color:var(--apagado)">vazia</span></li>'}</ul>
+    <div style="font-size:12px;color:var(--suave);margin:14px 0 2px">PRONTOS</div>
+    <ul>${d.prontos.length ? d.prontos.slice(0, 5).map((i) => `<li><span class="n">${esc(i.nome)}</span><span class="m">${bytes(i.tamanho)} · ${ha(i.modificado)}</span><button class="btn peq" data-abrir="${esc(i.caminho)}">Abrir</button></li>`).join('') : '<li><span class="n" style="color:var(--apagado)">vazia</span></li>'}</ul>`;
+  if (caixa.dataset.html !== html && !caixa.matches(':hover')) {
+    caixa.innerHTML = html;
+    caixa.dataset.html = html;
+  }
+}
+$('#drive').addEventListener('click', async (ev) => {
+  const b = ev.target.closest('button');
+  if (!b) return;
+  try {
+    if (b.dataset.trazer) { b.disabled = true; b.textContent = 'trazendo…'; await api('/api/drive/trazer', { nome: b.dataset.trazer }); }
+    if (b.dataset.abrir) await api('/api/abrir', { caminho: b.dataset.abrir });
+  } catch (e) { alert(e.message); }
+});
+
+/* ---------- calculadora ---------- */
+function calcular() {
+  const gb = Number($('#c-gb').value) || 0;
+  const mbps = Number($('#c-mbps').value) || 1;
+  const seg = (gb * 1024 * 8) / mbps;
+  $('#c-res').innerHTML = `~${dur(seg)}<small>para subir ${String(gb).replace('.', ',')} GB a ${mbps} Mbps. Só na 1ª vez: depois ele já está lá.</small>`;
+}
+$('#c-gb').addEventListener('input', calcular);
+$('#c-mbps').addEventListener('input', calcular);
+let calcAjustada = false;
+
+/* ---------- ciclo ---------- */
+let ultimoEstado = null;
+async function atualizar() {
+  try {
+    const est = await api('/api/estado');
+    ultimoEstado = est;
+    desenharMaquinas(est);
+    desenharPonte(est);
+    desenharTrabalhos(est);
+    desenharDrive(est);
+    if (!$('#mandar').textContent.startsWith('✓')) atualizarBotao();
+    if (!calcAjustada && est.medidas?.subida) {
+      $('#c-mbps').value = Math.max(1, Math.round((est.medidas.subida * 8) / 1e6));
+      calcAjustada = true;
+      calcular();
+    }
+    for (const k of logsAbertos) carregarLog(k, est.trabalhos.find((t) => t.id === k) ? 'tarefa' : 'processo');
+    $('#atualizado').textContent = `atualizado ${new Date().toLocaleTimeString('pt-BR')}`;
+  } catch (e) {
+    $('#atualizado').textContent = 'o painel parou de responder — ele ainda está aberto?';
+    $('#luz').classList.remove('on');
+  }
+}
+calcular();
+carregarProjetos();
+atualizar();
+setInterval(atualizar, 1500);
+setInterval(carregarProjetos, 30000);
+</script>
+</body>
+</html>

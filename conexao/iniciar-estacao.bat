@@ -8,13 +8,16 @@ if not exist node_modules (
   echo Instalando dependencias pela primeira vez... isso demora alguns minutos.
   call npm install || goto :erro
 )
-if not exist remoto\config.json (
+if not exist conexao\config.json (
   echo Criando a senha da conexao...
-  node remoto\configurar.mjs || goto :erro
+  node conexao\configurar.mjs || goto :erro
 )
 
+REM o painel (http://localhost:5181) abre junto; com --rede da para ver do celular pelo Tailscale
+start "Painel da conexao" /min node conexao\painel.mjs --rede
+
 :de_novo
-node remoto\estacao.mjs
+node conexao\estacao.mjs
 echo.
 echo A estacao fechou. Abrindo de novo em 10 segundos (feche a janela para parar)...
 timeout /t 10 /nobreak >nul

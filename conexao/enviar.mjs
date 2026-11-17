@@ -1,7 +1,7 @@
 /**
  * Manda renders para o PC de casa (a estação) e traz o resultado de volta.
  *
- *   node remoto/enviar.mjs projeto/A.json [projeto/B.json ...]   renderiza e baixa em render/
+ *   node conexao/enviar.mjs projeto/A.json [projeto/B.json ...]   renderiza e baixa em render/
  *       --still 90          um frame só (PNG), para conferir
  *       --segundos 0-10     só um trecho
  *       --alta | --gpu      as mesmas opções do render/render.mjs
@@ -10,14 +10,16 @@
  *       --saida <arquivo>   nome exato do resultado (só com um projeto)
  *       --levar-codigo      se o template/código daqui for diferente do de lá, leva o daqui
  *       --ignorar-codigo    renderiza mesmo com o código diferente
+ *       --pasta drive       grava o resultado na pasta Prontos do Google Drive
+ *       --eventos           escreve o andamento em linhas "@@{json}" (é o que o painel lê)
  *
- *   node remoto/enviar.mjs --ping                    a estação está de pé? como ela está?
- *   node remoto/enviar.mjs --fila                    o que está na fila de lá
- *   node remoto/enviar.mjs --acompanhar <id> [...]   espera terminar e baixa
- *   node remoto/enviar.mjs --baixar <id>             só baixa (se já terminou)
- *   node remoto/enviar.mjs --cancelar <id>
- *   node remoto/enviar.mjs --atualizar-estacao       git pull + npm install lá (depois de dar push daqui)
- *   node remoto/enviar.mjs --script agente/x.mjs --arquivo "D:/video.mp4" -- {arquivo:0} --saida {saida}
+ *   node conexao/enviar.mjs --ping                    a estação está de pé? como ela está?
+ *   node conexao/enviar.mjs --fila                    o que está na fila de lá
+ *   node conexao/enviar.mjs --acompanhar <id> [...]   espera terminar e baixa
+ *   node conexao/enviar.mjs --baixar <id>             só baixa (se já terminou)
+ *   node conexao/enviar.mjs --cancelar <id>
+ *   node conexao/enviar.mjs --atualizar-estacao       git pull + npm install lá (depois de dar push daqui)
+ *   node conexao/enviar.mjs --script agente/x.mjs --arquivo "D:/video.mp4" -- {arquivo:0} --saida {saida}
  */
 import http from 'node:http';
 import https from 'node:https';
@@ -67,7 +69,24 @@ for (let i = 0; i < meus.length; i++) {
   } else soltos.push(a);
 }
 
+/*
+ * Com --eventos, o andamento sai também como linhas "@@{json}" para o painel
+ * (conexao/painel.mjs). Progresso de upload/download vem no máximo 4x por segundo.
+ */
+const ultimoEvento = new Map();
+function evento(obj, chave) {
+  if (!opcoes.eventos) return;
+  if (chave) {
+    const agora = Date.now();
+    if (agora - (ultimoEvento.get(chave) ?? 0) < 250 && obj.feito !== obj.total) return;
+    ultimoEvento.set(chave, agora);
+  }
+  process.stdout.write('@@' + JSON.stringify({ ...obj, t: Date.now() }) + '\n');
+}
+let projetoAtual = null;
+
 function sair(msg, codigo = 1) {
+  evento({ e: 'erro', mensagem: msg, codigo });
   if (TTY) process.stdout.write('\n');
   console.error(`✗ ${msg}`);
   process.exit(codigo);
@@ -77,7 +96,7 @@ function sair(msg, codigo = 1) {
 
 const cfg = await lerConfigRemoto();
 if (!cfg.servidor || !cfg.token) {
-  sair('a conexão ainda não foi configurada neste computador. Rode: node remoto/configurar.mjs --servidor http://<pc-de-casa>:5180 --token <senha>');
+  sair('a conexão ainda não foi configurada neste computador. No PC de casa rode "node conexao/configurar.mjs" e, aqui, "node conexao/configurar.mjs --servidor <pc-de-casa> --codigo <código que ele mostrou>"');
 }
 const BASE = new URL(cfg.servidor.endsWith('/') ? cfg.servidor : cfg.servidor + '/');
 
@@ -118,7 +137,7 @@ function pedir(metodo, caminho, { json, corpo, cabecalhos = {}, tempo = 30000, f
 
 async function pedirJson(metodo, caminho, op) {
   const r = await pedir(metodo, caminho, op);
-  if (r.status === 401) sair('a senha (token) não bate com a da estação. Confira remoto/config.json nos dois computadores.');
+  if (r.status === 401) sair('a senha (token) não bate com a da estação. Confira conexao/config.json nos dois computadores.');
   if (r.status >= 400) throw Object.assign(new Error(r.dados?.erro ?? `erro ${r.status}`), { status: r.status, dados: r.dados });
   return r.dados;
 }
@@ -129,7 +148,7 @@ function explicarFalhaDeConexao(e) {
     'Confira, nesta ordem:',
     '  1. o PC de casa está ligado (e não dormindo)?',
     '  2. o Tailscale está conectado nos dois computadores?',
-    '  3. a estação está aberta lá? (remoto/iniciar-estacao.bat)',
+    '  3. a estação está aberta lá? (conexao/iniciar-estacao.bat)',
   ].join('\n');
 }
 
@@ -138,6 +157,7 @@ async function conectar() {
     const info = await pedirJson('GET', '/ping', { tempo: 8000 });
     const gpu = info.gpu === true ? 'GPU ligada' : info.gpu === false ? 'GPU desligada no config' : 'GPU ?';
     console.log(`Conectado a "${info.nome}" — ${info.processador ?? '?'}, ${info.nucleos} núcleos, ${info.memoria}, ${gpu}, ${info.discoLivre ?? '?'} livres.`);
+    evento({ e: 'conectado', info });
     if (info.rodando) console.log(`  Renderizando agora: ${info.rodando.nome} (${Math.round((info.rodando.progresso ?? 0) * 100)}%). Na fila: ${info.naFila}.`);
     return info;
   } catch (e) {
@@ -252,6 +272,7 @@ async function subir(id, caminho, tamanho, rotulo) {
         const feito = inicio + enviados;
         const vel = enviados / Math.max(0.5, (Date.now() - t0) / 1000);
         const pct = Math.floor((feito / tamanho) * 100);
+        evento({ e: 'subindo', arquivo: projetoAtual, nome: rotulo, feito, total: tamanho, vel }, 'sub');
         progresso(
           `  ↑ ${rotulo}: ${pct}% de ${bytesLegiveis(tamanho)} — ${bytesLegiveis(vel)}/s, falta ${duracaoLegivel((tamanho - feito) / vel)}`,
           `${rotulo}${Math.floor(pct / 20)}`,
@@ -287,6 +308,7 @@ async function subir(id, caminho, tamanho, rotulo) {
 async function prepararArquivos(achados, memoria) {
   const lista = [];
   for (const [original, a] of achados) {
+    evento({ e: 'conferindo', arquivo: projetoAtual, nome: path.basename(a.caminho) }, 'conf');
     const { hash, tamanho } = await memoria.hash(a.caminho);
     lista.push({ original, ...a, hash, tamanho, id: idDoArquivo(hash, a.caminho), nome: path.basename(a.caminho) });
   }
@@ -301,6 +323,7 @@ async function prepararArquivos(achados, memoria) {
       bytes += a.tamanho;
     }
   }
+  evento({ e: 'arquivos', arquivo: projetoAtual, quantos: unicos.length, bytes: total, mandados, bytesMandados: bytes });
   console.log(
     `  ${unicos.length} arquivo(s), ${bytesLegiveis(total)}` +
       (!mandados
@@ -317,6 +340,7 @@ async function prepararArquivos(achados, memoria) {
 async function conferirCodigo() {
   const manifesto = await manifestoDoCodigo(raiz);
   const { diferentes } = await pedirJson('POST', '/codigo/comparar', { json: { manifesto } });
+  evento({ e: 'codigo', diferentes, acao: !diferentes.length ? 'igual' : opcoes.levarCodigo ? 'levar' : opcoes.ignorarCodigo ? 'ignorar' : 'parar' });
   if (!diferentes.length) {
     console.log('  Código do render igual nos dois computadores.');
     return;
@@ -338,7 +362,7 @@ async function conferirCodigo() {
       'Escolha:\n' +
       '  --levar-codigo     copia estes arquivos daqui para lá (guarda backup dos de lá)\n' +
       '  --ignorar-codigo   renderiza com o código de lá mesmo\n' +
-      '  ou dê commit + push aqui e rode: node remoto/enviar.mjs --atualizar-estacao',
+      '  ou dê commit + push aqui e rode: node conexao/enviar.mjs --atualizar-estacao',
     2,
   );
 }
@@ -366,6 +390,7 @@ async function baixar(idTarefa, r, destino) {
         const feito = inicio + recebidos;
         const pct = Math.floor((feito / r.tamanho) * 100);
         const vel = recebidos / Math.max(0.5, (Date.now() - t0) / 1000);
+        evento({ e: 'baixando', id: idTarefa, nome: r.nome, feito, total: r.tamanho, vel }, 'des' + idTarefa);
         progresso(`  ↓ ${r.nome}: ${pct}% de ${bytesLegiveis(r.tamanho)} — ${bytesLegiveis(vel)}/s`, `${r.nome}${Math.floor(pct / 25)}`);
       });
       await pipeline(res, createWriteStream(parte, { flags: inicio ? 'a' : 'w' }));
@@ -419,10 +444,11 @@ async function acompanhar(ids) {
           fecharProgresso();
           console.log(`  a estação parou de responder (${e.code ?? e.message}). Continuo tentando — o render segue lá.`);
         }
-        if (semResposta > 200) sair(`desisti de esperar. Quando a estação voltar: node remoto/enviar.mjs --acompanhar ${[...faltam].join(' ')}`);
+        if (semResposta > 200) sair(`desisti de esperar. Quando a estação voltar: node conexao/enviar.mjs --acompanhar ${[...faltam].join(' ')}`);
         continue;
       }
       const nome = t.nome;
+      evento({ e: 'tarefa', id, status: t.status, progresso: t.progresso ?? 0, posicao: t.posicaoNaFila }, 'tar' + id);
       if (t.status === 'aguardando') {
         progresso(`  ${nome}: na fila (posição ${t.posicaoNaFila})`, `${id}fila${t.posicaoNaFila}`);
       } else if (t.status === 'rodando') {
@@ -438,10 +464,12 @@ async function acompanhar(ids) {
           console.log(`✓ ${nome}: pronto em ${duracaoLegivel((t.fim - t.inicio) / 1000)}. Baixando…`);
           const salvos = await trazerResultados(t, envios[id]);
           for (const s of salvos) console.log(`  → ${s}`);
+          evento({ e: 'baixado', id, salvos });
           resultado.ok.push(...salvos);
         } else {
           console.log(`✗ ${nome}: ${t.status}\n${(t.erro ?? '').split('\n').map((l) => `    ${l}`).join('\n')}`);
           resultado.falhas.push(id);
+          evento({ e: 'falha', id, status: t.status, erro: t.erro ?? '' });
         }
       }
     }
@@ -459,6 +487,12 @@ function mostrarFila(lista) {
     const quando = new Date(t.criada).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
     console.log(`${t.id}  ${t.status.padEnd(10)}${pct.padEnd(5)}  ${quando}  ${t.nome}`);
   }
+}
+
+/* "--pasta drive" = a pasta Prontos do Google Drive (configurada por conexao/drive.mjs) */
+if (opcoes.pasta && opcoes.pasta.toLowerCase() === 'drive') {
+  if (!cfg.drive?.prontos) sair('a pasta do Google Drive ainda não foi configurada. Rode: node conexao/drive.mjs --configurar');
+  opcoes.pasta = cfg.drive.prontos;
 }
 
 async function renderizar(arquivosProjeto) {
@@ -482,6 +516,8 @@ async function renderizar(arquivosProjeto) {
           ? `${base}-trecho${opcoes.segundos}-${carimbo()}.mp4`
           : `${base}-${carimbo()}.mp4`;
     console.log(`\n${path.basename(arquivo)}`);
+    projetoAtual = path.resolve(arquivo);
+    evento({ e: 'projeto', arquivo: projetoAtual, nome: base });
     const arquivos = await prepararArquivos(acharArquivos(projeto), memoria);
     const r = await pedirJson('POST', '/tarefas', {
       json: {
@@ -501,6 +537,7 @@ async function renderizar(arquivosProjeto) {
       pasta: opcoes.pasta ? path.resolve(opcoes.pasta) : undefined,
       destino: opcoes.saida ? path.resolve(opcoes.saida) : undefined,
     });
+    evento({ e: 'enfileirado', arquivo: projetoAtual, id: r.id, nome: base, posicao: r.posicaoNaFila });
     console.log(`  Na fila do PC de casa: ${r.id} (posição ${r.posicaoNaFila})`);
     ids.push(r.id);
   }
@@ -527,7 +564,7 @@ async function rodarScript() {
 
 async function terminar(ids) {
   if (opcoes.semEsperar) {
-    console.log(`\nMandado. Para acompanhar e baixar depois:\n  node remoto/enviar.mjs --acompanhar ${ids.join(' ')}`);
+    console.log(`\nMandado. Para acompanhar e baixar depois:\n  node conexao/enviar.mjs --acompanhar ${ids.join(' ')}`);
     return;
   }
   console.log('');

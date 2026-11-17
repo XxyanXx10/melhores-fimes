@@ -1,6 +1,6 @@
 @echo off
 REM Rode UMA VEZ no PC de casa, com botao direito > "Executar como administrador".
-REM 1. libera a porta 5180 no Firewall do Windows SO para a rede do Tailscale
+REM 1. libera as portas 5180 (estacao) e 5181 (painel) no Firewall SO para a rede do Tailscale
 REM 2. faz a estacao abrir sozinha quando o Windows liga (janela minimizada)
 REM Para desfazer: instalar-estacao.bat remover
 cd /d "%~dp0"
@@ -25,11 +25,11 @@ if /I "%~1"=="remover" (
 )
 
 netsh advfirewall firewall delete rule name="%REGRA%" >nul 2>&1
-netsh advfirewall firewall add rule name="%REGRA%" dir=in action=allow protocol=TCP localport=5180 remoteip=100.64.0.0/10 profile=any
+netsh advfirewall firewall add rule name="%REGRA%" dir=in action=allow protocol=TCP localport=5180,5181 remoteip=100.64.0.0/10 profile=any
 if errorlevel 1 (
   echo Nao consegui criar a regra do firewall.
 ) else (
-  echo Firewall: porta 5180 liberada so para aparelhos do seu Tailscale.
+  echo Firewall: portas 5180 e 5181 liberadas so para aparelhos do seu Tailscale.
 )
 
 powershell -NoProfile -Command ^

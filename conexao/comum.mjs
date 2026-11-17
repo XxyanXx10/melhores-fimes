@@ -2,36 +2,44 @@
  * Peças usadas pelos dois lados da conexão remota:
  * a estação (PC de casa, que renderiza) e o envio (notebook, que edita).
  */
-import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
+import { execFile } from 'node:child_process';
+import { createHash, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
 import { createReadStream, existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const aqui = path.dirname(fileURLToPath(import.meta.url));
 
-/* A raiz do projeto. REMOTO_RAIZ só existe para testar com outra pasta. */
-export const raiz = process.env.REMOTO_RAIZ ? path.resolve(process.env.REMOTO_RAIZ) : path.join(aqui, '..');
+/* A raiz do projeto. CONEXAO_RAIZ só existe para testar com outra pasta. */
+export const raiz = process.env.CONEXAO_RAIZ ? path.resolve(process.env.CONEXAO_RAIZ) : path.join(aqui, '..');
 
-export const ARQUIVO_CONFIG = path.join(aqui, 'config.json');
+/* CONEXAO_CONFIG só existe para testar duas máquinas num computador só. */
+export const ARQUIVO_CONFIG = process.env.CONEXAO_CONFIG ? path.resolve(process.env.CONEXAO_CONFIG) : path.join(aqui, 'config.json');
 export const PORTA_PADRAO = 5180;
 
 /**
- * remoto/config.json (fora do Git: tem a senha). O MESMO arquivo serve nas
+ * conexao/config.json (fora do Git: tem a senha). O MESMO arquivo serve nas
  * duas máquinas: a estação usa `porta` e `token`; o notebook usa `servidor` e `token`.
  */
 export async function lerConfigRemoto() {
-  let cfg = {};
-  try {
-    cfg = JSON.parse((await readFile(ARQUIVO_CONFIG, 'utf8')).replace(/^﻿/, ''));
-  } catch (e) {
-    if (e.code !== 'ENOENT') throw new Error(`remoto/config.json está com defeito: ${e.message}`);
-  }
-  if (process.env.REMOTO_TOKEN) cfg.token = process.env.REMOTO_TOKEN;
-  if (process.env.REMOTO_SERVIDOR) cfg.servidor = process.env.REMOTO_SERVIDOR;
-  if (process.env.REMOTO_PORTA) cfg.porta = Number(process.env.REMOTO_PORTA);
+  const cfg = await lerArquivoConfig();
+  if (process.env.CONEXAO_TOKEN) cfg.token = process.env.CONEXAO_TOKEN;
+  if (process.env.CONEXAO_SERVIDOR) cfg.servidor = process.env.CONEXAO_SERVIDOR;
+  if (process.env.CONEXAO_PORTA) cfg.porta = Number(process.env.CONEXAO_PORTA);
   cfg.porta ||= PORTA_PADRAO;
   return cfg;
+}
+
+/** O arquivo como está no disco, sem padrões nem variáveis de ambiente (para regravar). */
+export async function lerArquivoConfig() {
+  try {
+    return JSON.parse((await readFile(ARQUIVO_CONFIG, 'utf8')).replace(/^﻿/, ''));
+  } catch (e) {
+    if (e.code === 'ENOENT') return {};
+    throw new Error(`conexao/config.json está com defeito: ${e.message}`);
+  }
 }
 
 export async function gravarConfigRemoto(cfg) {
@@ -39,6 +47,71 @@ export async function gravarConfigRemoto(cfg) {
 }
 
 export const novoToken = () => randomBytes(24).toString('hex');
+
+/* ---------- pareamento: o notebook pega a senha com um código de 6 dígitos ---------- */
+
+export const novoCodigoDePareamento = () => String(randomInt(0, 1_000_000)).padStart(6, '0');
+export const codigoLegivel = (c) => `${c.slice(0, 3)} ${c.slice(3)}`;
+
+/** Normaliza "pc-casa", "pc-casa:5180" ou "http://100.1.2.3" para http://host:porta. */
+export function normalizarServidor(s) {
+  let u = String(s).trim().replace(/\/+$/, '');
+  if (!/^https?:\/\//.test(u)) u = `http://${u}`;
+  if (!/:\d+$/.test(new URL(u).host)) u = `${u}:${PORTA_PADRAO}`;
+  return u;
+}
+
+/** Troca o código de pareamento pela senha da estação. */
+export async function parear(servidor, codigo) {
+  const r = await fetch(new URL('/parear', servidor), {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ codigo: String(codigo).replace(/\D/g, '') }),
+    signal: AbortSignal.timeout(10000),
+  });
+  const dados = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(dados.erro ?? `erro ${r.status}`), { status: r.status });
+  return dados;
+}
+
+/* ---------- Tailscale ---------- */
+
+const TAILSCALE_EXE = ['tailscale', 'C:\\Program Files\\Tailscale\\tailscale.exe', 'C:\\Program Files (x86)\\Tailscale\\tailscale.exe'];
+
+/**
+ * Como este computador aparece no Tailscale: { instalado, conectado, nome, ip, outros: [...] }.
+ * Nunca falha: sem Tailscale, devolve { instalado: false }.
+ */
+export async function estadoDoTailscale() {
+  for (const exe of TAILSCALE_EXE) {
+    if (exe.includes('\\') && !existsSync(exe)) continue;
+    const r = await new Promise((resolve) =>
+      execFile(exe, ['status', '--json'], { timeout: 8000, windowsHide: true }, (erro, saida) => resolve({ erro, saida })),
+    );
+    if (r.erro?.code === 'ENOENT') continue;
+    try {
+      const s = JSON.parse(r.saida);
+      const eu = s.Self ?? {};
+      const nome = (eu.DNSName ?? '').split('.')[0] || eu.HostName;
+      return {
+        instalado: true,
+        conectado: s.BackendState === 'Running',
+        estado: s.BackendState,
+        nome,
+        ip: (eu.TailscaleIPs ?? []).find((i) => i.includes('.')),
+        outros: Object.values(s.Peer ?? {}).map((p) => ({
+          nome: (p.DNSName ?? '').split('.')[0] || p.HostName,
+          ip: (p.TailscaleIPs ?? []).find((i) => i.includes('.')),
+          online: !!p.Online,
+          sistema: p.OS,
+        })),
+      };
+    } catch {
+      return { instalado: true, conectado: false, estado: 'sem resposta' };
+    }
+  }
+  return { instalado: false, conectado: false };
+}
 
 export function tokenConfere(recebido, esperado) {
   if (!recebido || !esperado) return false;
@@ -219,4 +292,53 @@ export function cadaString(valor, fazer) {
     fazer(s);
     return undefined;
   });
+}
+
+/* ---------- uso da máquina (para o painel mostrar quem está trabalhando) ---------- */
+
+let cpuAntes = null;
+function amostraCpu() {
+  let ocioso = 0;
+  let total = 0;
+  for (const c of os.cpus()) {
+    for (const [k, v] of Object.entries(c.times)) {
+      total += v;
+      if (k === 'idle') ocioso += v;
+    }
+  }
+  return { ocioso, total };
+}
+
+let gpuCache = { quando: 0, valor: undefined };
+function lerGpu() {
+  if (Date.now() - gpuCache.quando < 2000 && gpuCache.valor !== undefined) return Promise.resolve(gpuCache.valor);
+  return new Promise((resolve) => {
+    execFile(
+      'nvidia-smi',
+      ['--query-gpu=name,utilization.gpu,memory.used,memory.total', '--format=csv,noheader,nounits'],
+      { timeout: 4000, windowsHide: true },
+      (erro, saida) => {
+        let valor = null;
+        if (!erro) {
+          const [nome, uso, usada, total] = String(saida).split('\n')[0].split(',').map((x) => x.trim());
+          if (nome) valor = { nome, uso: Number(uso), memoria: Number(usada) / Number(total) };
+        }
+        gpuCache = { quando: Date.now(), valor };
+        resolve(valor);
+      },
+    );
+  });
+}
+
+/** { cpu: 0..1, memoria: 0..1, gpu: {nome, uso 0..100, memoria 0..1} | null } */
+export async function usoDaMaquina() {
+  const agora = amostraCpu();
+  const antes = cpuAntes;
+  cpuAntes = agora;
+  const cpu = antes && agora.total > antes.total ? 1 - (agora.ocioso - antes.ocioso) / (agora.total - antes.total) : null;
+  return {
+    cpu,
+    memoria: 1 - os.freemem() / os.totalmem(),
+    gpu: await lerGpu(),
+  };
 }

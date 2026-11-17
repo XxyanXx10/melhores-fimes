@@ -40,7 +40,7 @@ banco-cenas/
 tmp_diag/
 
 # conexao remota (PC de casa): senha e arquivos de trabalho
-remoto/config.json
-remoto/.estacao/
-remoto/.cliente/
+conexao/config.json
+conexao/.estacao/
+conexao/.cliente/
 public/midia/_remoto/

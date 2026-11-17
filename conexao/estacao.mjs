@@ -1,14 +1,14 @@
 /**
  * Estação de render — roda no PC de casa (o que tem placa de vídeo).
  *
- *   node remoto/estacao.mjs
+ *   node conexao/estacao.mjs
  *
- * Fica esperando pedidos do notebook (remoto/enviar.mjs). Cada pedido traz
+ * Fica esperando pedidos do notebook (conexao/enviar.mjs). Cada pedido traz
  * o projeto e os arquivos que ele usa; a estação guarda os arquivos, põe o
  * pedido numa fila e roda o MESMO render/render.mjs de sempre, um por vez.
  * O resultado fica guardado até o notebook baixar.
  *
- * Só atende quem manda a senha (token) do remoto/config.json.
+ * Só atende quem manda a senha (token) do conexao/config.json.
  */
 import http from 'node:http';
 import { execFile, spawn } from 'node:child_process';
@@ -38,21 +38,24 @@ import {
   bytesLegiveis,
   caminhoDeCodigoPermitido,
   carimbo,
+  gravarConfigRemoto,
   hashDeArquivo,
+  lerArquivoConfig,
   lerConfigRemoto,
   manifestoDoCodigo,
   raiz,
   tokenConfere,
   trocarStrings,
+  usoDaMaquina,
 } from './comum.mjs';
 
 const cfg = await lerConfigRemoto();
 if (!cfg.token) {
-  console.error('Falta a senha da conexão. Rode antes: node remoto/configurar.mjs');
+  console.error('Falta a senha da conexão. Rode antes: node conexao/configurar.mjs');
   process.exit(1);
 }
 
-const PASTA = process.env.REMOTO_ESTADO ? path.resolve(process.env.REMOTO_ESTADO) : path.join(aqui, '.estacao');
+const PASTA = process.env.CONEXAO_ESTADO ? path.resolve(process.env.CONEXAO_ESTADO) : path.join(aqui, '.estacao');
 const CACHE = path.join(PASTA, 'cache');
 const TAREFAS = path.join(PASTA, 'tarefas');
 const BACKUP_CODIGO = path.join(PASTA, 'backup-codigo');
@@ -69,6 +72,7 @@ const hashes = await new MemoriaDeHashes(path.join(PASTA, 'hashes.json')).carreg
 /** @type {Map<string, any>} */
 const tarefas = new Map();
 let emExecucao = null; // { id, filho, cancelar }
+let errosDePareamento = 0;
 
 const pastaDa = (id) => path.join(TAREFAS, id);
 
@@ -419,7 +423,8 @@ async function infoDaMaquina() {
   } catch {
     /* sem statfs */
   }
-  const [commit, ramo, sujos] = await Promise.all([
+  const [uso, commit, ramo, sujos] = await Promise.all([
+    usoDaMaquina(),
     git(['rev-parse', '--short', 'HEAD']),
     git(['rev-parse', '--abbrev-ref', 'HEAD']),
     git(['status', '--porcelain']),
@@ -434,6 +439,8 @@ async function infoDaMaquina() {
     memoria: bytesLegiveis(os.totalmem()),
     gpu,
     discoLivre: livre === null ? null : bytesLegiveis(livre),
+    uso,
+    placa: uso.gpu?.nome ?? null,
     git: { commit: commit.texto, ramo: ramo.texto, alteracoesNaoSalvas: sujos.ok ? sujos.texto.split('\n').filter(Boolean).length : null },
     rodando: emExecucao ? resumo(tarefas.get(emExecucao.id)) : null,
     naFila: lista.filter((t) => t.status === 'aguardando').length,
@@ -516,13 +523,42 @@ async function rotas(req, res) {
 
   if (p === '/' && req.method === 'GET') {
     res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
-    return res.end('Estação de render do Melhores Fimes. Use remoto/enviar.mjs.\n');
+    return res.end('Estação de render do Melhores Fimes. Use conexao/enviar.mjs.\n');
+  }
+
+  /*
+   * Pareamento: o notebook manda o código de 6 dígitos que o configurar.mjs
+   * mostrou aqui e recebe a senha. Vale uma vez, por 15 minutos, 5 tentativas.
+   */
+  if (p === '/parear' && req.method === 'POST') {
+    const { codigo } = await lerJson(req, 10000).catch(() => ({}));
+    const arquivo = await lerArquivoConfig();
+    const par = arquivo.pareamento;
+    if (!par || Date.now() > par.ate) {
+      return responder(res, 410, { erro: 'não há código de pareamento ativo no PC de casa. Lá, rode: node conexao/configurar.mjs --parear' });
+    }
+    if (String(codigo ?? '') !== par.codigo) {
+      errosDePareamento++;
+      await new Promise((r) => setTimeout(r, 1500));
+      if (errosDePareamento >= 5) {
+        delete arquivo.pareamento;
+        await gravarConfigRemoto(arquivo);
+        errosDePareamento = 0;
+        return responder(res, 403, { erro: 'código errado 5 vezes; o código foi cancelado. Gere outro no PC de casa.' });
+      }
+      return responder(res, 403, { erro: 'código errado' });
+    }
+    delete arquivo.pareamento;
+    await gravarConfigRemoto(arquivo);
+    errosDePareamento = 0;
+    console.log(`${carimbo()}  🔗 novo computador pareado (${req.socket.remoteAddress})`);
+    return responder(res, 200, { token: cfg.token, nome: NOME });
   }
 
   const token = (req.headers.authorization ?? '').replace(/^Bearer\s+/i, '');
   if (!tokenConfere(token, cfg.token)) {
     req.resume();
-    return responder(res, 401, { erro: 'senha errada (token do remoto/config.json)' });
+    return responder(res, 401, { erro: 'senha errada (token do conexao/config.json)' });
   }
 
   if (p === '/ping' && req.method === 'GET') return responder(res, 200, await infoDaMaquina());
