@@ -97,6 +97,49 @@ diferente, ele para e oferece três saídas. O painel mostra as duas primeiras c
 - **Commit + push no notebook, depois `node conexao/enviar.mjs --atualizar-estacao`**: o PC
   de casa faz `git pull` e `npm install` sozinho. É o jeito certo de manter os dois iguais.
 
+## Pacotes: renders que não são da plataforma
+
+Use pacote quando o vídeo não sai do render da plataforma. É o caso dos vídeos da CPS, feitos
+com `vfx/cps/compor.py`. O pacote leva **pastas inteiras** do notebook (os scripts e a pasta de
+edição do vídeo) e roda um comando lá. Não precisa de git, e o PC de casa não precisa ter nada
+disso antes.
+
+Uma receita em JSON descreve o pacote. Caminhos relativos são relativos à pasta da receita:
+
+```json
+{
+  "nome": "CPS Vídeo 03 4K",
+  "pastas":   { "cps": "D:/…/vfx/cps", "edicao": "." },
+  "arquivos": { "corte": "../Corte 03.mp4" },
+  "ignorar":  ["previa_*", "quadros", "CPS_*_FINAL_*.mp4", "plate1080.mp4"],
+  "pasta":    "{edicao}",
+  "comando":  ["python", "-I", "{cps}/compor.py", ".", "{cps}/video03.py", "{corte}", "{saida}/CPS_Video03_FINAL_4K.mp4", "--escala", "2", "--luts", "--audio", "audio_mix.wav"],
+  "progresso": { "regex": "quadro ([0-9]+)", "total": 1710 },
+  "entregar": "."
+}
+```
+
+```bash
+node conexao/enviar.mjs --pacote "E:/Video/Videos Dani/video 03/edicao/pacote-casa.json"
+```
+
+- `{nome}` vira o caminho, lá, da pasta ou do arquivo com esse nome. `{saida}` é a pasta do
+  que volta.
+- `ignorar`: um nome sem barra vale em qualquer nível. Com barra, vale só aquele caminho.
+  `__pycache__` e `.git` já ficam de fora.
+- `pasta` é onde o comando roda. `trazer` (opcional) lista mais pastas ou arquivos para voltar,
+  por exemplo `["{edicao}/quadros"]`.
+- `entregar` é onde o resultado cai no notebook. O padrão é `render/`.
+- Só roda `python` ou `node`. O Python de lá é o do PATH, ou o `"python"` do
+  `conexao/config.json` de lá. O ffmpeg do `server/config.json` de lá entra no PATH.
+- Cada tarefa trabalha numa cópia. No fim, a cópia é apagada e só o resultado fica guardado.
+- Na segunda vez, só sobe o que mudou: arquivos iguais já estão lá.
+
+**A estação se atualiza sozinha:** `node conexao/enviar.mjs --atualizar-estacao` faz `git pull`
+lá. Se vier código novo da própria conexão, a estação reinicia sozinha. Se o
+`iniciar-estacao.bat` não a reabrir, o `reiniciar-estacao.mjs` abre outra, escondida, com o log
+em `conexao/.estacao/estacao.log`.
+
 ## Vídeos do celular, pelo Google Drive
 
 1. No computador que vai editar (o normal é o PC de casa), instale o **Google Drive para
@@ -155,6 +198,7 @@ estar ligado.
 | `painel.mjs` + `painel/` | os dois | O painel no navegador (porta 5181) |
 | `drive.mjs` | quem recebe do celular | Pasta do Google Drive: Entrada e Prontos |
 | `configurar.mjs` | os dois | Senha, código de pareamento, estado do Tailscale |
+| `reiniciar-estacao.mjs` | PC de casa | Reinicia a estação depois de código novo, sem ninguém lá |
 | `comum.mjs` | os dois | Peças compartilhadas |
 | `iniciar-estacao.bat` | PC de casa | Abre a estação e o painel, e reabre a estação se ela cair |
 | `instalar-estacao.bat` | PC de casa (admin) | Firewall (portas 5180 e 5181, só Tailscale) e abrir com o Windows |

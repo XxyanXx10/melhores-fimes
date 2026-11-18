@@ -21,6 +21,7 @@
  *   node conexao/enviar.mjs --cancelar <id>
  *   node conexao/enviar.mjs --atualizar-estacao       git pull + npm install lá (depois de dar push daqui)
  *   node conexao/enviar.mjs --script agente/x.mjs --arquivo "D:/video.mp4" -- {arquivo:0} --saida {saida}
+ *   node conexao/enviar.mjs --pacote receita.json     leva pastas inteiras (sem git) e roda um comando lá
  */
 import http from 'node:http';
 import https from 'node:https';
@@ -54,7 +55,7 @@ const argv = process.argv.slice(2);
 const fimDosArgs = argv.indexOf('--');
 const meus = fimDosArgs >= 0 ? argv.slice(0, fimDosArgs) : argv;
 const repassados = fimDosArgs >= 0 ? argv.slice(fimDosArgs + 1) : [];
-const COM_VALOR = new Set(['--still', '--segundos', '--pasta', '--saida', '--script', '--arquivo', '--acompanhar', '--baixar', '--cancelar']);
+const COM_VALOR = new Set(['--still', '--segundos', '--pasta', '--saida', '--script', '--arquivo', '--acompanhar', '--baixar', '--cancelar', '--pacote']);
 const opcoes = { arquivo: [] };
 const soltos = [];
 for (let i = 0; i < meus.length; i++) {
@@ -568,6 +569,94 @@ async function rodarScript() {
   return terminar([r.id]);
 }
 
+/* ---------- pacote: pastas inteiras + um comando (ex.: os vídeos da CPS em vfx/cps) ---------- */
+
+function globParaRegex(g) {
+  const corpo = g
+    .replace(/\\/g, '/')
+    .split('**')
+    .map((p) => p.replace(/[.+^${}()|[\]]/g, '\\$&').replace(/\*/g, '[^/]*').replace(/\?/g, '[^/]'))
+    .join('.*');
+  return new RegExp(`^${corpo}$`, 'i');
+}
+
+/** "quadros" ignora a pasta em qualquer nível; "edicao/previa_*" só aquele caminho */
+function ignorador(padroes) {
+  const res = padroes.map((p) => ({ re: globParaRegex(p.replace(/\/+$/, '')), comBarra: p.includes('/') }));
+  return (rel) => {
+    const partes = rel.split('/');
+    return res.some(({ re, comBarra }) =>
+      comBarra ? partes.some((_, i) => re.test(partes.slice(0, i + 1).join('/'))) : partes.some((p) => re.test(p)),
+    );
+  };
+}
+
+async function listarPasta(pasta, chave, ignorar, achados, rel = '') {
+  const { readdir } = await import('node:fs/promises');
+  for (const item of await readdir(path.join(pasta, rel), { withFileTypes: true })) {
+    const r = rel ? `${rel}/${item.name}` : item.name;
+    if (ignorar(`${chave}/${r}`)) continue;
+    if (item.isDirectory()) await listarPasta(pasta, chave, ignorar, achados, r);
+    else if (item.isFile()) achados.push({ chave, rel: r, caminho: path.join(pasta, r) });
+  }
+}
+
+/**
+ * A receita (JSON) diz o que levar e o que rodar lá. Caminhos relativos são
+ * relativos à pasta da receita. Exemplo em conexao/LEIAME.md, "Pacotes".
+ */
+async function rodarPacote(arquivoReceita) {
+  if (!ehArquivo(arquivoReceita)) sair(`receita não encontrada: ${arquivoReceita}`);
+  const receita = JSON.parse((await readFile(arquivoReceita, 'utf8')).replace(/^﻿/, ''));
+  const base = path.dirname(path.resolve(arquivoReceita));
+  const onde = (c) => path.resolve(base, c);
+  if (!Array.isArray(receita.comando) || !receita.comando.length) sair('a receita não tem "comando"');
+  const ignorar = ignorador([...(receita.ignorar ?? []), '__pycache__', '*.pyc', '.git', '*.parte']);
+
+  await conectar();
+  const nome = receita.nome ?? path.basename(arquivoReceita, '.json');
+  console.log(`\n${nome}`);
+  projetoAtual = path.resolve(arquivoReceita);
+  evento({ e: 'projeto', arquivo: projetoAtual, nome });
+
+  const itens = [];
+  for (const [chave, dir] of Object.entries(receita.pastas ?? {})) {
+    if (!/^[\w-]{1,40}$/.test(chave)) sair(`nome de pasta inválido na receita: "${chave}" (use letras, números, - ou _)`);
+    const cheio = onde(dir);
+    if (!existsSync(cheio) || !statSync(cheio).isDirectory()) sair(`pasta "${chave}" não existe: ${cheio}`);
+    await listarPasta(cheio, chave, ignorar, itens);
+  }
+  for (const [chave, arq] of Object.entries(receita.arquivos ?? {})) {
+    if (!/^[\w-]{1,40}$/.test(chave)) sair(`nome inválido na receita: "${chave}"`);
+    const cheio = onde(arq);
+    if (!ehArquivo(cheio)) sair(`arquivo "${chave}" não existe: ${cheio}`);
+    itens.push({ chave, rel: path.basename(cheio), caminho: cheio, solto: true });
+  }
+  if (!itens.length) sair('a receita não leva nenhum arquivo');
+
+  const memoria = await new MemoriaDeHashes(path.join(PASTA_CLIENTE, 'hashes.json')).carregar();
+  const achados = new Map(itens.map((it) => [`${it.chave}/${it.rel}`, { tipo: 'pacote', caminho: it.caminho }]));
+  const enviados = await prepararArquivos(achados, memoria);
+  const porOriginal = new Map(enviados.map((a) => [a.original, a.id]));
+  const arquivos = itens.map((it) => ({ chave: it.chave, rel: it.rel, solto: !!it.solto, id: porOriginal.get(`${it.chave}/${it.rel}`) }));
+
+  const r = await pedirJson('POST', '/tarefas', {
+    json: {
+      tipo: 'pacote',
+      nome,
+      origem: os.hostname(),
+      progresso: receita.progresso,
+      pacote: { arquivos, comando: receita.comando, pasta: receita.pasta, trazer: receita.trazer, pastasVazias: Object.keys(receita.pastas ?? {}) },
+    },
+    tempo: 120000,
+  });
+  const entregar = opcoes.pasta ?? (receita.entregar ? onde(receita.entregar) : undefined);
+  await anotarEnvio(r.id, { pacote: path.resolve(arquivoReceita), criado: Date.now(), pasta: entregar ? path.resolve(entregar) : undefined });
+  evento({ e: 'enfileirado', arquivo: projetoAtual, id: r.id, nome, posicao: r.posicaoNaFila });
+  console.log(`  Na fila do PC de casa: ${r.id} (posição ${r.posicaoNaFila})`);
+  return terminar([r.id]);
+}
+
 async function terminar(ids) {
   if (opcoes.semEsperar) {
     console.log(`\nMandado. Para acompanhar e baixar depois:\n  node conexao/enviar.mjs --acompanhar ${ids.join(' ')}`);
@@ -602,9 +691,12 @@ try {
     const r = await pedirJson('POST', '/codigo/atualizar', { tempo: 15 * 60000 }).catch((e) => e.dados ?? sair(e.message));
     for (const p of r.passos ?? []) console.log(`${p.ok ? '✓' : '✗'} ${p.comando}\n${p.texto ? p.texto.split('\n').slice(-6).map((l) => `    ${l}`).join('\n') : ''}`);
     console.log(`Lá agora: ${r.ramo} @ ${r.commit}`);
+    if (r.reiniciando) console.log('A estação recebeu código novo dela mesma e está reiniciando (volta em uns 10 a 30 s).');
     if (!r.ok) process.exit(1);
   } else if (opcoes.script) {
     await rodarScript();
+  } else if (opcoes.pacote) {
+    await rodarPacote(opcoes.pacote);
   } else if (soltos.length) {
     await renderizar(soltos);
   } else {

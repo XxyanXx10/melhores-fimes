@@ -182,6 +182,53 @@ async function prepararArquivos(t) {
   return { troca, avisos };
 }
 
+/*
+ * Pacote: pastas inteiras que vêm do notebook (ex.: vfx/cps + a pasta "edicao"
+ * de um vídeo) e um comando para rodar dentro delas. Nada disso precisa estar
+ * no git do PC de casa. Cada tarefa ganha a sua cópia em trabalho/ (cópia de
+ * verdade, não link: o script pode reescrever um arquivo e estragaria o cache).
+ */
+async function montarPacote(t) {
+  const trabalho = path.join(pastaDa(t.id), 'trabalho');
+  const lugares = {};
+  for (const a of t.pedido.pacote.arquivos ?? []) {
+    if (!ID_VALIDO.test(a.id)) throw new Error(`arquivo com id inválido: ${a.id}`);
+    if (!/^[\w-]{1,40}$/.test(a.chave)) throw new Error(`nome de pasta inválido: ${a.chave}`);
+    const noCache = path.join(CACHE, a.id);
+    if (!existsSync(noCache)) throw new Error(`o arquivo ${a.rel} não chegou inteiro — mande de novo`);
+    await tocar(noCache);
+    const destino = path.join(trabalho, a.chave, relSeguro(a.rel));
+    await mkdir(path.dirname(destino), { recursive: true });
+    await copyFile(noCache, destino);
+    lugares[a.chave] = a.solto ? destino : path.join(trabalho, a.chave);
+  }
+  for (const chave of t.pedido.pacote.pastasVazias ?? []) {
+    if (!/^[\w-]{1,40}$/.test(chave)) continue;
+    await mkdir(path.join(trabalho, chave), { recursive: true });
+    lugares[chave] ??= path.join(trabalho, chave);
+  }
+  return { trabalho, lugares };
+}
+
+function trocarMarcadores(texto, lugares, extras) {
+  return String(texto).replace(/\{([\w-]+)\}/g, (inteiro, chave) => extras[chave] ?? lugares[chave] ?? inteiro);
+}
+
+/* ffmpeg do server/config.json daqui entra no PATH: scripts que procuram "ffmpeg" acham */
+async function ambienteDoPacote() {
+  const env = { ...process.env, FORCE_COLOR: '0', PYTHONIOENCODING: 'utf-8', PYTHONUNBUFFERED: '1' };
+  try {
+    const ff = JSON.parse((await readFile(path.join(raiz, 'server', 'config.json'), 'utf8')).replace(/^﻿/, '')).ffmpeg;
+    if (ff && existsSync(ff)) {
+      const chave = Object.keys(env).find((k) => k.toUpperCase() === 'PATH') ?? 'PATH';
+      env[chave] = `${path.dirname(ff)}${path.delimiter}${env[chave] ?? ''}`;
+    }
+  } catch {
+    /* sem config do projeto: fica o PATH de sempre */
+  }
+  return env;
+}
+
 /* ---------- rodar ---------- */
 
 /*
@@ -263,6 +310,16 @@ async function montarComando(t, troca, pastaSaida) {
     if (/\.(mjs|cjs|js)$/i.test(rel)) return { programa: process.execPath, args: [cheio, ...args] };
     throw new Error('só sei rodar scripts .mjs, .js ou .py');
   }
+  if (t.tipo === 'pacote') {
+    const { trabalho, lugares } = troca;
+    const extras = { saida: pastaSaida, trabalho };
+    const [prog, ...resto] = t.pedido.pacote.comando ?? [];
+    const programa = prog === 'python' ? cfg.python || 'python' : prog === 'node' ? process.execPath : null;
+    if (!programa) throw new Error('o pacote só roda "python" ou "node"');
+    const cwd = t.pedido.pacote.pasta ? trocarMarcadores(t.pedido.pacote.pasta, lugares, extras) : trabalho;
+    if (!path.resolve(cwd).startsWith(trabalho)) throw new Error('a pasta de trabalho do pacote tem que estar dentro dele');
+    return { programa, args: resto.map((a) => trocarMarcadores(a, lugares, extras)), cwd, env: await ambienteDoPacote() };
+  }
   throw new Error(`tipo de tarefa desconhecido: ${t.tipo}`);
 }
 
@@ -282,6 +339,33 @@ async function listarResultados(t, pastaSaida) {
   return achados;
 }
 
+/*
+ * Fim de um pacote: o que ele pediu para "trazer" (arquivos ou pastas de dentro
+ * do trabalho) vai para saida/, e a cópia de trabalho é apagada — sobra só o
+ * resultado, sem ocupar o disco de casa com outra cópia do vídeo.
+ */
+async function recolherPacote(t, { trabalho, lugares }, pastaSaida) {
+  const usados = new Set(await readdir(pastaSaida).catch(() => []));
+  const mover = async (origem) => {
+    const info = await stat(origem).catch(() => null);
+    if (!info) return;
+    if (info.isDirectory()) {
+      for (const nome of await readdir(origem)) await mover(path.join(origem, nome));
+      return;
+    }
+    let nome = path.basename(origem);
+    for (let n = 2; usados.has(nome); n++) nome = path.basename(origem).replace(/(\.[^.]+)?$/, (ext) => `-${n}${ext}`);
+    usados.add(nome);
+    await rename(origem, path.join(pastaSaida, nome)).catch(() => copyFile(origem, path.join(pastaSaida, nome)));
+  };
+  for (const item of t.pedido.pacote.trazer ?? []) {
+    const alvo = path.resolve(trocarMarcadores(item, lugares, { saida: pastaSaida, trabalho }));
+    if (alvo === path.resolve(pastaSaida) || !alvo.startsWith(trabalho + path.sep)) continue;
+    await mover(alvo);
+  }
+  await rm(trabalho, { recursive: true, force: true }).catch(() => {});
+}
+
 async function executar(t) {
   const pasta = pastaDa(t.id);
   const pastaSaida = path.join(pasta, 'saida');
@@ -291,9 +375,17 @@ async function executar(t) {
   t.progresso = 0;
   await salvar(t);
 
-  const { troca, avisos } = await prepararArquivos(t);
-  t.avisos = [...(t.avisos ?? []), ...avisos];
-  const { programa, args } = await montarComando(t, troca, pastaSaida);
+  let troca;
+  if (t.tipo === 'pacote') {
+    troca = await montarPacote(t);
+  } else {
+    const r = await prepararArquivos(t);
+    troca = r.troca;
+    t.avisos = [...(t.avisos ?? []), ...r.avisos];
+  }
+  const { programa, args, cwd = raiz, env } = await montarComando(t, troca, pastaSaida);
+  /* progresso de quem não escreve "%": ex. {regex: "quadro (\\d+)", total: 1710} */
+  const medidor = t.pedido.progresso?.regex ? { re: new RegExp(t.pedido.progresso.regex, 'g'), total: Number(t.pedido.progresso.total) || 0 } : null;
 
   const log = createWriteStream(path.join(pasta, 'log.txt'), { flags: 'a' });
   log.write(`$ ${programa} ${args.map((a) => JSON.stringify(a)).join(' ')}\n\n`);
@@ -303,10 +395,10 @@ async function executar(t) {
   let cauda = '';
   const codigo = await new Promise((resolve) => {
     const filho = spawn(programa, args, {
-      cwd: raiz,
+      cwd,
       windowsHide: true,
       detached: process.platform !== 'win32',
-      env: { ...process.env, FORCE_COLOR: '0' },
+      env: env ?? { ...process.env, FORCE_COLOR: '0' },
     });
     emExecucao.filho = filho;
     if (emExecucao.cancelado) matarArvore(filho.pid);
@@ -315,8 +407,8 @@ async function executar(t) {
       const texto = pedaco.toString('utf8');
       log.write(pedaco);
       cauda = (cauda + texto).slice(-4000);
-      const pcts = [...texto.matchAll(/(\d{1,3})%/g)];
-      if (pcts.length) {
+      const pcts = medidor ? [...texto.matchAll(medidor.re)].map((x) => [0, (Number(x[1]) / medidor.total) * 100]) : [...texto.matchAll(/(\d{1,3})%/g)];
+      if (pcts.length && (!medidor || medidor.total > 0)) {
         const p = Math.min(100, Number(pcts[pcts.length - 1][1])) / 100;
         if (p >= t.progresso) t.progresso = p;
         if (Date.now() - ultimoSalvo > 3000) {
@@ -337,6 +429,7 @@ async function executar(t) {
   log.end();
 
   const cancelado = emExecucao?.cancelado;
+  if (t.tipo === 'pacote') await recolherPacote(t, troca, pastaSaida);
   t.fim = Date.now();
   t.resultados = await listarResultados(t, pastaSaida);
   if (cancelado) {
@@ -381,7 +474,7 @@ async function limparAntigos() {
   const limite = Date.now() - DIAS_GUARDAR * 24 * 3600 * 1000;
   const emUso = new Set();
   for (const t of tarefas.values()) {
-    if (t.status === 'aguardando' || t.status === 'rodando') for (const a of t.pedido?.arquivos ?? []) emUso.add(a.id);
+    if (t.status === 'aguardando' || t.status === 'rodando') for (const a of [...(t.pedido?.arquivos ?? []), ...(t.pedido?.pacote?.arquivos ?? [])]) emUso.add(a.id);
     if (t.status !== 'aguardando' && t.status !== 'rodando' && (t.fim ?? t.criada) < limite) {
       await rm(pastaDa(t.id), { recursive: true, force: true });
       tarefas.delete(t.id);
@@ -607,6 +700,7 @@ async function rotas(req, res) {
   if (p === '/codigo/atualizar' && req.method === 'POST') {
     if (emExecucao) return responder(res, 409, { erro: 'tem um render rodando agora; tente quando acabar' });
     const passos = [];
+    const antes = (await git(['rev-parse', 'HEAD'])).texto;
     for (const args of [['fetch', '--quiet'], ['pull', '--ff-only']]) {
       const r = await git(args);
       passos.push({ comando: `git ${args.join(' ')}`, ...r });
@@ -621,7 +715,19 @@ async function rotas(req, res) {
       );
       passos.push(npm);
     }
-    return responder(res, ok ? 200 : 500, { ok, passos, ...(await infoDaMaquina()).git });
+    /* veio código novo da própria estação: ela se reinicia para usar (o vigia reabre se ninguém reabrir) */
+    const mudouConexao = ok && (await git(['diff', '--name-only', antes, 'HEAD', '--', 'conexao/'])).texto.split('\n').some((l) => /\.mjs$/.test(l));
+    if (mudouConexao) {
+      setTimeout(() => {
+        spawn(process.execPath, [path.join(aqui, 'reiniciar-estacao.mjs'), '--pid', String(process.pid)], {
+          cwd: raiz,
+          windowsHide: true,
+          stdio: 'ignore',
+          env: process.env,
+        });
+      }, 1500);
+    }
+    return responder(res, ok ? 200 : 500, { ok, passos, reiniciando: !!mudouConexao, ...(await infoDaMaquina()).git });
   }
 
   /* tarefas */
@@ -631,7 +737,8 @@ async function rotas(req, res) {
   }
   if (p === '/tarefas' && req.method === 'POST') {
     const pedido = await lerJson(req);
-    if (!['render', 'script'].includes(pedido.tipo)) return responder(res, 400, { erro: 'tipo deve ser render ou script' });
+    if (!['render', 'script', 'pacote'].includes(pedido.tipo)) return responder(res, 400, { erro: 'tipo deve ser render, script ou pacote' });
+    if (pedido.tipo === 'pacote' && !pedido.pacote?.comando?.length) return responder(res, 400, { erro: 'pacote sem comando' });
     if (pedido.tipo === 'render' && (!pedido.projeto || !pedido.nomeSaida)) {
       return responder(res, 400, { erro: 'pedido de render sem projeto ou sem nomeSaida' });
     }
@@ -643,9 +750,9 @@ async function rotas(req, res) {
         return responder(res, 400, { erro: e.message });
       }
     }
-    for (const a of pedido.arquivos ?? []) {
+    for (const a of [...(pedido.arquivos ?? []), ...(pedido.pacote?.arquivos ?? [])]) {
       if (!ID_VALIDO.test(a.id) || !existsSync(path.join(CACHE, a.id))) {
-        return responder(res, 400, { erro: `o arquivo ${a.nome} ainda não chegou` });
+        return responder(res, 400, { erro: `o arquivo ${a.nome ?? a.rel} ainda não chegou` });
       }
     }
     const id = `${carimbo()}-${randomBytes(3).toString('hex')}`;
