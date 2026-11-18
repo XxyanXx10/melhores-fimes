@@ -4,7 +4,8 @@
  *   node conexao/enviar.mjs projeto/A.json [projeto/B.json ...]   renderiza e baixa em render/
  *       --still 90          um frame só (PNG), para conferir
  *       --segundos 0-10     só um trecho
- *       --alta | --gpu      as mesmas opções do render/render.mjs
+ *       --alta | --gpu      as mesmas opções do render/render.mjs (a GPU liga sozinha se lá tiver NVIDIA;
+ *       --sem-gpu           desliga)
  *       --sem-esperar       manda e volta; depois use --acompanhar
  *       --pasta <dir>       onde gravar o resultado (padrão: render/)
  *       --saida <arquivo>   nome exato do resultado (só com um projeto)
@@ -497,7 +498,12 @@ if (opcoes.pasta && opcoes.pasta.toLowerCase() === 'drive') {
 
 async function renderizar(arquivosProjeto) {
   if (opcoes.saida && arquivosProjeto.length > 1) sair('--saida só vale com um projeto; para vários use --pasta');
-  await conectar();
+  const info = await conectar();
+  /* estação com placa NVIDIA (a RTX 4060 de casa): usa a GPU, a não ser que peçam --sem-gpu */
+  if (!opcoes.semGpu && !opcoes.gpu && /nvidia/i.test(info?.placa ?? '')) {
+    opcoes.gpu = true;
+    console.log(`  Usando a placa de vídeo de lá (${info.placa}).`);
+  }
   await conferirCodigo();
   const memoria = await new MemoriaDeHashes(path.join(PASTA_CLIENTE, 'hashes.json')).carregar();
   const ids = [];
